@@ -1,0 +1,32 @@
+# Exclude for engine
+###################
+Engine/build/*
+
+# Exclude all project except the cmake and generation scripts
+!Engine/projects
+Engine/projects/*
+!Engine/projects/cmake
+!Engine/projects/*.bat
+!Engine/projects/*.sh
+
+# Exclude for engine test
+###################
+EngineTest/build/*
+
+# Exclude all project except the cmake and generation scripts
+!EngineTest/projects
+EngineTest/projects/*
+!EngineTest/projects/cmake
+!EngineTest/projects/*.bat
+!Engine/projects/*.sh
+
+# Exclude for GPUGems
+###################
+GPUGems/build/*
+
+# Exclude all project except the cmake and generation scripts
+!GPUGems/projects
+GPUGems/projects/*
+!GPUGems/projects/cmake
+!GPUGems/projects/*.bat
+!GPUGems/projects/*.sh

@@ -1,0 +1,15 @@
+
+
+set (CMAKE_CXX_FLAGS_DEBUG "-Wall -Werror -g ")
+set (CMAKE_CXX_FLAGS_RELEASE  "-Os -s")
+
+include_directories("${MAIN_PROJECT_DIR}/source")
+
+if (USE_GLFW)
+  include_directories("${EXTERNALS_DIR}/glfw")
+endif(USE_GLFW)
+
+if (USE_SDL)
+  include_directories("%{EXTERNALS_DIR}/sdl")
+endif(USE_SDL)
+

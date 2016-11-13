@@ -1,0 +1,19 @@
+
+# Module definitions
+####################
+set (USE_GLFW 0)
+set (USE_SDL 0)
+set (USE_WINAPI 1)
+
+# compiler definitions
+######################
+set (USE_CL FALSE)
+set (USE_GCC FALSE)
+
+if (WIN32)
+  set (USE_CL TRUE)
+endif (WIN32)
+if (UNIX)
+  set (USE_GCC TRUE)
+endif (UNIX)
+

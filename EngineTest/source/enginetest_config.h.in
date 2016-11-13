@@ -1,0 +1,22 @@
+#pragma once
+
+#include "engine/utils/VersionBase.h"
+
+namespace version
+{
+	class VersionDef
+	{
+	protected:
+		const int major = @EngineTest_VERSION_MAJOR@;
+		const int minor = @EngineTest_VERSION_MINOR@;
+		const int counter = @EngineTest_VERSION_COUNTER@;
+		const std::string year = "@EngineTest_VERSION_YEAR@";
+		const std::string month = "@EngineTest_VERSION_MONTH@";
+		const std::string day = "@EngineTest_VERSION_DAY@";
+	};
+		
+	using Version = engine::utils::VersionBase<VersionDef>;
+}
+
+
+

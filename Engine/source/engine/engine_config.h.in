@@ -1,0 +1,26 @@
+#pragma once
+
+#include "engine/utils/VersionBase.h"
+
+namespace engine
+{
+	namespace version
+	{
+		class VersionDef
+		{
+		protected:
+			const int major = @Engine_VERSION_MAJOR@;
+			const int minor = @Engine_VERSION_MINOR@;
+			const int counter = @Engine_VERSION_COUNTER@;
+			const std::string year = "@Engine_VERSION_YEAR@";
+			const std::string month = "@Engine_VERSION_MONTH@";
+			const std::string day = "@Engine_VERSION_DAY@";
+		};
+		
+		using Version = utils::VersionBase<VersionDef>;
+	}
+}
+
+#define ENGINE_USE_SDL @USE_SDL@
+#define ENGINE_USE_GLWF @USE_GLFW@
+#define ENGINE_USE_WINAPI @USE_WINAPI@

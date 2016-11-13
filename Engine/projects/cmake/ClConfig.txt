@@ -1,0 +1,17 @@
+
+
+
+include_directories("${MAIN_PROJECT_DIR}/source")
+
+if (USE_GLFW)
+  if (USE_64_BIT)
+    include_directories("${EXTERNALS_DIR}/glfw-Win64/include")
+  else (USE_64_BIT)
+    include_directories("${EXTERNALS_DIR}/glfw-Win32/include")
+  endif (USE_64_BIT)
+endif(USE_GLFW)
+
+if (USE_SDL)
+  include_directories("${EXTERNALS_DIR}/sdl/include")
+endif(USE_SDL)
+
