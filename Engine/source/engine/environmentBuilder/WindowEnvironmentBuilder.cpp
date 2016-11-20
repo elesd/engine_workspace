@@ -7,9 +7,9 @@
 #include "engine/Context.h"
 #include "engine/ModuleDefinitions.h"
 
-#include "engine/modules/glfw/WindowManagerImpl.h"
-#include "engine/modules/sdl/WindowManagerImpl.h"
-#include "engine/modules/winapi/WindowManagerImpl.h"
+#include "engine/view/glfw/WindowManagerImpl.h"
+#include "engine/view/sdl/WindowManagerImpl.h"
+#include "engine/view/winapi/WindowManagerImpl.h"
 
 
 
@@ -55,18 +55,18 @@ namespace engine
 
 		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager()
 		{
-			std::unique_ptr<view::WindowManager> result(new glfw::WindowManagerImpl());
+			std::unique_ptr<view::WindowManager> result(new view::glfw::WindowManagerImpl());
 			return result;
 		}
 
 		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createSdlWindowManager()
 		{
-			std::unique_ptr<view::WindowManager> result(new sdl::WindowManagerImpl());
+			std::unique_ptr<view::WindowManager> result(new view::sdl::WindowManagerImpl());
 			return result;
 		}
 		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager()
 		{
-			std::unique_ptr<view::WindowManager> result(new winapi::WindowManagerImpl());
+			std::unique_ptr<view::WindowManager> result(new view::winapi::WindowManagerImpl());
 			return result;
 		}
 	}

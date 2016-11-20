@@ -4,6 +4,11 @@
 
 namespace engine
 {
+	namespace video
+	{
+		struct DriverInitParameters;
+		class Driver;
+	}
 	namespace view
 	{
 		struct WindowParameter;
@@ -129,6 +134,8 @@ namespace engine
 			* @param mainWindow: Main window, the secondary window shares the main window context.
 			*/
 			virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
+
+			virtual std::unique_ptr<video::Driver> createDriverForWindow(const video::DriverInitParameters &, Window *) const = 0;
 		private:
 			struct WindowManagerPrivate *_members = nullptr;
 		};

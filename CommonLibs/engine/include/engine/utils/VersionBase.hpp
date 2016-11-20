@@ -77,7 +77,7 @@ namespace engine
 			bool go = true;
 			bool less = false;
 			
-			for(int32_t i = 0; go && i < versionProperties.size(); ++i)
+			for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
 			{
 				int32_t comp = versionProperties[i] - oVersionProperties[i];
 				if(comp > 0)
@@ -120,7 +120,7 @@ namespace engine
 			bool go = true;
 			bool eq = true;
 
-			for(int32_t i = 0; go && i < versionProperties.size(); ++i)
+			for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
 			{
 				int32_t comp = versionProperties[i] - oVersionProperties[i];
 				if(comp != 0)

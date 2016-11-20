@@ -5,6 +5,10 @@
 
 namespace engine
 {
+	namespace video
+	{
+		class Driver;
+	}
 	namespace view
 	{
 		/**
@@ -53,7 +57,7 @@ namespace engine
 			Window(const WindowParameter &parameter);
 
 			/** Default virtual destructor.*/
-			virtual ~Window() override {};
+			~Window() override;
 
 			/**
 			* @return Returns the window creation parameter.
@@ -86,6 +90,10 @@ namespace engine
 
 			/** @return Returns true if the window is full screen. */
 			bool isFullScreen() const { return _fullScreen; }
+
+			video::Driver *getDriver() const;
+
+			void initDriver(std::unique_ptr<video::Driver> driver);
 		private:
 
 			/**
@@ -132,6 +140,9 @@ namespace engine
 			WindowParameter _parameters;
 			/** Whether the window is in full screen mode.*/
 			bool _fullScreen = false;
+
+		private:
+			struct WindowPrivate *_members = nullptr;
 		};
 	}
 }

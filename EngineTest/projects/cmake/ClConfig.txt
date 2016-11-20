@@ -23,4 +23,3 @@ if (USE_SDL)
   endif (USE_64_BIT)
   target_link_libraries(engineTest sdl_lib)
 endif(USE_SDL)
-

@@ -30,3 +30,15 @@ GPUGems/projects/*
 !GPUGems/projects/cmake
 !GPUGems/projects/*.bat
 !GPUGems/projects/*.sh
+
+# Exclude for EngineTutorial
+###################
+EngineTutorial/build/*
+
+# Exclude all project except the cmake and generation scripts
+!EngineTutorial/projects
+EngineTutorial/projects/*
+!EngineTutorial/projects/cmake
+!EngineTutorial/projects/*.bat
+!EngineTutorial/projects/*.sh
+

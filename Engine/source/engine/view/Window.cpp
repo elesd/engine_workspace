@@ -2,20 +2,37 @@
 
 #include "engine/view/Window.h"
 
+///////////////////////////////////////////////////////////////////////////////
+
+#include "engine/video/Driver.h"
+
 namespace engine
 {
 	namespace view
 	{
+		struct WindowPrivate
+		{
+			std::unique_ptr<video::Driver> driver;
+		};
+
 		Window::Window()
-			:_fullScreen(true)
+			:_fullScreen(true),
+			_members(new WindowPrivate())
+			 
+		{
+			
+		}
+
+		Window::Window(const view::WindowParameter &parameter)
+			: _parameters(parameter),
+			_members(new WindowPrivate())
 		{
 
 		}
 
-		Window::Window(const view::WindowParameter &parameter)
-			: _parameters(parameter)
+		Window::~Window()
 		{
-
+			delete _members;
 		}
 
 		const view::WindowParameter &Window::getParameters() const
@@ -53,5 +70,15 @@ namespace engine
 			setSizeImpl(width, height);
 		}
 
+		video::Driver *Window::getDriver() const
+		{
+			return _members->driver.get();
+		}
+
+		void Window::initDriver(std::unique_ptr<video::Driver> driver)
+		{
+			HARD_ASSERT(!_members->driver);
+			_members->driver = std::move(driver);
+		}
 	}
 }

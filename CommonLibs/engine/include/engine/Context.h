@@ -17,6 +17,11 @@ namespace engine
 		class BaseBuilder;
 	}
 
+	namespace video
+	{
+		class Driver;
+	}
+
 	/**
 	* Engine's context.
 	* This class contains the members which are necessary from everywhere in the application.
@@ -45,6 +50,7 @@ namespace engine
 		* @see WindowManager
 		*/
 		view::WindowManager *getWindowManager();
+
 	protected:
 		/**
 		* The context can be used only if it is initialized.
