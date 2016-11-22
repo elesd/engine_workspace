@@ -4,6 +4,7 @@
 #include "engine/view/Window.h"
 #include "engine/functional/functions.h"
 #include "engine/video/Driver.h"
+#include "engine/video/BufferDesc.h"
 
 namespace engine
 {
@@ -19,7 +20,9 @@ namespace engine
 		WindowManager::WindowManager()
 			: _members(new WindowManagerPrivate())
 		{
-
+			_members->driverParameters.description.format = video::BufferFormat::Format_R32G32B32A32;
+			_members->driverParameters.description.isSRGB = false;
+			_members->driverParameters.description.type = video::BufferType::UnsignedInteger;
 		}
 
 		WindowManager::~WindowManager()
@@ -108,6 +111,11 @@ namespace engine
 			std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),
 				[](std::unique_ptr<Window> &window)->Window*{return window.get(); });
 			return windows;
+		}
+
+		void WindowManager::setDriverParameter(const video::DriverInitParameters &defaultParameters)
+		{
+			_members->driverParameters = defaultParameters;
 		}
 	}
 }

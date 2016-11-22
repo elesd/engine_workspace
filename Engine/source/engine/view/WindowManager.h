@@ -96,6 +96,8 @@ namespace engine
 			*/
 			std::vector<Window*> getAllWindows();
 
+			void setDriverParameter(const video::DriverInitParameters &defaultParameters);
+
 		protected:
 			/**
 			* Window system dependent creation function.
@@ -136,6 +138,7 @@ namespace engine
 			virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
 
 			virtual std::unique_ptr<video::Driver> createDriverForWindow(const video::DriverInitParameters &, Window *) const = 0;
+
 		private:
 			struct WindowManagerPrivate *_members = nullptr;
 		};
