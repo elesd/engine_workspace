@@ -4,6 +4,9 @@ namespace engine
 {
 	namespace video
 	{
+		/**
+		* Supported buffer fomrats
+		*/
 		enum class BufferFormat
 		{
 			Format_Unknown,
@@ -65,6 +68,7 @@ namespace engine
 			Num
 		};
 		
+		/**Supported buffer types*/
 		enum class BufferType
 		{
 			SignedInteger,
@@ -76,10 +80,14 @@ namespace engine
 			Num
 		};
 		
+		/** Buffer descriptor*/
 		struct BufferDesc
 		{
+			/**Format of the buffer*/
 			BufferFormat format = BufferFormat::Format_Unknown;
+			/**Elements type in the buffer*/
 			BufferType type = BufferType::Undef;
+			/**True if it is an SRGB buffer*/
 			bool isSRGB = false;
 		};
 	}

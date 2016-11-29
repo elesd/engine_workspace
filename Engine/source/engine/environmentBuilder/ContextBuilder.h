@@ -25,6 +25,7 @@ namespace engine
 			*/
 			ContextBuilder(const std::vector<ContextModuleType> &moduls);
 
+			/**Moveable*/
 			ContextBuilder(ContextBuilder &&o);
 
 			/**Destructor for PIMPL*/
@@ -36,13 +37,13 @@ namespace engine
 			*/
 			ApplicationBuilder buildForApplication();
 
-		//	GameBuilder buildForGame();
 		private:
 			/**
 			* Initializes the given module.
 			* @param type: The module.
 			*/
 			void initModule(const ContextModuleType type);
+
 			/**
 			* Initilizes the context.
 			*/

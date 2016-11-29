@@ -16,6 +16,7 @@ namespace engine
 		public:
 			/**Defualt constructor*/
 			BuildFinalizer() = default;
+			/**Moveable*/
 			BuildFinalizer(BuildFinalizer &&) {}
 
 			/** Finish building process, no more step left. */

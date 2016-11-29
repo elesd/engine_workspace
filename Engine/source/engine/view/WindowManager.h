@@ -96,6 +96,12 @@ namespace engine
 			*/
 			std::vector<Window*> getAllWindows();
 
+			/**
+			* Set the default driver creation parameters.
+			* When a new window is created a driver will be attached to it. This is the driver creation parameters.
+			* It will use when the next window is created.
+			* @param defaultParameters: driver creation parameters
+			*/
 			void setDriverParameter(const video::DriverInitParameters &defaultParameters);
 
 		protected:
@@ -137,6 +143,10 @@ namespace engine
 			*/
 			virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
 
+			/**
+			* This function purpos to create a driver for the given window.
+			* This driver later will be attached to the given window
+			*/
 			virtual std::unique_ptr<video::Driver> createDriverForWindow(const video::DriverInitParameters &, Window *) const = 0;
 
 		private:

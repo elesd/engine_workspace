@@ -35,7 +35,10 @@ namespace engine
 		public:
 			/**Destructor for PIMPL*/
 			~WindowEnvironmentBuilder() ;
+
+			/**Moveable*/
 			WindowEnvironmentBuilder(WindowEnvironmentBuilder &&o);
+
 			/**
 			* Builds the window module.
 			* @return Returns the next building phase.

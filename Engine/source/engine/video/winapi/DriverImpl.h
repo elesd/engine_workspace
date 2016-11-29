@@ -8,14 +8,21 @@ namespace engine
 	{
 		namespace winapi
 		{
+			/**
+			* Video driver implementation for winapi
+			*/
 			class DriverImpl : public Driver
 			{
 			public:
+				/**Simple constructor*/
 				DriverImpl();
+				/**For PIMPL*/
 				~DriverImpl() override;
 
+				/**Initialize based on the given window*/
 				void initImpl(const DriverInitParameters& params, view::Window *window) override;
 			private:
+				/**PIMPL*/
 				struct DriverImplPrivate *_members = nullptr;
 			};
 		}
