@@ -11,8 +11,8 @@ namespace version
 		const int minor = 1;
 		const int counter = 1;
 		const std::string year = "16";
-		const std::string month = "11";
-		const std::string day = "20";
+		const std::string month = "12";
+		const std::string day = "03";
 	};
 		
 	using Version = engine::VersionBase<VersionDef>;
@@ -20,5 +20,5 @@ namespace version
 
 
 #define TUTORIAL_USE_SDL 0
-#define TUTORIAL_USE_GLWF 0
-#define TUTORIAL_USE_WINAPI 1
+#define TUTORIAL_USE_GLFW 1
+#define TUTORIAL_USE_WINAPI 0

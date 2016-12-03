@@ -13,7 +13,7 @@ namespace engine
 		Format_R16G16B16A16,
 		Format_R32G32,
 		Format_R32G8X24,
-		Format_D32_FLOAT_X8X24,
+		Format_D32_FLOAT_S8X24,
 		Format_R32_FLOAT_X8X24,
 		Format_X32_TYPELESS_G8X24_UINT,
 		Format_R10G10B10A2,

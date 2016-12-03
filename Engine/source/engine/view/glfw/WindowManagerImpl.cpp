@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #if ENGINE_USE_GLFW
-#include "engine/modules/glfw/WindowManagerImpl.h"
+#include "engine/view/glfw/WindowManagerImpl.h"
 ///////////////////////////////////////////////////
-#include "engine/modules/glfw/WindowImpl.h"
+#include "engine/view/glfw/WindowImpl.h"
+#include "engine/video/glfw/DriverImpl.h"
 
 #include "GLFW/glfw3.h"
 
@@ -93,8 +94,9 @@ namespace engine
 
 		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *) const
 		{
-			HARD_FAIL("Not implemented");
-			return nullptr;
+			std::unique_ptr<Driver> driver(new glfw::DriverImpl());
+			driver->init(params, nullptr);
+			return driver;
 		}
 
 	}

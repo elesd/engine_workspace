@@ -36,41 +36,80 @@ namespace engine
 	{
 		if(_members->mainWindow != nullptr)
 			throw InitializationError("Main window is already exists");
-		_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
-		_members->mainWindow->initDriver(std::move(driver));
+
+		if(driverNeedsWindow())
+		{
+			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
+			_members->mainWindow->initDriver(std::move(driver));
+		}
+		else
+		{
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
+			_members->mainWindow->initDriver(std::move(driver));
+		}
+
 		return _members->mainWindow.get();
 	}
 	Window *WindowManager::createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId)
 	{
 		if(_members->mainWindow != nullptr)
 			throw InitializationError("Main window is already exists");
-		_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
-		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
-		_members->mainWindow->initDriver(std::move(driver));
+		if(driverNeedsWindow())
+		{
+			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
+			_members->mainWindow->initDriver(std::move(driver));
+		}
+		else
+		{
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
+			_members->mainWindow->initDriver(std::move(driver));
+		}
 		return _members->mainWindow.get();
 	}
 	Window *WindowManager::createSecondaryWindow(const WindowParameter &parameters,
 												 const std::string &title,
 												 Window *mainWindow)
 	{
-		std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
-		_members->windowContainer.emplace_back(std::move(window));
-
-		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-		window->initDriver(std::move(driver));
+		if(driverNeedsWindow())
+		{
+			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
+			_members->windowContainer.emplace_back(std::move(window));
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
+			window->initDriver(std::move(driver));
+		}
+		else
+		{
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
+			window->initDriver(std::move(driver));
+			_members->windowContainer.emplace_back(std::move(window));
+		}
 
 		return _members->windowContainer.back().get();
 	}
 
 	Window *WindowManager::createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow)
 	{
-		std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-		_members->windowContainer.emplace_back(std::move(window));
+		if(driverNeedsWindow())
+		{
+			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
+			_members->windowContainer.emplace_back(std::move(window));
 
-		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-		window->initDriver(std::move(driver));
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
+			window->initDriver(std::move(driver));
+		}
+		else
+		{
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
+			window->initDriver(std::move(driver));
+			_members->windowContainer.emplace_back(std::move(window));
 
+		}
 		return _members->windowContainer.back().get();
 	}
 

@@ -50,6 +50,7 @@ namespace engine
 		uint32_t WindowManagerImpl::getMonitorCount() const
 		{
 			HARD_FAIL("Not implemented module");
+			return 0;
 		}
 
 		uint32_t WindowManagerImpl::getMainMonitorId() const

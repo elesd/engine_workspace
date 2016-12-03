@@ -15,10 +15,10 @@ namespace version
 		const std::string day = "@Tutorial_VERSION_DAY@";
 	};
 		
-	using Version = engine::utils::VersionBase<VersionDef>;
+	using Version = engine::VersionBase<VersionDef>;
 }
 
 
 #define TUTORIAL_USE_SDL @USE_SDL@
-#define TUTORIAL_USE_GLWF @USE_GLFW@
+#define TUTORIAL_USE_GLFW @USE_GLFW@
 #define TUTORIAL_USE_WINAPI @USE_WINAPI@

@@ -73,7 +73,7 @@ namespace engine
 						case BufferType::SignedInteger:		result = DXGI_FORMAT_R32G8X24_TYPELESS; break;
 					}
 					break;
-				case BufferFormat::Format_D32_FLOAT_X8X24:
+				case BufferFormat::Format_D32_FLOAT_S8X24:
 					switch(desc.type)
 					{
 						case BufferType::UnsignedInteger:	result = DXGI_FORMAT_D32_FLOAT_S8X24_UINT; break;
@@ -391,7 +391,7 @@ namespace engine
 				case BufferFormat::Format_R16G16B16A16:
 				case BufferFormat::Format_R32G32:
 				case BufferFormat::Format_R32G8X24:
-				case BufferFormat::Format_D32_FLOAT_X8X24:
+				case BufferFormat::Format_D32_FLOAT_S8X24:
 				case BufferFormat::Format_R32_FLOAT_X8X24:
 				case BufferFormat::Format_X32_TYPELESS_G8X24_UINT:
 				case BufferFormat::Format_R10G10B10A2:

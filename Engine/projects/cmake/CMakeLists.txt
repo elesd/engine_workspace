@@ -51,7 +51,9 @@ file (GLOB src_stateStack "${SOURCE_DIR}/engine/stateStack/*.cpp")
 file (GLOB src_test "${SOURCE_DIR}/engine/test/*.cpp")
 file (GLOB src_video "${SOURCE_DIR}/engine/video/*.cpp")
 file (GLOB src_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.cpp")
-file (GLOB src_video_winapi_empty "${SOURCE_DIR}/engine/video/winapi/empty*.cpp")
+file (GLOB src_video_winapi_empty "${SOURCE_DIR}/engine/video/winapi/empty/*.cpp")
+file (GLOB src_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.cpp")
+file (GLOB src_video_glfw_empty "${SOURCE_DIR}/engine/video/glfw/empty/*.cpp")
 file (GLOB src_utils "${SOURCE_DIR}/engine/utils/*.cpp")
 file (GLOB src_view "${SOURCE_DIR}/engine/view/*.cpp")
 file (GLOB src_view_glfw "${SOURCE_DIR}/engine/view/glfw/*.cpp")
@@ -78,6 +80,7 @@ file (GLOB header_stateStack "${SOURCE_DIR}/engine/stateStack/*.h*")
 file (GLOB header_test "${SOURCE_DIR}/engine/test/*.h*")
 file (GLOB header_video "${SOURCE_DIR}/engine/video/*.h*")
 file (GLOB header_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.h*")
+file (GLOB header_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.h")
 file (GLOB header_utils "${SOURCE_DIR}/engine/utils/*.h*")
 file (GLOB header_view "${SOURCE_DIR}/engine/view/*.h*")
 file (GLOB header_view_glfw "${SOURCE_DIR}/engine/view/glfw/*.h*")
@@ -106,6 +109,8 @@ SOURCE_GROUP (engine\\test FILES ${src_test} ${header_test})
 SOURCE_GROUP (engine\\video FILES ${src_video} ${header_video})
 SOURCE_GROUP (engine\\video\\winapi FILES ${src_video_winapi} ${header_video_winapi})
 SOURCE_GROUP (engine\\video\\winapi\\empty FILES ${src_video_winapi_empty})
+SOURCE_GROUP (engine\\video\\glfw FILES ${src_video_glfw} ${header_video_glfw})
+SOURCE_GROUP (engine\\video\\glfw\\empty FILES ${src_video_glfw_empty})
 SOURCE_GROUP (engine\\utils FILES ${src_utils} ${header_utils})
 SOURCE_GROUP (engine\\view FILES ${src_view} ${header_view})
 SOURCE_GROUP (engine\\view\\glfw FILES ${src_view_glfw} ${header_view_glfw})
@@ -153,6 +158,8 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_video}
 						   ${src_video_winapi}
 						   ${src_video_winapi_empty}
+						   ${src_video_glfw}
+						   ${src_video_glfw_empty}
                            ${src_pch}
                            ${header_} 
                            ${header_app} 
@@ -175,6 +182,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_view_winapi}
 						   ${header_video}
 						   ${header_video_winapi}
+						   ${header_video_glfw}
                            ${header_pch})
 
 install (FILES ${header_} DESTINATION "${INSTALL_DIR}/include/engine")
@@ -197,7 +205,8 @@ install (FILES ${header_view_winapi} DESTINATION "${INSTALL_DIR}/include/engine/
 install (FILES ${header_view_glfw} DESTINATION "${INSTALL_DIR}/include/engine/view/glfw")
 install (FILES ${header_view_sdl} DESTINATION "${INSTALL_DIR}/include/engine/view/sdl")
 install (FILES ${header_video} DESTINATION "${INSTALL_DIR}/include/engine/video")
-install (FILES ${header_video} DESTINATION "${INSTALL_DIR}/include/engine/video/winapi")
+install (FILES ${header_video_winapi} DESTINATION "${INSTALL_DIR}/include/engine/video/winapi")
+install (FILES ${header_video_glfw} DESTINATION "${INSTALL_DIR}/include/engine/video/glfw")
 
 
 if (USE_64_BIT)

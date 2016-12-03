@@ -143,7 +143,8 @@ namespace engine
 		* This driver later will be attached to the given window
 		*/
 		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
-
+	private:
+		virtual bool driverNeedsWindow() const = 0;
 	private:
 		struct WindowManagerPrivate *_members = nullptr;
 	};

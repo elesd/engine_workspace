@@ -17,10 +17,10 @@ namespace engine
 			const std::string day = "@Engine_VERSION_DAY@";
 		};
 		
-		using Version = utils::VersionBase<VersionDef>;
+		using Version = VersionBase<VersionDef>;
 	}
 }
 
 #define ENGINE_USE_SDL @USE_SDL@
-#define ENGINE_USE_GLWF @USE_GLFW@
+#define ENGINE_USE_GLFW @USE_GLFW@
 #define ENGINE_USE_WINAPI @USE_WINAPI@

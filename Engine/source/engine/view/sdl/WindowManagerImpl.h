@@ -24,7 +24,8 @@ namespace engine
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
 
 			std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &params, Window *) const override;
-
+		private:
+			bool driverNeedsWindow() const override { return false; }
 		};
 	}
 }

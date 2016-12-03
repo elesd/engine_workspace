@@ -15,7 +15,7 @@ namespace version
 		const std::string day = "@EngineTest_VERSION_DAY@";
 	};
 		
-	using Version = engine::utils::VersionBase<VersionDef>;
+	using Version = engine::VersionBase<VersionDef>;
 }
 
 

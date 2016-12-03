@@ -45,7 +45,7 @@ void buildEngine(int argc, char* argv[])
 	using engine::StandardApplicationParameter;
 	using engine::IApplicationParameter;
 
-	ContextBuilder envBuilder({engine::ContextModuleType::Sdl});
+	ContextBuilder envBuilder({engine::ContextModuleType::Glfw});
 	ApplicationBuilder appBuilder = envBuilder.buildForApplication();
 	std::unique_ptr<IApplicationParameter> args(new StandardApplicationParameter(argc, argv));
 	WindowEnvironmentBuilder windowBuilder = appBuilder.build(std::move(args), std::unique_ptr<engine::IMain>(new TestMain()));
