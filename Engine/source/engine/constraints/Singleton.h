@@ -5,33 +5,30 @@
 
 namespace engine
 {
-	namespace constraints
+	/**
+	* Singleton implementation
+	*/
+	template<class T>
+	class Singleton : NonCopyable,
+		NonMoveable
 	{
+	public:
 		/**
-		* Singleton implementation
+		* @return the instance object
 		*/
-		template<class T>
-		class Singleton : NonCopyable,
-						  NonMoveable
-		{
-		public:
-			/**
-			* @return the instance object
-			*/
-			static T *getInstance();
-			/**
-			* Create an instance with the given arguments
-			* @param creation arguments
-			*/
-			template<typename... Args>
-			static void createInstance(Args ...args);
-			/** Delete the instance */
-			static void releaseInstance();
-		private:
-			/**PIMPL*/
-			static std::unique_ptr<T> _instance;
-		};
-	}
+		static T *getInstance();
+		/**
+		* Create an instance with the given arguments
+		* @param creation arguments
+		*/
+		template<typename... Args>
+		static void createInstance(Args ...args);
+		/** Delete the instance */
+		static void releaseInstance();
+	private:
+		/**PIMPL*/
+		static std::unique_ptr<T> _instance;
+	};
 }
 
 #include "engine/constraints/Singleton.hpp"

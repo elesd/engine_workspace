@@ -44,6 +44,7 @@ file (GLOB engine_src_app_winapi "${ENGINE_DIR}/engine/app/winapi/*.cpp")
 file (GLOB engine_src_app_winapi_empty "${ENGINE_DIR}/engine/app/winapi/empty/*.cpp")
 file (GLOB engine_src_constraints "${ENGINE_DIR}/engine/constraints/*.cpp")
 file (GLOB engine_src_environmentBuilder "${ENGINE_DIR}/engine/environmentBuilder/*.cpp")
+file (GLOB engine_src_exceptions "${ENGINE_DIR}/engine/exceptions/*.cpp")
 file (GLOB engine_src_functional "${ENGINE_DIR}/engine/functional/*.cpp")
 file (GLOB engine_src_inputs "${ENGINE_DIR}/engine/inputs/*.cpp")
 file (GLOB engine_src_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.cpp")
@@ -72,6 +73,7 @@ file (GLOB engine_header_app "${ENGINE_DIR}/engine/app/*.h*")
 file (GLOB engine_header_app_winapi "${ENGINE_DIR}/engine/app/winapi/*.h*")
 file (GLOB engine_header_constraints "${ENGINE_DIR}/engine/constraints/*.h*")
 file (GLOB engine_header_environmentBuilder "${ENGINE_DIR}/engine/environmentBuilder/*.h*")
+file (GLOB engine_header_exceptions "${ENGINE_DIR}/engine/exceptions/*.h*")
 file (GLOB engine_header_functional "${ENGINE_DIR}/engine/functional/*.h*")
 file (GLOB engine_header_inputs "${ENGINE_DIR}/engine/inputs/*.h*")
 file (GLOB engine_header_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.h*")
@@ -94,6 +96,7 @@ SOURCE_GROUP (engine\\app\\winapi FILES ${engine_src_app_winapi} ${engine_header
 SOURCE_GROUP (engine\\app\\winapi\\empty FILES ${engine_src_app_winapi_empty})
 SOURCE_GROUP (engine\\constraints FILES ${engine_src_constraints} ${engine_header_constraints})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${engine_src_environmentBuilder} ${engine_header_environmentBuilder})
+SOURCE_GROUP (engine\\exceptions FILES ${engine_src_exceptions} ${engine_header_exceptions})
 SOURCE_GROUP (engine\\functional FILES ${engine_src_functional} ${engine_header_functional})
 SOURCE_GROUP (engine\\inputs FILES ${engine_src_inputs} ${engine_header_inputs})
 SOURCE_GROUP (engine\\modules\\sdl FILES ${engine_src_moduls_sdl} ${engine_header_moduls_sdl})
@@ -144,6 +147,7 @@ add_executable(engineTest ${src_}
 						  ${engine_src_app_winapi_empty} 
                           ${engine_src_constraints}
                           ${engine_src_environmentBuilder}
+                          ${engine_src_exceptions}
                           ${engine_src_functional}
                           ${engine_src_inputs}
                           ${engine_src_moduls_sdl}
@@ -171,6 +175,7 @@ add_executable(engineTest ${src_}
 						  ${engine_header_app_winapi} 
                           ${engine_header_constraints}
                           ${engine_header_environmentBuilder}
+                          ${engine_header_exceptions}
                           ${engine_header_functional}
                           ${engine_header_inputs}
                           ${engine_header_moduls_glfw}

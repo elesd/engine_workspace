@@ -2,14 +2,11 @@
 
 namespace engine
 {
-	namespace utils
+	/**Small hack for identity*/
+	template<class T>
+	struct DeclTypeToType
 	{
-		/**Small hack for identity*/
-		template<class T>
-		struct DeclTypeToType
-		{
-			using Value = T;
+		using Value = T;
 
-		};
-	}
+	};
 }

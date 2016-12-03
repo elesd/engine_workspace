@@ -4,143 +4,147 @@
 
 namespace engine
 {
-	namespace video
+	struct DriverInitParameters;
+	class Driver;
+	struct WindowParameter;
+	class Window;
+
+	/**
+	* Class for manage window creation and windows connected functionality.
+	*/
+	class WindowManager : NonCopyable
 	{
-		struct DriverInitParameters;
-		class Driver;
-	}
-	namespace view
-	{
-		struct WindowParameter;
-		class Window;
+	public:
+		/** Default constructable. */
+		WindowManager();
+		/** Destructor for PIMPL */
+		virtual ~WindowManager();
 
 		/**
-		* Class for manage window creation and windows connected functionality.
+		* @return Returns the number of available monitors.
 		*/
-		class WindowManager: constraints::NonCopyable
-		{
-		public:
-			/** Default constructable. */
-			WindowManager();
-			/** Destructor for PIMPL */
-			virtual ~WindowManager() ;
+		virtual uint32_t getMonitorCount() const = 0;
+		/**
+		* @return Return the main monitor id.
+		*/
+		virtual uint32_t getMainMonitorId() const = 0;
 
-			/**
-			* @return Returns the number of available monitors.
-			*/
-			virtual uint32_t getMonitorCount() const = 0;
-			/**
-			* @return Return the main monitor id.
-			*/
-			virtual uint32_t getMainMonitorId() const = 0;
+		/**
+		* Creates a main window with the given parameter and title.
+		* @param parameters: Window creation parameters.
+		* @param title: title of the window
+		*/
+		Window *createMainWindow(const WindowParameter &parameters,
+								 const std::string &title);
 
-			/**
-			* Creates a main window with the given parameter and title.
-			* @param parameters: Window creation parameters.
-			* @param title: title of the window
-			*/
-			Window *createMainWindow(const WindowParameter &parameters,
-				const std::string &title);
+		/**
+		* Creates a main full screened window with the given parameter and title.
+		* @param width: width of the window in pixels
+		* @param height: height of the window in pixels
+		* @param title: title of the window
+		* @param monitorId: id of the monitor where the window will created.
+		*/
+		Window *createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId);
 
-			/**
-			* Creates a main full screened window with the given parameter and title.
-			* @param width: width of the window in pixels
-			* @param height: height of the window in pixels
-			* @param title: title of the window
-			* @param monitorId: id of the monitor where the window will created.
-			*/
-			Window *createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId);
+		/**
+		* Creates a secondary window with the given parameter and title.
+		* @param parameters: Window creation parameters.
+		* @param title: title of the window
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		*/
+		Window *createSecondaryWindow(const WindowParameter &parameters,
+									  const std::string &title,
+									  Window *mainWindow);
 
-			/**
-			* Creates a secondary window with the given parameter and title.
-			* @param parameters: Window creation parameters.
-			* @param title: title of the window
-			* @param mainWindow: Main window, the secondary window shares the main window context.
-			*/
-			Window *createSecondaryWindow(const WindowParameter &parameters,
-				const std::string &title,
-				Window *mainWindow);
+		/**
+		* Creates a secondary full screened window with the given parameter and title.
+		* @param width: width of the window in pixels
+		* @param height: height of the window in pixels
+		* @param title: title of the window
+		* @param monitorId: id of the monitor where the window will created.
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		*/
+		Window *createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow);
 
-			/**
-			* Creates a secondary full screened window with the given parameter and title.
-			* @param width: width of the window in pixels
-			* @param height: height of the window in pixels
-			* @param title: title of the window
-			* @param monitorId: id of the monitor where the window will created.
-			* @param mainWindow: Main window, the secondary window shares the main window context.
-			*/
-			Window *createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow);
+		/**
+		* Destroy the given window.
+		*/
+		void destroyWindow(Window *);
 
-			/**
-			* Destroy the given window.
-			*/
-			void destroyWindow(Window *);
+		/**
+		* @return Returns the main window.
+		*/
+		Window *getMainWindow();
 
-			/**
-			* @return Returns the main window.
-			*/
-			Window *getMainWindow();
+		/**
+		* @return Returns the main window.
+		*/
+		const Window *getMainWindow() const;
 
-			/**
-			* @return Returns the main window.
-			*/
-			const Window *getMainWindow() const;
+		/**
+		* @return Returns all created window.
+		*/
+		std::vector<const Window*> getAllWindows() const;
 
-			/**
-			* @return Returns all created window.
-			*/
-			std::vector<const Window*> getAllWindows() const;
+		/**
+		* @return Returns all created window.
+		*/
+		std::vector<Window*> getAllWindows();
 
-			/**
-			* @return Returns all created window.
-			*/
-			std::vector<Window*> getAllWindows();
+		/**
+		* Set the default driver creation parameters.
+		* When a new window is created a driver will be attached to it. This is the driver creation parameters.
+		* It will use when the next window is created.
+		* @param defaultParameters: driver creation parameters
+		*/
+		void setDriverParameter(const DriverInitParameters &defaultParameters);
 
-			void setDriverParameter(const video::DriverInitParameters &defaultParameters);
+	protected:
+		/**
+		* Window system dependent creation function.
+		* @param parameters: Window creation parameters.
+		* @param title: title of the window
+		*/
+		virtual Window *createMainWindowImpl(const WindowParameter &parameters,
+											 const std::string &title) = 0;
 
-		protected:
-			/**
-			* Window system dependent creation function.
-			* @param parameters: Window creation parameters.
-			* @param title: title of the window
-			*/
-			virtual Window *createMainWindowImpl(const WindowParameter &parameters,
-				const std::string &title) = 0;
+		/**
+		* Window system dependent creation function.
+		* This function must create a full screen window with the given parameters.
+		* @param width : width of the window in pixels
+		* @param height : height of the window in pixels
+		* @param title : title of the window
+		* @param monitorId : id of the monitor where the window will created.
+		*/
+		virtual Window *createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId) = 0;
 
-			/**
-			* Window system dependent creation function.
-			* This function must create a full screen window with the given parameters.
-			* @param width : width of the window in pixels
-			* @param height : height of the window in pixels
-			* @param title : title of the window
-			* @param monitorId : id of the monitor where the window will created.
-			*/
-			virtual Window *createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId) = 0;
+		/**
+		* Window system dependent creation function.
+		* @param parameters: Window creation parameters.
+		* @param title: title of the window
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		*/
+		virtual Window *createSecondaryWindowImpl(const WindowParameter &parameters,
+												  const std::string &title,
+												  Window *mainWindow) = 0;
 
-			/**
-			* Window system dependent creation function.
-			* @param parameters: Window creation parameters.
-			* @param title: title of the window
-			* @param mainWindow: Main window, the secondary window shares the main window context.
-			*/
-			virtual Window *createSecondaryWindowImpl(const WindowParameter &parameters,
-				const std::string &title,
-				Window *mainWindow) = 0;
+		/**
+		* Window system dependent creation function.
+		* @param width: width of the window in pixels
+		* @param height: height of the window in pixels
+		* @param title: title of the window
+		* @param monitorId: id of the monitor where the window will created.
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		*/
+		virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
 
-			/**
-			* Window system dependent creation function.
-			* @param width: width of the window in pixels
-			* @param height: height of the window in pixels
-			* @param title: title of the window
-			* @param monitorId: id of the monitor where the window will created.
-			* @param mainWindow: Main window, the secondary window shares the main window context.
-			*/
-			virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
+		/**
+		* This function purpos to create a driver for the given window.
+		* This driver later will be attached to the given window
+		*/
+		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
 
-			virtual std::unique_ptr<video::Driver> createDriverForWindow(const video::DriverInitParameters &, Window *) const = 0;
-
-		private:
-			struct WindowManagerPrivate *_members = nullptr;
-		};
-	}
+	private:
+		struct WindowManagerPrivate *_members = nullptr;
+	};
 }

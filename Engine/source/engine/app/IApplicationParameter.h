@@ -2,13 +2,10 @@
 
 namespace engine
 {
-	namespace app
+	/**Common interface for application parameters*/
+	class IApplicationParameter
 	{
-		/**Common interface for application parameters*/
-		class IApplicationParameter
-		{
-		public:
-			virtual ~IApplicationParameter() {};
-		};
-	}
+	public:
+		virtual ~IApplicationParameter() {};
+	};
 }

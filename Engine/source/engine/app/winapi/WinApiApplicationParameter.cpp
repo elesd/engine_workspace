@@ -10,53 +10,50 @@
 
 namespace engine
 {
-	namespace app
+	namespace winapi
 	{
-		namespace winapi
+		struct WinApiApplicationParameterPrivate
 		{
-			struct WinApiApplicationParameterPrivate
-			{
-				HINSTANCE instance;
-				HINSTANCE prevInstance;
-				int cmdShow;
-			};
+			HINSTANCE instance;
+			HINSTANCE prevInstance;
+			int cmdShow;
+		};
 
-			WinApiApplicationParameter::WinApiApplicationParameter(HINSTANCE instance,
-																   HINSTANCE prevInstance,
-																   LPSTR cmdLine,
-																   int cmdShow)
-																   :_members(new WinApiApplicationParameterPrivate())
+		WinApiApplicationParameter::WinApiApplicationParameter(HINSTANCE instance,
+															   HINSTANCE prevInstance,
+															   LPSTR cmdLine,
+															   int cmdShow)
+															   :_members(new WinApiApplicationParameterPrivate())
+		{
+			int nArgs;
+			LPWSTR *arguments = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+			std::vector<std::string> parameters;
+			for(uint32_t i = 0; i < uint32_t(nArgs); ++i)
 			{
-				int nArgs;
-				LPWSTR *arguments = CommandLineToArgvW(GetCommandLineW(), &nArgs);
-				std::vector<std::string> parameters;
-				for(uint32_t i = 0; i < uint32_t(nArgs); ++i)
-				{
-					std::stringstream sstream;
-					sstream << arguments[i];
-					parameters.push_back(sstream.str());
-				}
-				app::StandardApplicationParameter::init(nArgs, parameters);
-
-				_members->instance = instance;
-				_members->prevInstance = prevInstance;
-				_members->cmdShow = cmdShow;
+				std::stringstream sstream;
+				sstream << arguments[i];
+				parameters.push_back(sstream.str());
 			}
+			StandardApplicationParameter::init(nArgs, parameters);
 
-			WinApiApplicationParameter::~WinApiApplicationParameter()
-			{
-				delete _members;
-			}
+			_members->instance = instance;
+			_members->prevInstance = prevInstance;
+			_members->cmdShow = cmdShow;
+		}
 
-			HINSTANCE WinApiApplicationParameter::getInstance() const
-			{
-				return _members->instance;
-			}
+		WinApiApplicationParameter::~WinApiApplicationParameter()
+		{
+			delete _members;
+		}
 
-			int WinApiApplicationParameter::getCmdShow() const
-			{
-				return _members->cmdShow;
-			}
+		HINSTANCE WinApiApplicationParameter::getInstance() const
+		{
+			return _members->instance;
+		}
+
+		int WinApiApplicationParameter::getCmdShow() const
+		{
+			return _members->cmdShow;
 		}
 	}
 }

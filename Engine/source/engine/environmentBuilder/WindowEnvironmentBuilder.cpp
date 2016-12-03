@@ -4,6 +4,8 @@
 
 #include "engine/environmentBuilder/BuildFinalizer.h"
 
+#include "engine/exceptions/LogicalErrors.h"
+
 #include "engine/Context.h"
 #include "engine/ModuleDefinitions.h"
 
@@ -15,59 +17,57 @@
 
 namespace engine
 {
-	namespace environmentBuilder
+	struct WindowEnvironmentBuilderPrivate
 	{
-		struct WindowEnvironmentBuilderPrivate
-		{
-			ContextModuleType windowModule;
-		};
+		ContextModuleType windowModule;
+	};
 
-		WindowEnvironmentBuilder::WindowEnvironmentBuilder(const ContextModuleType windowModule)
-			:_members(new WindowEnvironmentBuilderPrivate())
-		{
-			_members->windowModule = windowModule;
-		}
+	WindowEnvironmentBuilder::WindowEnvironmentBuilder(const ContextModuleType windowModule)
+		:_members(new WindowEnvironmentBuilderPrivate())
+	{
+		_members->windowModule = windowModule;
+	}
 
-		WindowEnvironmentBuilder::~WindowEnvironmentBuilder()
-		{
-			delete _members;
-		}
+	WindowEnvironmentBuilder::~WindowEnvironmentBuilder()
+	{
+		delete _members;
+	}
 
-		WindowEnvironmentBuilder::WindowEnvironmentBuilder(WindowEnvironmentBuilder &&o)
-		{
-		    this->_members = o._members;
-		    o._members = nullptr;
-		}
+	WindowEnvironmentBuilder::WindowEnvironmentBuilder(WindowEnvironmentBuilder &&o)
+	{
+		this->_members = o._members;
+		o._members = nullptr;
+	}
 
-		BuildFinalizer WindowEnvironmentBuilder::build()
+	BuildFinalizer WindowEnvironmentBuilder::build()
+	{
+		std::unique_ptr<WindowManager> manager;
+		switch(_members->windowModule)
 		{
-			std::unique_ptr<view::WindowManager> manager;
-			switch(_members->windowModule)
-			{
-				case ContextModuleType::Glfw: manager = createGlfwWindowManager(); break;
-				case ContextModuleType::Sdl: manager = createSdlWindowManager(); break;
-				case ContextModuleType::WinApi: manager = createWinApiWindowManager(); break;
-			}
-			ASSERT(manager);
-			BaseBuilder::setWindowManager(std::move(manager));
-			return BuildFinalizer();
+			case ContextModuleType::Glfw: manager = createGlfwWindowManager(); break;
+			case ContextModuleType::Sdl: manager = createSdlWindowManager(); break;
+			case ContextModuleType::WinApi: manager = createWinApiWindowManager(); break;
 		}
+		if(!manager)
+			throw InitializationError("Unhandled window module");
+		BaseBuilder::setWindowManager(std::move(manager));
+		return BuildFinalizer();
+	}
 
-		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager()
-		{
-			std::unique_ptr<view::WindowManager> result(new view::glfw::WindowManagerImpl());
-			return result;
-		}
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager()
+	{
+		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl());
+		return result;
+	}
 
-		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createSdlWindowManager()
-		{
-			std::unique_ptr<view::WindowManager> result(new view::sdl::WindowManagerImpl());
-			return result;
-		}
-		std::unique_ptr<view::WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager()
-		{
-			std::unique_ptr<view::WindowManager> result(new view::winapi::WindowManagerImpl());
-			return result;
-		}
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager()
+	{
+		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl());
+		return result;
+	}
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager()
+	{
+		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl());
+		return result;
 	}
 }

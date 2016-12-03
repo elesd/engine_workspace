@@ -4,49 +4,43 @@
 
 namespace engine
 {
-	namespace app
-	{
-		class IMain;
-		class IApplicationParameter;
-	}
+	class IMain;
+	class IApplicationParameter;
 	enum class ContextModuleType;
 }
 
 namespace engine
 {
-	namespace environmentBuilder
+	class WindowEnvironmentBuilder;
+	/**
+	* This is the application building phase.
+	* After this build phase the context will have an application
+	*/
+	class ApplicationBuilder : public BaseBuilder
 	{
-		class WindowEnvironmentBuilder;
+	private:
+		friend class ContextBuilder;
+	private:
 		/**
-		* This is the application building phase.
-		* After this build phase the context will have an application
+		* Construct the builder.
+		* For the next step initialization we need the window module.
+		* @param windowModul: Window module of the context which will be used.
 		*/
-		class ApplicationBuilder: public BaseBuilder
-		{
-		private:
-			friend class ContextBuilder;
-		private:
-			/**
-			* Construct the builder.
-			* For the next step initialization we need the window module.
-			* @param windowModul: Window module of the context which will be used.
-			*/
-			ApplicationBuilder(const ContextModuleType windowModule);
-		public:
-			~ApplicationBuilder() ;
+		ApplicationBuilder(const ContextModuleType windowModule);
+	public:
+		~ApplicationBuilder();
 
-			ApplicationBuilder(ApplicationBuilder&& o);
+		ApplicationBuilder(ApplicationBuilder&& o);
 
-			/**
-			* Build an application with the given arguments and main.
-			* @param arguments: arguments of the application
-			* @param main: Main functionality.
-			* @return The next building phase.
-			*/
-			WindowEnvironmentBuilder build(std::unique_ptr<app::IApplicationParameter> arguments, std::unique_ptr<app::IMain> main);
-		private:
-			/** PIMPL */
-			struct ApplicationBuilderPrivate *_members = nullptr;
-		};
-	}
+		/**
+		* Build an application with the given arguments and main.
+		* @param arguments: arguments of the application
+		* @param main: Main functionality.
+		* @return The next building phase.
+		*/
+		WindowEnvironmentBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+	private:
+		/** PIMPL */
+		struct ApplicationBuilderPrivate *_members = nullptr;
+	};
 }

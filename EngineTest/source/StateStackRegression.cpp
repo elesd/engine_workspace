@@ -10,9 +10,9 @@ namespace tests
 	StateStackRegression::StateStackRegression()
 		:BaseRegression("StateStack")
 	{
-		std::unique_ptr<engine::test::TestSuite> stateBaseTest(new tests::stateStack::StateBaseTestSuite());
+		std::unique_ptr<engine::test::TestSuite> stateBaseTest(new tests::StateBaseTestSuite());
 		addTestSuite(std::move(stateBaseTest));
-		std::unique_ptr<engine::test::TestSuite> stateStackTest(new tests::stateStack::StateStackTestSuite());
+		std::unique_ptr<engine::test::TestSuite> stateStackTest(new tests::StateStackTestSuite());
 		addTestSuite(std::move(stateStackTest));
 	}
 }

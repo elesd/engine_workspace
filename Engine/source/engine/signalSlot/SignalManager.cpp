@@ -6,42 +6,39 @@
 
 namespace engine
 {
-	namespace signalSlot
+	struct SignalManagerPrivate
 	{
-		struct SignalManagerPrivate
-		{
-			std::deque<ISignalTask*> taskPool;
-		};
+		std::deque<ISignalTask*> taskPool;
+	};
 
-		SignalManager::SignalManager()
-			:_members(new SignalManagerPrivate())
-		{
+	SignalManager::SignalManager()
+		:_members(new SignalManagerPrivate())
+	{
 
+	}
+
+	SignalManager::~SignalManager()
+	{
+		for(ISignalTask *task : _members->taskPool)
+		{
+			delete task;
 		}
+		delete _members;
+	}
 
-		SignalManager::~SignalManager()
-		{
-			for(ISignalTask *task : _members->taskPool)
-			{
-				delete task;
-			}
-			delete _members;
-		}
+	void SignalManager::addTask(std::unique_ptr<ISignalTask> task)
+	{
+		_members->taskPool.push_back(task.get());
+		task.release();
+	}
 
-		void SignalManager::addTask(std::unique_ptr<ISignalTask> task)
+	void SignalManager::update()
+	{
+		for(ISignalTask *task : _members->taskPool)
 		{
-			_members->taskPool.push_back(task.get());
-			task.release();
+			if(!task->isExpired())
+				(*task)();
 		}
-
-		void SignalManager::update()
-		{
-			for(ISignalTask *task : _members->taskPool)
-			{
-				if(!task->isExpired())
-					(*task)();
-			}
-			_members->taskPool.clear();
-		}
+		_members->taskPool.clear();
 	}
 }

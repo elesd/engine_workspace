@@ -2,23 +2,20 @@
 
 namespace engine
 {
-	namespace signalSlot
+	class SlotHolder;
+	/**
+	* Type independent signal
+	*/
+	class ISignal
 	{
-		class SlotHolder;
+		friend class SlotHolder;
+	public:
+		virtual ~ISignal() {};
+	private:
 		/**
-		* Type independent signal
+		* Disconnect all signal from the slot.
+		* It is necessary for the slot holder destructor;
 		*/
-		class ISignal
-		{
-			friend class SlotHolder;
-        public:
-			virtual ~ISignal() {};
-		private:
-			/**
-			* Disconnect all signal from the slot.
-			* It is necessary for the slot holder destructor;
-			*/
-			virtual void disconnectAllSlot(SlotHolder *slotHolder) = 0;
-		};
-	}
+		virtual void disconnectAllSlot(SlotHolder *slotHolder) = 0;
+	};
 }

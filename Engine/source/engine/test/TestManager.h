@@ -8,7 +8,7 @@ namespace engine
 	{
 		class BaseRegression;
 
-		class TestManager : engine::constraints::NonCopyable
+		class TestManager : engine::NonCopyable
 		{
 		public:
 			TestManager();

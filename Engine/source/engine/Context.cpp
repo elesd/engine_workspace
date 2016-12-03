@@ -10,8 +10,8 @@ namespace engine
 	struct ContextPrivate
 	{
 		std::vector<bool> moduls = std::vector<bool>(uint32_t(ContextModuleType::NumModulTypes), false);
-		std::unique_ptr<app::Application> application;
-		std::unique_ptr<view::WindowManager> windowManager;
+		std::unique_ptr<Application> application;
+		std::unique_ptr<WindowManager> windowManager;
 		bool initialized = false;
 	};
 
@@ -26,24 +26,24 @@ namespace engine
 		delete _members;
 	}
 
-	app::Application *Context::getApplication()
+	Application *Context::getApplication()
 	{
 		ASSERT(isInitialized());
 		return _members->application.get();
 	}
 
-	view::WindowManager *Context::getWindowManager()
+	WindowManager *Context::getWindowManager()
 	{
 		ASSERT(isInitialized());
 		return _members->windowManager.get();
 	}
 
-	void Context::setApplication(std::unique_ptr<app::Application> application)
+	void Context::setApplication(std::unique_ptr<Application> application)
 	{
 		_members->application = std::move(application);
 	}
 
-	void Context::setWindowManager(std::unique_ptr<view::WindowManager> windowManager)
+	void Context::setWindowManager(std::unique_ptr<WindowManager> windowManager)
 	{
 		_members->windowManager = std::move(windowManager);
 	}

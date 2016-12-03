@@ -1,136 +1,142 @@
 #include "stdafx.h"
 
 #include "engine/stateStack/StateStack.h"
+
+#include "engine/exceptions/RuntimeErrors.h"
 #include "engine/stateStack/StateBase.h"
 
 #include "engine/functional/functions.h"
 
 namespace engine
 {
-	namespace stateStack
+	struct StateStackPrivate
 	{
-		struct StateStackPrivate
-		{
-			std::list<std::unique_ptr<StateBase>> memory;
-			StateStack::StateList states;
-			StateStack::StateList history;
-			bool statesDirty = false;
-		};
+		std::list<std::unique_ptr<StateBase>> memory;
+		StateStack::StateList states;
+		StateStack::StateList history;
+		bool statesDirty = false;
+	};
 
-		StateStack::StateStack()
-			: _members(new StateStackPrivate())
-		{
-		}
+	StateStack::StateStack()
+		: _members(new StateStackPrivate())
+	{
+	}
 
-		StateStack::~StateStack()
+	StateStack::~StateStack()
+	{
+		for(const std::unique_ptr<StateBase> &state : _members->memory)
 		{
-			delete _members;
-		}
-
-		void StateStack::render()
-		{
-			if(!isEmpty())
+			if(state->isInitialized())
 			{
-				topState()->render();
+				state->destroy();
 			}
 		}
+		delete _members;
+	}
 
-		void StateStack::update()
+	void StateStack::render()
+	{
+		if(!isEmpty())
 		{
-			while(_members->statesDirty)
-			{
-				processModifications();
-			}
-			if(!isEmpty())
-			{
-				topState()->update();
-			}
+			topState()->render();
+		}
+	}
+
+	void StateStack::update()
+	{
+		while(_members->statesDirty)
+		{
+			processModifications();
+		}
+		if(!isEmpty())
+		{
+			topState()->update();
+		}
+	}
+
+	bool StateStack::isEmpty() const
+	{
+		return _members->history.empty();
+	}
+
+	StateBase *StateStack::topState()
+	{
+		return _members->history.back();
+	}
+
+	void StateStack::pushState(std::unique_ptr<StateBase> state)
+	{
+		_members->states.push_back(state.get());
+		_members->memory.push_back(std::move(state));
+		_members->statesDirty = true;
+	}
+
+	void StateStack::popState()
+	{
+		if(_members->states.empty())
+			throw ItemNotFound("State is empty");
+		_members->states.pop_back();
+		_members->statesDirty = true;
+	}
+
+	void StateStack::processModifications()
+	{
+		if(!isEmpty())
+		{
+			topState()->pause();
 		}
 
-		bool StateStack::isEmpty() const
+		StateList droppedStates = getStateDifference(_members->history, _members->states);
+		for(StateBase *state : droppedStates)
 		{
-			return _members->history.empty();
+			auto it = std::find_if(_members->memory.begin(), _members->memory.end(), PointerEqualTo<StateBase>(state));
+			HARD_ASSERT(it != _members->memory.end());
+			(*it)->destroy();
+
+			_members->memory.erase(it);
 		}
 
-		StateBase *StateStack::topState()
-		{
-			return _members->history.back();
-		}
+		_members->history = _members->states;
+		_members->statesDirty = false;
 
-		void StateStack::pushState(std::unique_ptr<StateBase> state)
+		if(!isEmpty())
 		{
-			_members->states.push_back(state.get());
-			_members->memory.push_back(std::move(state));
-			_members->statesDirty = true;
-		}
-
-		void StateStack::popState()
-		{
-			ASSERT(!_members->states.empty());
-			_members->states.pop_back();
-			_members->statesDirty = true;
-		}
-
-		void StateStack::processModifications()
-		{
-			if(!isEmpty())
+			StateBase *top = topState();
+			if(!top->isInitialized())
 			{
-				topState()->pause();
+				top->initialize(this);
 			}
+			top->resume();
+		}
+	}
 
-			StateList droppedStates = getStateDifference(_members->history, _members->states);
-			for(StateBase *state : droppedStates)
+	StateStack::StateList StateStack::getStateDifference(const StateList &a, const StateList &b) const
+	{
+		StateList result;
+		for(StateBase *state : a)
+		{
+			bool isIn = std::any_of(b.begin(), b.end(), EqualTo<StateBase*>(state));
+			if(!isIn)
 			{
-				auto it = std::find_if(_members->memory.begin(), _members->memory.end(), functional::PointerEqualTo<StateBase>(state));
-				HARD_ASSERT(it != _members->memory.end());
-				(*it)->destroy();
-
-				_members->memory.erase(it);
-			}
-
-			_members->history = _members->states;
-			_members->statesDirty = false;
-
-			if(!isEmpty())
-			{
-				StateBase *top = topState();
-				if(!top->isInitialized())
-				{
-					top->initialize(this);
-				}
-				top->resume();
+				result.push_back(state);
 			}
 		}
+		return result;
+	}
 
-		StateStack::StateList StateStack::getStateDifference(const StateList &a, const StateList &b) const
+	void StateStack::trace(std::ostream &os) const
+	{
+		os << "current state:" << std::endl;
+		for(const StateBase *state : _members->history)
 		{
-			StateList result;
-			for(StateBase *state : a)
-			{
-				bool isIn = std::any_of(b.begin(), b.end(),	functional::EqualTo<StateBase*>(state));
-				if(!isIn)
-				{
-					result.push_back(state);
-				}
-			}
-			return result;
+			state->trace(os);
+			os << std::endl;
 		}
-
-		void StateStack::trace(std::ostream &os) const
+		os << "future state:" << std::endl;
+		for(const StateBase *state : _members->states)
 		{
-			os << "current state:" << std::endl;
-			for(const StateBase *state : _members->history)
-			{
-				state->trace(os);
-				os << std::endl;
-			}
-			os << "future state:" << std::endl;
-			for(const StateBase *state : _members->states)
-			{
-				state->trace(os);
-				os << std::endl;
-			}
+			state->trace(os);
+			os << std::endl;
 		}
-
 	}
 }

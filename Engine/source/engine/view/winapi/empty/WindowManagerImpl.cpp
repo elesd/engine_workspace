@@ -8,68 +8,65 @@
 
 namespace engine
 {
-	namespace view
+	namespace winapi
 	{
-		namespace winapi
+
+		WindowManagerImpl::WindowManagerImpl()
 		{
+			HARD_FAIL("Not implemented module");
+		}
 
-			WindowManagerImpl::WindowManagerImpl()
-			{
-				HARD_FAIL("Not implemented module");
-			}
+		WindowManagerImpl::~WindowManagerImpl()
+		{
+			HARD_FAIL("Not implemented module");
+		}
 
-			WindowManagerImpl::~WindowManagerImpl()
-			{
-				HARD_FAIL("Not implemented module");
-			}
+		Window *WindowManagerImpl::createMainWindowImpl(const WindowParameter &, const std::string &)
+		{
+			HARD_FAIL("Not implemented module");
+			return nullptr;
+		}
 
-			view::Window *WindowManagerImpl::createMainWindowImpl(const view::WindowParameter &, const std::string &)
-			{
-				HARD_FAIL("Not implemented module");
-				return nullptr;
-			}
+		Window *WindowManagerImpl::createFullScreenMainWindowImpl(const uint32_t , const uint32_t , const std::string &, uint32_t)
+		{
+			HARD_FAIL("Not implemented module");
+			return nullptr;
+		}
 
-			view::Window *WindowManagerImpl::createFullScreenMainWindowImpl(const uint32_t , const uint32_t , const std::string &, uint32_t)
-			{
-				HARD_FAIL("Not implemented module");
-				return nullptr;
-			}
+		Window *WindowManagerImpl::createSecondaryWindowImpl(const WindowParameter &,
+																   const std::string &,
+																   Window *)
+		{
+			HARD_FAIL("Not implemented module");
+			return nullptr;
+		}
 
-			view::Window *WindowManagerImpl::createSecondaryWindowImpl(const view::WindowParameter &,
-																	   const std::string &,
-																	   view::Window *)
-			{
-				HARD_FAIL("Not implemented module");
-				return nullptr;
-			}
+		Window *WindowManagerImpl::createSecondaryFullScreenWindowImpl(const uint32_t, const uint32_t, const std::string &, uint32_t, Window *)
+		{
+			HARD_FAIL("Not implemented module");
+			return nullptr;
+		}
 
-			view::Window *WindowManagerImpl::createSecondaryFullScreenWindowImpl(const uint32_t, const uint32_t, const std::string &, uint32_t, view::Window *)
-			{
-				HARD_FAIL("Not implemented module");
-				return nullptr;
-			}
+		uint32_t WindowManagerImpl::getMonitorCount() const
+		{
+			HARD_FAIL("Not implemented module");
+		}
 
-			uint32_t WindowManagerImpl::getMonitorCount() const
-			{
-				HARD_FAIL("Not implemented module");
-			}
+		uint32_t WindowManagerImpl::getMainMonitorId() const
+		{
+			HARD_FAIL("Not implemented module");
+			return 0;
+		}
 
-			uint32_t WindowManagerImpl::getMainMonitorId() const
-			{
-				HARD_FAIL("Not implemented module");
-				return 0;
-			}
+		void WindowManagerImpl::RegisterWindowClass()
+		{
+			HARD_FAIL("Not implemented module");
+		}
 
-			void WindowManagerImpl::RegisterWindowClass()
-			{
-				HARD_FAIL("Not implemented module");
-			}
-
-			std::unique_ptr<video::Driver> WindowManagerImpl::createDriverForWindow(const video::DriverInitParameters &, Window *) const
-			{
-				HARD_FAIL("Not implemented module");
-				return nullptr;
-			}
+		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &, Window *) const
+		{
+			HARD_FAIL("Not implemented module");
+			return nullptr;
 		}
 	}
 }

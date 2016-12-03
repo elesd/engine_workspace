@@ -35,6 +35,7 @@ namespace engine
 	struct ContextModule_traits<ContextModuleType::Glfw>
 	{
 		static const ContextModuleClassification classification;
+		static const std::string name;
 	};
 
     ///////////////////////////////////////////////////////////////
@@ -43,6 +44,7 @@ namespace engine
 	struct ContextModule_traits<ContextModuleType::Sdl>
 	{
 		static const ContextModuleClassification classification;
+		static const std::string name;
 	};
 
 	///////////////////////////////////////////////////////////////
@@ -50,6 +52,7 @@ namespace engine
 	struct ContextModule_traits<ContextModuleType::WinApi>
 	{
 		static const ContextModuleClassification classification;
+		static const std::string name;
 	};
 
 

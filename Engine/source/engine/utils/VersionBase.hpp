@@ -4,161 +4,158 @@
 
 namespace engine
 {
-	namespace utils
-	{
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMajor() const
-		{
-			return major;
-		}
-		
-		DECL_TEMPLATE
+	{
+		return major;
+	}
+
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMinor() const
-		{
-			return minor;
-		}
+	{
+		return minor;
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getCounter() const
-		{
-			return counter;
-		}
+	{
+		return counter;
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getYear() const
-		{
-			return std::atoi(year.c_str());
-		}
+	{
+		return std::atoi(year.c_str());
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMonth() const
-		{
-			return std::atoi(month.c_str());
-		}
+	{
+		return std::atoi(month.c_str());
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getDay() const
-		{
-			return std::atoi(day.c_str());
-		}
+	{
+		return std::atoi(day.c_str());
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		std::string T_VERSION_BASE::getString() const
-		{
-			std::stringstream os;
-			os << major << "." << minor << ":" << counter 
-			   << " " << year << "-" << month << "-" << day;
-			return os.str();
-		}
+	{
+		std::stringstream os;
+		os << major << "." << minor << ":" << counter
+			<< " " << year << "-" << month << "-" << day;
+		return os.str();
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		template<class OVersionClass>
-		bool T_VERSION_BASE::operator<(const VersionBase<OVersionClass> &o) const
+	bool T_VERSION_BASE::operator<(const VersionBase<OVersionClass> &o) const
+	{
+		std::vector<int32_t> versionProperties =
 		{
-			std::vector<int32_t> versionProperties =
-			{
-				getMajor(),
-				getMinor(),
-				getCounter(),
-				getYear(),
-				getMonth(),
-				getDay()
-			};
+			getMajor(),
+			getMinor(),
+			getCounter(),
+			getYear(),
+			getMonth(),
+			getDay()
+		};
 
-			std::vector<int32_t> oVersionProperties =
+		std::vector<int32_t> oVersionProperties =
+		{
+			o.getMajor(),
+			o.getMinor(),
+			o.getCounter(),
+			o.getYear(),
+			o.getMonth(),
+			o.getDay()
+		};
+		bool go = true;
+		bool less = false;
+
+		for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
+		{
+			int32_t comp = versionProperties[i] - oVersionProperties[i];
+			if(comp > 0)
 			{
-				o.getMajor(),
-				o.getMinor(),
-				o.getCounter(),
-				o.getYear(),
-				o.getMonth(),
-				o.getDay()
-			};
-			bool go = true;
-			bool less = false;
-			
-			for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
-			{
-				int32_t comp = versionProperties[i] - oVersionProperties[i];
-				if(comp > 0)
-				{
-					go = false;
-					less = false;
-				}
-				else if(comp < 0)
-				{
-					go = false;
-					less = true;
-				}
+				go = false;
+				less = false;
 			}
-			return less;
-		}
-
-		DECL_TEMPLATE
-		template<class OVersionClass>
-		bool T_VERSION_BASE::operator==(const VersionBase<OVersionClass> &o) const
-		{
-			std::vector<int32_t> versionProperties =
+			else if(comp < 0)
 			{
-				getMajor(),
-				getMinor(),
-				getCounter(),
-				getYear(),
-				getMonth(),
-				getDay()
-			};
-
-			std::vector<int32_t> oVersionProperties =
-			{
-				o.getMajor(),
-				o.getMinor(),
-				o.getCounter(),
-				o.getYear(),
-				o.getMonth(),
-				o.getDay()
-			};
-			bool go = true;
-			bool eq = true;
-
-			for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
-			{
-				int32_t comp = versionProperties[i] - oVersionProperties[i];
-				if(comp != 0)
-				{
-					go = false;
-					eq = false;
-				}
+				go = false;
+				less = true;
 			}
-			return eq;
 		}
+		return less;
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		template<class OVersionClass>
-		bool T_VERSION_BASE::operator>(const VersionBase<OVersionClass> &o) const
+	bool T_VERSION_BASE::operator==(const VersionBase<OVersionClass> &o) const
+	{
+		std::vector<int32_t> versionProperties =
 		{
-			return !operator<=(o);
-		}
+			getMajor(),
+			getMinor(),
+			getCounter(),
+			getYear(),
+			getMonth(),
+			getDay()
+		};
 
-		DECL_TEMPLATE
-		template<class OVersionClass>
-		bool T_VERSION_BASE::operator>=(const VersionBase<OVersionClass> &o) const
+		std::vector<int32_t> oVersionProperties =
 		{
-			return !operator<(o);
-		}
+			o.getMajor(),
+			o.getMinor(),
+			o.getCounter(),
+			o.getYear(),
+			o.getMonth(),
+			o.getDay()
+		};
+		bool go = true;
+		bool eq = true;
 
-		DECL_TEMPLATE
-		template<class OVersionClass>
-		bool T_VERSION_BASE::operator<=(const VersionBase<OVersionClass> &o) const
+		for(uint32_t i = 0; go && i < versionProperties.size(); ++i)
 		{
-			return operator<(o) || operator==(o);
+			int32_t comp = versionProperties[i] - oVersionProperties[i];
+			if(comp != 0)
+			{
+				go = false;
+				eq = false;
+			}
 		}
+		return eq;
+	}
 
-		DECL_TEMPLATE
+	DECL_TEMPLATE
 		template<class OVersionClass>
-		bool T_VERSION_BASE::operator!=(const VersionBase<OVersionClass> &o) const
-		{
-			return !operator==(o);
-		}
+	bool T_VERSION_BASE::operator>(const VersionBase<OVersionClass> &o) const
+	{
+		return !operator<=(o);
+	}
+
+	DECL_TEMPLATE
+		template<class OVersionClass>
+	bool T_VERSION_BASE::operator>=(const VersionBase<OVersionClass> &o) const
+	{
+		return !operator<(o);
+	}
+
+	DECL_TEMPLATE
+		template<class OVersionClass>
+	bool T_VERSION_BASE::operator<=(const VersionBase<OVersionClass> &o) const
+	{
+		return operator<(o) || operator==(o);
+	}
+
+	DECL_TEMPLATE
+		template<class OVersionClass>
+	bool T_VERSION_BASE::operator!=(const VersionBase<OVersionClass> &o) const
+	{
+		return !operator==(o);
 	}
 }
 

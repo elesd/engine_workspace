@@ -5,58 +5,55 @@
 
 namespace engine
 {
-	namespace view
+	namespace glfw
 	{
-		namespace glfw
+		WindowImpl::WindowImpl(GLFWwindow *, const WindowParameter &, const std::string &)
+			: Window()
 		{
-			WindowImpl::WindowImpl(GLFWwindow *, const view::WindowParameter &, const std::string &)
-				: view::Window()
-			{
-				HARD_FAIL("Not active module");
-			}
+			HARD_FAIL("Not active module");
+		}
 
-			WindowImpl::WindowImpl(GLFWwindow *, const std::string &)
-				: view::Window()
-			{
-				HARD_FAIL("Not active module");
-			}
+		WindowImpl::WindowImpl(GLFWwindow *, const std::string &)
+			: Window()
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			WindowImpl::~WindowImpl()
-			{
-				HARD_FAIL("Not active module");
-			}
+		WindowImpl::~WindowImpl()
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			WindowImpl::operator bool() const
-			{
-				HARD_FAIL("Not active module");
-				return false;
-			}
+		WindowImpl::operator bool() const
+		{
+			HARD_FAIL("Not active module");
+			return false;
+		}
 
-			void WindowImpl::setPositionImp(int32_t, int32_t)
-			{
-				HARD_FAIL("Not active module");
-			}
+		void WindowImpl::setPositionImp(int32_t, int32_t)
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			void WindowImpl::setWidthImpl(uint32_t)
-			{
-				HARD_FAIL("Not active module");
-			}
+		void WindowImpl::setWidthImpl(uint32_t)
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			void WindowImpl::setHeightImpl(uint32_t)
-			{
-				HARD_FAIL("Not active module");
-			}
+		void WindowImpl::setHeightImpl(uint32_t)
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			void WindowImpl::setSizeImpl(uint32_t, uint32_t)
-			{
-				HARD_FAIL("Not active module");
-			}
+		void WindowImpl::setSizeImpl(uint32_t, uint32_t)
+		{
+			HARD_FAIL("Not active module");
+		}
 
-			GLFWwindow *WindowImpl::getGlfwWindow()
-			{
-				HARD_FAIL("Not active module");
-				return nullptr;
-			}
+		GLFWwindow *WindowImpl::getGlfwWindow()
+		{
+			HARD_FAIL("Not active module");
+			return nullptr;
 		}
 	}
 }

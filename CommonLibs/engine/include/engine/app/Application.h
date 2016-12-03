@@ -6,42 +6,57 @@
 
 namespace engine
 {
-	namespace app
-	{
-		class IMain;
-	}
-	namespace view
-	{
-		struct WindowParameter;
-	}
-	namespace stateStack
-	{
-		class StateStack;
-	}
-
+	class IMain;
+	struct WindowParameter;
+	class StateStack;
 }
 
 namespace engine
 {
-	namespace app
+	/**
+	* Class for the application main logic.
+	*/
+	class Application : NonCopyable
 	{
-		class Application: engine::constraints::NonCopyable
-		{
-		public:
-			Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
-			~Application()  override;
+	public:
+		/**
+		* Create an application with the given arguments.
+		* @param arguments: Application arguments, tipically forwarded from tha main function.
+		* @param main: Application core logic.
+		*/
+		Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		/**Simple destructor for PIMPL*/
+		~Application()  override;
 
-			void update();
-			void render();
+		/**
+		* Update is called once per each frame
+		*/
+		void update();
+		/**
+		* Render is called in each frame. Here will be rendered the application
+		*/
+		void render();
 
-			bool isActive() const;
+		/**
+		* @return Returns true till the application is not terminated.
+		*/
+		bool isActive() const;
 
-			void stop();
-			void start();
+		/**
+		* Starts the application.
+		*/
+		void stop();
+		/**
+		* Terminate the application
+		*/
+		void start();
 
-			const IApplicationParameter *getArguments() const;
-		private:
-			struct ApplicationPrivate *_members = nullptr;
-		};
-	}
+		/**
+		* @return Returns the initial arguments of the application
+		*/
+		const IApplicationParameter *getArguments() const;
+	private:
+		/**PIMPL*/
+		struct ApplicationPrivate *_members = nullptr;
+	};
 }

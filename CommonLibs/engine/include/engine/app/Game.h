@@ -6,18 +6,27 @@
 
 namespace engine
 {
-	namespace app
+	class IApplicationParameter;
+	class IMain;
+	/**
+	* A game is a special application which has a state machine inside on it.
+	*/
+	class Game : public Application
 	{
-		class IApplicationParameter;
-		class IMain;
-		class Game: public Application
-		{
-		public:
-			Game(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
-			~Game() ;
-			void setStartState(std::unique_ptr<engine::stateStack::StateBase> startState);
-		private:
-			struct GamePrivate *_members = nullptr;
-		};
-	}
+	public:
+		/**
+		* @see Application::Application
+		*/
+		Game(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		/**Destructor for PIMPL*/
+		~Game();
+		/**
+		* Set the start state
+		* @param startState: State which will be active when the game is started.
+		*/
+		void setStartState(std::unique_ptr<engine::StateBase> startState);
+	private:
+		/**PIMPL*/
+		struct GamePrivate *_members = nullptr;
+	};
 }

@@ -37,6 +37,7 @@ file (GLOB src_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.cpp")
 file (GLOB src_app_winapi_empty "${SOURCE_DIR}/engine/app/winapi/empty/*.cpp")
 file (GLOB src_constraints "${SOURCE_DIR}/engine/constraints/*.cpp")
 file (GLOB src_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.cpp")
+file (GLOB src_exceptions "${SOURCE_DIR}/engine/exceptions/*.cpp")
 file (GLOB src_functional "${SOURCE_DIR}/engine/functional/*.cpp")
 file (GLOB src_inputs "${SOURCE_DIR}/engine/inputs/*.cpp")
 file (GLOB src_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.cpp")
@@ -66,6 +67,7 @@ file (GLOB header_app "${SOURCE_DIR}/engine/app/*.h*")
 file (GLOB header_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.h*")
 file (GLOB header_constraints "${SOURCE_DIR}/engine/constraints/*.h*")
 file (GLOB header_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.h*")
+file (GLOB header_exceptions "${SOURCE_DIR}/engine/exceptions/*.h")
 file (GLOB header_functional "${SOURCE_DIR}/engine/functional/*.h*")
 file (GLOB header_inputs "${SOURCE_DIR}/engine/inputs/*.h*")
 file (GLOB header_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.h*")
@@ -89,6 +91,7 @@ SOURCE_GROUP (engine\\app\\winapi FILES ${src_app_winapi} ${header_app_winapi})
 SOURCE_GROUP (engine\\app\\winapi\\empty FILES ${src_app_winapi_empty})
 SOURCE_GROUP (engine\\constraints FILES ${src_constraints} ${header_constraints})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${src_environmentBuilder} ${header_environmentBuilder})
+SOURCE_GROUP (engine\\exceptions FILES ${src_exceptions} ${header_exceptions})
 SOURCE_GROUP (engine\\functional FILES ${src_functional} ${header_functional})
 SOURCE_GROUP (engine\\inputs FILES ${src_inputs} ${header_inputs})
 SOURCE_GROUP (engine\\modules\\sdl FILES ${src_moduls_sdl} ${header_moduls_sdl})
@@ -127,6 +130,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_app_winapi_empty} 
                            ${src_constraints}
                            ${src_environmentBuilder}
+                           ${src_exceptions}
                            ${src_functional}
                            ${src_inputs}
                            ${src_moduls_sdl}
@@ -155,6 +159,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_app_winapi} 
                            ${header_constraints}
                            ${header_environmentBuilder}
+                           ${header_exceptions}
                            ${header_functional}
                            ${header_inputs}
                            ${header_moduls_glfw}
@@ -177,6 +182,7 @@ install (FILES ${header_app} DESTINATION "${INSTALL_DIR}/include/engine/app")
 install (FILES ${header_app_winapi} DESTINATION "${INSTALL_DIR}/include/engine/app/winapi")
 install (FILES ${header_constraints} DESTINATION "${INSTALL_DIR}/include/engine/constraints")
 install (FILES ${header_environmentBuilder} DESTINATION "${INSTALL_DIR}/include/engine/environmentBuilder")
+install (FILES ${header_exceptions} DESTINATION "${INSTALL_DIR}/include/engine/exceptions")
 install (FILES ${header_functional} DESTINATION "${INSTALL_DIR}/include/engine/functional")
 install (FILES ${header_inputs} DESTINATION "${INSTALL_DIR}/include/engine/inputs")
 install (FILES ${header_moduls_glfw} DESTINATION "${INSTALL_DIR}/include/engine/modules/glfw")

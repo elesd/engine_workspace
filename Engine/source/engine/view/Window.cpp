@@ -4,81 +4,84 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "engine/exceptions/LogicalErrors.h"
+
 #include "engine/video/Driver.h"
 
 namespace engine
 {
-	namespace view
+	struct WindowPrivate
 	{
-		struct WindowPrivate
-		{
-			std::unique_ptr<video::Driver> driver;
-		};
+		std::unique_ptr<Driver> driver;
+	};
 
-		Window::Window()
-			:_fullScreen(true),
-			_members(new WindowPrivate())
-			 
-		{
-			
-		}
+	Window::Window()
+		:_fullScreen(true),
+		_members(new WindowPrivate())
 
-		Window::Window(const view::WindowParameter &parameter)
-			: _parameters(parameter),
-			_members(new WindowPrivate())
-		{
+	{
 
-		}
+	}
 
-		Window::~Window()
-		{
-			delete _members;
-		}
+	Window::Window(const WindowParameter &parameter)
+		: _parameters(parameter),
+		_members(new WindowPrivate())
+	{
 
-		const view::WindowParameter &Window::getParameters() const
-		{
-			return _parameters;
-		}
+	}
 
-		void Window::setPosition(int32_t x, int32_t y)
-		{
-			ASSERT(!_fullScreen);
-			_parameters.x = x;
-			_parameters.y = y;
-			setPositionImp(x, y);
-		}
+	Window::~Window()
+	{
+		delete _members;
+	}
 
-		void Window::setHeight(uint32_t height)
-		{
-			ASSERT(!_fullScreen);
-			_parameters.height = height;
-			setHeightImpl(height);
-		}
+	const WindowParameter &Window::getParameters() const
+	{
+		return _parameters;
+	}
 
-		void Window::setWidth(uint32_t width)
-		{
-			ASSERT(!_fullScreen);
-			_parameters.width = width;
-			setWidthImpl(width);
-		}
+	void Window::setPosition(int32_t x, int32_t y)
+	{
+		if(isFullScreen())
+			throw WrongStateError("Set position is called on window but it is in fullscreen mode");
+		_parameters.x = x;
+		_parameters.y = y;
+		setPositionImp(x, y);
+	}
 
-		void Window::setSize(uint32_t width, uint32_t height)
-		{
-			ASSERT(!_fullScreen);
-			_parameters.height = height;
-			_parameters.width = width;
-			setSizeImpl(width, height);
-		}
+	void Window::setHeight(uint32_t height)
+	{
+		if(isFullScreen())
+			throw WrongStateError("Set position is called on window but it is in fullscreen mode");
+		_parameters.height = height;
+		setHeightImpl(height);
+	}
 
-		video::Driver *Window::getDriver() const
-		{
-			return _members->driver.get();
-		}
+	void Window::setWidth(uint32_t width)
+	{
+		if(isFullScreen())
+			throw WrongStateError("Set position is called on window but it is in fullscreen mode");
+		_parameters.width = width;
+		setWidthImpl(width);
+	}
 
-		void Window::initDriver(std::unique_ptr<video::Driver> driver)
-		{
-			HARD_ASSERT(!_members->driver);
-			_members->driver = std::move(driver);
-		}
+	void Window::setSize(uint32_t width, uint32_t height)
+	{
+		if(isFullScreen())
+			throw WrongStateError("Set position is called on window but it is in fullscreen mode");
+		_parameters.height = height;
+		_parameters.width = width;
+		setSizeImpl(width, height);
+	}
+
+	Driver *Window::getDriver() const
+	{
+		return _members->driver.get();
+	}
+
+	void Window::initDriver(std::unique_ptr<Driver> driver)
+	{
+		HARD_ASSERT(!_members->driver);
+		_members->driver = std::move(driver);
 	}
 }

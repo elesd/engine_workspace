@@ -5,35 +5,35 @@
 namespace engine
 {
 
-	namespace view
+	class Window;
+	class WindowManager;
+	struct WindowManagerPrivate;
+
+	/**Initialization parameters for the driver*/
+	struct DriverInitParameters
 	{
-		class Window;
-		class WindowManager;
-		struct WindowManagerPrivate;
-	}
+		/**Buffer descripition of the main buffer*/
+		BufferDesc description;
+		/**Sample count of the driver*/
+		int32_t sampleCount;
+	};
 
-	namespace video
+	class Driver
 	{
-		struct DriverInitParameters
-		{
-			BufferDesc description;
-			int32_t sampleCount;
-		};
+		friend class WindowManager;
+		friend struct WindowManagerPrivate;
 
-		class Driver
-		{
-			friend class view::WindowManager;
-			friend struct view::WindowManagerPrivate;
-			
-		protected:
-			Driver() = default;
-		public:
-			virtual ~Driver() {}
-			void init(const DriverInitParameters& params, view::Window *window);
+	protected:
+		/**Simple constructor*/
+		Driver() = default;
+	public:
+		/**Virtual destructor*/
+		virtual ~Driver() {}
+		/**Init function*/
+		void init(const DriverInitParameters& params, Window *window);
 
-
-		private:
-			virtual void initImpl(const DriverInitParameters& params, view::Window *window) = 0;
-		};
-	}
+	private:
+		/**Platform specific init implementation*/
+		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
+	};
 }

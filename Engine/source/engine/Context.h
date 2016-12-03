@@ -4,34 +4,21 @@
 
 namespace engine
 {
-	namespace app
-	{
-		class Application;
-	}
-	namespace view
-	{
-		class WindowManager;
-	}
-	namespace environmentBuilder
-	{
-		class BaseBuilder;
-	}
-
-	namespace video
-	{
-		class Driver;
-	}
+	class Application;
+	class WindowManager;
+	class BaseBuilder;
+	class Driver;
 
 	/**
 	* Engine's context.
 	* This class contains the members which are necessary from everywhere in the application.
 	*/
-	class Context: public constraints::Singleton<Context>
+	class Context : public Singleton < Context >
 	{
 	private:
-		using Base = constraints::Singleton<Context>;
+		using Base = Singleton < Context > ;
 
-		friend class environmentBuilder::BaseBuilder;
+		friend class BaseBuilder;
 		friend Base;
 		/**
 		* Creation is possible only by the singleton.
@@ -43,13 +30,13 @@ namespace engine
 		* @return Returns the current appliation.
 		* @see Application
 		*/
-		app::Application *getApplication();
+		Application *getApplication();
 
 		/**
 		* @return Returns the application window manager.
 		* @see WindowManager
 		*/
-		view::WindowManager *getWindowManager();
+		WindowManager *getWindowManager();
 
 	protected:
 		/**
@@ -62,11 +49,11 @@ namespace engine
 		/**
 		* Setter for builders.
 		*/
-		void setApplication(std::unique_ptr<app::Application>);
+		void setApplication(std::unique_ptr<Application>);
 		/**
 		* Setter for builders.
 		*/
-		void setWindowManager(std::unique_ptr<view::WindowManager>);
+		void setWindowManager(std::unique_ptr<WindowManager>);
 		/**
 		* There are different moduls in the engine.
 		* There is an array which contains which modules are initialized.

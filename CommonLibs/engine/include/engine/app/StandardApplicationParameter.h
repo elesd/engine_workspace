@@ -4,22 +4,37 @@
 
 namespace engine
 {
-	namespace app
+	/**
+	* Standard application parameter representation. For main(int argc, char **args) type main functions
+	*/
+	class StandardApplicationParameter : public IApplicationParameter
 	{
-		class StandardApplicationParameter: public IApplicationParameter
-		{
-		public:
-			StandardApplicationParameter(uint32_t nParams, char *parameters[]);
-		protected:
-			StandardApplicationParameter();
-		public:
-			~StandardApplicationParameter()  override;
-			const std::vector<std::string> &getParameters() const;
-			const std::string &getBinaryName() const;
-		protected:
-			void init(uint32_t nParams, const std::vector<std::string> &parameters);
-		private:
-			struct StandardApplicationParameterPrivate *_members = nullptr;
-		};
-	}
+	public:
+		/**
+		* Create a standard parameter representation
+		* @param nParams: number of parameters
+		* @param parameters: Parameters array with length nParams
+		*/
+		StandardApplicationParameter(uint32_t nParams, char *parameters[]);
+	protected:
+		/**
+		* For child classes it is possible to empty initialization.
+		*/
+		StandardApplicationParameter();
+	public:
+		/**Destructor for PIMPL*/
+		~StandardApplicationParameter()  override;
+		/**@return Returns the parameters in a vector*/
+		const std::vector<std::string> &getParameters() const;
+		/**@return Returns the name of the binary*/
+		const std::string &getBinaryName() const;
+	protected:
+		/**
+		* Function for initialize the members
+		*/
+		void init(uint32_t nParams, const std::vector<std::string> &parameters);
+	private:
+		/**PIMPL*/
+		struct StandardApplicationParameterPrivate *_members = nullptr;
+	};
 }

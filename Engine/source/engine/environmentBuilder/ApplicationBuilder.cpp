@@ -12,39 +12,33 @@
 
 namespace engine
 {
-	namespace environmentBuilder
+	struct ApplicationBuilderPrivate
 	{
-		struct ApplicationBuilderPrivate
-		{
-			ContextModuleType windowModule;
-		};
+		ContextModuleType windowModule;
+	};
 
-		ApplicationBuilder::ApplicationBuilder(const ContextModuleType windowModule)
-			:_members(new ApplicationBuilderPrivate())
-		{
-			_members->windowModule = windowModule;
-		}
+	ApplicationBuilder::ApplicationBuilder(const ContextModuleType windowModule)
+		:_members(new ApplicationBuilderPrivate())
+	{
+		_members->windowModule = windowModule;
+	}
 
-		ApplicationBuilder::ApplicationBuilder(ApplicationBuilder&& o)
-		{
-		    _members = o._members;
-		    o._members = nullptr;
-		}
+	ApplicationBuilder::ApplicationBuilder(ApplicationBuilder&& o)
+	{
+		_members = o._members;
+		o._members = nullptr;
+	}
 
-		ApplicationBuilder::~ApplicationBuilder()
-		{
-			delete _members;
-		}
+	ApplicationBuilder::~ApplicationBuilder()
+	{
+		delete _members;
+	}
 
-		WindowEnvironmentBuilder ApplicationBuilder::build(std::unique_ptr<app::IApplicationParameter> arguments, std::unique_ptr<app::IMain> main)
-		{
-			std::unique_ptr<app::Application> app(new app::Application(std::move(arguments), std::move(main)));
-			BaseBuilder::setApplication(std::move(app));
+	WindowEnvironmentBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	{
+		std::unique_ptr<Application> app(new Application(std::move(arguments), std::move(main)));
+		BaseBuilder::setApplication(std::move(app));
 
-			return std::move(WindowEnvironmentBuilder(_members->windowModule));
-		}
-
-
-
+		return std::move(WindowEnvironmentBuilder(_members->windowModule));
 	}
 }

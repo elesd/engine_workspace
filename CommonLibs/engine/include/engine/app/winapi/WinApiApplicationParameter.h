@@ -5,14 +5,12 @@
 
 namespace engine
 {
-	namespace app
-	{
 		namespace winapi
 		{
 			/**
 			* WinApi applications have special parameters. This class is the specialization of standard parameters.
 			*/
-			class WinApiApplicationParameter : public app::StandardApplicationParameter
+			class WinApiApplicationParameter : public StandardApplicationParameter
 			{
 			public:
 				/**
@@ -44,6 +42,5 @@ namespace engine
 				/**PIMPL*/
 				struct WinApiApplicationParameterPrivate *_members = nullptr;
 			};
-		}
 	}
 }

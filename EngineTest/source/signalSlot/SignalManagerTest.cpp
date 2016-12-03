@@ -17,7 +17,7 @@ namespace
 
 	TestEnvironment testEnvironment;
 
-	struct TestTask: engine::signalSlot::ISignalTask
+	struct TestTask : engine::ISignalTask
 	{
 
 
@@ -30,54 +30,51 @@ namespace
 
 namespace tests
 {
-	namespace signalSlot
+	void SignalManagerTest::addTaskTest01()
 	{
-		void SignalManagerTest::addTaskTest01()
-		{
-			testEnvironment.init();
+		testEnvironment.init();
 
-			engine::signalSlot::SignalManager manager;
-			std::unique_ptr<engine::signalSlot::ISignalTask> task(new TestTask());
-			manager.addTask(std::move(task));
-			manager.update();
-			assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 1));
-		}
+		engine::SignalManager manager;
+		std::unique_ptr<engine::ISignalTask> task(new TestTask());
+		manager.addTask(std::move(task));
+		manager.update();
+		assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 1));
+	}
 
-		void SignalManagerTest::addTaskTest02()
-		{
-			testEnvironment.init();
+	void SignalManagerTest::addTaskTest02()
+	{
+		testEnvironment.init();
 
-			engine::signalSlot::SignalManager manager;
-			std::unique_ptr<engine::signalSlot::ISignalTask> task(new TestTask());
-			manager.addTask(std::move(task));
-			manager.update();
-			manager.update();
-			assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 1));
-		}
+		engine::SignalManager manager;
+		std::unique_ptr<engine::ISignalTask> task(new TestTask());
+		manager.addTask(std::move(task));
+		manager.update();
+		manager.update();
+		assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 1));
+	}
 
-		void SignalManagerTest::addTaskTest03()
-		{
-			testEnvironment.init();
+	void SignalManagerTest::addTaskTest03()
+	{
+		testEnvironment.init();
 
-			engine::signalSlot::SignalManager manager;
-			std::unique_ptr<engine::signalSlot::ISignalTask> task(new TestTask());
-			std::unique_ptr<engine::signalSlot::ISignalTask> task2(new TestTask());
-			manager.addTask(std::move(task));
-			manager.addTask(std::move(task2));
-			manager.update();
-			assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 2));
-		}
+		engine::SignalManager manager;
+		std::unique_ptr<engine::ISignalTask> task(new TestTask());
+		std::unique_ptr<engine::ISignalTask> task2(new TestTask());
+		manager.addTask(std::move(task));
+		manager.addTask(std::move(task2));
+		manager.update();
+		assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 2));
+	}
 
-		void SignalManagerTest::expireTest01()
-		{
-			testEnvironment.init();
+	void SignalManagerTest::expireTest01()
+	{
+		testEnvironment.init();
 
-			engine::signalSlot::SignalManager manager;
-			std::unique_ptr<engine::signalSlot::ISignalTask> task(new TestTask());
-			manager.addTask(std::move(task));
-			testEnvironment.isExpired = true;
-			manager.update();
-			assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 0));
-		}
+		engine::SignalManager manager;
+		std::unique_ptr<engine::ISignalTask> task(new TestTask());
+		manager.addTask(std::move(task));
+		testEnvironment.isExpired = true;
+		manager.update();
+		assertTrue(ASSERTION_PARAMETER(testEnvironment.nCalls == 0));
 	}
 }

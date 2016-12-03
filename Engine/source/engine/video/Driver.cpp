@@ -4,12 +4,8 @@
 
 namespace engine
 {
-	namespace video
+	void Driver::init(const DriverInitParameters &params, Window *window)
 	{
-	
-		void Driver::init(const DriverInitParameters &params, view::Window *window)
-		{
-			initImpl(params, window);
-		}
+		initImpl(params, window);
 	}
 }

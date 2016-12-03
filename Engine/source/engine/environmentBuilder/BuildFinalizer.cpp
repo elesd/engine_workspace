@@ -5,11 +5,8 @@
 
 namespace engine
 {
-	namespace environmentBuilder
+	void BuildFinalizer::build()
 	{
-		void BuildFinalizer::build()
-		{
-			setInitialized();
-		}
+		setInitialized();
 	}
 }

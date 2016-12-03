@@ -1,22 +1,34 @@
 #pragma once
 
+#include <thread>
+#include <mutex>
+
 namespace engine
 {
-	namespace utils
+	/**
+	* Helper class for id generation based on tag.
+	* Thread safe.
+	*/
+	template<typename TAG>
+	class IdGenerator
 	{
-		template<typename TAG>
-		class IdGenerator
-		{
-			static uint32_t counter;
+		/**Counter for unique id*/
+		static uint32_t counter;
 
-		public:
-			static uint32_t generateNextId();
-		};
+	public:
+		/**Generates a next id*/
+		static uint32_t generateNextId();
+	};
 
-		template<typename TAG>
-		uint32_t IdGenerator<TAG>::counter = 0;
+	template<typename TAG>
+	uint32_t IdGenerator<TAG>::counter = 0;
 
-		template<typename TAG>
-		uint32_t IdGenerator<TAG>::generateNextId() { return counter++; }
+	template<typename TAG>
+	uint32_t IdGenerator<TAG>::generateNextId() 
+	{
+		static std::mutex lock;
+		std::lock_guard<std::mutex> guard(lock);
+		return counter++; 
 	}
+
 }

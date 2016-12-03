@@ -13,11 +13,11 @@ namespace engine
 			const int minor = 1;
 			const int counter = 1;
 			const std::string year = "16";
-			const std::string month = "11";
-			const std::string day = "20";
+			const std::string month = "12";
+			const std::string day = "02";
 		};
 		
-		using Version = utils::VersionBase<VersionDef>;
+		using Version = VersionBase<VersionDef>;
 	}
 }
 

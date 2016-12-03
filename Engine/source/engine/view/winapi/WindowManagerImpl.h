@@ -4,38 +4,35 @@
 
 namespace engine
 {
-	namespace view
+	namespace winapi
 	{
-		namespace winapi
+		/**WinApi Window manager implementation.*/
+		class WindowManagerImpl : public WindowManager
 		{
-			/**WinApi Window manager implementation.*/
-			class WindowManagerImpl : public view::WindowManager
-			{
-			public:
-				WindowManagerImpl();
-				~WindowManagerImpl()  override;
-				uint32_t getMonitorCount() const override;
-				uint32_t getMainMonitorId() const override;
-			protected:
-				view::Window *createMainWindowImpl(const view::WindowParameter &parameters,
-												   const std::string &title) override;
-				view::Window *createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId) override;
-				view::Window *createSecondaryWindowImpl(const view::WindowParameter &parameters,
-														const std::string &title,
-														view::Window *mainWindow) override;
-				view::Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, view::Window *mainWindow) override;
+		public:
+			WindowManagerImpl();
+			~WindowManagerImpl()  override;
+			uint32_t getMonitorCount() const override;
+			uint32_t getMainMonitorId() const override;
+		protected:
+			Window *createMainWindowImpl(const WindowParameter &parameters,
+											   const std::string &title) override;
+			Window *createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId) override;
+			Window *createSecondaryWindowImpl(const WindowParameter &parameters,
+													const std::string &title,
+													Window *mainWindow) override;
+			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
 
-				std::unique_ptr<video::Driver> createDriverForWindow(const video::DriverInitParameters &params, Window *) const override;
+			std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &params, Window *) const override;
 
-			private:
-				/**
-				* Register the window class in Windows based on the application parameters.
-				*/
-				void RegisterWindowClass();
-			private:
-				/**PIMPL*/
-				struct WindowManagerImplPrivate *_members = nullptr;
-			};
-		}
+		private:
+			/**
+			* Register the window class in Windows based on the application parameters.
+			*/
+			void RegisterWindowClass();
+		private:
+			/**PIMPL*/
+			struct WindowManagerImplPrivate *_members = nullptr;
+		};
 	}
 }

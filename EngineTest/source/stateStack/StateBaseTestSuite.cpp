@@ -1,14 +1,17 @@
 #include "stdafx.h"
 
 #include "stateStack/StateBaseTestSuite.h"
+
+#include "engine/exceptions/LogicalErrors.h"
 #include "engine/stateStack/StateBase.h"
 #include "engine/stateStack/StateStack.h"
+
 
 
 #include <engine/utils/StdUtils.h>
 namespace
 {
-	struct TestState : engine::stateStack::StateBase
+	struct TestState : engine::StateBase
 	{
 		enum class ActionPoint
 		{
@@ -22,7 +25,8 @@ namespace
 			Change
 		};
 		TestState(ActionPoint point, ActionType type)
-			:action(point), type(type)
+			: StateBase("TestState"),
+			action(point), type(type)
 		{}
 
 		void resumeState() override
@@ -31,7 +35,7 @@ namespace
 			{
 				if(type == ActionType::Change)
 				{
-					changeState(std::make_unique<engine::stateStack::StateBase>());
+					changeState(std::make_unique<engine::StateBase>("test"));
 				}
 				else
 				{
@@ -46,7 +50,7 @@ namespace
 			{
 				if(type == ActionType::Change)
 				{
-					changeState(std::make_unique<engine::stateStack::StateBase>());
+					changeState(std::make_unique<engine::StateBase>("test"));
 				}
 				else
 				{
@@ -61,119 +65,119 @@ namespace
 	};
 	struct TestEnvironment
 	{
-		engine::stateStack::StateStack globalStack;
+		engine::StateStack globalStack;
 	};
 	TestEnvironment testEnvironment;
 }
 
 namespace tests
 {
-	namespace stateStack
+	void StateBaseTestSuite::initTest01()
 	{
-		void StateBaseTestSuite::initTest01()
+		engine::StateBase state("test");
+		assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
+		state.initialize(&testEnvironment.globalStack);
+		assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
+		assertTrue(ASSERTION_PARAMETER(!state.isActive()));
+		state.destroy();
+	}
+
+	void StateBaseTestSuite::resumeTest()
+	{
+		engine::StateBase state("test");
+		assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
+		state.initialize(&testEnvironment.globalStack);
+		assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
+		assertTrue(ASSERTION_PARAMETER(!state.isActive()));
+
+		state.resume();
+		assertTrue(ASSERTION_PARAMETER(state.isActive()));
+		state.destroy();
+	}
+
+	void StateBaseTestSuite::pauseTest()
+	{
+		engine::StateBase state("test");
+		assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
+		state.initialize(&testEnvironment.globalStack);
+		assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
+		assertTrue(ASSERTION_PARAMETER(!state.isActive()));
+
+		state.resume();
+		assertTrue(ASSERTION_PARAMETER(state.isActive()));
+
+		state.pause();
+		assertTrue(ASSERTION_PARAMETER(!state.isActive()));
+		state.destroy();
+	}
+
+	void StateBaseTestSuite::exitDuringResum()
+	{
+		engine::StateStack stack;
+		testEnvironment.globalStack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnResume, TestState::ActionType::Exit));
+		bool hasException = false;
+		try
 		{
-			engine::stateStack::StateBase state;
-			assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
-			state.initialize(&testEnvironment.globalStack);
-			assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
-			assertTrue(ASSERTION_PARAMETER(!state.isActive()));
+			testEnvironment.globalStack.update();
 		}
-
-		void StateBaseTestSuite::resumeTest()
+		catch(engine::WrongStateError &)
 		{
-			engine::stateStack::StateBase state;
-			assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
-			state.initialize(&testEnvironment.globalStack);
-			assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
-			assertTrue(ASSERTION_PARAMETER(!state.isActive()));
-
-			state.resume();
-			assertTrue(ASSERTION_PARAMETER(state.isActive()));
+			hasException = true;
 		}
+		assertTrue(ASSERTION_PARAMETER(hasException));
+	}
 
-		void StateBaseTestSuite::pauseTest()
+	void StateBaseTestSuite::changeDuringResum()
+	{
+		engine::StateStack stack;
+
+		stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnResume, TestState::ActionType::Exit));
+		bool hasException = false;
+		try
 		{
-			engine::stateStack::StateBase state;
-			assertTrue(ASSERTION_PARAMETER(!state.isInitialized()));
-			state.initialize(&testEnvironment.globalStack);
-			assertTrue(ASSERTION_PARAMETER(state.isInitialized()));
-			assertTrue(ASSERTION_PARAMETER(!state.isActive()));
-
-			state.resume();
-			assertTrue(ASSERTION_PARAMETER(state.isActive()));
-
-			state.pause();
-			assertTrue(ASSERTION_PARAMETER(!state.isActive()));
-		}
-
-		void StateBaseTestSuite::exitDuringResum()
-		{
-			engine::stateStack::StateStack stack;
-			testEnvironment.globalStack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnResume, TestState::ActionType::Exit));
-			bool hasException = false;
-			try
-			{
-				testEnvironment.globalStack.update();
-			}
-			catch(engine::test::GameAssertException &)
-			{
-				hasException = true;
-			}
-			assertTrue(ASSERTION_PARAMETER(hasException));
-		}
-
-		void StateBaseTestSuite::changeDuringResum()
-		{
-			engine::stateStack::StateStack stack;
-
-			stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnResume, TestState::ActionType::Exit));
-			bool hasException = false;
-			try
-			{
-				stack.update();
-			}
-			catch(engine::test::GameAssertException &)
-			{
-				hasException = true;
-			}
-			assertTrue(ASSERTION_PARAMETER(hasException));
-
-		}
-
-		void StateBaseTestSuite::exitDuringPause()
-		{
-			engine::stateStack::StateStack stack;
-			bool hasException = false;
-			stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnPause, TestState::ActionType::Change));
 			stack.update();
-			stack.popState();
-			try
-			{
-				stack.update();
-			}
-			catch(engine::test::GameAssertException &)
-			{
-				hasException = true;
-			}
-			assertTrue(ASSERTION_PARAMETER(hasException));
 		}
-
-		void StateBaseTestSuite::changeDuringPause()
+		catch(engine::WrongStateError &)
 		{
-			engine::stateStack::StateStack stack;
-			bool hasException = false;
-			stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnPause, TestState::ActionType::Change));
-			stack.update();
-			stack.popState();
-			try
-			{
-				stack.update();
-			}
-			catch(engine::test::GameAssertException &)
-			{
-				hasException = true;
-			}
-			assertTrue(ASSERTION_PARAMETER(hasException));
+			hasException = true;
 		}
+		assertTrue(ASSERTION_PARAMETER(hasException));
+
+	}
+
+	void StateBaseTestSuite::exitDuringPause()
+	{
+		engine::StateStack stack;
+		bool hasException = false;
+		stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnPause, TestState::ActionType::Change));
+		stack.update();
+		stack.popState();
+		try
+		{
+			stack.update();
+		}
+		catch(engine::WrongStateError &)
+		{
+			hasException = true;
+		}
+		assertTrue(ASSERTION_PARAMETER(hasException));
+	}
+
+	void StateBaseTestSuite::changeDuringPause()
+	{
+		engine::StateStack stack;
+		bool hasException = false;
+		stack.pushState(std::make_unique<TestState>(TestState::ActionPoint::OnPause, TestState::ActionType::Change));
+		stack.update();
+		stack.popState();
+		try
+		{
+			stack.update();
+		}
+		catch(engine::WrongStateError&)
+		{
+			hasException = true;
+		}
+		assertTrue(ASSERTION_PARAMETER(hasException));
 	}
 }

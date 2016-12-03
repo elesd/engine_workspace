@@ -7,35 +7,32 @@
 
 namespace engine
 {
-	namespace app
+	namespace winapi
 	{
-		namespace winapi
+
+		WinApiApplicationParameter::WinApiApplicationParameter(HINSTANCE ,
+															   HINSTANCE ,
+															   LPSTR ,
+															   int )
 		{
+			HARD_ASSERT("Not implemented module");
+		}
 
-			WinApiApplicationParameter::WinApiApplicationParameter(HINSTANCE ,
-																   HINSTANCE ,
-																   LPSTR ,
-																   int )
-			{
-				HARD_ASSERT("Not implemented module");
-			}
+		WinApiApplicationParameter::~WinApiApplicationParameter()
+		{
+			HARD_ASSERT("Not implemented module");
+		}
 
-			WinApiApplicationParameter::~WinApiApplicationParameter()
-			{
-				HARD_ASSERT("Not implemented module");
-			}
+		HINSTANCE WinApiApplicationParameter::getInstance() const
+		{
+			HARD_ASSERT("Not implemented module");
+			return nullptr;
+		}
 
-			HINSTANCE WinApiApplicationParameter::getInstance() const
-			{
-				HARD_ASSERT("Not implemented module");
-				return nullptr;
-			}
-
-			int WinApiApplicationParameter::getCmdShow() const
-			{
-				HARD_ASSERT("Not implemented module");
-				return 0;
-			}
+		int WinApiApplicationParameter::getCmdShow() const
+		{
+			HARD_ASSERT("Not implemented module");
+			return 0;
 		}
 	}
 }

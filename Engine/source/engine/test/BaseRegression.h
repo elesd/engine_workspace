@@ -8,7 +8,7 @@ namespace engine
 	{
 		class TestSuite;
 
-		class BaseRegression: engine::constraints::NonCopyable
+		class BaseRegression: engine::NonCopyable
 		{
 		public:
 			BaseRegression(const std::string &name);
