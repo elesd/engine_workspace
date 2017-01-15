@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #if ENGINE_USE_SDL
-#include "engine/modules/sdl/WindowManagerImpl.h"
+#include "engine/view/sdl/WindowManagerImpl.h"
 ///////////////////////////////////////////////////
-#include "engine/modules/sdl/WindowImpl.h"
+#include "engine/view/sdl/WindowImpl.h"
 
 #include "SDL2/SDL.h"
 

@@ -25,7 +25,7 @@ namespace engine
 
 			std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &params, Window *) const override;
 		private:
-			bool driverNeedsWindow() const override { return false; }
+			bool driverNeedsWindow() const override { return true; }
 		};
 	}
 }

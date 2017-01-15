@@ -21,7 +21,7 @@ namespace engine
 	WindowManager::WindowManager()
 		: _members(new WindowManagerPrivate())
 	{
-		_members->driverParameters.description.format = BufferFormat::Format_R32G32B32A32;
+		_members->driverParameters.description.format = TextureFormat::_R8G8B8A8;
 		_members->driverParameters.description.isSRGB = false;
 		_members->driverParameters.description.type = BufferType::UnsignedInteger;
 	}

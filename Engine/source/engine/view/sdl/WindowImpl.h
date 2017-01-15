@@ -30,7 +30,6 @@ namespace engine
 			void setHeightImpl(uint32_t height) override;
 			void setSizeImpl(uint32_t width, uint32_t height) override;
 
-		private:
 			/**
 			* @return Returns the Sdl window.
 			*/

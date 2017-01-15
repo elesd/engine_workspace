@@ -71,11 +71,15 @@ namespace engine
 		* @param width: New width of the window.
 		*/
 		void setWidth(uint32_t width);
+
+		uint32_t getWidth() const;
 		/**
 		* Resize the window.
 		* @param height: New height of the window.
 		*/
 		void setHeight(uint32_t height);
+
+		uint32_t getHeight() const;
 		/**
 		* Resize the window.
 		* @param width: New width of the window.

@@ -12,9 +12,9 @@ namespace engine
 			const int major = 0;
 			const int minor = 1;
 			const int counter = 1;
-			const std::string year = "16";
-			const std::string month = "12";
-			const std::string day = "03";
+			const std::string year = "17";
+			const std::string month = "01";
+			const std::string day = "15";
 		};
 		
 		using Version = VersionBase<VersionDef>;
@@ -22,5 +22,5 @@ namespace engine
 }
 
 #define ENGINE_USE_SDL 0
-#define ENGINE_USE_GLFW 1
-#define ENGINE_USE_WINAPI 0
+#define ENGINE_USE_GLFW 0
+#define ENGINE_USE_WINAPI 1

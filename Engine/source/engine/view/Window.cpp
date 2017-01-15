@@ -84,4 +84,14 @@ namespace engine
 		HARD_ASSERT(!_members->driver);
 		_members->driver = std::move(driver);
 	}
+
+	uint32_t Window::getHeight() const
+	{
+		return getParameters().width;
+	}
+
+	uint32_t Window::getWidth() const
+	{
+		return getParameters().width;
+	}
 }
