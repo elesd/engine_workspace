@@ -40,3 +40,7 @@
 
 #include "TutorialConfig.h"
 #include <engine/EngineConfig.h>
+
+#ifdef TUTORIAL_USE_WINAPI
+#include <Windows.h>
+#endif
