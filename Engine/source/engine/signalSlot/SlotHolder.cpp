@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/signalSlot/SlotHolder.h"
-#include "engine/signalSlot/ISignal.h"
+#include <engine/signalSlot/SlotHolder.h>
+#include <engine/signalSlot/ISignal.h>
 
 namespace engine
 {

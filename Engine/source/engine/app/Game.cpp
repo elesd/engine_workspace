@@ -1,11 +1,11 @@
 #include <stdafx.h>
 
-#include "engine/app/Game.h"
+#include <engine/app/Game.h>
 ///////////////////////////////////////////////
-#include "engine/stateStack/StateStack.h"
-#include "engine/app/IMain.h"
+#include <engine/stateStack/StateStack.h>
+#include <engine/app/IMain.h>
 
-#include "engine/exceptions/LogicalErrors.h"
+#include <engine/exceptions/LogicalErrors.h>
 
 namespace engine
 {

@@ -1,7 +1,7 @@
-#include "stdafx.h"
-#include "SignalManager.h"
+#include <stdafx.h>
+#include <engine/signalSlot/SignalManager.h>
 
-#include "engine/signalSlot/SignalTask.h"
+#include <engine/signalSlot/SignalTask.h>
 
 
 namespace engine
@@ -26,6 +26,19 @@ namespace engine
 		delete _members;
 	}
 
+	SignalManager::SignalManager(SignalManager &&o)
+		: _members(o._members)
+	{
+		o._members = nullptr;
+	}
+
+	SignalManager &SignalManager::operator=(SignalManager &&o)
+	{
+		_members = o._members;
+		o._members = nullptr;
+		return *this;
+	}
+
 	void SignalManager::addTask(std::unique_ptr<ISignalTask> task)
 	{
 		_members->taskPool.push_back(task.get());
@@ -34,11 +47,12 @@ namespace engine
 
 	void SignalManager::update()
 	{
-		for(ISignalTask *task : _members->taskPool)
+		auto copyOfTasks = _members->taskPool;
+		_members->taskPool.clear();
+		for(ISignalTask *task : copyOfTasks)
 		{
 			if(!task->isExpired())
 				(*task)();
 		}
-		_members->taskPool.clear();
 	}
 }

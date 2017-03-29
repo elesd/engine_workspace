@@ -39,3 +39,4 @@
 #define HARD_FAIL(msg) assert(false && msg)
 
 #include "TutorialConfig.h"
+#include <engine/EngineConfig.h>

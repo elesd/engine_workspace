@@ -1,14 +1,14 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/video/winapi/BufferDescUtils.h"
+#include <engine/video/winapi/BufferDescUtils.h>
 ////////////////////////////////////////////////////////////////////////////
 
 #if ENGINE_USE_WINAPI
-#include "engine/exceptions/LogicalErrors.h"
+#include <engine/exceptions/LogicalErrors.h>
 
-#include "engine/video/BufferDesc.h"
+#include <engine/video/BufferDesc.h>
 
-#include "boost/optional/optional.hpp"
+#include <boost/optional/optional.hpp>
 
 #include <d3d11.h>
 

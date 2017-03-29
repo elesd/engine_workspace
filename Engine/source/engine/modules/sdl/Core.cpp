@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_SDL
-#include "engine/modules/sdl/Core.h"
+#include <engine/modules/sdl/Core.h>
 /////////////////////////////////////////////////////
 
 extern "C"
 {
-#	include "SDL2/SDL.h"
+#	include <SDL2/SDL.h>
 }
 
 namespace engine

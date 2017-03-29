@@ -1,15 +1,15 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/environmentBuilder/ContextBuilder.h"
+#include <engine/environmentBuilder/ContextBuilder.h>
 ////////////////////////////////////////////////////
 
-#include "engine/environmentBuilder/ApplicationBuilder.h"
-#include "engine/Context.h"
-#include "engine/ModuleDefinitions.h"
-#include "engine/modules/glfw/Core.h"
-#include "engine/modules/sdl/Core.h"
-#include "engine/modules/winapi/Core.h"
-#include "engine/exceptions/LogicalErrors.h"
+#include <engine/environmentBuilder/ApplicationBuilder.h>
+#include <engine/Context.h>
+#include <engine/ModuleDefinitions.h>
+#include <engine/modules/glfw/Core.h>
+#include <engine/modules/sdl/Core.h>
+#include <engine/modules/winapi/Core.h>
+#include <engine/exceptions/LogicalErrors.h>
 
 
 namespace engine

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "engine/signalSlot/ISignalManager.h"
+#include <engine/signalSlot/ISignalManager.h>
+#include <engine/constraints/NonCopyable.h>
 
 namespace engine
 {
@@ -10,8 +11,10 @@ namespace engine
 	* Simple signal manager implementation.
 	* This manager has a container of tasks. During update of the manager the tasks are fired.
 	* @see ISignalManager
+	* @warning: not thread safe
 	*/
-	class SignalManager : public ISignalManager
+	class SignalManager : public ISignalManager,
+						  private NonCopyable
 	{
 	public:
 		/** Default constructor, extension because of the PIMPL idiom.*/
@@ -20,9 +23,8 @@ namespace engine
 		/** Default destructor, extension because of the PIMPL idiom.*/
 		~SignalManager()  override;
 
-		SignalManager(const SignalManager &o) = delete;
-		SignalManager(SignalManager &&o) = delete;
-		SignalManager operator=(const SignalManager &o) = delete;
+		SignalManager(SignalManager &&o);
+		SignalManager &operator=(SignalManager &&o);
 
 		/**
 		* Add a task to the container of this manager.

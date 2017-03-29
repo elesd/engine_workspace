@@ -1,17 +1,20 @@
 #pragma once
 
-#include "engine/view/WindowManager.h"
+#include <engine/view/WindowManager.h>
 
+#include <Windows.h>
 namespace engine
 {
 	namespace winapi
 	{
+		class WindowImpl;
 		/**WinApi Window manager implementation.*/
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
 			WindowManagerImpl();
 			~WindowManagerImpl()  override;
+			WindowImpl *findWindowById(HWND hWnd) const;
 			uint32_t getMonitorCount() const override;
 			uint32_t getMainMonitorId() const override;
 		protected:

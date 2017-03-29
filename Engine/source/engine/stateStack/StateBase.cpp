@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/stateStack/StateBase.h"
+#include <engine/stateStack/StateBase.h>
 
-#include "engine/exceptions/LogicalErrors.h"
-#include "engine/exceptions/RuntimeErrors.h"
+#include <engine/exceptions/LogicalErrors.h>
+#include <engine/exceptions/RuntimeErrors.h>
 
-#include "engine/stateStack/StateStack.h"
+#include <engine/stateStack/StateStack.h>
 
 namespace engine
 {
@@ -25,8 +25,6 @@ namespace engine
 
 	StateBase::~StateBase()
 	{
-		// State does not destroyed but it is deleted.
-		ASSERT(!isInitialized());
 		if(isInitialized())
 		{
 			try
@@ -35,7 +33,7 @@ namespace engine
 			}
 			catch(const InitializationError &)
 			{
-				FAIL("State destroy is failed");
+				//FAIL("State destroy is failed");
 			}
 		}
 		delete _members;

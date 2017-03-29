@@ -1,11 +1,11 @@
 #pragma once
 
-#include "engine/environmentBuilder/BaseBuilder.h"
+#include <engine/environmentBuilder/BaseBuilder.h>
 namespace engine
 {
 	enum class ContextModuleType;
 	class WindowManager;
-	class ApplicationBuilder;
+	class EventBuilder;
 	class BuildFinalizer;
 }
 
@@ -17,7 +17,7 @@ namespace engine
 	*/
 	class WindowEnvironmentBuilder : public BaseBuilder
 	{
-		friend class engine::ApplicationBuilder;
+		friend class engine::EventBuilder;
 	private:
 		/**
 		* Initialize the window environment with the given module.

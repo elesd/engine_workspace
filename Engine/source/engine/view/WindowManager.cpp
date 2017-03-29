@@ -1,13 +1,22 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/view/WindowManager.h"
+#include <engine/view/WindowManager.h>
 
-#include "engine/exceptions/LogicalErrors.h"
-#include "engine/exceptions/RuntimeErrors.h"
-#include "engine/view/Window.h"
-#include "engine/functional/functions.h"
-#include "engine/video/Driver.h"
-#include "engine/video/BufferDesc.h"
+#include <engine/Context.h>
+
+#include <engine/app/Application.h>
+
+#include <engine/events/EventManager.h>
+
+#include <engine/exceptions/LogicalErrors.h>
+#include <engine/exceptions/RuntimeErrors.h>
+
+#include <engine/functional/functions.h>
+
+#include <engine/view/Window.h>
+
+#include <engine/video/Driver.h>
+#include <engine/video/BufferDesc.h>
 
 namespace engine
 {
@@ -31,7 +40,6 @@ namespace engine
 		delete _members;
 	}
 
-
 	Window *WindowManager::createMainWindow(const WindowParameter &parameters, const std::string &title)
 	{
 		if(_members->mainWindow != nullptr)
@@ -49,9 +57,10 @@ namespace engine
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
-
+		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
+
 	Window *WindowManager::createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId)
 	{
 		if(_members->mainWindow != nullptr)
@@ -68,8 +77,10 @@ namespace engine
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
+		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
+
 	Window *WindowManager::createSecondaryWindow(const WindowParameter &parameters,
 												 const std::string &title,
 												 Window *mainWindow)
@@ -88,7 +99,7 @@ namespace engine
 			window->initDriver(std::move(driver));
 			_members->windowContainer.emplace_back(std::move(window));
 		}
-
+		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
@@ -99,22 +110,25 @@ namespace engine
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
 			_members->windowContainer.emplace_back(std::move(window));
 
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-			window->initDriver(std::move(driver));
+		//	std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
+		//	window->initDriver(std::move(driver));
 		}
 		else
 		{
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+	//		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-			window->initDriver(std::move(driver));
+			//window->initDriver(std::move(driver));
 			_members->windowContainer.emplace_back(std::move(window));
 
 		}
+		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
 	void WindowManager::destroyWindow(Window *window)
 	{
+		Context::getInstance()->getApplication()->getEventManager()->removeEventSource(window);
+
 		if(_members->mainWindow.get() == window)
 		{
 			_members->mainWindow.reset(nullptr);
@@ -139,15 +153,7 @@ namespace engine
 		return _members->mainWindow.get();
 	}
 
-	std::vector<const Window*> WindowManager::getAllWindows() const
-	{
-		std::vector<const Window*> windows;
-		std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),
-					   [](std::unique_ptr<Window> &window)->const Window*{ return window.get(); });
-		return windows;
-	}
-
-	std::vector<Window*> WindowManager::getAllWindows()
+	std::vector<Window*> WindowManager::getAllWindows() const
 	{
 		std::vector<Window*> windows;
 		std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),

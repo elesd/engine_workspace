@@ -1,9 +1,12 @@
 #include <stdafx.h>
 
-#include "engine/app/Application.h"
-#include "engine/app/IApplicationParameter.h"
-#include "engine/app/IMain.h"
+#include <engine/app/Application.h>
+#include <engine/app/IApplicationParameter.h>
+#include <engine/app/IMain.h>
 
+#include <engine/events/EventManager.h>
+
+#include <engine/view/WindowManager.h>
 
 namespace engine
 {
@@ -11,6 +14,8 @@ namespace engine
 	{
 		std::unique_ptr<IMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
+		std::unique_ptr<EventManager> eventManager;
+		std::unique_ptr<WindowManager> windowManager;
 		bool active = false;
 	};
 
@@ -42,6 +47,8 @@ namespace engine
 	{
 		if(isActive())
 		{
+			updateImpl();
+			_members->eventManager->update();
 			_members->main->update();
 		}
 	}
@@ -63,4 +70,25 @@ namespace engine
 	{
 		return _members->arguments.get();
 	}
+
+	EventManager *Application::getEventManager() const
+	{
+		return _members->eventManager.get();
+	}
+
+	WindowManager *Application::getWindowManager() const
+	{
+		return _members->windowManager.get();
+	}
+
+	void Application::setEventManager(std::unique_ptr<EventManager> eventManager)
+	{
+		_members->eventManager = std::move(eventManager);
+	}
+
+	void Application::setWindowManager(std::unique_ptr<WindowManager> windowManager)
+	{
+		_members->windowManager = std::move(windowManager);
+	}
+
 }

@@ -1,10 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/environmentBuilder/BaseBuilder.h"
+#include <engine/environmentBuilder/BaseBuilder.h>
 ////////////////////////////////
-#include "engine/Context.h"
-#include "engine/app/Application.h"
-#include "engine/view/WindowManager.h"
+#include <engine/Context.h>
+#include <engine/app/Application.h>
+#include <engine/events/EventManager.h>
+#include <engine/view/WindowManager.h>
 namespace engine
 {
 	void BaseBuilder::setApplication(std::unique_ptr<Application> app)
@@ -14,7 +15,12 @@ namespace engine
 
 	void BaseBuilder::setWindowManager(std::unique_ptr<WindowManager> manager)
 	{
-		Context::getInstance()->setWindowManager(std::move(manager));
+		Context::getInstance()->getApplicationUnsafe()->setWindowManager(std::move(manager));
+	}
+
+	void BaseBuilder::setEventManager(std::unique_ptr<EventManager> manager)
+	{
+		Context::getInstance()->getApplicationUnsafe()->setEventManager(std::move(manager));
 	}
 
 	void BaseBuilder::addModule(const ContextModuleType value)

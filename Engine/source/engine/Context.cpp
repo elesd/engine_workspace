@@ -1,17 +1,15 @@
 #include <stdafx.h>
-#include "engine/Context.h"
+#include <engine/Context.h>
 /////////////////////////////////////////////
-#include "engine/app/Application.h"
-#include "engine/view/WindowManager.h"
+#include <engine/app/Application.h>
 
-#include "engine/ModuleDefinitions.h"
+#include <engine/ModuleDefinitions.h>
 namespace engine
 {
 	struct ContextPrivate
 	{
 		std::vector<bool> moduls = std::vector<bool>(uint32_t(ContextModuleType::NumModulTypes), false);
 		std::unique_ptr<Application> application;
-		std::unique_ptr<WindowManager> windowManager;
 		bool initialized = false;
 	};
 
@@ -32,10 +30,9 @@ namespace engine
 		return _members->application.get();
 	}
 
-	WindowManager *Context::getWindowManager()
+	Application *Context::getApplicationUnsafe()
 	{
-		ASSERT(isInitialized());
-		return _members->windowManager.get();
+		return _members->application.get();
 	}
 
 	void Context::setApplication(std::unique_ptr<Application> application)
@@ -43,10 +40,6 @@ namespace engine
 		_members->application = std::move(application);
 	}
 
-	void Context::setWindowManager(std::unique_ptr<WindowManager> windowManager)
-	{
-		_members->windowManager = std::move(windowManager);
-	}
 
 	std::vector<bool> &Context::getModuls()
 	{
@@ -63,4 +56,5 @@ namespace engine
 	{
 		return _members->initialized;
 	}
+
 }

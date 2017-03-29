@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
+#include <engine/constraints/NonCopyable.h>
 
 namespace engine
 {

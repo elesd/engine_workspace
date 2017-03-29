@@ -1,10 +1,10 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_WINAPI == 0
 
-#include "engine/view/winapi/WindowManagerImpl.h"
+#include <engine/view/winapi/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
 
-#include "engine/video/Driver.h"
+#include <engine/video/Driver.h>
 
 namespace engine
 {

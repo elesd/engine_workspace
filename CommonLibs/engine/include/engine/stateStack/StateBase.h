@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
+#include <engine/constraints/NonCopyable.h>
 
-#include "engine/signalSlot/Signal.h"
+#include <engine/signalSlot/Signal.h>
 
 namespace engine
 {

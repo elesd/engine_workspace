@@ -1,5 +1,8 @@
 include_directories("${MAIN_PROJECT_DIR}/source")
 
+include_directories("${EXTERNALS_DIR}/boost/include")
+
+
 if (USE_GLFW)
   if (USE_64_BIT)
     find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win64/lib-vc2013")
@@ -23,3 +26,8 @@ if (USE_SDL)
   endif (USE_64_BIT)
   target_link_libraries(engineTest sdl_lib)
 endif(USE_SDL)
+
+if (USE_WINAPI)
+  target_link_libraries(engineTest d3d11.lib)
+
+endif (USE_WINAPI)

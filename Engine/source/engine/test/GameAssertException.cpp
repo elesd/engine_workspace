@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/test/GameAssertException.h"
+#include <engine/test/GameAssertException.h>
 
 namespace engine
 {

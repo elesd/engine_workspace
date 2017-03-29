@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/test/TestSuite.h"
+#include <engine/test/TestSuite.h>
 
 
-#include "engine/test/ITestCase.h"
-#include "engine/test/TestAssertException.h"
-#include "engine/test/GameAssertException.h"
+#include <engine/test/ITestCase.h>
+#include <engine/test/TestAssertException.h>
+#include <engine/test/GameAssertException.h>
 
 
 namespace engine

@@ -1,8 +1,8 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/test/BaseRegression.h"
+#include <engine/test/BaseRegression.h>
 
-#include "engine/test/TestSuite.h"
+#include <engine/test/TestSuite.h>
 
 namespace engine
 {

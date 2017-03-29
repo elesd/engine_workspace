@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
+#include <engine/constraints/NonCopyable.h>
 
 
 namespace engine
@@ -15,7 +15,7 @@ namespace engine
 		IMain() = default;
 	public:
 		/**Simple destructor*/
-		~IMain() override {};
+		~IMain() {};
 		/**Called once when the application is started*/
 		virtual void load() = 0;
 		/**Called once per each frame to update the main*/

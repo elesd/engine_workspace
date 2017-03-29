@@ -1,8 +1,8 @@
 #pragma once
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/app/Application.h"
-#include "engine/stateStack/StateBase.h"
+#include <engine/app/Application.h>
+#include <engine/stateStack/StateBase.h>
 
 namespace engine
 {

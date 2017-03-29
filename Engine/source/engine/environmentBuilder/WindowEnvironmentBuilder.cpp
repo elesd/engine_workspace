@@ -1,17 +1,17 @@
-#include "stdafx.h"
-#include "engine/environmentBuilder/WindowEnvironmentBuilder.h"
+#include <stdafx.h>
+#include <engine/environmentBuilder/WindowEnvironmentBuilder.h>
 ////////////////////////////////////////////////////////////////
 
-#include "engine/environmentBuilder/BuildFinalizer.h"
+#include <engine/environmentBuilder/BuildFinalizer.h>
 
-#include "engine/exceptions/LogicalErrors.h"
+#include <engine/exceptions/LogicalErrors.h>
 
-#include "engine/Context.h"
-#include "engine/ModuleDefinitions.h"
+#include <engine/Context.h>
+#include <engine/ModuleDefinitions.h>
 
-#include "engine/view/glfw/WindowManagerImpl.h"
-#include "engine/view/sdl/WindowManagerImpl.h"
-#include "engine/view/winapi/WindowManagerImpl.h"
+#include <engine/view/glfw/WindowManagerImpl.h>
+#include <engine/view/sdl/WindowManagerImpl.h>
+#include <engine/view/winapi/WindowManagerImpl.h>
 
 
 

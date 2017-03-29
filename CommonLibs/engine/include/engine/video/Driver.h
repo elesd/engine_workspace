@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/video/BufferDesc.h"
+#include <engine/video/BufferDesc.h>
 
 namespace engine
 {

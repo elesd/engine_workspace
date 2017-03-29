@@ -1,10 +1,13 @@
 #pragma once
 
-#include "engine/signalSlot/Signal.h"
-#include "engine/constraints/NonCopyable.h"
+#include <engine/signalSlot/Signal.h>
+#include <engine/constraints/NonCopyable.h>
+#include <engine/events/EventSourceBase.h>
 
 namespace engine
 {
+	class Window;
+
 	class Driver;
 	/**
 	* Holds the creation parameter for a window.
@@ -40,8 +43,10 @@ namespace engine
 	* The basic functionality is written here and all the cases these interface should enough.
 	* The implementation of this class contains the library specific part of the window.
 	*/
-	class Window : NonCopyable
+	class Window : public EventSourceBase
 	{
+	public:
+		static const std::string EventSourceId;
 	public:
 		/** Construct a full screen window.*/
 		Window();
@@ -52,7 +57,7 @@ namespace engine
 		Window(const WindowParameter &parameter);
 
 		/** Default virtual destructor.*/
-		~Window() override;
+		virtual ~Window();
 
 		/**
 		* @return Returns the window creation parameter.
@@ -121,6 +126,7 @@ namespace engine
 		* @param height: New height of the window.
 		*/
 		virtual void setSizeImpl(uint32_t width, uint32_t height) = 0;
+
 	public:
 		/** Signal is emitted when the window is closed. */
 		engine::Signal<> windowClosed;

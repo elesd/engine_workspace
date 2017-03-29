@@ -1,6 +1,6 @@
 #include <stdafx.h>
 
-#include "engine/test/TestAssertException.h"
+#include <engine/test/TestAssertException.h>
 
 namespace engine
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
-#include "engine/constraints/NonMoveable.h"
+#include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/NonMoveable.h>
 
 namespace engine
 {
@@ -13,10 +13,12 @@ namespace engine
 		NonMoveable
 	{
 	public:
+		virtual ~Singleton() {}
 		/**
 		* @return the instance object
 		*/
 		static T *getInstance();
+
 		/**
 		* Create an instance with the given arguments
 		* @param creation arguments
@@ -31,4 +33,4 @@ namespace engine
 	};
 }
 
-#include "engine/constraints/Singleton.hpp"
+#include <engine/constraints/Singleton.hpp>

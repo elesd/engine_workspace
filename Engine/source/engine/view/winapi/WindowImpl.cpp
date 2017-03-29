@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_WINAPI
 
-#include "engine/view/winapi/WindowImpl.h"
+#include <engine/view/winapi/WindowImpl.h>
 /////////////////////////////////////////
 
 namespace engine
@@ -64,6 +64,47 @@ namespace engine
 		HWND WindowImpl::getWindowHandler()
 		{
 			return _members->windowHandler;
+		}
+
+		bool WindowImpl::handleEvent(HWND hWnd,
+									 UINT message,
+									 WPARAM wParam,
+									 LPARAM lParam)
+		{
+			bool handled = false;
+			switch(message)
+			{
+				case WM_CLOSE:
+					windowClosed.emit();
+					handled = true;
+					break;
+				case WM_SIZE:
+				{
+					uint32_t width = LOWORD(lParam);
+					uint32_t height = HIWORD(lParam);
+					windowSizeChanged.emit(width, height);
+					handled = true;
+				}
+				break;
+				case WM_MOVE:
+				{
+					POINTS newCoord = MAKEPOINTS(lParam);
+					int32_t xPos = newCoord.x;
+					int32_t yPos = newCoord.y;
+					windowMoved.emit(xPos, yPos);
+					handled = true;
+				}
+				break;
+				case WM_SETFOCUS:
+					windowInFocus.emit();
+					handled = true;
+					break;
+				case WM_KILLFOCUS:
+					windowOutFocus.emit();
+					handled = true;
+					break;
+			}
+			return handled;
 		}
 	}
 }

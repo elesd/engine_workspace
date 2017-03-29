@@ -14,6 +14,7 @@ namespace engine
 	protected:
 		/** Default constructor*/
 		ISignalManager() = default;
+	public:
 		/** Default destructor*/
 		virtual ~ISignalManager() {};
 

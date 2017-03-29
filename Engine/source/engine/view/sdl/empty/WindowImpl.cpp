@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_SDL == 0
-#include "engine/view/sdl/WindowImpl.h"
+#include <engine/view/sdl/WindowImpl.h>
 /////////////////////////////////////////
 
 namespace engine

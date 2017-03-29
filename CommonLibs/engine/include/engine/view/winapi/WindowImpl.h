@@ -1,8 +1,6 @@
 #pragma once
 
-#include "engine/view/Window.h"
-
-#include <windows.h>
+#include <engine/view/Window.h>
 
 namespace engine
 {
@@ -14,6 +12,7 @@ namespace engine
 		class WindowImpl : public engine::Window
 		{
 			friend class engine::winapi::WindowManagerImpl;
+
 		public:
 			WindowImpl(HWND window, const WindowParameter &parameters, const std::string &title = "Window");
 			WindowImpl(HWND window, const std::string &title = "Window");
@@ -30,6 +29,8 @@ namespace engine
 			* @return Returns the Windows handler.
 			*/
 			HWND getWindowHandler();
+
+			bool handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		private:
 			/** PIMPL */
 			struct WindowImplPrivate *_members = nullptr;

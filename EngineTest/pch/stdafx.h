@@ -3,15 +3,19 @@
 // are changed infrequently
 //
 
-#pragma once
+
 
 // C includes
 #include <cassert>
 #include <cstdio>
 #include <cstdint>
+#include <cstring>
+#include <cstdlib>
 
-#include <tchar.h>
 
+#ifdef WIN32
+#   include <tchar.h>
+#endif
 
 // C++ includes
 #include <algorithm>
@@ -28,8 +32,6 @@
 #include <sstream>
 #include <type_traits>
 #include <iomanip>
-
-
 // For engine
 #include "engine/test/GameAssertException.h"
 
@@ -40,7 +42,9 @@
 #define FAIL(msg) throw engine::test::GameAssertException(engine::test::GameAssertException::Type::Normal, #msg, __FILE__, __LINE__)
 #define HARD_FAIL(msg) throw engine::test::GameAssertException(engine::test::GameAssertException::Type::Hard, #msg, __FILE__, __LINE__)
 
-// Fot tests
-
 #define private public
 #define protected public
+
+#include <engine/EngineConfig.h>
+
+#include <stdafx_win.h>

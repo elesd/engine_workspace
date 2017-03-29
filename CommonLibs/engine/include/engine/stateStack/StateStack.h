@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
-#include "engine/constraints/NonMoveable.h"
+#include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/NonMoveable.h>
 
 
 namespace engine
@@ -16,8 +16,8 @@ namespace engine
 	 * previous frame.
 	 */
 	class StateStack final :
-		engine::NonCopyable,
-		engine::NonMoveable
+		private engine::NonCopyable,
+		private engine::NonMoveable
 	{
 	public:
 		/** Container for states*/

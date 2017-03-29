@@ -1,17 +1,19 @@
 #pragma once
 
-#include "engine/environmentBuilder/BaseBuilder.h"
+#include <engine/environmentBuilder/BaseBuilder.h>
 
 namespace engine
 {
 	class IMain;
 	class IApplicationParameter;
+	class EventBuilder;
+	class Application;
 	enum class ContextModuleType;
+
 }
 
 namespace engine
 {
-	class WindowEnvironmentBuilder;
 	/**
 	* This is the application building phase.
 	* After this build phase the context will have an application
@@ -38,7 +40,10 @@ namespace engine
 		* @param main: Main functionality.
 		* @return The next building phase.
 		*/
-		WindowEnvironmentBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		EventBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+	private:
+		std::unique_ptr<Application> createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		
 	private:
 		/** PIMPL */
 		struct ApplicationBuilderPrivate *_members = nullptr;

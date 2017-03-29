@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/signalSlot/SignalCaller.h"
-#include "engine/signalSlot/ISignal.h"
+#include <engine/signalSlot/SignalCaller.h>
+#include <engine/signalSlot/ISignal.h>
 
 #define CONNECT_SIGNAL(o1, signal, o2, slot) (o1)->signal.connect<std::remove_pointer<decltype(o2)>::type, &std::remove_pointer<decltype(o2)>::type::slot>(o2);
 #define DISCONNECT_SIGNAL(o1, signal, o2, slot) (o1)->signal.disconnect<std::remove_pointer<decltype(o2)>::type, &std::remove_pointer<decltype(o2)>::type::slot>(o2);
@@ -88,7 +88,7 @@ namespace engine
 		* Emit the signal.
 		* For all the connected slot a task is created and added to the corresponding signal manager.
 		*/
-		void emit(Args&&... args);
+		void emit(Args... args);
 
 	private:
 		void disconnectAllSlot(SlotHolder *slotHolder) override { disconnectAll(slotHolder); }
@@ -103,4 +103,4 @@ namespace engine
 	};
 }
 
-#include "engine/signalSlot/Signal.hpp"
+#include <engine/signalSlot/Signal.hpp>

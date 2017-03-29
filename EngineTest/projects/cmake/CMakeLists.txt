@@ -46,7 +46,13 @@ file (GLOB engine_src_constraints "${ENGINE_DIR}/engine/constraints/*.cpp")
 file (GLOB engine_src_environmentBuilder "${ENGINE_DIR}/engine/environmentBuilder/*.cpp")
 file (GLOB engine_src_exceptions "${ENGINE_DIR}/engine/exceptions/*.cpp")
 file (GLOB engine_src_functional "${ENGINE_DIR}/engine/functional/*.cpp")
-file (GLOB engine_src_inputs "${ENGINE_DIR}/engine/inputs/*.cpp")
+file (GLOB engine_src_events "${ENGINE_DIR}/engine/events/*.cpp")
+file (GLOB engine_src_events_winapi "${ENGINE_DIR}/engine/events/winapi/*.cpp")
+file (GLOB engine_src_events_winapi_empty "${ENGINE_DIR}/engine/events/winapi/empty/*.cpp")
+file (GLOB engine_src_events_sdl "${ENGINE_DIR}/engine/events/sdl/*.cpp")
+file (GLOB engine_src_events_sdl_empty "${ENGINE_DIR}/engine/events/sdl/empty/*.cpp")
+file (GLOB engine_src_events_glfw "${ENGINE_DIR}/engine/events/glfw/*.cpp")
+file (GLOB engine_src_events_glfw_empty "${ENGINE_DIR}/engine/events/glfw/empty/*.cpp")
 file (GLOB engine_src_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.cpp")
 file (GLOB engine_src_moduls_sdl_empty "${ENGINE_DIR}/engine/modules/sdl/empty/*.cpp")
 file (GLOB engine_src_moduls_glfw "${ENGINE_DIR}/engine/modules/glfw/*.cpp")
@@ -75,7 +81,13 @@ file (GLOB engine_header_constraints "${ENGINE_DIR}/engine/constraints/*.h*")
 file (GLOB engine_header_environmentBuilder "${ENGINE_DIR}/engine/environmentBuilder/*.h*")
 file (GLOB engine_header_exceptions "${ENGINE_DIR}/engine/exceptions/*.h*")
 file (GLOB engine_header_functional "${ENGINE_DIR}/engine/functional/*.h*")
-file (GLOB engine_header_inputs "${ENGINE_DIR}/engine/inputs/*.h*")
+file (GLOB engine_header_events "${ENGINE_DIR}/engine/events/*.h*")
+file (GLOB engine_header_events_winapi "${ENGINE_DIR}/engine/events/winapi/*.h*")
+file (GLOB engine_header_events_winapi_empty "${ENGINE_DIR}/engine/events/winapi/empty/*.h*")
+file (GLOB engine_header_events_sdl "${ENGINE_DIR}/engine/events/sdl/*.h*")
+file (GLOB engine_header_events_sdl_empty "${ENGINE_DIR}/engine/events/sdl/empty/*.h*")
+file (GLOB engine_header_events_glfw "${ENGINE_DIR}/engine/events/glfw/*.h*")
+file (GLOB engine_header_events_glfw_empty "${ENGINE_DIR}/engine/events/glfw/empty/*.h*")
 file (GLOB engine_header_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.h*")
 file (GLOB engine_header_moduls_glfw "${ENGINE_DIR}/engine/modules/glfw/*.h*")
 file (GLOB engine_header_moduls_winapi "${ENGINE_DIR}/engine/modules/winapi/*.h*")
@@ -98,7 +110,13 @@ SOURCE_GROUP (engine\\constraints FILES ${engine_src_constraints} ${engine_heade
 SOURCE_GROUP (engine\\environmentBuilder FILES ${engine_src_environmentBuilder} ${engine_header_environmentBuilder})
 SOURCE_GROUP (engine\\exceptions FILES ${engine_src_exceptions} ${engine_header_exceptions})
 SOURCE_GROUP (engine\\functional FILES ${engine_src_functional} ${engine_header_functional})
-SOURCE_GROUP (engine\\inputs FILES ${engine_src_inputs} ${engine_header_inputs})
+SOURCE_GROUP (engine\\events FILES ${engine_src_events} ${engine_header_events})
+SOURCE_GROUP (engine\\events\\winapi FILES ${engine_src_events_winapi} ${engine_header_events_winapi})
+SOURCE_GROUP (engine\\events\\winapi\\empty FILES ${engine_src_events_winapi_empty} ${engine_header_events_winapi_empty})
+SOURCE_GROUP (engine\\events\\sdl FILES ${engine_src_events_sdl} ${engine_header_events_sdl})
+SOURCE_GROUP (engine\\events\\sdl\\empty FILES ${engine_src_events_sdl_empty} ${engine_header_events_sdl_empty})
+SOURCE_GROUP (engine\\events\\glfw FILES ${engine_src_events_glfw} ${engine_header_events_glfw})
+SOURCE_GROUP (engine\\events\\glfw\\empty FILES ${engine_src_events_glfw_empty} ${engine_header_events_glfw_empty})
 SOURCE_GROUP (engine\\modules\\sdl FILES ${engine_src_moduls_sdl} ${engine_header_moduls_sdl})
 SOURCE_GROUP (engine\\modules\\sdl\\empty FILES ${engine_src_moduls_sdl_empty})
 SOURCE_GROUP (engine\\modules\\glwf FILES ${engine_src_moduls_glfw} ${engine_header_moduls_glfw})
@@ -149,7 +167,14 @@ add_executable(engineTest ${src_}
                           ${engine_src_environmentBuilder}
                           ${engine_src_exceptions}
                           ${engine_src_functional}
-                          ${engine_src_inputs}
+                          ${engine_src_events}
+                          ${engine_src_events_winapi}
+						  ${engine_src_events_winapi_empty}
+						  ${engine_src_events_glfw}
+						  ${engine_src_events_glfw_empty}
+						  ${engine_src_events_sdl}
+						  ${engine_src_events_sdl_empty}
+
                           ${engine_src_moduls_sdl}
                           ${engine_src_moduls_sdl_empty}
                           ${engine_src_moduls_glfw}
@@ -177,7 +202,13 @@ add_executable(engineTest ${src_}
                           ${engine_header_environmentBuilder}
                           ${engine_header_exceptions}
                           ${engine_header_functional}
-                          ${engine_header_inputs}
+                          ${engine_header_events}
+						  ${engine_header_events_winapi}
+						  ${engine_header_events_winapi_empty}
+						  ${engine_header_events_glfw}
+						  ${engine_header_events_glfw_empty}
+						  ${engine_header_events_sdl}
+						  ${engine_header_events_sdl_empty}
                           ${engine_header_moduls_glfw}
                           ${engine_header_moduls_sdl}
                           ${engine_header_moduls_winapi}

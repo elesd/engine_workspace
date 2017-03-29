@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/utils/DeclTypeToType.h"
+#include <engine/utils/DeclTypeToType.h>
 
-#include "engine/test/ITestCase.h"
+#include <engine/test/ITestCase.h>
 
 namespace engine
 {

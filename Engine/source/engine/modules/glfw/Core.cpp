@@ -1,9 +1,9 @@
 #include <stdafx.h>
 #if ENGINE_USE_GLFW
-#include "engine/modules/glfw/Core.h"
+#include <engine/modules/glfw/Core.h>
 /////////////////////////////////////////////////////
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace
 {

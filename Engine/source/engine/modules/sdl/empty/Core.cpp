@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_SDL == 0
-#include "engine/modules/sdl/Core.h"
+#include <engine/modules/sdl/Core.h>
 /////////////////////////////////////////////////////
 
 

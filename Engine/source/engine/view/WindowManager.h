@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
+#include <engine/constraints/NonCopyable.h>
 
 namespace engine
 {
@@ -81,15 +81,11 @@ namespace engine
 		*/
 		const Window *getMainWindow() const;
 
-		/**
-		* @return Returns all created window.
-		*/
-		std::vector<const Window*> getAllWindows() const;
 
 		/**
 		* @return Returns all created window.
 		*/
-		std::vector<Window*> getAllWindows();
+		std::vector<Window*> getAllWindows() const;
 
 		/**
 		* Set the default driver creation parameters.

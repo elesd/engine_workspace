@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_WINAPI == 0
-#include "engine/modules/winapi/Core.h"
+#include <engine/modules/winapi/Core.h>
 /////////////////////////////////////////////////////
 
 

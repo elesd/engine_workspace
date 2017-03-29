@@ -10,6 +10,8 @@
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
+#include <cstdlib>
+
 
 #ifdef WIN32
 #   include <tchar.h>
@@ -38,4 +40,6 @@
 #define FAIL(msg) assert(false && msg)
 #define HARD_FAIL(msg) assert(false && msg)
 
-#include "engine/EngineConfig.h"
+#include <engine/EngineConfig.h>
+
+#include <stdafx_win.h>

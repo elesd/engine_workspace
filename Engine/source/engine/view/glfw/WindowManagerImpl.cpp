@@ -1,13 +1,13 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_GLFW
-#include "engine/view/glfw/WindowManagerImpl.h"
+#include <engine/view/glfw/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
-#include "engine/view/glfw/WindowImpl.h"
-#include "engine/video/glfw/DriverImpl.h"
+#include <engine/view/glfw/WindowImpl.h>
+#include <engine/video/glfw/DriverImpl.h>
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
-#include "engine/video/Driver.h"
+#include <engine/video/Driver.h>
 
 
 namespace engine

@@ -1,8 +1,5 @@
 
 
-#set (CMAKE_CXX_FLAGS_DEBUG "/W3 /WX- ")
-#set (CMAKE_CXX_FLAGS_RELEASE  "/O2 /W3 /WX-")
-
 include_directories("${MAIN_PROJECT_DIR}/source")
 include_directories("${EXTERNALS_DIR}/engine/include")
 if (DEBUG_BUILD)

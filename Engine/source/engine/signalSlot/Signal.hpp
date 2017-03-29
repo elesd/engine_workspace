@@ -1,10 +1,10 @@
 #pragma once
 
-#include "engine/utils/IdGenerator.h"
-#include "engine/signalSlot/ISignalManager.h"
-#include "engine/signalSlot/SlotHolder.h"
-#include "engine/signalSlot/SignalCaller.h"
-#include "engine/signalSlot/SignalTask.h"
+#include <engine/utils/IdGenerator.h>
+#include <engine/signalSlot/ISignalManager.h>
+#include <engine/signalSlot/SlotHolder.h>
+#include <engine/signalSlot/SignalCaller.h>
+#include <engine/signalSlot/SignalTask.h>
 
 namespace engine
 {
@@ -110,7 +110,7 @@ namespace engine
 	}
 
 	template<typename ...Args>
-	void Signal<Args...>::emit(Args&&... args)
+	void Signal<Args...>::emit(Args... args)
 	{
 		for(Entry &entry : slots)
 		{

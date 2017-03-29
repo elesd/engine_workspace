@@ -1,30 +1,33 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/view/Window.h"
+#include <engine/view/Window.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "engine/exceptions/LogicalErrors.h"
+#include <engine/exceptions/LogicalErrors.h>
 
-#include "engine/video/Driver.h"
+#include <engine/video/Driver.h>
 
 namespace engine
 {
+	const std::string Window::EventSourceId = "Window";
+
 	struct WindowPrivate
 	{
 		std::unique_ptr<Driver> driver;
 	};
 
 	Window::Window()
-		:_fullScreen(true),
+		: EventSourceBase(EventSourceId),
+		_fullScreen(true),
 		_members(new WindowPrivate())
-
 	{
 
 	}
 
 	Window::Window(const WindowParameter &parameter)
-		: _parameters(parameter),
+		: EventSourceBase(EventSourceId),
+		 _parameters(parameter),
 		_members(new WindowPrivate())
 	{
 

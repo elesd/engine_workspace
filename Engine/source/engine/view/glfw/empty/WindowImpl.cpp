@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_GLFW == 0
-#include "engine/view/glfw/WindowImpl.h"
+#include <engine/view/glfw/WindowImpl.h>
 /////////////////////////////////////////
 
 namespace engine

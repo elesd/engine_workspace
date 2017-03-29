@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_WINAPI == 0
 
-#include "engine/view/winapi/WindowImpl.h"
+#include <engine/view/winapi/WindowImpl.h>
 /////////////////////////////////////////
 
 namespace engine

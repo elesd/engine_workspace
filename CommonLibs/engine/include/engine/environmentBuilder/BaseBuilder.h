@@ -1,12 +1,13 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
-#include "engine/Context.h"
+#include <engine/constraints/NonCopyable.h>
+#include <engine/Context.h>
 
 namespace engine
 {
 	class Application;
 	class WindowManager;
+	class EventManager;
 	enum class ContextModuleType;
 }
 
@@ -22,7 +23,7 @@ namespace engine
 		/**Default constructor*/
 		BaseBuilder() = default;
 		/**Default destructor*/
-		~BaseBuilder() override {}
+		virtual ~BaseBuilder() {}
 
 		/**
 		* Add a module type which is initialized during build phase
@@ -41,6 +42,12 @@ namespace engine
 		* @param manager: window manager to use
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> manager);
+
+		/**
+		* Set the event manager of the context.
+		* @param manager: window manager to use
+		*/
+		void setEventManager(std::unique_ptr<EventManager> manager);
 
 		/**
 		* When the environment is built up this function finalize the context.

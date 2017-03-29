@@ -5,14 +5,15 @@ namespace engine
 	/**
 	 * All classes derived from this class are not
 	 * copiable.
+	 * @warning Only private inharitance allowed.
 	 */
-	class NonCopyable
+	struct NonCopyable
 	{
-	protected:
 		/** Default constructable from child classes */
 		NonCopyable() = default;
 
-		virtual ~NonCopyable() {}
+		/** Non virtual destructor.*/
+		~NonCopyable() {}
 
 		/** forbid copy constructor */
 		NonCopyable(const NonCopyable &) = delete;

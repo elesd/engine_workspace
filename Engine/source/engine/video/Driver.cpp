@@ -1,6 +1,6 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/video/Driver.h"
+#include <engine/video/Driver.h>
 
 namespace engine
 {

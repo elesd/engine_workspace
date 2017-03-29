@@ -1,14 +1,18 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/environmentBuilder/ApplicationBuilder.h"
+#include <engine/environmentBuilder/ApplicationBuilder.h>
 ///////////////////////////////////////
 
-#include "engine/environmentBuilder/WindowEnvironmentBuilder.h"
+#include <engine/environmentBuilder/EventBuilder.h>
 
-#include "engine/Context.h"
-#include "engine/app/Application.h"
-#include "engine/app/IApplicationParameter.h"
-#include "engine/app/IMain.h"
+#include <engine/Context.h>
+#include <engine/ModuleDefinitions.h>
+
+#include <engine/app/Application.h>
+#include <engine/app/IApplicationParameter.h>
+#include <engine/app/IMain.h>
+
+#include <engine/app/winapi/ApplicationImpl.h>
 
 namespace engine
 {
@@ -34,11 +38,24 @@ namespace engine
 		delete _members;
 	}
 
-	WindowEnvironmentBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	EventBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 	{
-		std::unique_ptr<Application> app(new Application(std::move(arguments), std::move(main)));
+		std::unique_ptr<Application> app = createApplication(std::move(arguments), std::move(main));
 		BaseBuilder::setApplication(std::move(app));
 
-		return std::move(WindowEnvironmentBuilder(_members->windowModule));
+		return EventBuilder(_members->windowModule);
+	}
+	std::unique_ptr<Application> ApplicationBuilder::createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	{
+		std::unique_ptr<Application> result;
+		switch(_members->windowModule)
+		{
+			case ContextModuleType::WinApi: result = std::make_unique<winapi::ApplicationImpl>(std::move(arguments), std::move(main)); break;
+				// TODO
+			case ContextModuleType::Glfw:
+			case ContextModuleType::Sdl: 
+			default:HARD_FAIL("Not implemented"); break;
+		}
+		return result;
 	}
 }

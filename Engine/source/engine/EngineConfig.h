@@ -13,8 +13,8 @@ namespace engine
 			const int minor = 1;
 			const int counter = 1;
 			const std::string year = "17";
-			const std::string month = "01";
-			const std::string day = "15";
+			const std::string month = "03";
+			const std::string day = "20";
 		};
 		
 		using Version = VersionBase<VersionDef>;

@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/stateStack/StateStack.h"
+#include <engine/stateStack/StateStack.h>
 
-#include "engine/exceptions/RuntimeErrors.h"
-#include "engine/stateStack/StateBase.h"
+#include <engine/exceptions/RuntimeErrors.h>
+#include <engine/stateStack/StateBase.h>
 
-#include "engine/functional/functions.h"
+#include <engine/functional/functions.h>
 
 namespace engine
 {

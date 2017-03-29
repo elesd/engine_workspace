@@ -1,11 +1,11 @@
-#include "stdafx.h"
+#include <stdafx.h>
 
-#include "engine/video/winapi/DriverImpl.h"
+#include <engine/video/winapi/DriverImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 #if ENGINE_USE_WINAPI
-#include "engine/view/Window.h"
-#include "engine/view/winapi/WindowImpl.h"
-#include "engine/video/winapi/BufferDescUtils.h"
+#include <engine/view/Window.h>
+#include <engine/view/winapi/WindowImpl.h>
+#include <engine/video/winapi/BufferDescUtils.h>
 
 #include <d3d11.h>
 
@@ -27,10 +27,22 @@ namespace engine
 		}
 		DriverImpl::~DriverImpl()
 		{
-			_members->swapChain->Release();
-			_members->device->Release();
-			_members->deviceContext->Release();
-			delete _members;
+			if(_members)
+			{
+				if(_members->swapChain)
+				{
+					_members->swapChain->Release();
+				}
+				if(_members->device)
+				{
+					_members->device->Release();
+				}
+				if(_members->deviceContext)
+				{
+					_members->deviceContext->Release();
+				}
+				delete _members;
+			}
 		}
 
 		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)

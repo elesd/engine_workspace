@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_WINAPI == 0
 
-#include "engine/app/winapi/WinApiApplicationParameter.h"
+#include <engine/app/winapi/WinApiApplicationParameter.h>
 
 /////////////////////////////////////////////////
 

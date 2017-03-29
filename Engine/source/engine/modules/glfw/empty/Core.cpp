@@ -2,7 +2,7 @@
 
 #if ENGINE_USE_GLFW == 0
 
-#include "engine/modules/glfw/Core.h"
+#include <engine/modules/glfw/Core.h>
 /////////////////////////////////////////////////////
 
 namespace

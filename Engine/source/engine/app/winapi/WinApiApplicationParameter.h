@@ -1,7 +1,5 @@
 #pragma once
-#include "engine/app/StandardApplicationParameter.h"
-
-#include <windows.h>
+#include <engine/app/StandardApplicationParameter.h>
 
 namespace engine
 {

@@ -1,10 +1,10 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #if ENGINE_USE_SDL == 0
-#include "engine/view/sdl/WindowManagerImpl.h"
+#include <engine/view/sdl/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
-#include "engine/view/sdl/WindowImpl.h"
+#include <engine/view/sdl/WindowImpl.h>
 
-#include "engine/video/Driver.h"
+#include <engine/video/Driver.h>
 
 namespace engine
 {

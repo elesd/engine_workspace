@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/constraints/Singleton.h"
+#include <engine/constraints/Singleton.h>
 
 namespace engine
 {
@@ -77,4 +77,4 @@ namespace engine
 	};
 }
 
-#include "engine/utils/VersionBase.hpp"
+#include <engine/utils/VersionBase.hpp>

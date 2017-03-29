@@ -1,14 +1,16 @@
 #pragma once
 
-#include "engine/constraints/NonCopyable.h"
-#include "engine/view/Window.h"
-#include "engine/app/IApplicationParameter.h"
+#include <engine/constraints/NonCopyable.h>
+#include <engine/view/Window.h>
+#include <engine/app/IApplicationParameter.h>
 
 namespace engine
 {
 	class IMain;
 	struct WindowParameter;
 	class StateStack;
+	class WindowManager;
+	class EventManager;
 }
 
 namespace engine
@@ -16,8 +18,9 @@ namespace engine
 	/**
 	* Class for the application main logic.
 	*/
-	class Application : NonCopyable
+	class Application : private NonCopyable
 	{
+		friend class BaseBuilder;
 	public:
 		/**
 		* Create an application with the given arguments.
@@ -26,7 +29,7 @@ namespace engine
 		*/
 		Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
 		/**Simple destructor for PIMPL*/
-		~Application()  override;
+		virtual ~Application();
 
 		/**
 		* Update is called once per each frame
@@ -55,6 +58,15 @@ namespace engine
 		* @return Returns the initial arguments of the application
 		*/
 		const IApplicationParameter *getArguments() const;
+
+		EventManager *getEventManager() const;
+		WindowManager *getWindowManager() const;
+
+	private:
+		void setEventManager(std::unique_ptr<EventManager> eventManager);
+		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
+	private:
+		virtual void updateImpl() = 0;
 	private:
 		/**PIMPL*/
 		struct ApplicationPrivate *_members = nullptr;
