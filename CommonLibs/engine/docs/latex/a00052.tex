@@ -1,0 +1,80 @@
+\hypertarget{a00052}{}\subsection{engine\+:\+:I\+Signal\+Task Class Reference}
+\label{a00052}\index{engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/\+Signal\+Task.\+h$>$}
+
+Inheritance diagram for engine\+:\+:I\+Signal\+Task\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00052}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{a00052_a8f7c6610cc8bfd5249d3b391c6efc95b}{$\sim$\+I\+Signal\+Task} ()
+\item 
+virtual void \hyperlink{a00052_ab7e5dedd50f908fdb0f203b0a154db54}{operator()} ()=0
+\item 
+virtual bool \hyperlink{a00052_aaa397480f1ad28755a63ad1dca559d50}{is\+Expired} () const  =0
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Task which is created from a slot and a given member 
+
+Definition at line 10 of file Signal\+Task.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}!````~I\+Signal\+Task@{$\sim$\+I\+Signal\+Task}}
+\index{````~I\+Signal\+Task@{$\sim$\+I\+Signal\+Task}!engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}}
+\paragraph[{\texorpdfstring{$\sim$\+I\+Signal\+Task()}{~ISignalTask()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual engine\+::\+I\+Signal\+Task\+::$\sim$\+I\+Signal\+Task (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{a00052_a8f7c6610cc8bfd5249d3b391c6efc95b}{}\label{a00052_a8f7c6610cc8bfd5249d3b391c6efc95b}
+Default destructor 
+
+Definition at line 14 of file Signal\+Task.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}!is\+Expired@{is\+Expired}}
+\index{is\+Expired@{is\+Expired}!engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}}
+\paragraph[{\texorpdfstring{is\+Expired() const  =0}{isExpired() const  =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool engine\+::\+I\+Signal\+Task\+::is\+Expired (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00052_aaa397480f1ad28755a63ad1dca559d50}{}\label{a00052_aaa397480f1ad28755a63ad1dca559d50}
+Expired if the \hyperlink{a00066}{Signal\+Caller} has been destroyed. 
+
+Implemented in \hyperlink{a00068_af923108f7304a686bc4b7eeb41c35177}{engine\+::\+Signal\+Task$<$ Args $>$}.
+
+
+
+Referenced by engine\+::\+Signal\+Task$<$ Args $>$\+::operator()(), and $\sim$\+I\+Signal\+Task().
+
+\index{engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}!operator()@{operator()}}
+\index{operator()@{operator()}!engine\+::\+I\+Signal\+Task@{engine\+::\+I\+Signal\+Task}}
+\paragraph[{\texorpdfstring{operator()()=0}{operator()()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void engine\+::\+I\+Signal\+Task\+::operator() (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00052_ab7e5dedd50f908fdb0f203b0a154db54}{}\label{a00052_ab7e5dedd50f908fdb0f203b0a154db54}
+Execute the slot 
+
+Implemented in \hyperlink{a00068_a66e71dfc80f4320c2d5c260028b0bbff}{engine\+::\+Signal\+Task$<$ Args $>$}.
+
+
+
+Referenced by $\sim$\+I\+Signal\+Task().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/Signal\+Task.\+h\end{DoxyCompactItemize}

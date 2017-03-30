@@ -1,0 +1,92 @@
+\hypertarget{a00051}{}\subsection{engine\+:\+:I\+Signal\+Manager Class Reference}
+\label{a00051}\index{engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/\+I\+Signal\+Manager.\+h$>$}
+
+Inheritance diagram for engine\+:\+:I\+Signal\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00051}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{a00051_a96df44c1e1235d42d5632a5138d684e0}{$\sim$\+I\+Signal\+Manager} ()
+\item 
+virtual void \hyperlink{a00051_a45dd8b6dff3657f3538946bf1a8ea77c}{add\+Task} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00052}{I\+Signal\+Task} $>$ task)=0
+\item 
+virtual void \hyperlink{a00051_ab28b704d755b789e6f88d7c30e2aa625}{update} ()=0
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00051_a2ff4db6b18c05b22db35c9d62bed82bc}{I\+Signal\+Manager} ()=default
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Interface of the signal manager. Signals are created task during emit, this interface is responsible to manage these tasks. 
+
+Definition at line 12 of file I\+Signal\+Manager.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}!I\+Signal\+Manager@{I\+Signal\+Manager}}
+\index{I\+Signal\+Manager@{I\+Signal\+Manager}!engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}}
+\paragraph[{\texorpdfstring{I\+Signal\+Manager()=default}{ISignalManager()=default}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+I\+Signal\+Manager\+::\+I\+Signal\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [default]}}\hypertarget{a00051_a2ff4db6b18c05b22db35c9d62bed82bc}{}\label{a00051_a2ff4db6b18c05b22db35c9d62bed82bc}
+Default constructor \index{engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}!````~I\+Signal\+Manager@{$\sim$\+I\+Signal\+Manager}}
+\index{````~I\+Signal\+Manager@{$\sim$\+I\+Signal\+Manager}!engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}}
+\paragraph[{\texorpdfstring{$\sim$\+I\+Signal\+Manager()}{~ISignalManager()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual engine\+::\+I\+Signal\+Manager\+::$\sim$\+I\+Signal\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{a00051_a96df44c1e1235d42d5632a5138d684e0}{}\label{a00051_a96df44c1e1235d42d5632a5138d684e0}
+Default destructor 
+
+Definition at line 19 of file I\+Signal\+Manager.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}!add\+Task@{add\+Task}}
+\index{add\+Task@{add\+Task}!engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}}
+\paragraph[{\texorpdfstring{add\+Task(std\+::unique\+\_\+ptr$<$ I\+Signal\+Task $>$ task)=0}{addTask(std::unique_ptr< ISignalTask > task)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void engine\+::\+I\+Signal\+Manager\+::add\+Task (
+\begin{DoxyParamCaption}
+\item[{std\+::unique\+\_\+ptr$<$ {\bf I\+Signal\+Task} $>$}]{task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00051_a45dd8b6dff3657f3538946bf1a8ea77c}{}\label{a00051_a45dd8b6dff3657f3538946bf1a8ea77c}
+Assign a task to the manager. It\textquotesingle{}s called when a task is emitted. 
+
+Implemented in \hyperlink{a00067_a5ac2136c91ad2e8a5e912f3f906d0073}{engine\+::\+Signal\+Manager}.
+
+
+
+Referenced by $\sim$\+I\+Signal\+Manager().
+
+\index{engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}!update@{update}}
+\index{update@{update}!engine\+::\+I\+Signal\+Manager@{engine\+::\+I\+Signal\+Manager}}
+\paragraph[{\texorpdfstring{update()=0}{update()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void engine\+::\+I\+Signal\+Manager\+::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00051_ab28b704d755b789e6f88d7c30e2aa625}{}\label{a00051_ab28b704d755b789e6f88d7c30e2aa625}
+Update the manager. It\textquotesingle{}s for manage the tasks of the assigned manager. 
+
+Implemented in \hyperlink{a00067_a4e2dbe6e08226abfca06f172606b102b}{engine\+::\+Signal\+Manager}.
+
+
+
+Referenced by $\sim$\+I\+Signal\+Manager().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/I\+Signal\+Manager.\+h\end{DoxyCompactItemize}

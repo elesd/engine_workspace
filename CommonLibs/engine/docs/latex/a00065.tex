@@ -1,0 +1,120 @@
+\hypertarget{a00065}{}\subsection{engine\+:\+:Signal$<$ Args $>$ Class Template Reference}
+\label{a00065}\index{engine\+::\+Signal$<$ Args $>$@{engine\+::\+Signal$<$ Args $>$}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/\+Signal.\+h$>$}
+
+Inheritance diagram for engine\+:\+:Signal$<$ Args $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00065}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00065_ac27bc541be14d6ad516d858c3039df97}{Signal} ()=default
+\item 
+\hyperlink{a00065_a29c5d469f7f68d00e6895d1cf5121025}{$\sim$\+Signal} () override
+\item 
+{\footnotesize template$<$class T , void(\+T\+::$\ast$)(\+Args...) slot$>$ }\\void \hyperlink{a00065_aba0c679c2026a6ddaafdac1f6a71cb70}{connect} (T $\ast$holder)
+\item 
+{\footnotesize template$<$class T , void(\+T\+::$\ast$)(\+Args...) slot$>$ }\\void \hyperlink{a00065_a4dc6184edbd36dd8717d07c37a1f5fad}{disconnect} (T $\ast$holder)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{a00065_a4f3a4fcb844c23af742eac03e26bbc1b}{disconnect\+All} (T $\ast$holder)
+\item 
+void \hyperlink{a00065_afbe3d238443fab207b5030ac8c77385c}{emit} (Args...\+args)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$typename... Args$>$\\*
+class engine\+::\+Signal$<$ Args $>$}
+
+This class implements a signal. A signal can be emitted in this case all the slots will be called. The call is depend on the slot\textquotesingle{}s signal\+Manager. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & Signature of the signal. \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 20 of file Signal.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Signal@{engine\+::\+Signal}!Signal@{Signal}}
+\index{Signal@{Signal}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{Signal()=default}{Signal()=default}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ {\bf engine\+::\+Signal}$<$ Args $>$\+::{\bf Signal} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{a00065_ac27bc541be14d6ad516d858c3039df97}{}\label{a00065_ac27bc541be14d6ad516d858c3039df97}
+Defualt constructor. \index{engine\+::\+Signal@{engine\+::\+Signal}!````~Signal@{$\sim$\+Signal}}
+\index{````~Signal@{$\sim$\+Signal}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{$\sim$\+Signal() override}{~Signal() override}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ {\bf engine\+::\+Signal}$<$ Args $>$\+::$\sim${\bf Signal} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}}\hypertarget{a00065_a29c5d469f7f68d00e6895d1cf5121025}{}\label{a00065_a29c5d469f7f68d00e6895d1cf5121025}
+Notify all connected slot 
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Signal@{engine\+::\+Signal}!connect@{connect}}
+\index{connect@{connect}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{connect(\+T $\ast$holder)}{connect(T *holder)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ template$<$class T , void(\+T\+::$\ast$)(\+Args...) slot$>$ void {\bf engine\+::\+Signal}$<$ Args $>$\+::connect (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{holder}
+\end{DoxyParamCaption}
+)}\hypertarget{a00065_aba0c679c2026a6ddaafdac1f6a71cb70}{}\label{a00065_aba0c679c2026a6ddaafdac1f6a71cb70}
+Connect the holder member function to this signal. When the signal is emitted a task will crated which will call this member function on the given object. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em slot} & Slot to connect to this signal \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em holder} & owner of the slot. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Signal@{engine\+::\+Signal}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{disconnect(\+T $\ast$holder)}{disconnect(T *holder)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ template$<$class T , void(\+T\+::$\ast$)(\+Args...) slot$>$ void {\bf engine\+::\+Signal}$<$ Args $>$\+::disconnect (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{holder}
+\end{DoxyParamCaption}
+)}\hypertarget{a00065_a4dc6184edbd36dd8717d07c37a1f5fad}{}\label{a00065_a4dc6184edbd36dd8717d07c37a1f5fad}
+Disconnect the given slot and object from this signal. Via the shared pointer all the created tasks are invalidated. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em slot} & Slot to disconnect to this signal \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em holder} & owner of the slot. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Signal@{engine\+::\+Signal}!disconnect\+All@{disconnect\+All}}
+\index{disconnect\+All@{disconnect\+All}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{disconnect\+All(\+T $\ast$holder)}{disconnectAll(T *holder)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ template$<$class T $>$ void {\bf engine\+::\+Signal}$<$ Args $>$\+::disconnect\+All (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{holder}
+\end{DoxyParamCaption}
+)}\hypertarget{a00065_a4f3a4fcb844c23af742eac03e26bbc1b}{}\label{a00065_a4f3a4fcb844c23af742eac03e26bbc1b}
+Disconnect all the slots of the given slot holder 
+\begin{DoxyParams}{Parameters}
+{\em holder} & owner of the slot \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Signal@{engine\+::\+Signal}!emit@{emit}}
+\index{emit@{emit}!engine\+::\+Signal@{engine\+::\+Signal}}
+\paragraph[{\texorpdfstring{emit(\+Args...\+args)}{emit(Args...args)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ void {\bf engine\+::\+Signal}$<$ Args $>$\+::emit (
+\begin{DoxyParamCaption}
+\item[{Args...}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{a00065_afbe3d238443fab207b5030ac8c77385c}{}\label{a00065_afbe3d238443fab207b5030ac8c77385c}
+Emit the signal. For all the connected slot a task is created and added to the corresponding signal manager. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/Signal.\+h\end{DoxyCompactItemize}

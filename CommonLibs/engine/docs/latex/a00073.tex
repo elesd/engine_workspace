@@ -1,0 +1,142 @@
+\hypertarget{a00073}{}\subsection{engine\+:\+:State\+Stack Class Reference}
+\label{a00073}\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/state\+Stack/\+State\+Stack.\+h$>$}
+
+Inheritance diagram for engine\+:\+:State\+Stack\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00073}
+\end{center}
+\end{figure}
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{a00073_a866f3ce726d328dc3488f3300b94be07}{State\+List} = std\+::list$<$ \hyperlink{a00072}{State\+Base} $\ast$ $>$
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00073_af80814eae37384bbbf07f3c041ff9489}{State\+Stack} ()
+\item 
+\hyperlink{a00073_a1c5c62604825cc9e4395212cd2986829}{$\sim$\+State\+Stack} ()
+\item 
+void \hyperlink{a00073_a129b751979654c033dfbb5595519db48}{update} ()
+\item 
+void \hyperlink{a00073_a948f666845a6bbebc6f629a3eef8de0b}{render} ()
+\item 
+void \hyperlink{a00073_aae3b3caef3cf8dfd7ba9ea0232b5babd}{push\+State} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00072}{State\+Base} $>$ state)
+\item 
+void \hyperlink{a00073_ad4332c156e0169fcde04044acb59928d}{pop\+State} ()
+\item 
+void \hyperlink{a00073_a7d05f3d0f8ca93a48911bb14558314d4}{trace} (std\+::ostream \&os) const 
+\item 
+bool \hyperlink{a00073_a07e9947e97bb7e5ad5533d68f0791429}{is\+Empty} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+This class is responsible to handle game state changes. This stack has 2 face, one is not midified during the current frame execution, the other one is changing when push or pop is called. At the begining of the frame the update of the stack is called and it applies the modification what was done in the previous frame. 
+
+Definition at line 18 of file State\+Stack.\+h.
+
+
+
+\subsubsection{Member Typedef Documentation}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!State\+List@{State\+List}}
+\index{State\+List@{State\+List}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{State\+List}{StateList}}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf engine\+::\+State\+Stack\+::\+State\+List} =  std\+::list $<$ {\bf State\+Base}$\ast$ $>$}\hypertarget{a00073_a866f3ce726d328dc3488f3300b94be07}{}\label{a00073_a866f3ce726d328dc3488f3300b94be07}
+Container for states 
+
+Definition at line 24 of file State\+Stack.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!State\+Stack@{State\+Stack}}
+\index{State\+Stack@{State\+Stack}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{State\+Stack()}{StateStack()}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+State\+Stack\+::\+State\+Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_af80814eae37384bbbf07f3c041ff9489}{}\label{a00073_af80814eae37384bbbf07f3c041ff9489}
+Default constuctor \index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!````~State\+Stack@{$\sim$\+State\+Stack}}
+\index{````~State\+Stack@{$\sim$\+State\+Stack}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{$\sim$\+State\+Stack()}{~StateStack()}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+State\+Stack\+::$\sim$\+State\+Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_a1c5c62604825cc9e4395212cd2986829}{}\label{a00073_a1c5c62604825cc9e4395212cd2986829}
+Non virtual destructor. Further inheritance is not allowed. 
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{is\+Empty() const }{isEmpty() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool engine\+::\+State\+Stack\+::is\+Empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{a00073_a07e9947e97bb7e5ad5533d68f0791429}{}\label{a00073_a07e9947e97bb7e5ad5533d68f0791429}
+\begin{DoxyReturn}{Returns}
+Returns true if it is empty. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+The stack is constant in the frame, so pop end push functions are ignored and this function returns the top of the previous frame. 
+\end{DoxyWarning}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!pop\+State@{pop\+State}}
+\index{pop\+State@{pop\+State}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{pop\+State()}{popState()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+State\+Stack\+::pop\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_ad4332c156e0169fcde04044acb59928d}{}\label{a00073_ad4332c156e0169fcde04044acb59928d}
+Pops the top from the stack. \begin{DoxyWarning}{Warning}
+This function will be applied only in the next frame. 
+\end{DoxyWarning}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!push\+State@{push\+State}}
+\index{push\+State@{push\+State}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{push\+State(std\+::unique\+\_\+ptr$<$ State\+Base $>$ state)}{pushState(std::unique_ptr< StateBase > state)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+State\+Stack\+::push\+State (
+\begin{DoxyParamCaption}
+\item[{std\+::unique\+\_\+ptr$<$ {\bf State\+Base} $>$}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_aae3b3caef3cf8dfd7ba9ea0232b5babd}{}\label{a00073_aae3b3caef3cf8dfd7ba9ea0232b5babd}
+Pushes a new state to the top of the stack. 
+\begin{DoxyParams}{Parameters}
+{\em state} & State to push to the top. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+This function will be applied only in the next frame. 
+\end{DoxyWarning}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!render@{render}}
+\index{render@{render}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{render()}{render()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+State\+Stack\+::render (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_a948f666845a6bbebc6f629a3eef8de0b}{}\label{a00073_a948f666845a6bbebc6f629a3eef8de0b}
+Render the top state if it exists. \index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!trace@{trace}}
+\index{trace@{trace}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{trace(std\+::ostream \&os) const }{trace(std::ostream &os) const }}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+State\+Stack\+::trace (
+\begin{DoxyParamCaption}
+\item[{std\+::ostream \&}]{os}
+\end{DoxyParamCaption}
+) const}\hypertarget{a00073_a7d05f3d0f8ca93a48911bb14558314d4}{}\label{a00073_a7d05f3d0f8ca93a48911bb14558314d4}
+Trace the states in the container. 
+\begin{DoxyParams}{Parameters}
+{\em os} & stream where data will dumped. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+State\+Stack@{engine\+::\+State\+Stack}!update@{update}}
+\index{update@{update}!engine\+::\+State\+Stack@{engine\+::\+State\+Stack}}
+\paragraph[{\texorpdfstring{update()}{update()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+State\+Stack\+::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00073_a129b751979654c033dfbb5595519db48}{}\label{a00073_a129b751979654c033dfbb5595519db48}
+Update the stack. All the modifications from the previous frame will be applied in this function, and calls the top state\textquotesingle{}s update. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/state\+Stack/State\+Stack.\+h\end{DoxyCompactItemize}

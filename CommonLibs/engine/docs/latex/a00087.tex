@@ -1,0 +1,347 @@
+\hypertarget{a00087}{}\subsection{engine\+:\+:Window\+Manager Class Reference}
+\label{a00087}\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/view/\+Window\+Manager.\+h$>$}
+
+Inheritance diagram for engine\+:\+:Window\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.511211cm]{a00087}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00087_a6749235b97d99fd37e3364b5028c05f4}{Window\+Manager} ()
+\item 
+virtual \hyperlink{a00087_a86a0bbdde5137d9fefdb3fd3d2f4ba27}{$\sim$\+Window\+Manager} ()
+\item 
+virtual uint32\+\_\+t \hyperlink{a00087_ab0508dca59ae0d5366158385b75ae8b6}{get\+Monitor\+Count} () const  =0
+\item 
+virtual uint32\+\_\+t \hyperlink{a00087_ae1c80e3385179a2908316ac74c2fc520}{get\+Main\+Monitor\+Id} () const  =0
+\item 
+\hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a863ac648c2c2a93a57c4a898fb176718}{create\+Main\+Window} (const \hyperlink{a00091}{Window\+Parameter} \&parameters, const std\+::string \&title)
+\item 
+\hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a9c2adc3003612cafb99fd7a156bc9655}{create\+Full\+Screen\+Main\+Window} (const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id)
+\item 
+\hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_afc8f953d7aa1e2822b8ced1e5b855ab8}{create\+Secondary\+Window} (const \hyperlink{a00091}{Window\+Parameter} \&parameters, const std\+::string \&title, \hyperlink{a00082}{Window} $\ast$main\+Window)
+\item 
+\hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a8d3b6392e5389e7e5706f92ceed96fa0}{create\+Secondary\+Full\+Screen\+Window} (const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id, \hyperlink{a00082}{Window} $\ast$main\+Window)
+\item 
+void \hyperlink{a00087_aecfb9aa6471ecf82e5c76a96440c275c}{destroy\+Window} (\hyperlink{a00082}{Window} $\ast$)
+\item 
+\hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a7ccb3265cab90117a4face1c5ebb5e29}{get\+Main\+Window} ()
+\item 
+const \hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_aa59c328988c32399328f8f38c5210275}{get\+Main\+Window} () const 
+\item 
+std\+::vector$<$ \hyperlink{a00082}{Window} $\ast$ $>$ \hyperlink{a00087_a9aac4dcdd92008cd8602b7456be6260a}{get\+All\+Windows} () const 
+\item 
+void \hyperlink{a00087_a9aaa765ab360c7093dd1f1d3f5f3d621}{set\+Driver\+Parameter} (const \hyperlink{a00028}{Driver\+Init\+Parameters} \&default\+Parameters)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_ad5dba47d5f1da2abfa9bacffd318ba3d}{create\+Main\+Window\+Impl} (const \hyperlink{a00091}{Window\+Parameter} \&parameters, const std\+::string \&title)=0
+\item 
+virtual \hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a3af32a24c80a711eb8473d54876c4d28}{create\+Full\+Screen\+Main\+Window\+Impl} (const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id)=0
+\item 
+virtual \hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a3944290d64b7d8f23764464f5f2df82f}{create\+Secondary\+Window\+Impl} (const \hyperlink{a00091}{Window\+Parameter} \&parameters, const std\+::string \&title, \hyperlink{a00082}{Window} $\ast$main\+Window)=0
+\item 
+virtual \hyperlink{a00082}{Window} $\ast$ \hyperlink{a00087_a62c22afc4f34aa5447f45239702ac67a}{create\+Secondary\+Full\+Screen\+Window\+Impl} (const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id, \hyperlink{a00082}{Window} $\ast$main\+Window)=0
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \hyperlink{a00024}{Driver} $>$ \hyperlink{a00087_a640d280cbddc70431a12c6ffb8fb34fd}{create\+Driver\+For\+Window} (const \hyperlink{a00028}{Driver\+Init\+Parameters} \&, \hyperlink{a00082}{Window} $\ast$) const  =0
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Class for manage window creation and windows connected functionality. 
+
+Definition at line 15 of file Window\+Manager.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!Window\+Manager@{Window\+Manager}}
+\index{Window\+Manager@{Window\+Manager}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{Window\+Manager()}{WindowManager()}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+Window\+Manager\+::\+Window\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a6749235b97d99fd37e3364b5028c05f4}{}\label{a00087_a6749235b97d99fd37e3364b5028c05f4}
+Default constructable. \index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!````~Window\+Manager@{$\sim$\+Window\+Manager}}
+\index{````~Window\+Manager@{$\sim$\+Window\+Manager}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{$\sim$\+Window\+Manager()}{~WindowManager()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual engine\+::\+Window\+Manager\+::$\sim$\+Window\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{a00087_a86a0bbdde5137d9fefdb3fd3d2f4ba27}{}\label{a00087_a86a0bbdde5137d9fefdb3fd3d2f4ba27}
+Destructor for P\+I\+M\+PL 
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Driver\+For\+Window@{create\+Driver\+For\+Window}}
+\index{create\+Driver\+For\+Window@{create\+Driver\+For\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Driver\+For\+Window(const Driver\+Init\+Parameters \&, Window $\ast$) const  =0}{createDriverForWindow(const DriverInitParameters &, Window *) const  =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\+::unique\+\_\+ptr$<${\bf Driver}$>$ engine\+::\+Window\+Manager\+::create\+Driver\+For\+Window (
+\begin{DoxyParamCaption}
+\item[{const {\bf Driver\+Init\+Parameters} \&}]{, }
+\item[{{\bf Window} $\ast$}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{a00087_a640d280cbddc70431a12c6ffb8fb34fd}{}\label{a00087_a640d280cbddc70431a12c6ffb8fb34fd}
+This function purpos to create a driver for the given window. This driver later will be attached to the given window 
+
+Implemented in \hyperlink{a00088_aced29776a0025033bb3fb92a821a5deb}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_a8d7410a6f39bc3f2e4255939e2549e9b}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_ac99173816ec5a2fc4a739aba8b566953}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Full\+Screen\+Main\+Window@{create\+Full\+Screen\+Main\+Window}}
+\index{create\+Full\+Screen\+Main\+Window@{create\+Full\+Screen\+Main\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Full\+Screen\+Main\+Window(const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id)}{createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Full\+Screen\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{const uint32\+\_\+t}]{width, }
+\item[{const uint32\+\_\+t}]{height, }
+\item[{const std\+::string \&}]{title, }
+\item[{uint32\+\_\+t}]{monitor\+Id}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a9c2adc3003612cafb99fd7a156bc9655}{}\label{a00087_a9c2adc3003612cafb99fd7a156bc9655}
+Creates a main full screened window with the given parameter and title. 
+\begin{DoxyParams}{Parameters}
+{\em width} & width of the window in pixels \\
+\hline
+{\em height} & height of the window in pixels \\
+\hline
+{\em title} & title of the window \\
+\hline
+{\em monitor\+Id} & id of the monitor where the window will created. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Full\+Screen\+Main\+Window\+Impl@{create\+Full\+Screen\+Main\+Window\+Impl}}
+\index{create\+Full\+Screen\+Main\+Window\+Impl@{create\+Full\+Screen\+Main\+Window\+Impl}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Full\+Screen\+Main\+Window\+Impl(const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id)=0}{createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Full\+Screen\+Main\+Window\+Impl (
+\begin{DoxyParamCaption}
+\item[{const uint32\+\_\+t}]{width, }
+\item[{const uint32\+\_\+t}]{height, }
+\item[{const std\+::string \&}]{title, }
+\item[{uint32\+\_\+t}]{monitor\+Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{a00087_a3af32a24c80a711eb8473d54876c4d28}{}\label{a00087_a3af32a24c80a711eb8473d54876c4d28}
+\hyperlink{a00082}{Window} system dependent creation function. This function must create a full screen window with the given parameters. 
+\begin{DoxyParams}{Parameters}
+{\em width} & \+: width of the window in pixels \\
+\hline
+{\em height} & \+: height of the window in pixels \\
+\hline
+{\em title} & \+: title of the window \\
+\hline
+{\em monitor\+Id} & \+: id of the monitor where the window will created. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{a00088_a9684f59d2995f89182e039e7591a59cc}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_acb8925ac309ba2705221a8db7357bb60}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_ae345cf8a66a523782ea4920ffaa04f96}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Main\+Window@{create\+Main\+Window}}
+\index{create\+Main\+Window@{create\+Main\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Main\+Window(const Window\+Parameter \&parameters, const std\+::string \&title)}{createMainWindow(const WindowParameter &parameters, const std::string &title)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{const {\bf Window\+Parameter} \&}]{parameters, }
+\item[{const std\+::string \&}]{title}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a863ac648c2c2a93a57c4a898fb176718}{}\label{a00087_a863ac648c2c2a93a57c4a898fb176718}
+Creates a main window with the given parameter and title. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & \hyperlink{a00082}{Window} creation parameters. \\
+\hline
+{\em title} & title of the window \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Main\+Window\+Impl@{create\+Main\+Window\+Impl}}
+\index{create\+Main\+Window\+Impl@{create\+Main\+Window\+Impl}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Main\+Window\+Impl(const Window\+Parameter \&parameters, const std\+::string \&title)=0}{createMainWindowImpl(const WindowParameter &parameters, const std::string &title)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Main\+Window\+Impl (
+\begin{DoxyParamCaption}
+\item[{const {\bf Window\+Parameter} \&}]{parameters, }
+\item[{const std\+::string \&}]{title}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{a00087_ad5dba47d5f1da2abfa9bacffd318ba3d}{}\label{a00087_ad5dba47d5f1da2abfa9bacffd318ba3d}
+\hyperlink{a00082}{Window} system dependent creation function. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & \hyperlink{a00082}{Window} creation parameters. \\
+\hline
+{\em title} & title of the window \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{a00088_a4c3adbbf883d7bbc15e17cc4c868ee14}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_ab33ae118afb5a7048c61d437e54b5c43}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_a724b94a86d7fa24a317ca2400e19c3a6}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Secondary\+Full\+Screen\+Window@{create\+Secondary\+Full\+Screen\+Window}}
+\index{create\+Secondary\+Full\+Screen\+Window@{create\+Secondary\+Full\+Screen\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Secondary\+Full\+Screen\+Window(const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id, Window $\ast$main\+Window)}{createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Secondary\+Full\+Screen\+Window (
+\begin{DoxyParamCaption}
+\item[{const uint32\+\_\+t}]{width, }
+\item[{const uint32\+\_\+t}]{height, }
+\item[{const std\+::string \&}]{title, }
+\item[{uint32\+\_\+t}]{monitor\+Id, }
+\item[{{\bf Window} $\ast$}]{main\+Window}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a8d3b6392e5389e7e5706f92ceed96fa0}{}\label{a00087_a8d3b6392e5389e7e5706f92ceed96fa0}
+Creates a secondary full screened window with the given parameter and title. 
+\begin{DoxyParams}{Parameters}
+{\em width} & width of the window in pixels \\
+\hline
+{\em height} & height of the window in pixels \\
+\hline
+{\em title} & title of the window \\
+\hline
+{\em monitor\+Id} & id of the monitor where the window will created. \\
+\hline
+{\em main\+Window} & Main window, the secondary window shares the main window context. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Secondary\+Full\+Screen\+Window\+Impl@{create\+Secondary\+Full\+Screen\+Window\+Impl}}
+\index{create\+Secondary\+Full\+Screen\+Window\+Impl@{create\+Secondary\+Full\+Screen\+Window\+Impl}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Secondary\+Full\+Screen\+Window\+Impl(const uint32\+\_\+t width, const uint32\+\_\+t height, const std\+::string \&title, uint32\+\_\+t monitor\+Id, Window $\ast$main\+Window)=0}{createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Secondary\+Full\+Screen\+Window\+Impl (
+\begin{DoxyParamCaption}
+\item[{const uint32\+\_\+t}]{width, }
+\item[{const uint32\+\_\+t}]{height, }
+\item[{const std\+::string \&}]{title, }
+\item[{uint32\+\_\+t}]{monitor\+Id, }
+\item[{{\bf Window} $\ast$}]{main\+Window}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{a00087_a62c22afc4f34aa5447f45239702ac67a}{}\label{a00087_a62c22afc4f34aa5447f45239702ac67a}
+\hyperlink{a00082}{Window} system dependent creation function. 
+\begin{DoxyParams}{Parameters}
+{\em width} & width of the window in pixels \\
+\hline
+{\em height} & height of the window in pixels \\
+\hline
+{\em title} & title of the window \\
+\hline
+{\em monitor\+Id} & id of the monitor where the window will created. \\
+\hline
+{\em main\+Window} & Main window, the secondary window shares the main window context. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{a00088_acb25d1f39aec8507fd80bdff20d7abc3}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_a7fce1ce88b1aa3ec24b0b78fd5e56a64}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_a28e27c9fe4ec728ff2a88b3ee7286884}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Secondary\+Window@{create\+Secondary\+Window}}
+\index{create\+Secondary\+Window@{create\+Secondary\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Secondary\+Window(const Window\+Parameter \&parameters, const std\+::string \&title, Window $\ast$main\+Window)}{createSecondaryWindow(const WindowParameter &parameters, const std::string &title, Window *mainWindow)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Secondary\+Window (
+\begin{DoxyParamCaption}
+\item[{const {\bf Window\+Parameter} \&}]{parameters, }
+\item[{const std\+::string \&}]{title, }
+\item[{{\bf Window} $\ast$}]{main\+Window}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_afc8f953d7aa1e2822b8ced1e5b855ab8}{}\label{a00087_afc8f953d7aa1e2822b8ced1e5b855ab8}
+Creates a secondary window with the given parameter and title. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & \hyperlink{a00082}{Window} creation parameters. \\
+\hline
+{\em title} & title of the window \\
+\hline
+{\em main\+Window} & Main window, the secondary window shares the main window context. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!create\+Secondary\+Window\+Impl@{create\+Secondary\+Window\+Impl}}
+\index{create\+Secondary\+Window\+Impl@{create\+Secondary\+Window\+Impl}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{create\+Secondary\+Window\+Impl(const Window\+Parameter \&parameters, const std\+::string \&title, Window $\ast$main\+Window)=0}{createSecondaryWindowImpl(const WindowParameter &parameters, const std::string &title, Window *mainWindow)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Window}$\ast$ engine\+::\+Window\+Manager\+::create\+Secondary\+Window\+Impl (
+\begin{DoxyParamCaption}
+\item[{const {\bf Window\+Parameter} \&}]{parameters, }
+\item[{const std\+::string \&}]{title, }
+\item[{{\bf Window} $\ast$}]{main\+Window}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\hypertarget{a00087_a3944290d64b7d8f23764464f5f2df82f}{}\label{a00087_a3944290d64b7d8f23764464f5f2df82f}
+\hyperlink{a00082}{Window} system dependent creation function. 
+\begin{DoxyParams}{Parameters}
+{\em parameters} & \hyperlink{a00082}{Window} creation parameters. \\
+\hline
+{\em title} & title of the window \\
+\hline
+{\em main\+Window} & Main window, the secondary window shares the main window context. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{a00088_ac82c286d1666a12ea3fa807958ff546d}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_aed46f77f80b40c2a2e6ec23cb5dc5bf7}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_a31aaa0f6700a06b1f6da638577673bce}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!destroy\+Window@{destroy\+Window}}
+\index{destroy\+Window@{destroy\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{destroy\+Window(\+Window $\ast$)}{destroyWindow(Window *)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+Manager\+::destroy\+Window (
+\begin{DoxyParamCaption}
+\item[{{\bf Window} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_aecfb9aa6471ecf82e5c76a96440c275c}{}\label{a00087_aecfb9aa6471ecf82e5c76a96440c275c}
+Destroy the given window. \index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!get\+All\+Windows@{get\+All\+Windows}}
+\index{get\+All\+Windows@{get\+All\+Windows}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{get\+All\+Windows() const }{getAllWindows() const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf Window}$\ast$$>$ engine\+::\+Window\+Manager\+::get\+All\+Windows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{a00087_a9aac4dcdd92008cd8602b7456be6260a}{}\label{a00087_a9aac4dcdd92008cd8602b7456be6260a}
+\begin{DoxyReturn}{Returns}
+Returns all created window. 
+\end{DoxyReturn}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!get\+Main\+Monitor\+Id@{get\+Main\+Monitor\+Id}}
+\index{get\+Main\+Monitor\+Id@{get\+Main\+Monitor\+Id}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{get\+Main\+Monitor\+Id() const  =0}{getMainMonitorId() const  =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual uint32\+\_\+t engine\+::\+Window\+Manager\+::get\+Main\+Monitor\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00087_ae1c80e3385179a2908316ac74c2fc520}{}\label{a00087_ae1c80e3385179a2908316ac74c2fc520}
+\begin{DoxyReturn}{Returns}
+Return the main monitor id. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{a00088_a549d762ba32d525e574c06d8bb103255}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_a02afdb8c94a0dc9c8e052901e44676ab}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_a21001322db84287f4ada31f645e0da93}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!get\+Main\+Window@{get\+Main\+Window}}
+\index{get\+Main\+Window@{get\+Main\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{get\+Main\+Window()}{getMainWindow()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window}$\ast$ engine\+::\+Window\+Manager\+::get\+Main\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a7ccb3265cab90117a4face1c5ebb5e29}{}\label{a00087_a7ccb3265cab90117a4face1c5ebb5e29}
+\begin{DoxyReturn}{Returns}
+Returns the main window. 
+\end{DoxyReturn}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!get\+Main\+Window@{get\+Main\+Window}}
+\index{get\+Main\+Window@{get\+Main\+Window}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{get\+Main\+Window() const }{getMainWindow() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Window}$\ast$ engine\+::\+Window\+Manager\+::get\+Main\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{a00087_aa59c328988c32399328f8f38c5210275}{}\label{a00087_aa59c328988c32399328f8f38c5210275}
+\begin{DoxyReturn}{Returns}
+Returns the main window. 
+\end{DoxyReturn}
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!get\+Monitor\+Count@{get\+Monitor\+Count}}
+\index{get\+Monitor\+Count@{get\+Monitor\+Count}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{get\+Monitor\+Count() const  =0}{getMonitorCount() const  =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual uint32\+\_\+t engine\+::\+Window\+Manager\+::get\+Monitor\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{a00087_ab0508dca59ae0d5366158385b75ae8b6}{}\label{a00087_ab0508dca59ae0d5366158385b75ae8b6}
+\begin{DoxyReturn}{Returns}
+Returns the number of available monitors. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{a00088_afa93bde2dfc7d722c236f2a2c51b45af}{engine\+::winapi\+::\+Window\+Manager\+Impl}, \hyperlink{a00090_a40ee7fc65955826dede09f35e3aa4815}{engine\+::glfw\+::\+Window\+Manager\+Impl}, and \hyperlink{a00089_a1f52cf717fa2ca568833416b126975cd}{engine\+::sdl\+::\+Window\+Manager\+Impl}.
+
+\index{engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}!set\+Driver\+Parameter@{set\+Driver\+Parameter}}
+\index{set\+Driver\+Parameter@{set\+Driver\+Parameter}!engine\+::\+Window\+Manager@{engine\+::\+Window\+Manager}}
+\paragraph[{\texorpdfstring{set\+Driver\+Parameter(const Driver\+Init\+Parameters \&default\+Parameters)}{setDriverParameter(const DriverInitParameters &defaultParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+Manager\+::set\+Driver\+Parameter (
+\begin{DoxyParamCaption}
+\item[{const {\bf Driver\+Init\+Parameters} \&}]{default\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{a00087_a9aaa765ab360c7093dd1f1d3f5f3d621}{}\label{a00087_a9aaa765ab360c7093dd1f1d3f5f3d621}
+Set the default driver creation parameters. When a new window is created a driver will be attached to it. This is the driver creation parameters. It will use when the next window is created. 
+\begin{DoxyParams}{Parameters}
+{\em default\+Parameters} & driver creation parameters \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/view/Window\+Manager.\+h\end{DoxyCompactItemize}

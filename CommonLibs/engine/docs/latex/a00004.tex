@@ -1,0 +1,101 @@
+\hypertarget{a00004}{}\subsection{engine\+:\+:winapi\+:\+:Application\+Impl Class Reference}
+\label{a00004}\index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+Inheritance diagram for engine\+:\+:winapi\+:\+:Application\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{a00004}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Application\+Impl} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00043}{I\+Application\+Parameter} $>$ arguments, std\+::unique\+\_\+ptr$<$ \hyperlink{a00045}{I\+Main} $>$ main)\hypertarget{a00004_aae13a8664b4d94cf5a625eb526662599}{}\label{a00004_aae13a8664b4d94cf5a625eb526662599}
+
+\item 
+bool {\bfseries handle\+Event} (H\+W\+ND h\+Wnd, U\+I\+NT message, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)\hypertarget{a00004_a8622725348cb094eae90294be4896f66}{}\label{a00004_a8622725348cb094eae90294be4896f66}
+
+\item 
+void {\bfseries run} ()\hypertarget{a00002_a6d9c94380f1451664ff6d09c314671c7}{}\label{a00002_a6d9c94380f1451664ff6d09c314671c7}
+
+\item 
+void \hyperlink{a00002_a149822f20163e98d41728f4752d7a7f7}{update} ()
+\item 
+void \hyperlink{a00002_af3ef70b1c3e25be0dbe68c460ec2db98}{render} ()
+\item 
+bool \hyperlink{a00002_a86f249cf621c4255df1a60987c588961}{is\+Active} () const 
+\item 
+void \hyperlink{a00002_aeb61beceae055e7681b6791dd5dddafa}{stop} ()
+\item 
+void \hyperlink{a00002_a9b8b10fd48e93db0986df610523105dc}{start} ()
+\item 
+const \hyperlink{a00043}{I\+Application\+Parameter} $\ast$ \hyperlink{a00002_af165b483b86469ff9db2f689f1212f14}{get\+Arguments} () const 
+\item 
+\hyperlink{a00034}{Event\+Manager} $\ast$ {\bfseries get\+Event\+Manager} () const \hypertarget{a00002_aa895c5c2a56efe782cd9cb038075bb60}{}\label{a00002_aa895c5c2a56efe782cd9cb038075bb60}
+
+\item 
+\hyperlink{a00087}{Window\+Manager} $\ast$ {\bfseries get\+Window\+Manager} () const \hypertarget{a00002_aed35eca596bce4c089aa3db72d3dc5b6}{}\label{a00002_aed35eca596bce4c089aa3db72d3dc5b6}
+
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 12 of file Application\+Impl.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!get\+Arguments@{get\+Arguments}}
+\index{get\+Arguments@{get\+Arguments}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{get\+Arguments() const }{getArguments() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf I\+Application\+Parameter}$\ast$ engine\+::\+Application\+::get\+Arguments (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_af165b483b86469ff9db2f689f1212f14}{}\label{a00002_af165b483b86469ff9db2f689f1212f14}
+\begin{DoxyReturn}{Returns}
+Returns the initial arguments of the application 
+\end{DoxyReturn}
+\index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!is\+Active@{is\+Active}}
+\index{is\+Active@{is\+Active}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{is\+Active() const }{isActive() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool engine\+::\+Application\+::is\+Active (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_a86f249cf621c4255df1a60987c588961}{}\label{a00002_a86f249cf621c4255df1a60987c588961}
+\begin{DoxyReturn}{Returns}
+Returns true till the application is not terminated. 
+\end{DoxyReturn}
+\index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!render@{render}}
+\index{render@{render}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{render()}{render()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Application\+::render (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_af3ef70b1c3e25be0dbe68c460ec2db98}{}\label{a00002_af3ef70b1c3e25be0dbe68c460ec2db98}
+Render is called in each frame. Here will be rendered the application \index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!start@{start}}
+\index{start@{start}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{start()}{start()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Application\+::start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_a9b8b10fd48e93db0986df610523105dc}{}\label{a00002_a9b8b10fd48e93db0986df610523105dc}
+Terminate the application \index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!stop@{stop}}
+\index{stop@{stop}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{stop()}{stop()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Application\+::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_aeb61beceae055e7681b6791dd5dddafa}{}\label{a00002_aeb61beceae055e7681b6791dd5dddafa}
+Starts the application. \index{engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}!update@{update}}
+\index{update@{update}!engine\+::winapi\+::\+Application\+Impl@{engine\+::winapi\+::\+Application\+Impl}}
+\paragraph[{\texorpdfstring{update()}{update()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Application\+::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00002_a149822f20163e98d41728f4752d7a7f7}{}\label{a00002_a149822f20163e98d41728f4752d7a7f7}
+Update is called once per each frame 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/app/winapi/Application\+Impl.\+h\end{DoxyCompactItemize}

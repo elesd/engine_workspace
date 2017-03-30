@@ -1,0 +1,269 @@
+\hypertarget{a00082}{}\subsection{engine\+:\+:Window Class Reference}
+\label{a00082}\index{engine\+::\+Window@{engine\+::\+Window}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/view/\+Window.\+h$>$}
+
+Inheritance diagram for engine\+:\+:Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.647754cm]{a00082}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00082_a6adceceb01e5ed546282c5ea2d09af88}{Window} ()
+\item 
+\hyperlink{a00082_a3bf48ba460f021664ad27f27509cf473}{Window} (const \hyperlink{a00091}{Window\+Parameter} \&parameter)
+\item 
+virtual \hyperlink{a00082_a9540302516f5eda30facee89517346ed}{$\sim$\+Window} ()
+\item 
+const \hyperlink{a00091}{Window\+Parameter} \& \hyperlink{a00082_afbb0f8b825f17fbf8f434c4ab9ae5f8d}{get\+Parameters} () const 
+\item 
+void \hyperlink{a00082_ad6874b68c5cd0b59ec75ac8ad15f2a3a}{set\+Position} (int32\+\_\+t x, int32\+\_\+t y)
+\item 
+void \hyperlink{a00082_a3435c3bf0e07492ec77f3977c9b5e355}{set\+Width} (uint32\+\_\+t width)
+\item 
+uint32\+\_\+t {\bfseries get\+Width} () const \hypertarget{a00082_a8f13b82e3aa16ac711b2efd5411964d0}{}\label{a00082_a8f13b82e3aa16ac711b2efd5411964d0}
+
+\item 
+void \hyperlink{a00082_a87b8b6f2c1a08327d4010e2b6aceb319}{set\+Height} (uint32\+\_\+t height)
+\item 
+uint32\+\_\+t {\bfseries get\+Height} () const \hypertarget{a00082_accdce871efc461fe3348d62f8087b73d}{}\label{a00082_accdce871efc461fe3348d62f8087b73d}
+
+\item 
+void \hyperlink{a00082_aefaae1015e22521e0a0168633a7d413f}{set\+Size} (uint32\+\_\+t width, uint32\+\_\+t height)
+\item 
+bool \hyperlink{a00082_a9429ac0c042cc998ecbedb1c13c0bc9a}{is\+Full\+Screen} () const 
+\item 
+\hyperlink{a00024}{Driver} $\ast$ {\bfseries get\+Driver} () const \hypertarget{a00082_ac793b7cdbbdd1d62df9dc64e4ed50b27}{}\label{a00082_ac793b7cdbbdd1d62df9dc64e4ed50b27}
+
+\item 
+void {\bfseries init\+Driver} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00024}{Driver} $>$ driver)\hypertarget{a00082_a23c30f984006bdf0d2ceda4513ee12b9}{}\label{a00082_a23c30f984006bdf0d2ceda4513ee12b9}
+
+\item 
+void {\bfseries set\+Events\+Enabled} (bool v)\hypertarget{a00036_ae529242181c16462bef9bd6b8fb56b93}{}\label{a00036_ae529242181c16462bef9bd6b8fb56b93}
+
+\item 
+bool {\bfseries is\+Events\+Enabled} () const \hypertarget{a00036_a659325f18d666f132f380e4319499572}{}\label{a00036_a659325f18d666f132f380e4319499572}
+
+\item 
+const std\+::string \& {\bfseries get\+Event\+Source\+Id} () const \hypertarget{a00036_ad41deeb2b9de38797b10777e5d1ecf13}{}\label{a00036_ad41deeb2b9de38797b10777e5d1ecf13}
+
+\item 
+\hyperlink{a00036}{Event\+Source\+Base} \& {\bfseries P\+I\+M\+P\+L\+Copyable\+::operator=} (const \hyperlink{a00060}{P\+I\+M\+P\+L\+Copyable} \&o)\hypertarget{a00060_a26fdb9b3d449d04dc653c7ae942f452b}{}\label{a00060_a26fdb9b3d449d04dc653c7ae942f452b}
+
+\item 
+\hyperlink{a00036}{Event\+Source\+Base} \& {\bfseries P\+I\+M\+P\+L\+Moveable\+::operator=} (\hyperlink{a00061}{P\+I\+M\+P\+L\+Moveable} \&\&o)\hypertarget{a00061_ac67025e8a25edffe99fa9bf67ed8ca19}{}\label{a00061_ac67025e8a25edffe99fa9bf67ed8ca19}
+
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal} \hyperlink{a00082_a5bb494c228eb398d6893327fcf03d2d3}{window\+Closed}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal}$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \hyperlink{a00082_a20978a09b8843aa8960dc9d3a989b11a}{window\+Size\+Changed}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal}$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \hyperlink{a00082_a0c6ef7abcac1063c91a84123c81f9347}{window\+Frame\+Buffer\+Size\+Changed}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal}$<$ int32\+\_\+t, int32\+\_\+t $>$ \hyperlink{a00082_a4bdb42d789ed9587ff8f840065752506}{window\+Moved}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal} \hyperlink{a00082_a2a81dc83b5e8433eb39e1ca8263d0c0f}{window\+In\+Focus}
+\item 
+\hyperlink{a00065}{engine\+::\+Signal} \hyperlink{a00082_af6f8cc0d616685683d5c6b52b4cc07d0}{window\+Out\+Focus}
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string {\bfseries Event\+Source\+Id}\hypertarget{a00082_aed5e1991e9a16cc45ce80f4477e33fb9}{}\label{a00082_aed5e1991e9a16cc45ce80f4477e33fb9}
+
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00091}{Window\+Parameter} \hyperlink{a00082_aae1d39f3df529497025772967ac578a0}{\+\_\+parameters}
+\item 
+bool \hyperlink{a00082_a5167b1318668d7639112ce85eafc6c8b}{\+\_\+full\+Screen} = false
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Abstract window class. Based on the context and library settings this window class have different implementation. The basic functionality is written here and all the cases these interface should enough. The implementation of this class contains the library specific part of the window. 
+
+Definition at line 46 of file Window.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Window@{engine\+::\+Window}!Window@{Window}}
+\index{Window@{Window}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{Window()}{Window()}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+Window\+::\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_a6adceceb01e5ed546282c5ea2d09af88}{}\label{a00082_a6adceceb01e5ed546282c5ea2d09af88}
+Construct a full screen window. \index{engine\+::\+Window@{engine\+::\+Window}!Window@{Window}}
+\index{Window@{Window}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{Window(const Window\+Parameter \&parameter)}{Window(const WindowParameter &parameter)}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+Window\+::\+Window (
+\begin{DoxyParamCaption}
+\item[{const {\bf Window\+Parameter} \&}]{parameter}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_a3bf48ba460f021664ad27f27509cf473}{}\label{a00082_a3bf48ba460f021664ad27f27509cf473}
+Construct a window from the creation settings. 
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \hyperlink{a00082}{Window} creation parameters. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window@{engine\+::\+Window}!````~Window@{$\sim$\+Window}}
+\index{````~Window@{$\sim$\+Window}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{$\sim$\+Window()}{~Window()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual engine\+::\+Window\+::$\sim$\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{a00082_a9540302516f5eda30facee89517346ed}{}\label{a00082_a9540302516f5eda30facee89517346ed}
+Default virtual destructor. 
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Window@{engine\+::\+Window}!get\+Parameters@{get\+Parameters}}
+\index{get\+Parameters@{get\+Parameters}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{get\+Parameters() const }{getParameters() const }}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Window\+Parameter}\& engine\+::\+Window\+::get\+Parameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{a00082_afbb0f8b825f17fbf8f434c4ab9ae5f8d}{}\label{a00082_afbb0f8b825f17fbf8f434c4ab9ae5f8d}
+\begin{DoxyReturn}{Returns}
+Returns the window creation parameter. 
+\end{DoxyReturn}
+\index{engine\+::\+Window@{engine\+::\+Window}!is\+Full\+Screen@{is\+Full\+Screen}}
+\index{is\+Full\+Screen@{is\+Full\+Screen}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{is\+Full\+Screen() const }{isFullScreen() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool engine\+::\+Window\+::is\+Full\+Screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{a00082_a9429ac0c042cc998ecbedb1c13c0bc9a}{}\label{a00082_a9429ac0c042cc998ecbedb1c13c0bc9a}
+\begin{DoxyReturn}{Returns}
+Returns true if the window is full screen. 
+\end{DoxyReturn}
+
+
+Definition at line 96 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!set\+Height@{set\+Height}}
+\index{set\+Height@{set\+Height}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{set\+Height(uint32\+\_\+t height)}{setHeight(uint32_t height)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+::set\+Height (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_a87b8b6f2c1a08327d4010e2b6aceb319}{}\label{a00082_a87b8b6f2c1a08327d4010e2b6aceb319}
+Resize the window. 
+\begin{DoxyParams}{Parameters}
+{\em height} & New height of the window. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window@{engine\+::\+Window}!set\+Position@{set\+Position}}
+\index{set\+Position@{set\+Position}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{set\+Position(int32\+\_\+t x, int32\+\_\+t y)}{setPosition(int32_t x, int32_t y)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+::set\+Position (
+\begin{DoxyParamCaption}
+\item[{int32\+\_\+t}]{x, }
+\item[{int32\+\_\+t}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_ad6874b68c5cd0b59ec75ac8ad15f2a3a}{}\label{a00082_ad6874b68c5cd0b59ec75ac8ad15f2a3a}
+Move the window in the given position. 
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate of the new position. \\
+\hline
+{\em y} & Y coordinate of the new position. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window@{engine\+::\+Window}!set\+Size@{set\+Size}}
+\index{set\+Size@{set\+Size}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{set\+Size(uint32\+\_\+t width, uint32\+\_\+t height)}{setSize(uint32_t width, uint32_t height)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+::set\+Size (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{width, }
+\item[{uint32\+\_\+t}]{height}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_aefaae1015e22521e0a0168633a7d413f}{}\label{a00082_aefaae1015e22521e0a0168633a7d413f}
+Resize the window. 
+\begin{DoxyParams}{Parameters}
+{\em width} & New width of the window. \\
+\hline
+{\em height} & New height of the window. \\
+\hline
+\end{DoxyParams}
+\index{engine\+::\+Window@{engine\+::\+Window}!set\+Width@{set\+Width}}
+\index{set\+Width@{set\+Width}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{set\+Width(uint32\+\_\+t width)}{setWidth(uint32_t width)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Window\+::set\+Width (
+\begin{DoxyParamCaption}
+\item[{uint32\+\_\+t}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{a00082_a3435c3bf0e07492ec77f3977c9b5e355}{}\label{a00082_a3435c3bf0e07492ec77f3977c9b5e355}
+Resize the window. 
+\begin{DoxyParams}{Parameters}
+{\em width} & New width of the window. \\
+\hline
+\end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\index{engine\+::\+Window@{engine\+::\+Window}!\+\_\+full\+Screen@{\+\_\+full\+Screen}}
+\index{\+\_\+full\+Screen@{\+\_\+full\+Screen}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{\+\_\+full\+Screen}{_fullScreen}}]{\setlength{\rightskip}{0pt plus 5cm}bool engine\+::\+Window\+::\+\_\+full\+Screen = false\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{a00082_a5167b1318668d7639112ce85eafc6c8b}{}\label{a00082_a5167b1318668d7639112ce85eafc6c8b}
+Whether the window is in full screen mode. 
+
+Definition at line 147 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!\+\_\+parameters@{\+\_\+parameters}}
+\index{\+\_\+parameters@{\+\_\+parameters}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{\+\_\+parameters}{_parameters}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window\+Parameter} engine\+::\+Window\+::\+\_\+parameters\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{a00082_aae1d39f3df529497025772967ac578a0}{}\label{a00082_aae1d39f3df529497025772967ac578a0}
+Creation parameters. 
+
+Definition at line 145 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+Closed@{window\+Closed}}
+\index{window\+Closed@{window\+Closed}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+Closed}{windowClosed}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal} engine\+::\+Window\+::window\+Closed}\hypertarget{a00082_a5bb494c228eb398d6893327fcf03d2d3}{}\label{a00082_a5bb494c228eb398d6893327fcf03d2d3}
+\hyperlink{a00065}{Signal} is emitted when the window is closed. 
+
+Definition at line 132 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+Frame\+Buffer\+Size\+Changed@{window\+Frame\+Buffer\+Size\+Changed}}
+\index{window\+Frame\+Buffer\+Size\+Changed@{window\+Frame\+Buffer\+Size\+Changed}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+Frame\+Buffer\+Size\+Changed}{windowFrameBufferSizeChanged}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal}$<$uint32\+\_\+t, uint32\+\_\+t$>$ engine\+::\+Window\+::window\+Frame\+Buffer\+Size\+Changed}\hypertarget{a00082_a0c6ef7abcac1063c91a84123c81f9347}{}\label{a00082_a0c6ef7abcac1063c91a84123c81f9347}
+\hyperlink{a00065}{Signal} is emitted when the window\textquotesingle{}s frame buffer size is changed. 
+
+Definition at line 136 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+In\+Focus@{window\+In\+Focus}}
+\index{window\+In\+Focus@{window\+In\+Focus}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+In\+Focus}{windowInFocus}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal} engine\+::\+Window\+::window\+In\+Focus}\hypertarget{a00082_a2a81dc83b5e8433eb39e1ca8263d0c0f}{}\label{a00082_a2a81dc83b5e8433eb39e1ca8263d0c0f}
+\hyperlink{a00065}{Signal} is emitted when the window get focus 
+
+Definition at line 140 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+Moved@{window\+Moved}}
+\index{window\+Moved@{window\+Moved}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+Moved}{windowMoved}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal}$<$int32\+\_\+t, int32\+\_\+t$>$ engine\+::\+Window\+::window\+Moved}\hypertarget{a00082_a4bdb42d789ed9587ff8f840065752506}{}\label{a00082_a4bdb42d789ed9587ff8f840065752506}
+\hyperlink{a00065}{Signal} is emitted when the window is moved in new position. 
+
+Definition at line 138 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+Out\+Focus@{window\+Out\+Focus}}
+\index{window\+Out\+Focus@{window\+Out\+Focus}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+Out\+Focus}{windowOutFocus}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal} engine\+::\+Window\+::window\+Out\+Focus}\hypertarget{a00082_af6f8cc0d616685683d5c6b52b4cc07d0}{}\label{a00082_af6f8cc0d616685683d5c6b52b4cc07d0}
+\hyperlink{a00065}{Signal} is emitted when the window lose the focus 
+
+Definition at line 142 of file Window.\+h.
+
+\index{engine\+::\+Window@{engine\+::\+Window}!window\+Size\+Changed@{window\+Size\+Changed}}
+\index{window\+Size\+Changed@{window\+Size\+Changed}!engine\+::\+Window@{engine\+::\+Window}}
+\paragraph[{\texorpdfstring{window\+Size\+Changed}{windowSizeChanged}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf engine\+::\+Signal}$<$uint32\+\_\+t, uint32\+\_\+t$>$ engine\+::\+Window\+::window\+Size\+Changed}\hypertarget{a00082_a20978a09b8843aa8960dc9d3a989b11a}{}\label{a00082_a20978a09b8843aa8960dc9d3a989b11a}
+\hyperlink{a00065}{Signal} is emitted when the window\textquotesingle{}s size is changed. 
+
+Definition at line 134 of file Window.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/view/Window.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,157 @@
+\hypertarget{a00083}{}\subsection{engine\+:\+:Window\+Environment\+Builder Class Reference}
+\label{a00083}\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/environment\+Builder/\+Window\+Environment\+Builder.\+h$>$}
+
+Inheritance diagram for engine\+:\+:Window\+Environment\+Builder\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{a00083}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00083_a193f03159de54e2db47751504e523180}{$\sim$\+Window\+Environment\+Builder} ()
+\item 
+\hyperlink{a00083_a6a0e846406df6a3f23a8327d248a6534}{Window\+Environment\+Builder} (\hyperlink{a00083}{Window\+Environment\+Builder} \&\&o)
+\item 
+\hyperlink{a00011}{Build\+Finalizer} \hyperlink{a00083_adbe84bb40e32bc0d0b9a97dd63624610}{build} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{a00005_a52fb449fadc5d3a074e3fc7bfb56744b}{add\+Module} (const Context\+Module\+Type value)
+\item 
+void \hyperlink{a00005_a20c5dafa6892142bc352c13a5f3ac09a}{set\+Application} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00002}{Application} $>$ app)
+\item 
+void \hyperlink{a00005_a641fb06484bdb07220f445f14db8c0e7}{set\+Window\+Manager} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00087}{Window\+Manager} $>$ manager)
+\item 
+void \hyperlink{a00005_a52b490a3ef4d2a5b5b7e8e0f82d9a27c}{set\+Event\+Manager} (std\+::unique\+\_\+ptr$<$ \hyperlink{a00034}{Event\+Manager} $>$ manager)
+\item 
+void \hyperlink{a00005_af23e3bdfb30ca9f2076cacc9029d96c2}{set\+Initialized} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries engine\+::\+Event\+Builder}\hypertarget{a00083_a7ad9acb7c81f4b74d280468349f57fc8}{}\label{a00083_a7ad9acb7c81f4b74d280468349f57fc8}
+
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+This buildphase will initialize the window environment. 
+
+Definition at line 18 of file Window\+Environment\+Builder.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!````~Window\+Environment\+Builder@{$\sim$\+Window\+Environment\+Builder}}
+\index{````~Window\+Environment\+Builder@{$\sim$\+Window\+Environment\+Builder}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{$\sim$\+Window\+Environment\+Builder()}{~WindowEnvironmentBuilder()}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+Window\+Environment\+Builder\+::$\sim$\+Window\+Environment\+Builder (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00083_a193f03159de54e2db47751504e523180}{}\label{a00083_a193f03159de54e2db47751504e523180}
+Destructor for P\+I\+M\+PL \index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!Window\+Environment\+Builder@{Window\+Environment\+Builder}}
+\index{Window\+Environment\+Builder@{Window\+Environment\+Builder}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{Window\+Environment\+Builder(\+Window\+Environment\+Builder \&\&o)}{WindowEnvironmentBuilder(WindowEnvironmentBuilder &&o)}}]{\setlength{\rightskip}{0pt plus 5cm}engine\+::\+Window\+Environment\+Builder\+::\+Window\+Environment\+Builder (
+\begin{DoxyParamCaption}
+\item[{{\bf Window\+Environment\+Builder} \&\&}]{o}
+\end{DoxyParamCaption}
+)}\hypertarget{a00083_a6a0e846406df6a3f23a8327d248a6534}{}\label{a00083_a6a0e846406df6a3f23a8327d248a6534}
+Moveable 
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!add\+Module@{add\+Module}}
+\index{add\+Module@{add\+Module}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{add\+Module(const Context\+Module\+Type value)}{addModule(const ContextModuleType value)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Base\+Builder\+::add\+Module (
+\begin{DoxyParamCaption}
+\item[{const Context\+Module\+Type}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{a00005_a52fb449fadc5d3a074e3fc7bfb56744b}{}\label{a00005_a52fb449fadc5d3a074e3fc7bfb56744b}
+Add a module type which is initialized during build phase 
+\begin{DoxyParams}{Parameters}
+{\em value} & Module which is initialized successfully \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by engine\+::\+Base\+Builder\+::$\sim$\+Base\+Builder().
+
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!build@{build}}
+\index{build@{build}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{build()}{build()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Build\+Finalizer} engine\+::\+Window\+Environment\+Builder\+::build (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{a00083_adbe84bb40e32bc0d0b9a97dd63624610}{}\label{a00083_adbe84bb40e32bc0d0b9a97dd63624610}
+Builds the window module. \begin{DoxyReturn}{Returns}
+Returns the next building phase. 
+\end{DoxyReturn}
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!set\+Application@{set\+Application}}
+\index{set\+Application@{set\+Application}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{set\+Application(std\+::unique\+\_\+ptr$<$ Application $>$ app)}{setApplication(std::unique_ptr< Application > app)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Base\+Builder\+::set\+Application (
+\begin{DoxyParamCaption}
+\item[{std\+::unique\+\_\+ptr$<$ {\bf Application} $>$}]{app}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{a00005_a20c5dafa6892142bc352c13a5f3ac09a}{}\label{a00005_a20c5dafa6892142bc352c13a5f3ac09a}
+Set the context application. 
+\begin{DoxyParams}{Parameters}
+{\em app} & \hyperlink{a00002}{Application} to use \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by engine\+::\+Base\+Builder\+::$\sim$\+Base\+Builder().
+
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!set\+Event\+Manager@{set\+Event\+Manager}}
+\index{set\+Event\+Manager@{set\+Event\+Manager}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{set\+Event\+Manager(std\+::unique\+\_\+ptr$<$ Event\+Manager $>$ manager)}{setEventManager(std::unique_ptr< EventManager > manager)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Base\+Builder\+::set\+Event\+Manager (
+\begin{DoxyParamCaption}
+\item[{std\+::unique\+\_\+ptr$<$ {\bf Event\+Manager} $>$}]{manager}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{a00005_a52b490a3ef4d2a5b5b7e8e0f82d9a27c}{}\label{a00005_a52b490a3ef4d2a5b5b7e8e0f82d9a27c}
+Set the event manager of the context. 
+\begin{DoxyParams}{Parameters}
+{\em manager} & window manager to use \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by engine\+::\+Base\+Builder\+::$\sim$\+Base\+Builder().
+
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!set\+Initialized@{set\+Initialized}}
+\index{set\+Initialized@{set\+Initialized}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{set\+Initialized()}{setInitialized()}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Base\+Builder\+::set\+Initialized (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{a00005_af23e3bdfb30ca9f2076cacc9029d96c2}{}\label{a00005_af23e3bdfb30ca9f2076cacc9029d96c2}
+When the environment is built up this function finalize the context. 
+
+Referenced by engine\+::\+Base\+Builder\+::$\sim$\+Base\+Builder().
+
+\index{engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}!set\+Window\+Manager@{set\+Window\+Manager}}
+\index{set\+Window\+Manager@{set\+Window\+Manager}!engine\+::\+Window\+Environment\+Builder@{engine\+::\+Window\+Environment\+Builder}}
+\paragraph[{\texorpdfstring{set\+Window\+Manager(std\+::unique\+\_\+ptr$<$ Window\+Manager $>$ manager)}{setWindowManager(std::unique_ptr< WindowManager > manager)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Base\+Builder\+::set\+Window\+Manager (
+\begin{DoxyParamCaption}
+\item[{std\+::unique\+\_\+ptr$<$ {\bf Window\+Manager} $>$}]{manager}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{a00005_a641fb06484bdb07220f445f14db8c0e7}{}\label{a00005_a641fb06484bdb07220f445f14db8c0e7}
+Set the window manager of the context. 
+\begin{DoxyParams}{Parameters}
+{\em manager} & window manager to use \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by engine\+::\+Base\+Builder\+::$\sim$\+Base\+Builder().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/environment\+Builder/Window\+Environment\+Builder.\+h\end{DoxyCompactItemize}

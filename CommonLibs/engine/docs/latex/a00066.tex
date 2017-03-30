@@ -1,0 +1,96 @@
+\hypertarget{a00066}{}\subsection{engine\+:\+:Signal\+Caller$<$ Ts $>$ Class Template Reference}
+\label{a00066}\index{engine\+::\+Signal\+Caller$<$ Ts $>$@{engine\+::\+Signal\+Caller$<$ Ts $>$}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/\+Signal\+Caller.\+h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00066_a0ac1c86918e5e9398dbb1cb587835ee1}{Signal\+Caller} (const std\+::function$<$ void(Ts...)$>$ \&func)
+\item 
+void \hyperlink{a00066_a51aed6d729065df2d78aa8acab3e0eb9}{operator()} (const std\+::tuple$<$ Ts... $>$ \&args)
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static std\+::function$<$ void(Ts...)$>$ \hyperlink{a00066_a6a9a7e7fc96f6921fc74b6386651afdc}{create\+Callable} (T $\ast$t, void(T\+::$\ast$callback)(Ts...))
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$typename... Ts$>$\\*
+class engine\+::\+Signal\+Caller$<$ Ts $>$}
+
+This class is responsible for calling a signal\textquotesingle{}s slot on a given object with the stored paramters. 
+
+Definition at line 13 of file Signal\+Caller.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}!Signal\+Caller@{Signal\+Caller}}
+\index{Signal\+Caller@{Signal\+Caller}!engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}}
+\paragraph[{\texorpdfstring{Signal\+Caller(const std\+::function$<$ void(\+Ts...)$>$ \&func)}{SignalCaller(const std::function< void(Ts...)> &func)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Ts$>$ {\bf engine\+::\+Signal\+Caller}$<$ Ts $>$\+::{\bf Signal\+Caller} (
+\begin{DoxyParamCaption}
+\item[{const std\+::function$<$ void(Ts...)$>$ \&}]{func}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}\hypertarget{a00066_a0ac1c86918e5e9398dbb1cb587835ee1}{}\label{a00066_a0ac1c86918e5e9398dbb1cb587835ee1}
+Store the callback function and call it when it is necessery. The function paramter can be produced via static functions \begin{DoxySeeAlso}{See also}
+\hyperlink{a00066_a6a9a7e7fc96f6921fc74b6386651afdc}{Signal\+Caller\+::create\+Callable} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em func} & Function which will be called with the given parameters \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 52 of file Signal\+Caller.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}!create\+Callable@{create\+Callable}}
+\index{create\+Callable@{create\+Callable}!engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}}
+\paragraph[{\texorpdfstring{create\+Callable(\+T $\ast$t, void(\+T\+::$\ast$callback)(\+Ts...))}{createCallable(T *t, void(T::*callback)(Ts...))}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Ts$>$ template$<$typename T $>$ static std\+::function$<$void(Ts...)$>$ {\bf engine\+::\+Signal\+Caller}$<$ Ts $>$\+::create\+Callable (
+\begin{DoxyParamCaption}
+\item[{T $\ast$}]{t, }
+\item[{void(T\+::$\ast$)(Ts...)}]{callback}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{a00066_a6a9a7e7fc96f6921fc74b6386651afdc}{}\label{a00066_a6a9a7e7fc96f6921fc74b6386651afdc}
+Bind the callback to the given t object. It creates a function which is bind the callback to the t object. 
+\begin{DoxyParams}{Parameters}
+{\em t} & object which will be assigned to the callback. \\
+\hline
+{\em callback} & This member function will be called on the t object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a function which will call the member function on the given object. 
+\end{DoxyReturn}
+
+
+Definition at line 24 of file Signal\+Caller.\+h.
+
+\index{engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}!operator()@{operator()}}
+\index{operator()@{operator()}!engine\+::\+Signal\+Caller@{engine\+::\+Signal\+Caller}}
+\paragraph[{\texorpdfstring{operator()(const std\+::tuple$<$ Ts... $>$ \&args)}{operator()(const std::tuple< Ts... > &args)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Ts$>$ void {\bf engine\+::\+Signal\+Caller}$<$ Ts $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{const std\+::tuple$<$ Ts... $>$ \&}]{args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{a00066_a51aed6d729065df2d78aa8acab3e0eb9}{}\label{a00066_a51aed6d729065df2d78aa8acab3e0eb9}
+Calls the stored function with the given parameters. 
+\begin{DoxyParams}{Parameters}
+{\em args} & Arguments for the stored function. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 60 of file Signal\+Caller.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/Signal\+Caller.\+h\end{DoxyCompactItemize}

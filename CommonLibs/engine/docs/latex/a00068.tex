@@ -1,0 +1,91 @@
+\hypertarget{a00068}{}\subsection{engine\+:\+:Signal\+Task$<$ Args $>$ Class Template Reference}
+\label{a00068}\index{engine\+::\+Signal\+Task$<$ Args $>$@{engine\+::\+Signal\+Task$<$ Args $>$}}
+
+
+{\ttfamily \#include $<$E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/\+Signal\+Task.\+h$>$}
+
+Inheritance diagram for engine\+:\+:Signal\+Task$<$ Args $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00068}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00068_aa084db82b7369830ae2121d03c411045}{Signal\+Task} (std\+::weak\+\_\+ptr$<$ \hyperlink{a00066}{Signal\+Caller}$<$ Args... $>$$>$ caller, const std\+::tuple$<$ Args... $>$ \&args)
+\item 
+void \hyperlink{a00068_a66e71dfc80f4320c2d5c260028b0bbff}{operator()} () override
+\item 
+bool \hyperlink{a00068_af923108f7304a686bc4b7eeb41c35177}{is\+Expired} () const  override
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$typename... Args$>$\\*
+class engine\+::\+Signal\+Task$<$ Args $>$}
+
+A signal task for the \hyperlink{a00051}{I\+Signal\+Manager}. This class is more than a simple std\+::function because it cares about the object to what the function is bind. 
+
+Definition at line 28 of file Signal\+Task.\+h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}!Signal\+Task@{Signal\+Task}}
+\index{Signal\+Task@{Signal\+Task}!engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}}
+\paragraph[{\texorpdfstring{Signal\+Task(std\+::weak\+\_\+ptr$<$ Signal\+Caller$<$ Args... $>$$>$ caller, const std\+::tuple$<$ Args... $>$ \&args)}{SignalTask(std::weak_ptr< SignalCaller< Args... >> caller, const std::tuple< Args... > &args)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ {\bf engine\+::\+Signal\+Task}$<$ Args $>$\+::{\bf Signal\+Task} (
+\begin{DoxyParamCaption}
+\item[{std\+::weak\+\_\+ptr$<$ {\bf Signal\+Caller}$<$ Args... $>$$>$}]{caller, }
+\item[{const std\+::tuple$<$ Args... $>$ \&}]{args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{a00068_aa084db82b7369830ae2121d03c411045}{}\label{a00068_aa084db82b7369830ae2121d03c411045}
+Create a \hyperlink{a00065}{Signal} task from the weak pointer to the caller and with the arguments. 
+\begin{DoxyParams}{Parameters}
+{\em caller} & This caller is stored and called. \\
+\hline
+{\em args} & The caller will called with these arguments. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file Signal\+Task.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}!is\+Expired@{is\+Expired}}
+\index{is\+Expired@{is\+Expired}!engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}}
+\paragraph[{\texorpdfstring{is\+Expired() const  override}{isExpired() const  override}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ bool {\bf engine\+::\+Signal\+Task}$<$ Args $>$\+::is\+Expired (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{a00068_af923108f7304a686bc4b7eeb41c35177}{}\label{a00068_af923108f7304a686bc4b7eeb41c35177}
+Checks whether the pointer to the caller is still valid. 
+
+Implements \hyperlink{a00052_aaa397480f1ad28755a63ad1dca559d50}{engine\+::\+I\+Signal\+Task}.
+
+
+
+Definition at line 54 of file Signal\+Task.\+h.
+
+\index{engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}!operator()@{operator()}}
+\index{operator()@{operator()}!engine\+::\+Signal\+Task@{engine\+::\+Signal\+Task}}
+\paragraph[{\texorpdfstring{operator()() override}{operator()() override}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... Args$>$ void {\bf engine\+::\+Signal\+Task}$<$ Args $>$\+::operator() (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{a00068_a66e71dfc80f4320c2d5c260028b0bbff}{}\label{a00068_a66e71dfc80f4320c2d5c260028b0bbff}
+Call the function caller with the stored arguments, but only if the pointer is still valid. 
+
+Implements \hyperlink{a00052_ab7e5dedd50f908fdb0f203b0a154db54}{engine\+::\+I\+Signal\+Task}.
+
+
+
+Definition at line 45 of file Signal\+Task.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/signal\+Slot/Signal\+Task.\+h\end{DoxyCompactItemize}

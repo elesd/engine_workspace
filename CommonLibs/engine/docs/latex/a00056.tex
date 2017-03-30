@@ -1,0 +1,111 @@
+\hypertarget{a00056}{}\subsection{engine\+:\+:winapi\+:\+:Keyboard\+Impl Class Reference}
+\label{a00056}\index{engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}}
+Inheritance diagram for engine\+:\+:winapi\+:\+:Keyboard\+Impl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.647754cm]{a00056}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries handle\+Event} (H\+W\+ND h\+Wnd, U\+I\+NT message, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)\hypertarget{a00056_a71dec63b611c18f3ea41c8fdebc81191}{}\label{a00056_a71dec63b611c18f3ea41c8fdebc81191}
+
+\item 
+Key\+State {\bfseries get\+Key\+State} (Keyboard\+Button button) const \hypertarget{a00055_a89fd597ce678be8a6b50a36b549a5922}{}\label{a00055_a89fd597ce678be8a6b50a36b549a5922}
+
+\item 
+\hyperlink{a00051}{I\+Signal\+Manager} $\ast$ \hyperlink{a00055_a324f41177f75c6d08ad6494c36a65806}{get\+Signal\+Manager} () const  override
+\item 
+void {\bfseries set\+Events\+Enabled} (bool v)\hypertarget{a00036_ae529242181c16462bef9bd6b8fb56b93}{}\label{a00036_ae529242181c16462bef9bd6b8fb56b93}
+
+\item 
+bool {\bfseries is\+Events\+Enabled} () const \hypertarget{a00036_a659325f18d666f132f380e4319499572}{}\label{a00036_a659325f18d666f132f380e4319499572}
+
+\item 
+const std\+::string \& {\bfseries get\+Event\+Source\+Id} () const \hypertarget{a00036_ad41deeb2b9de38797b10777e5d1ecf13}{}\label{a00036_ad41deeb2b9de38797b10777e5d1ecf13}
+
+\item 
+\hyperlink{a00036}{Event\+Source\+Base} \& {\bfseries P\+I\+M\+P\+L\+Copyable\+::operator=} (const \hyperlink{a00060}{P\+I\+M\+P\+L\+Copyable} \&o)\hypertarget{a00060_a26fdb9b3d449d04dc653c7ae942f452b}{}\label{a00060_a26fdb9b3d449d04dc653c7ae942f452b}
+
+\item 
+\hyperlink{a00036}{Event\+Source\+Base} \& {\bfseries P\+I\+M\+P\+L\+Moveable\+::operator=} (\hyperlink{a00061}{P\+I\+M\+P\+L\+Moveable} \&\&o)\hypertarget{a00061_ac67025e8a25edffe99fa9bf67ed8ca19}{}\label{a00061_ac67025e8a25edffe99fa9bf67ed8ca19}
+
+\item 
+void \hyperlink{a00070_afd9ce54a72b4dd397d82aff6c387d0c0}{assign\+Signal} (\hyperlink{a00050}{I\+Signal} $\ast$signal)
+\item 
+void \hyperlink{a00070_a5927b57f0d4fb8744dc0e8ec265e0136}{remove\+Signal} (\hyperlink{a00050}{I\+Signal} $\ast$signal)
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string {\bfseries Keyboard\+Button\+To\+String} (Keyboard\+Button button)\hypertarget{a00055_a4204702d8f964a109136545690686585}{}\label{a00055_a4204702d8f964a109136545690686585}
+
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{a00065}{Signal}$<$ Keyboard\+Button $>$ {\bfseries key\+Pressed}\hypertarget{a00055_a96ef16f70810ff3ceffde1ad71f9291f}{}\label{a00055_a96ef16f70810ff3ceffde1ad71f9291f}
+
+\item 
+\hyperlink{a00065}{Signal}$<$ Keyboard\+Button $>$ {\bfseries key\+Released}\hypertarget{a00055_a081464fd7756415ad9c78e80e850cbea}{}\label{a00055_a081464fd7756415ad9c78e80e850cbea}
+
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string {\bfseries Event\+Source\+Id}\hypertarget{a00055_a11ae52b8b6e7519d0b3ea42561d6dccd}{}\label{a00055_a11ae52b8b6e7519d0b3ea42561d6dccd}
+
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries on\+Key\+Pressed} (Keyboard\+Button)\hypertarget{a00055_a5072ad733814bd17d46e36ea8be4a4b4}{}\label{a00055_a5072ad733814bd17d46e36ea8be4a4b4}
+
+\item 
+void {\bfseries on\+Key\+Released} (Keyboard\+Button)\hypertarget{a00055_a000acdad189778380e4ac141dd4619cb}{}\label{a00055_a000acdad189778380e4ac141dd4619cb}
+
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 11 of file Keyboard\+Impl.\+h.
+
+
+
+\subsubsection{Member Function Documentation}
+\index{engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}!assign\+Signal@{assign\+Signal}}
+\index{assign\+Signal@{assign\+Signal}!engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}}
+\paragraph[{\texorpdfstring{assign\+Signal(\+I\+Signal $\ast$signal)}{assignSignal(ISignal *signal)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Slot\+Holder\+::assign\+Signal (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Signal} $\ast$}]{signal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00070_afd9ce54a72b4dd397d82aff6c387d0c0}{}\label{a00070_afd9ce54a72b4dd397d82aff6c387d0c0}
+Assign a signal to this slot. It is necessery because when this object is destroyed, it must tell to the signal that\textquotesingle{}s not alived. \index{engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}!get\+Signal\+Manager@{get\+Signal\+Manager}}
+\index{get\+Signal\+Manager@{get\+Signal\+Manager}!engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}}
+\paragraph[{\texorpdfstring{get\+Signal\+Manager() const  override}{getSignalManager() const  override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\+Signal\+Manager}$\ast$ engine\+::\+Keyboard\+::get\+Signal\+Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{a00055_a324f41177f75c6d08ad6494c36a65806}{}\label{a00055_a324f41177f75c6d08ad6494c36a65806}
+\begin{DoxyReturn}{Returns}
+Returns the corresponding \hyperlink{a00067}{Signal\+Manager}, who will manage the tasks. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{a00070_add6d89f31a2677b29a52f241d0431c13}{engine\+::\+Slot\+Holder}.
+
+\index{engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}!remove\+Signal@{remove\+Signal}}
+\index{remove\+Signal@{remove\+Signal}!engine\+::winapi\+::\+Keyboard\+Impl@{engine\+::winapi\+::\+Keyboard\+Impl}}
+\paragraph[{\texorpdfstring{remove\+Signal(\+I\+Signal $\ast$signal)}{removeSignal(ISignal *signal)}}]{\setlength{\rightskip}{0pt plus 5cm}void engine\+::\+Slot\+Holder\+::remove\+Signal (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+Signal} $\ast$}]{signal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inherited]}}\hypertarget{a00070_a5927b57f0d4fb8744dc0e8ec265e0136}{}\label{a00070_a5927b57f0d4fb8744dc0e8ec265e0136}
+Remove signal from this slots. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+E\+:/\+Programing/\+Projects/\+Engine\+Workspace/\+Common\+Libs/engine/include/engine/events/winapi/Keyboard\+Impl.\+h\end{DoxyCompactItemize}
