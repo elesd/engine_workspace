@@ -4,11 +4,11 @@
 #include <engine/constraints/NonMoveable.h>
 #include <engine/environmentBuilder/EventBuilder.h>
 
-class IMain;
-class IApplicationParameter;
-
 namespace engine
 {
+	class IMain;
+	class IApplicationParameter;
+
 	class EasyBuilder: NonCopyable, NonMoveable
 	{
 	public:
