@@ -12,7 +12,7 @@ namespace version
 		const int counter = 1;
 		const std::string year = "17";
 		const std::string month = "03";
-		const std::string day = "29";
+		const std::string day = "30";
 	};
 		
 	using Version = engine::VersionBase<VersionDef>;

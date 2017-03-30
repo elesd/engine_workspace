@@ -8,19 +8,21 @@ namespace engine
 {
 	class IMain;
 	class IApplicationParameter;
+	class Application;
 
 	class EasyBuilder: NonCopyable, NonMoveable
 	{
 	public:
-		explicit EasyBuilder(std::unique_ptr<IMain> main);
+		explicit EasyBuilder(std::unique_ptr<IMain> &&main);
+		~EasyBuilder();
 
 		EasyBuilder& AddInput(engine::EventBuilder::BasicInputType);
 
-		void buildEngine(HINSTANCE hInstance,
+		Application* buildEngine(HINSTANCE hInstance,
 						 HINSTANCE hPrevInstance,
 						 LPSTR lpCmdLine,
 						 int nCmdShow) const;
-		void buildEngine(int argc, char* argv[]) const;
+		Application* buildEngine(int argc, char* argv[]) const;
 	private:
 		void buildEngine(std::unique_ptr<IApplicationParameter> args) const;
 	private:

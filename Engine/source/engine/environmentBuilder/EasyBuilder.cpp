@@ -21,9 +21,15 @@ namespace engine
 		std::set<engine::EventBuilder::BasicInputType> inputs;
 	};
 
-	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> main)
+	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main)
+		:_members(new EasyBuilderPrivate())
 	{
 		_members->main = std::move(main);
+	}
+
+	EasyBuilder::~EasyBuilder()
+	{
+		delete _members;
 	}
 
 	EasyBuilder& EasyBuilder::AddInput(engine::EventBuilder::BasicInputType input)
@@ -32,19 +38,21 @@ namespace engine
 		return *this;
 	}
 
-	void EasyBuilder::buildEngine(HINSTANCE hInstance,
+	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,
 								  HINSTANCE hPrevInstance,
 								  LPSTR lpCmdLine,
 								  int nCmdShow) const
 	{
 		std::unique_ptr<IApplicationParameter> args(new winapi::WinApiApplicationParameter(hInstance, hPrevInstance, lpCmdLine, nCmdShow));
 		buildEngine(std::move(args));
+		return Context::getInstance()->getApplication();
 	}
 
-	void EasyBuilder::buildEngine(int argc, char* argv[]) const
+	Application* EasyBuilder::buildEngine(int argc, char* argv[]) const
 	{
 		std::unique_ptr<IApplicationParameter> args(new StandardApplicationParameter(argc, argv));
 		buildEngine(std::move(args));
+		return Context::getInstance()->getApplication();
 	}
 
 	void EasyBuilder::buildEngine(std::unique_ptr<IApplicationParameter> args) const

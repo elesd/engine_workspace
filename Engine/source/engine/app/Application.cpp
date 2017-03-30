@@ -91,4 +91,13 @@ namespace engine
 		_members->windowManager = std::move(windowManager);
 	}
 
+	void Application::run()
+	{
+		start();
+		while(isActive())
+		{
+			update();
+			render();
+		}
+	}
 }

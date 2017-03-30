@@ -22,7 +22,7 @@ namespace
 		return keyParam;
 	}
 
-	engine::KeyboardButton parseButton(WPARAM wParam)
+	engine::KeyboardButton parseButton(WPARAM wParam, bool isExtended)
 	{
 		using engine::KeyboardButton;
 		KeyboardButton result = KeyboardButton::EnumSize;
@@ -31,12 +31,12 @@ namespace
 			case 0x08: result = KeyboardButton::Key_Backspace; break;
 			case 0x09: result = KeyboardButton::Key_Tab; break;
 			case 0x0D: result = KeyboardButton::Key_Enter; break;
-			case 0x10: result = KeyboardButton::Key_RShift; break;
-			case 0x11: result = KeyboardButton::Key_RCtrl; break;
+			case 0x10: result = isExtended ? KeyboardButton::Key_RShift : KeyboardButton::Key_LShift; break;
+			case 0x11: result = isExtended ? KeyboardButton::Key_RCtrl : KeyboardButton::Key_LCtrl; break;
 			case 0x12: result = KeyboardButton::Key_Alt; break;
 			case 0x13: result = KeyboardButton::Key_Pause; break;
 			case 0x14: result = KeyboardButton::Key_CapsLock; break;
-			case 0x18: result = KeyboardButton::Key_Esc; break;
+			case 0x1B: result = KeyboardButton::Key_Esc; break;
 			case 0x20: result = KeyboardButton::Key_Space; break;
 			case 0x21: result = KeyboardButton::Key_PageUp; break;
 			case 0x22: result = KeyboardButton::Key_PageDown; break;
@@ -151,7 +151,9 @@ namespace engine
 			bool handled = false;
 			switch(message)
 			{
+				case WM_SYSKEYDOWN:
 				case WM_KEYDOWN: handled = handleKeyDown(hWnd, wParam, lParam); break;
+				case WM_SYSKEYUP:
 				case WM_KEYUP: handled = handleKeyUp(hWnd, wParam, lParam); break;
 			}
 			return handled;
@@ -165,7 +167,7 @@ namespace engine
 				return false;
 			
 			bool handled = false;
-			KeyboardButton button = parseButton(wParam);
+			KeyboardButton button = parseButton(wParam, parameters.isExtended);
 			if(button != KeyboardButton::EnumSize)
 			{
 				keyPressed.emit(button);
@@ -177,7 +179,8 @@ namespace engine
 
 		bool KeyboardImpl::handleKeyUp(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			KeyboardButton button = parseButton(wParam);
+			KeyParam parameters = parseParam(lParam);
+			KeyboardButton button = parseButton(wParam, parameters.isExtended);
 			if(button != KeyboardButton::EnumSize)
 			{
 				keyReleased.emit(button);

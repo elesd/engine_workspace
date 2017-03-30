@@ -31,6 +31,8 @@ namespace engine
 		/**Simple destructor for PIMPL*/
 		virtual ~Application();
 
+		void run();
+
 		/**
 		* Update is called once per each frame
 		*/
