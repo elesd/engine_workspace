@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type',['type',['../a00007.html#aaac2389a71fd61b51cd539da66fbc240',1,'engine::BufferDesc']]]
+  ['keypressed',['keyPressed',['../a00055.html#a96ef16f70810ff3ceffde1ad71f9291f',1,'engine::Keyboard']]],
+  ['keyreleased',['keyReleased',['../a00055.html#a081464fd7756415ad9c78e80e850cbea',1,'engine::Keyboard']]]
 ];

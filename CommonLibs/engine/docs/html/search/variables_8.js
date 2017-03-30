@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x',['x',['../a00091.html#a1ae6e0c7a9ad94617c7b8e3c54faabf5',1,'engine::WindowParameter']]]
+  ['type',['type',['../a00007.html#aaac2389a71fd61b51cd539da66fbc240',1,'engine::BufferDesc']]]
 ];

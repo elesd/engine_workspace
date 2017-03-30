@@ -14,6 +14,7 @@ var searchData=
   ['getcounter',['getCounter',['../a00079.html#a22329ec00668f53aaf4a4efc68d49f93',1,'engine::VersionBase']]],
   ['getday',['getDay',['../a00079.html#a05c80a133cb8aa10d1c18088f163c206',1,'engine::VersionBase']]],
   ['getinstance',['getInstance',['../a00081.html#a35f806d57b22fa9bcab1b6391a8060b7',1,'engine::winapi::WinApiApplicationParameter::getInstance()'],['../a00069.html#a90ed1f21b1811a569eafccc78fcd12ca',1,'engine::Singleton::getInstance()']]],
+  ['getkeystate',['getKeyState',['../a00055.html#abdc913f90b83dca91c497f811d00602a',1,'engine::Keyboard']]],
   ['getmainmonitorid',['getMainMonitorId',['../a00090.html#a02afdb8c94a0dc9c8e052901e44676ab',1,'engine::glfw::WindowManagerImpl::getMainMonitorId()'],['../a00089.html#a21001322db84287f4ada31f645e0da93',1,'engine::sdl::WindowManagerImpl::getMainMonitorId()'],['../a00088.html#a549d762ba32d525e574c06d8bb103255',1,'engine::winapi::WindowManagerImpl::getMainMonitorId()'],['../a00087.html#ae1c80e3385179a2908316ac74c2fc520',1,'engine::WindowManager::getMainMonitorId()']]],
   ['getmainwindow',['getMainWindow',['../a00087.html#a7ccb3265cab90117a4face1c5ebb5e29',1,'engine::WindowManager::getMainWindow()'],['../a00087.html#aa59c328988c32399328f8f38c5210275',1,'engine::WindowManager::getMainWindow() const ']]],
   ['getmajor',['getMajor',['../a00079.html#a87db56a6b48379927ea2c34053ad11d8',1,'engine::VersionBase']]],

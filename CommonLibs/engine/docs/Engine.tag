@@ -740,6 +740,43 @@
     <name>engine::EventBuilder</name>
     <filename>a00031.html</filename>
     <base>engine::BaseBuilder</base>
+    <member kind="enumeration">
+      <type></type>
+      <name>BasicInputType</name>
+      <anchorfile>a00031.html</anchorfile>
+      <anchor>a6d136f2bc5e63ae4dc52882adcb48ab1</anchor>
+      <arglist></arglist>
+      <enumvalue file="a00031.html" anchor="a6d136f2bc5e63ae4dc52882adcb48ab1af2a47c6809d88e175dade0ef7b16aa13">Mouse</enumvalue>
+      <enumvalue file="a00031.html" anchor="a6d136f2bc5e63ae4dc52882adcb48ab1a6ce4d85a628a88bbdb3ac24a8e5a9c2e">Keyboard</enumvalue>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>EventBuilder</name>
+      <anchorfile>a00031.html</anchorfile>
+      <anchor>aa0d7040cb93143af643873f0b8999120</anchor>
+      <arglist>(EventBuilder &amp;&amp;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~EventBuilder</name>
+      <anchorfile>a00031.html</anchorfile>
+      <anchor>ad8bbbc8c0cb10337a73cde239a44be2e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>WindowEnvironmentBuilder</type>
+      <name>build</name>
+      <anchorfile>a00031.html</anchorfile>
+      <anchor>af77f14d7c5ff0be93dda1520f3441096</anchor>
+      <arglist>(const std::set&lt; BasicInputType &gt; &amp;basicInputs)</arglist>
+    </member>
+    <member kind="function">
+      <type>WindowEnvironmentBuilder</type>
+      <name>skip</name>
+      <anchorfile>a00031.html</anchorfile>
+      <anchor>a0c6c7712c1057dcb7e07a5aecfca5841</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function" protection="protected">
       <type>void</type>
       <name>addModule</name>
@@ -967,6 +1004,20 @@
   <compound kind="struct">
     <name>engine::InitializationError</name>
     <filename>a00048.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>InitializationError</name>
+      <anchorfile>a00048.html</anchorfile>
+      <anchor>a7292c661ed6737cf6a041176398e9893</anchor>
+      <arglist>(const std::string &amp;error)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>InitializationError</name>
+      <anchorfile>a00048.html</anchorfile>
+      <anchor>a4313a4d837f17721d89740f940042eb2</anchor>
+      <arglist>(const char *error)</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>std::is_placeholder&lt; engine::CustomPlaceholder&lt; N &gt; &gt;</name>
@@ -1048,6 +1099,41 @@
     <base>engine::EventSourceBase</base>
     <base>engine::SlotHolder</base>
     <member kind="function">
+      <type></type>
+      <name>Keyboard</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>ac81d08f53f7b2b4917dfb2785529651b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~Keyboard</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>abc61f7323ef7912d9de86e831ae09725</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Keyboard</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>ad4410c745ee235f4418feb55656f59e2</anchor>
+      <arglist>(Keyboard &amp;&amp;o)</arglist>
+    </member>
+    <member kind="function">
+      <type>Keyboard &amp;</type>
+      <name>operator=</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>acbdb16f8b16fe00da53eab07736f6364</anchor>
+      <arglist>(Keyboard &amp;&amp;o)</arglist>
+    </member>
+    <member kind="function">
+      <type>KeyState</type>
+      <name>getKeyState</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>abdc913f90b83dca91c497f811d00602a</anchor>
+      <arglist>(KeyboardButton) const </arglist>
+    </member>
+    <member kind="function">
       <type>ISignalManager *</type>
       <name>getSignalManager</name>
       <anchorfile>a00055.html</anchorfile>
@@ -1067,6 +1153,48 @@
       <anchorfile>a00070.html</anchorfile>
       <anchor>a5927b57f0d4fb8744dc0e8ec265e0136</anchor>
       <arglist>(ISignal *signal)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::string</type>
+      <name>KeyboardButtonToString</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>ae9afce424611d4405266ce4ecfbac6a3</anchor>
+      <arglist>(KeyboardButton)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Signal&lt; KeyboardButton &gt;</type>
+      <name>keyPressed</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a96ef16f70810ff3ceffde1ad71f9291f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Signal&lt; KeyboardButton &gt;</type>
+      <name>keyReleased</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a081464fd7756415ad9c78e80e850cbea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static const std::string</type>
+      <name>EventSourceId</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a11ae52b8b6e7519d0b3ea42561d6dccd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>onKeyPressed</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a5072ad733814bd17d46e36ea8be4a4b4</anchor>
+      <arglist>(KeyboardButton)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>onKeyReleased</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a000acdad189778380e4ac141dd4619cb</anchor>
+      <arglist>(KeyboardButton)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -1074,6 +1202,13 @@
     <filename>a00056.html</filename>
     <base>engine::Keyboard</base>
     <member kind="function">
+      <type>KeyState</type>
+      <name>getKeyState</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>abdc913f90b83dca91c497f811d00602a</anchor>
+      <arglist>(KeyboardButton) const </arglist>
+    </member>
+    <member kind="function">
       <type>ISignalManager *</type>
       <name>getSignalManager</name>
       <anchorfile>a00055.html</anchorfile>
@@ -1093,6 +1228,48 @@
       <anchorfile>a00070.html</anchorfile>
       <anchor>a5927b57f0d4fb8744dc0e8ec265e0136</anchor>
       <arglist>(ISignal *signal)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::string</type>
+      <name>KeyboardButtonToString</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>ae9afce424611d4405266ce4ecfbac6a3</anchor>
+      <arglist>(KeyboardButton)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Signal&lt; KeyboardButton &gt;</type>
+      <name>keyPressed</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a96ef16f70810ff3ceffde1ad71f9291f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Signal&lt; KeyboardButton &gt;</type>
+      <name>keyReleased</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a081464fd7756415ad9c78e80e850cbea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static const std::string</type>
+      <name>EventSourceId</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a11ae52b8b6e7519d0b3ea42561d6dccd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>onKeyPressed</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a5072ad733814bd17d46e36ea8be4a4b4</anchor>
+      <arglist>(KeyboardButton)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>onKeyReleased</name>
+      <anchorfile>a00055.html</anchorfile>
+      <anchor>a000acdad189778380e4ac141dd4619cb</anchor>
+      <arglist>(KeyboardButton)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -2016,6 +2193,20 @@
   <compound kind="struct">
     <name>engine::UnsupportedFeature</name>
     <filename>a00078.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>UnsupportedFeature</name>
+      <anchorfile>a00078.html</anchorfile>
+      <anchor>adf506e7a80acd5615803065c18b55b8d</anchor>
+      <arglist>(const std::string &amp;error)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>UnsupportedFeature</name>
+      <anchorfile>a00078.html</anchorfile>
+      <anchor>a0774b1ed4a1653d17c14053dc87e427e</anchor>
+      <arglist>(const char *error)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>engine::VersionBase</name>
@@ -3358,5 +3549,19 @@
   <compound kind="struct">
     <name>engine::WrongStateError</name>
     <filename>a00093.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>WrongStateError</name>
+      <anchorfile>a00093.html</anchorfile>
+      <anchor>a2c4332149aa8e41ffcef52a21727d03d</anchor>
+      <arglist>(const std::string &amp;error)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>WrongStateError</name>
+      <anchorfile>a00093.html</anchorfile>
+      <anchor>a279d5a0c8c39380af223092423d1f56c</anchor>
+      <arglist>(const char *error)</arglist>
+    </member>
   </compound>
 </tagfile>

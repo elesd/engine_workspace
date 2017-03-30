@@ -8,12 +8,14 @@
 #include <engine/signalSlot/SignalManager.h>
 namespace engine
 {
+	/**Key state of the keyboard*/
 	enum class KeyState
 	{
 		Pressed,
 		Released,
 		Unknown
 	};
+	/**Buttons of the keyboard*/
 	enum class KeyboardButton
 	{
 		Key_Esc,
@@ -131,30 +133,54 @@ namespace engine
 		EnumSize
 	};		
 
-
+	/**
+	Base keyboard
+	*/
 	class Keyboard : public EventSourceBase,
 					 public SlotHolder
 	{
 	public:
+		/**Event source id for the event manager*/
 		static const std::string EventSourceId;
-		static std::string KeyboardButtonToString(KeyboardButton button);
+		/**String conversion function for debug*/
+		static std::string KeyboardButtonToString(KeyboardButton );
 	public:
+		/**PIMPL*/
 		Keyboard();
+		/**PIMPL*/
 		~Keyboard() override;
 
+		/**PIMPL*/
 		Keyboard(Keyboard &&o);
+		/**PIMPL*/
 		Keyboard& operator=(Keyboard &&o);
 
-		KeyState getKeyState(KeyboardButton button) const;
+		/**
+		@return Returns the state of the given button
+		*/
+		KeyState getKeyState(KeyboardButton) const;
+
+		/**
+		@copydoc
+		*/
 		ISignalManager *getSignalManager() const override;
 
 	protected:
+		/**
+		Slot for keyboard pressed to set keystate inmediatly
+		*/
 		void onKeyPressed(KeyboardButton);
+		/**
+		Slot for keyboard released to set keystate inmediatly
+		*/
 		void onKeyReleased(KeyboardButton);
 	public:
+		/**Emitted when a key is pressed*/
 		Signal<KeyboardButton> keyPressed;
+		/**Emitted when a key is released*/
 		Signal<KeyboardButton> keyReleased;
 	private:
+		/**PIMPL*/
 		struct KeyboardPrivate* _members = nullptr;
 	};
 }

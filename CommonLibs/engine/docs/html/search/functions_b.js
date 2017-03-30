@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['releaseinstance',['releaseInstance',['../a00069.html#a3fbed1f6a78cdf1d0c11467a3be61841',1,'engine::Singleton']]],
-  ['removesignal',['removeSignal',['../a00070.html#a5927b57f0d4fb8744dc0e8ec265e0136',1,'engine::SlotHolder']]],
-  ['render',['render',['../a00002.html#af3ef70b1c3e25be0dbe68c460ec2db98',1,'engine::Application::render()'],['../a00045.html#abf626b47003850fbfb5fc334409c80ec',1,'engine::IMain::render()'],['../a00072.html#a0e52521456a98ab4b8a58ba01d356836',1,'engine::StateBase::render()'],['../a00073.html#a948f666845a6bbebc6f629a3eef8de0b',1,'engine::StateStack::render()']]],
-  ['resume',['resume',['../a00072.html#a7a109867f252655aa625f8421071fa23',1,'engine::StateBase']]]
+  ['pause',['pause',['../a00072.html#acc1a281ee5cd9192fb7a703c5ef8c49b',1,'engine::StateBase']]],
+  ['pointerequalto',['PointerEqualTo',['../a00062.html#a25356ec570fd1f0c1395c2ea7dcdc839',1,'engine::PointerEqualTo']]],
+  ['popstate',['popState',['../a00073.html#ad4332c156e0169fcde04044acb59928d',1,'engine::StateStack']]],
+  ['pushstate',['pushState',['../a00073.html#aae3b3caef3cf8dfd7ba9ea0232b5babd',1,'engine::StateStack']]]
 ];
