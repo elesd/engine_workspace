@@ -14,7 +14,7 @@ set (EXTERNALS_DIR "${MAIN_PROJECT_DIR}/../CommonLibs")
 set (INSTALL_DIR "${EXTERNALS_DIR}/engine")
 
 include(../../../CommonConfig.txt)
-include(DoxygenConfig.txt)
+#include(DoxygenConfig.txt)
 
 if (USE_GCC)
   include (GccConfig.txt)

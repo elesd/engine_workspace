@@ -48,7 +48,10 @@ namespace engine
 		if(isActive())
 		{
 			updateImpl();
-			_members->eventManager->update();
+			if(_members->eventManager)
+			{
+				_members->eventManager->update();
+			}
 			_members->main->update();
 		}
 	}

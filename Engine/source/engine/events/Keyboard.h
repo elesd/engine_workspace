@@ -8,12 +8,14 @@
 #include <engine/signalSlot/SignalManager.h>
 namespace engine
 {
+	/**Keyboard KeyState*/
 	enum class KeyState
 	{
 		Pressed,
 		Released,
 		Unknown
 	};
+	/**Supported Keyboard buttons*/
 	enum class KeyboardButton
 	{
 		Key_Esc,
@@ -131,30 +133,54 @@ namespace engine
 		EnumSize
 	};		
 
-
+	/**
+	* Keyboard implementation.
+	*/
 	class Keyboard : public EventSourceBase,
 					 public SlotHolder
 	{
 	public:
+		/**Event source id of the keyboards*/
 		static const std::string EventSourceId;
-		static std::string KeyboardButtonToString(KeyboardButton button);
+		/** @return Returns string format of the buttons*/
+		static std::string KeyboardButtonToString(KeyboardButton);
 	public:
+		/**Default constructable.*/
 		Keyboard();
+		/**PIMPL*/
 		~Keyboard() override;
 
+		/**PIMPL move*/
 		Keyboard(Keyboard &&o);
-		Keyboard& operator=(Keyboard &&o);
+		/**
+		* PIMPL move assignment
+		* @return Returns with a reference to this.
+		*/
+		Keyboard& operator=(Keyboard &&);
 
-		KeyState getKeyState(KeyboardButton button) const;
+		/**@return Returns the key state of the given button*/
+		KeyState getKeyState(KeyboardButton) const;
+		/**@return Returns the signal manager*/
 		ISignalManager *getSignalManager() const override;
 
 	protected:
+		/**
+		* Slot for key pressed signal.
+		* It is called directly when the key pressed in order to set the key state as soon as it is possible.
+		*/
 		void onKeyPressed(KeyboardButton);
+		/**
+		* Slot for key released signal.
+		* It is called directly when the key pressed in order to set the key state as soon as it is possible.
+		*/
 		void onKeyReleased(KeyboardButton);
 	public:
+		/**Singal emitted when a key is pressed.*/
 		Signal<KeyboardButton> keyPressed;
+		/**Singal emitted when a key is released.*/
 		Signal<KeyboardButton> keyReleased;
 	private:
+		/**PIMPL*/
 		struct KeyboardPrivate* _members = nullptr;
 	};
 }

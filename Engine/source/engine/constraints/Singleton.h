@@ -13,6 +13,7 @@ namespace engine
 		NonMoveable
 	{
 	public:
+		/**Virtual destructor for childs*/
 		virtual ~Singleton() {}
 		/**
 		* @return the instance object

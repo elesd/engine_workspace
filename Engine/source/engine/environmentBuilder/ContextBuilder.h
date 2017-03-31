@@ -47,11 +47,6 @@ namespace engine
 		*/
 		void initContext();
 
-		/**
-		* Check the module cohesion.
-		* Check the different kind of restrictions between the initialized modules.
-		*/
-		bool checkModules();
 	private:
 		/**PIMPL*/
 		struct ContextBuilderPrivate *_members = nullptr;

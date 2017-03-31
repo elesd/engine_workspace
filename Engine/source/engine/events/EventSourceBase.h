@@ -6,25 +6,32 @@
 
 namespace engine
 {
+	/**
+	* Base class for event sources.
+	*/
 	class EventSourceBase : public PIMPLCopyable<EventSourceBase>
 		, public PIMPLMoveable<EventSourceBase>
 	{
 	protected:
+		/**
+		* @param eventSourceId: id of the event source, not necessarly unique.
+		*/
 		EventSourceBase(const std::string &eventSourceId);
 	public:
-		//EventSourceBase(EventSourceBase &&o);
-		//EventSourceBase(const EventSourceBase &o);
+		/**PIMPL*/
 		virtual ~EventSourceBase();
-		//EventSourceBase &operator=(EventSourceBase &&o);
-		//EventSourceBase &operator=(const EventSourceBase &o);
 
 	public:
 
-		void setEventsEnabled(bool v);
+		/** Setter for enable property.	*/
+		void setEventsEnabled(bool);
+		/** @return Returns true if the event source is enabled.*/
 		bool isEventsEnabled() const;
+		/** @return Returns the event source id.*/
 		const std::string &getEventSourceId() const;
 
 	private:
+		/**PIMPL*/
 		struct EventSourceBasePrivate *_members;
 	};
 }

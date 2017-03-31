@@ -19,12 +19,14 @@ namespace engine
 	{
 		std::unique_ptr<IMain> main;
 		std::set<engine::EventBuilder::BasicInputType> inputs;
+		engine::ContextModuleType windowModule;
 	};
 
-	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main)
+	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main, engine::ContextModuleType windowModul)
 		:_members(new EasyBuilderPrivate())
 	{
 		_members->main = std::move(main);
+		_members->windowModule = windowModul;
 	}
 
 	EasyBuilder::~EasyBuilder()
@@ -43,6 +45,7 @@ namespace engine
 								  LPSTR lpCmdLine,
 								  int nCmdShow) const
 	{
+		ASSERT(_members->windowModule == ContextModuleType::WinApi);
 		std::unique_ptr<IApplicationParameter> args(new winapi::WinApiApplicationParameter(hInstance, hPrevInstance, lpCmdLine, nCmdShow));
 		buildEngine(std::move(args));
 		return Context::getInstance()->getApplication();
@@ -50,6 +53,8 @@ namespace engine
 
 	Application* EasyBuilder::buildEngine(int argc, char* argv[]) const
 	{
+		ASSERT(_members->windowModule == ContextModuleType::Sdl
+		|| _members->windowModule == ContextModuleType::Glfw);
 		std::unique_ptr<IApplicationParameter> args(new StandardApplicationParameter(argc, argv));
 		buildEngine(std::move(args));
 		return Context::getInstance()->getApplication();
@@ -57,7 +62,7 @@ namespace engine
 
 	void EasyBuilder::buildEngine(std::unique_ptr<IApplicationParameter> args) const
 	{
-		ContextBuilder envBuilder({engine::ContextModuleType::WinApi});
+		ContextBuilder envBuilder({_members->windowModule});
 		ApplicationBuilder appBuilder = envBuilder.buildForApplication();
 		EventBuilder eventBuilder = appBuilder.build(std::move(args), std::move(_members->main));
 		WindowEnvironmentBuilder windowBuilder = eventBuilder.build(_members->inputs);
