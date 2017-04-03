@@ -3,6 +3,8 @@
 #include <engine/video/winapi/DriverImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 #if ENGINE_USE_WINAPI
+#include <engine/exceptions/LogicalErrors.h>
+
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 #include <engine/video/winapi/BufferDescUtils.h>
@@ -53,7 +55,7 @@ namespace engine
 
 			// fill the swap chain description struct
 			scd.BufferCount = 1;                                    // one back buffer
-			scd.BufferDesc.Format = BufferDescUtils::EncodeDesc(params.description);     // use 32-bit color
+			scd.BufferDesc.Format = BufferDescUtils::EncodeDesc(params.description);
 			scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
 			scd.OutputWindow = winapiWindow->getWindowHandler();	// the window to be used
 			scd.SampleDesc.Count = params.sampleCount;				// how many multisamples
@@ -70,8 +72,14 @@ namespace engine
 										  &scd,
 										  &_members->swapChain,
 										  &_members->device,
-										  NULL,
+										  nullptr,
 										  &_members->deviceContext);
+			if(_members->swapChain == nullptr
+			   || _members->device == nullptr
+			   || _members->deviceContext == nullptr)
+			{
+				throw InitializationError("Driver initialization error.");
+			}
 		}
 	}
 }
