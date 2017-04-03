@@ -30,8 +30,10 @@ namespace engine
 		*/
 		ApplicationBuilder(const ContextModuleType windowModule);
 	public:
+		/**Default constructable*/
 		~ApplicationBuilder();
 
+		/**Moveable for PIMPL*/
 		ApplicationBuilder(ApplicationBuilder&& o);
 
 		/**
@@ -42,6 +44,11 @@ namespace engine
 		*/
 		EventBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
 	private:
+		/**
+		* Create an application based on the window module type which is given in creation
+		* @param arguments: Argumentums for the creation
+		* @param main: application main logic
+		*/
 		std::unique_ptr<Application> createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
 		
 	private:

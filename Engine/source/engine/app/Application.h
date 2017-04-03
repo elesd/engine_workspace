@@ -31,6 +31,7 @@ namespace engine
 		/**Simple destructor for PIMPL*/
 		virtual ~Application();
 
+		/** Start the application and run it till it won't be stopped.*/
 		void run();
 
 		/**
@@ -61,13 +62,30 @@ namespace engine
 		*/
 		const IApplicationParameter *getArguments() const;
 
+		/**
+		* @return Returns the event manager of the application
+		*/
 		EventManager *getEventManager() const;
+		/**
+		* @return Returns the window manager of the application
+		*/
 		WindowManager *getWindowManager() const;
 
 	private:
-		void setEventManager(std::unique_ptr<EventManager> eventManager);
+		/**
+		* Setter for the Builder in order to setup event manager.
+		* @see EventBuilder
+		*/
+		void setEventManager(std::unique_ptr<EventManager>);
+		/**
+		* Setter for the Builder in order to setup window manager.
+		* @see WindowBuilder
+		*/
 		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
 	private:
+		/**
+		* Update function before done any other update.
+		*/
 		virtual void updateImpl() = 0;
 	private:
 		/**PIMPL*/

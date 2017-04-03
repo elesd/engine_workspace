@@ -18,10 +18,6 @@ namespace engine
 		{
 		}
 
-		ApplicationImpl::~ApplicationImpl()
-		{
-		}
-
 		void ApplicationImpl::updateImpl()
 		{
 			MSG msg;
