@@ -17,17 +17,38 @@ namespace engine
 		{
 			friend class engine::sdl::WindowManagerImpl;
 		public:
+			/**
+			* Creates an sdl window
+			* @param window: Created sdl window.
+			* @param parameters: window creation parameter.
+			* @param title: title of the window.
+			*/
 			WindowImpl(SDL_Window *window, const WindowParameter &parameters, const std::string &title = "Window");
-			/** @todo add width, height*/
+			/**
+			* Creates a full screened sdl window
+			* @param window: Created sdl window.
+			* @param title: title of the window.
+			*/
 			WindowImpl(SDL_Window *window, const std::string &title = "Window");
+
+			/**PIMPL*/
 			~WindowImpl();
+
 			/**
 			* @return Returns true if the window is created successfuly.
 			*/
 			operator bool() const;
-			void setPositionImp(int32_t x, int32_t y) override;
-			void setWidthImpl(uint32_t width) override;
-			void setHeightImpl(uint32_t height) override;
+			/**Set the position of the window*/
+			void setPositionImp(int32_t, int32_t) override;
+			/**Set the width of the window*/
+			void setWidthImpl(uint32_t) override;
+			/**Set the height of the window*/
+			void setHeightImpl(uint32_t) override;
+			/**
+			* Set the window's dimension
+			* @param width: new window width
+			* @param height: new window height
+			*/
 			void setSizeImpl(uint32_t width, uint32_t height) override;
 
 			/**

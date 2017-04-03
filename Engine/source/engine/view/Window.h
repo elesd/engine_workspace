@@ -46,6 +46,7 @@ namespace engine
 	class Window : public EventSourceBase
 	{
 	public:
+		/**Event source id for windows*/
 		static const std::string EventSourceId;
 	public:
 		/** Construct a full screen window.*/
@@ -77,14 +78,18 @@ namespace engine
 		*/
 		void setWidth(uint32_t width);
 
+		/**@return Returns the width of the windows*/
 		uint32_t getWidth() const;
+
 		/**
 		* Resize the window.
 		* @param height: New height of the window.
 		*/
 		void setHeight(uint32_t height);
 
+		/**@return Returns the height of the windows*/
 		uint32_t getHeight() const;
+
 		/**
 		* Resize the window.
 		* @param width: New width of the window.
@@ -95,9 +100,11 @@ namespace engine
 		/** @return Returns true if the window is full screen. */
 		bool isFullScreen() const { return _fullScreen; }
 
+		/**@return Returns the video driver of the window*/
 		Driver *getDriver() const;
 
-		void initDriver(std::unique_ptr<Driver> driver);
+		/**Initilize the window with the given video driver*/
+		void initDriver(std::unique_ptr<Driver>);
 	private:
 
 		/**
@@ -147,6 +154,7 @@ namespace engine
 		bool _fullScreen = false;
 
 	private:
+		/**PIMPL*/
 		struct WindowPrivate *_members = nullptr;
 	};
 }

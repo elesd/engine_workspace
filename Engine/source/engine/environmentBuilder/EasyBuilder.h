@@ -35,8 +35,8 @@ namespace engine
 		* One step build for the engine in case of winapi application.
 		* @param hInstance: Application arg.
 		* @param hPrevInstance: Application arg.
-		* @param hpCmdLine: Application arg.
-		* @param hCmdShow: Application arg.
+		* @param lpCmdLine: Application arg.
+		* @param nCmdShow: Application arg.
 		* @return returns the application of the context
 		*/
 		Application* buildEngine(HINSTANCE hInstance,

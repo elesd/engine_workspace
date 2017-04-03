@@ -8,25 +8,41 @@ namespace engine
 	{
 		class TestSuite;
 
+		/**
+		* Base class for regressions.
+		* Regressions contain test suites and collects run results.
+		*/
 		class BaseRegression: engine::NonCopyable
 		{
 		public:
+			/**
+			* Create a regression with a given name.
+			*/
 			BaseRegression(const std::string &name);
+			/**PIMPL*/
 			~BaseRegression();
-			BaseRegression(BaseRegression &&o);
+			/**Moveable but not copyable*/
+			BaseRegression(BaseRegression &&);
 
-			void setStream(std::ostream *os);
+			/**Set the stream for the output*/
+			void setStream(std::ostream *);
 
+			/**Run all the test cases*/
 			void run() const;
 
+			/**@return Returns the number of test cases*/
 			uint32_t getNumOfExecutedTC() const;
 
+			/**@return Returns the number of Not ok test cases*/
 			uint32_t getNumOfNokTC() const;
 
+			/**@return Returns the name of the regression*/
 			const std::string &getName() const;
 		protected:
-			void addTestSuite(std::unique_ptr<TestSuite> &&testSuite);
+			/**Add a test suit to the regression.*/
+			void addTestSuite(std::unique_ptr<TestSuite> &&);
 		private:
+			/**PIMPL*/
 			struct BaseRegressionPrivate *_members = nullptr;
 		};
 	}

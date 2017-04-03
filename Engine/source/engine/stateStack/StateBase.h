@@ -20,7 +20,7 @@ namespace engine
 		 * Construct a state.
 		 * The object must not been initialized by the constructor,
 		 * it can be done during initialization.
-		 * @see @initState
+		 * @see initState
 		 */
 		StateBase(const std::string &name);
 
@@ -30,7 +30,7 @@ namespace engine
 		 * Destroy the state.
 		 * The object also can be destroyed by other function simirary
 		 * as it was in constructed.
-		 * @see @destroyState
+		 * @see destroyState
 		 */
 		virtual ~StateBase();
 
