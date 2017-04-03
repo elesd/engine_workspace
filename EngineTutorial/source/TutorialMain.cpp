@@ -2,6 +2,7 @@
 
 #include <engine/app/Application.h>
 #include <engine/environmentBuilder/EasyBuilder.h>
+#include <engine/ModuleDefinitions.h>
 
 #include <TestMain.h>
 
@@ -26,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				   int nCmdShow)
 {  
 	std::unique_ptr<engine::IMain> main(new TestMain());
-	engine::EasyBuilder builder(std::move(main));
+	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::WinApi);
 	builder.AddInput(engine::EventBuilder::BasicInputType::Keyboard)
 		   .AddInput(engine::EventBuilder::BasicInputType::Mouse);
 	engine::Application *app = builder.buildEngine(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
