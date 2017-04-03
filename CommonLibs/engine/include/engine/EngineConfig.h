@@ -6,17 +6,27 @@ namespace engine
 {
 	namespace version
 	{
+		/**
+		* Class for version handling in the source code.
+		*/
 		class VersionDef
 		{
 		protected:
+			/**Major version number*/
 			const int major = 0;
+			/**Minor version number*/
 			const int minor = 1;
+			/**Counter for the current version*/
 			const int counter = 1;
+			/** Creation year of the version.*/
 			const std::string year = "17";
+			/** Creation month of the version.*/
 			const std::string month = "04";
+			/** Creation day of the version.*/
 			const std::string day = "03";
 		};
 		
+		/**Creates a concrate version based on its definition.*/
 		using Version = VersionBase<VersionDef>;
 	}
 }
