@@ -6,6 +6,7 @@ Engine/build/*
 !Engine/projects
 Engine/projects/*
 !Engine/projects/cmake
+!Engine/projects/doxygen
 !Engine/projects/*.bat
 !Engine/projects/*.sh
 
