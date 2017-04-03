@@ -59,29 +59,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00531.html">Driver</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><b>glfw</b></li><li class="navelem"><a class="el" href="a00531.html">WindowImpl</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::Driver Member List</div>  </div>
+<div class="title">engine::glfw::WindowImpl Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00531.html">engine::Driver</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00531.html">engine::glfw::WindowImpl</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#aed71bf52de93e2fc50f12eb860a52acc">Driver</a>()=default</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#aed71bf52de93e2fc50f12eb860a52acc">Driver</a>()=default</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a4e283b1274b6ffea595cb7329b09c16d">init</a>(const DriverInitParameters &amp;params, Window *window)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#a4e283b1274b6ffea595cb7329b09c16d">init</a>(const DriverInitParameters &amp;params, Window *window)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>WindowManager</b> (defined in <a class="el" href="a00531.html">engine::Driver</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>WindowManagerPrivate</b> (defined in <a class="el" href="a00531.html">engine::Driver</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a4772e871ef5639c84cbb5569d75c1de9">~Driver</a>()</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#a4772e871ef5639c84cbb5569d75c1de9">~Driver</a>()</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a5167b1318668d7639112ce85eafc6c8b">_fullScreen</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#aae1d39f3df529497025772967ac578a0">_parameters</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>engine::glfw::WindowManagerImpl</b> (defined in <a class="el" href="a00531.html">engine::glfw::WindowImpl</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00299.html#aaf869f7f30d31a3eb2713937e8a8f902">EventSourceBase</a>(const std::string &amp;eventSourceId)</td><td class="entry"><a class="el" href="a00299.html">engine::EventSourceBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>EventSourceId</b> (defined in <a class="el" href="a00559.html">engine::Window</a>)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getDriver</b>() const (defined in <a class="el" href="a00559.html">engine::Window</a>)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00299.html#aafbaa7d58834878f682483c9f95fc0c6">getEventSourceId</a>() const</td><td class="entry"><a class="el" href="a00299.html">engine::EventSourceBase</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getHeight</b>() const (defined in <a class="el" href="a00559.html">engine::Window</a>)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#aa3cb40f7fe9b45115e348eb53bd3bfb5">getParameters</a>() const</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getWidth</b>() const (defined in <a class="el" href="a00559.html">engine::Window</a>)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>initDriver</b>(std::unique_ptr&lt; Driver &gt; driver) (defined in <a class="el" href="a00559.html">engine::Window</a>)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00299.html#a8edbeec129d35b5597456b5b31c71698">isEventsEnabled</a>() const</td><td class="entry"><a class="el" href="a00299.html">engine::EventSourceBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a2b952deb527dc6177ada25619f3a77fb">isFullScreen</a>() const</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00531.html#ae01e9a52f2efe2b061c7c46bd7756496">operator bool</a>() const</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00247.html#a3fbc43477e7933ab2fc304815c3157d4">PIMPLCopyable</a>()=default</td><td class="entry"><a class="el" href="a00247.html">engine::PIMPLCopyable&lt; EventSourceBase &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00247.html#af0ce03b894589b5bd951cc25a073dc65">PIMPLCopyable</a>(const PIMPLCopyable &amp;o)</td><td class="entry"><a class="el" href="a00247.html">engine::PIMPLCopyable&lt; EventSourceBase &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00247.html#a26fdb9b3d449d04dc653c7ae942f452b">PIMPLCopyable::operator=</a>(const PIMPLCopyable &amp;o)</td><td class="entry"><a class="el" href="a00247.html">engine::PIMPLCopyable&lt; EventSourceBase &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00251.html#a3a13935a507a7c632e25acd1bd73f7f1">PIMPLMoveable</a>()=default</td><td class="entry"><a class="el" href="a00251.html">engine::PIMPLMoveable&lt; EventSourceBase &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00251.html#ad0b013508a9b2d94bc084819348bd8a0">PIMPLMoveable</a>(PIMPLMoveable &amp;&amp;o)</td><td class="entry"><a class="el" href="a00251.html">engine::PIMPLMoveable&lt; EventSourceBase &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00251.html#ac67025e8a25edffe99fa9bf67ed8ca19">PIMPLMoveable::operator=</a>(PIMPLMoveable &amp;&amp;o)</td><td class="entry"><a class="el" href="a00251.html">engine::PIMPLMoveable&lt; EventSourceBase &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00299.html#a830bfd3eaf2ca46955ea4da0a7828d82">setEventsEnabled</a>(bool)</td><td class="entry"><a class="el" href="a00299.html">engine::EventSourceBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#a87b8b6f2c1a08327d4010e2b6aceb319">setHeight</a>(uint32_t height)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a877ca64eee45c4f5abc766c4164e316c">setHeightImpl</a>(uint32_t height) override</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#ad6874b68c5cd0b59ec75ac8ad15f2a3a">setPosition</a>(int32_t x, int32_t y)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00531.html#af52abedfc7695f94f32167d52e501b3d">setPositionImp</a>(int32_t x, int32_t y) override</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#aefaae1015e22521e0a0168633a7d413f">setSize</a>(uint32_t width, uint32_t height)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a226cde7add1fb27044e3eccd167f361f">setSizeImpl</a>(uint32_t width, uint32_t height) override</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#a3435c3bf0e07492ec77f3977c9b5e355">setWidth</a>(uint32_t width)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a2a42c1ce8e90c3adef80e5973b91bb38">setWidthImpl</a>(uint32_t width) override</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#a6adceceb01e5ed546282c5ea2d09af88">Window</a>()</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a3bf48ba460f021664ad27f27509cf473">Window</a>(const WindowParameter &amp;parameter)</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#a5bb494c228eb398d6893327fcf03d2d3">windowClosed</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a0c6ef7abcac1063c91a84123c81f9347">windowFrameBufferSizeChanged</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>WindowImpl</b>(GLFWwindow *window, const WindowParameter &amp;parameters, const std::string &amp;title=&quot;Window&quot;) (defined in <a class="el" href="a00531.html">engine::glfw::WindowImpl</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>WindowImpl</b>(GLFWwindow *window, const std::string &amp;title=&quot;Window&quot;) (defined in <a class="el" href="a00531.html">engine::glfw::WindowImpl</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#a2a81dc83b5e8433eb39e1ca8263d0c0f">windowInFocus</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a4bdb42d789ed9587ff8f840065752506">windowMoved</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00559.html#af6f8cc0d616685683d5c6b52b4cc07d0">windowOutFocus</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a20978a09b8843aa8960dc9d3a989b11a">windowSizeChanged</a></td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00299.html#a85d54d684e95d170ba8972674185916f">~EventSourceBase</a>()</td><td class="entry"><a class="el" href="a00299.html">engine::EventSourceBase</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00559.html#a9540302516f5eda30facee89517346ed">~Window</a>()</td><td class="entry"><a class="el" href="a00559.html">engine::Window</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~WindowImpl</b>() (defined in <a class="el" href="a00531.html">engine::glfw::WindowImpl</a>)</td><td class="entry"><a class="el" href="a00531.html">engine::glfw::WindowImpl</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:41 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['releaseinstance',['releaseInstance',['../a00267.html#a3fbed1f6a78cdf1d0c11467a3be61841',1,'engine::Singleton']]],
-  ['removesignal',['removeSignal',['../a00439.html#a5927b57f0d4fb8744dc0e8ec265e0136',1,'engine::SlotHolder']]],
-  ['render',['render',['../a00223.html#af3ef70b1c3e25be0dbe68c460ec2db98',1,'engine::Application::render()'],['../a00235.html#abf626b47003850fbfb5fc334409c80ec',1,'engine::IMain::render()'],['../a00443.html#a0e52521456a98ab4b8a58ba01d356836',1,'engine::StateBase::render()'],['../a00447.html#a948f666845a6bbebc6f629a3eef8de0b',1,'engine::StateStack::render()']]],
-  ['resume',['resume',['../a00443.html#a7a109867f252655aa625f8421071fa23',1,'engine::StateBase']]]
+  ['noncopyable',['NonCopyable',['../a00238.html#a9f7cb34234d5117fbe31e0e82cf164b8',1,'engine::NonCopyable::NonCopyable()=default'],['../a00238.html#a6018f0c6b722b97077bfb807f03f0f69',1,'engine::NonCopyable::NonCopyable(const NonCopyable &amp;)=delete']]],
+  ['nonmoveable',['NonMoveable',['../a00242.html#afc10190e7b658e00593b253c0d49cb35',1,'engine::NonMoveable::NonMoveable()=default'],['../a00242.html#a32b7d1f14280ffa724bd6404801a6bef',1,'engine::NonMoveable::NonMoveable(NonMoveable &amp;&amp;)=delete']]]
 ];

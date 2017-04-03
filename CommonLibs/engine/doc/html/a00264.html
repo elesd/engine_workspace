@@ -59,33 +59,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00267.html">Singleton</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00267.html">ApplicationBuilder</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::Singleton&lt; T &gt; Member List</div>  </div>
+<div class="title">engine::ApplicationBuilder Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00267.html">engine::ApplicationBuilder</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00267.html#aebb4997c079ae1c07a3b16a85c331931">createInstance</a>(Args ...args)</td><td class="entry"><a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00267.html#a90ed1f21b1811a569eafccc78fcd12ca">getInstance</a>()</td><td class="entry"><a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00251.html#a9f7cb34234d5117fbe31e0e82cf164b8">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00251.html#a6018f0c6b722b97077bfb807f03f0f69">NonCopyable</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00255.html#afc10190e7b658e00593b253c0d49cb35">NonMoveable</a>()=default</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00255.html#a32b7d1f14280ffa724bd6404801a6bef">NonMoveable</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00251.html#a21f1cc26f8f967d5c636e580cc728821">engine::operator=</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00255.html#ae233a63d597305bc8a2175eab7e498d8">engine::NonMoveable::operator=</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00267.html#a3fbed1f6a78cdf1d0c11467a3be61841">releaseInstance</a>()</td><td class="entry"><a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00251.html#a30addd3c42fbbe053a7484ed209ef8c3">~NonCopyable</a>()</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~NonMoveable</b>() (defined in <a class="el" href="a00255.html">engine::NonMoveable</a>)</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Singleton</b>() (defined in <a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="a00267.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00271.html#a52fb449fadc5d3a074e3fc7bfb56744b">addModule</a>(const ContextModuleType value)</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00267.html#a9129ac9644ef145a394c99d59c035307">ApplicationBuilder</a>(ApplicationBuilder &amp;&amp;o)</td><td class="entry"><a class="el" href="a00267.html">engine::ApplicationBuilder</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00271.html#ac1d22d4031be98e715d8ea733fc4463b">BaseBuilder</a>()=default</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00267.html#a7ca2bdeae296ff836f6592b66d819e87">build</a>(std::unique_ptr&lt; IApplicationParameter &gt; arguments, std::unique_ptr&lt; IMain &gt; main)</td><td class="entry"><a class="el" href="a00267.html">engine::ApplicationBuilder</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ContextBuilder</b> (defined in <a class="el" href="a00267.html">engine::ApplicationBuilder</a>)</td><td class="entry"><a class="el" href="a00267.html">engine::ApplicationBuilder</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00271.html#a20c5dafa6892142bc352c13a5f3ac09a">setApplication</a>(std::unique_ptr&lt; Application &gt; app)</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00271.html#a52b490a3ef4d2a5b5b7e8e0f82d9a27c">setEventManager</a>(std::unique_ptr&lt; EventManager &gt; manager)</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00271.html#af23e3bdfb30ca9f2076cacc9029d96c2">setInitialized</a>()</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00271.html#a641fb06484bdb07220f445f14db8c0e7">setWindowManager</a>(std::unique_ptr&lt; WindowManager &gt; manager)</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00267.html#af78a79a70e0452182c0eda73e08a916e">~ApplicationBuilder</a>()</td><td class="entry"><a class="el" href="a00267.html">engine::ApplicationBuilder</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00271.html#af762f3acae53396e0621113e1bb3156b">~BaseBuilder</a>()</td><td class="entry"><a class="el" href="a00271.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:40 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

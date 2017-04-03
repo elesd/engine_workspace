@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::SignalTask&lt; Args &gt; Class Template Reference</title>
+<title>Engine: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,165 +59,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00435.html">SignalTask</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><b>test</b></li><li class="navelem"><a class="el" href="a00438.html">TestManager</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a00432.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::SignalTask&lt; Args &gt; Class Template Reference</div>  </div>
+<div class="title">engine::test::TestManager Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00128_source.html">C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/signalSlot/SignalTask.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for engine::SignalTask&lt; Args &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a00435.png" usemap="#engine::SignalTask_3C_20Args_20_3E_map" alt=""/>
-  <map id="engine::SignalTask_3C_20Args_20_3E_map" name="engine::SignalTask_3C_20Args_20_3E_map">
-<area href="a00431.html" alt="engine::ISignalTask" shape="rect" coords="0,0,168,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa084db82b7369830ae2121d03c411045"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00435.html#aa084db82b7369830ae2121d03c411045">SignalTask</a> (std::weak_ptr&lt; <a class="el" href="a00423.html">SignalCaller</a>&lt; Args... &gt;&gt; caller, const std::tuple&lt; Args... &gt; &amp;args)</td></tr>
-<tr class="separator:aa084db82b7369830ae2121d03c411045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66e71dfc80f4320c2d5c260028b0bbff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00435.html#a66e71dfc80f4320c2d5c260028b0bbff">operator()</a> () override</td></tr>
-<tr class="separator:a66e71dfc80f4320c2d5c260028b0bbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87f32f300dcbec8e18cff49c3b598657"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00435.html#a87f32f300dcbec8e18cff49c3b598657">isExpired</a> () const override</td></tr>
-<tr class="separator:a87f32f300dcbec8e18cff49c3b598657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename ... Args&gt;<br />
-class engine::SignalTask&lt; Args &gt;</h3>
-
-<p>A signal task for the <a class="el" href="a00407.html">ISignalManager</a>. This class is more than a simple std::function because it cares about the object to what the function is bind. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00028">28</a> of file <a class="el" href="a00128_source.html">SignalTask.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa084db82b7369830ae2121d03c411045"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa084db82b7369830ae2121d03c411045">&#9670;&nbsp;</a></span>SignalTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00435.html">engine::SignalTask</a>&lt; Args &gt;::<a class="el" href="a00435.html">SignalTask</a> </td>
-          <td>(</td>
-          <td class="paramtype">std::weak_ptr&lt; <a class="el" href="a00423.html">SignalCaller</a>&lt; Args... &gt;&gt;&#160;</td>
-          <td class="paramname"><em>caller</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::tuple&lt; Args... &gt; &amp;&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Create a <a class="el" href="a00411.html">Signal</a> task from the weak pointer to the caller and with the arguments. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">caller</td><td>This caller is stored and called. </td></tr>
-    <tr><td class="paramname">args</td><td>The caller will called with these arguments. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00036">36</a> of file <a class="el" href="a00128_source.html">SignalTask.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a87f32f300dcbec8e18cff49c3b598657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87f32f300dcbec8e18cff49c3b598657">&#9670;&nbsp;</a></span>isExpired()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a00435.html">engine::SignalTask</a>&lt; Args &gt;::isExpired </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Checks whether the pointer to the caller is still valid. </p>
-
-<p>Implements <a class="el" href="a00431.html#a0459cd9fe99ac484a7dece6796001673">engine::ISignalTask</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00054">54</a> of file <a class="el" href="a00128_source.html">SignalTask.h</a>.</p>
-
-</div>
-</div>
-<a id="a66e71dfc80f4320c2d5c260028b0bbff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66e71dfc80f4320c2d5c260028b0bbff">&#9670;&nbsp;</a></span>operator()()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a00435.html">engine::SignalTask</a>&lt; Args &gt;::operator() </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Call the function caller with the stored arguments, but only if the pointer is still valid. </p>
-
-<p>Implements <a class="el" href="a00431.html#ab7e5dedd50f908fdb0f203b0a154db54">engine::ISignalTask</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00045">45</a> of file <a class="el" href="a00128_source.html">SignalTask.h</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/signalSlot/<a class="el" href="a00128_source.html">SignalTask.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a00438.html">engine::test::TestManager</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a00438.html#af78f58fc84718431379bd905d0a39c5b">addRegression</a>(BaseRegression &amp;&amp;)</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00238.html#a9f7cb34234d5117fbe31e0e82cf164b8">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a00238.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00238.html#a6018f0c6b722b97077bfb807f03f0f69">NonCopyable</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00238.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00438.html#af3d61f894ab863a0da862c3389da4ec8">operator=</a>(TestManager &amp;&amp;)</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00238.html#a21f1cc26f8f967d5c636e580cc728821">engine::NonCopyable::operator=</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00238.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00438.html#abad9d9606204fb93bbe9d5d88c0df755">run</a>()</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00438.html#a3083c25d1dd9fe930a0114454a75cc48">setOutput</a>(std::ostream &amp;)</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00438.html#a374d82cfbb3478ee823ff81555d53cdf">TestManager</a>()</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00438.html#a1fad10153989c4d6a53986abcb638609">TestManager</a>(TestManager &amp;&amp;)</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00238.html#a30addd3c42fbbe053a7484ed209ef8c3">~NonCopyable</a>()</td><td class="entry"><a class="el" href="a00238.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00438.html#ae006f1a18396749e6fb226e155c6d839">~TestManager</a>()</td><td class="entry"><a class="el" href="a00438.html">engine::test::TestManager</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:23:37 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

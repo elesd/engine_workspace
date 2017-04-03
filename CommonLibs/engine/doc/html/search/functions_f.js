@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['unsupportedfeature',['UnsupportedFeature',['../a00347.html#adf506e7a80acd5615803065c18b55b8d',1,'engine::UnsupportedFeature::UnsupportedFeature(const std::string &amp;error)'],['../a00347.html#a0774b1ed4a1653d17c14053dc87e427e',1,'engine::UnsupportedFeature::UnsupportedFeature(const char *error)']]],
-  ['update',['update',['../a00223.html#a149822f20163e98d41728f4752d7a7f7',1,'engine::Application::update()'],['../a00235.html#a6ae095ca594d7ad67704efc97bb50adf',1,'engine::IMain::update()'],['../a00407.html#ab28b704d755b789e6f88d7c30e2aa625',1,'engine::ISignalManager::update()'],['../a00427.html#a4e2dbe6e08226abfca06f172606b102b',1,'engine::SignalManager::update()'],['../a00443.html#a90b80b1002ed942c2f3b8dd9965cfba0',1,'engine::StateBase::update()'],['../a00447.html#a129b751979654c033dfbb5595519db48',1,'engine::StateStack::update()']]]
+  ['registereventsource',['registerEventSource',['../a00294.html#a256dc81b8f38d55108fd146075975e76',1,'engine::EventManager']]],
+  ['releaseinstance',['releaseInstance',['../a00254.html#a3fbed1f6a78cdf1d0c11467a3be61841',1,'engine::Singleton']]],
+  ['removeeventsource',['removeEventSource',['../a00294.html#ada92665ef93dca332fb60aad4397e741',1,'engine::EventManager']]],
+  ['removesignal',['removeSignal',['../a00406.html#a5927b57f0d4fb8744dc0e8ec265e0136',1,'engine::SlotHolder']]],
+  ['render',['render',['../a00210.html#af3ef70b1c3e25be0dbe68c460ec2db98',1,'engine::Application::render()'],['../a00222.html#abf626b47003850fbfb5fc334409c80ec',1,'engine::IMain::render()'],['../a00410.html#a0e52521456a98ab4b8a58ba01d356836',1,'engine::StateBase::render()'],['../a00414.html#a948f666845a6bbebc6f629a3eef8de0b',1,'engine::StateStack::render()']]],
+  ['resume',['resume',['../a00410.html#a7a109867f252655aa625f8421071fa23',1,'engine::StateBase']]],
+  ['run',['run',['../a00210.html#a6d9c94380f1451664ff6d09c314671c7',1,'engine::Application::run()'],['../a00418.html#aae0ec6213a1aef30f8408a320029e837',1,'engine::test::BaseRegression::run()'],['../a00438.html#abad9d9606204fb93bbe9d5d88c0df755',1,'engine::test::TestManager::run()'],['../a00442.html#a7d98304e1a4d65dddd70310dfad23646',1,'engine::test::TestSuite::run()']]]
 ];

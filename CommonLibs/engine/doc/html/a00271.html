@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::Context Class Reference</title>
+<title>Engine: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,200 +59,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00271.html">Context</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00274.html">BuildFinalizer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a00268.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::Context Class Reference</div>  </div>
+<div class="title">engine::BuildFinalizer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00038_source.html">C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/Context.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for engine::Context:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a00271.png" usemap="#engine::Context_map" alt=""/>
-  <map id="engine::Context_map" name="engine::Context_map">
-<area href="a00267.html" alt="engine::Singleton&lt; Context &gt;" shape="rect" coords="92,56,266,80"/>
-<area href="a00251.html" alt="engine::NonCopyable" shape="rect" coords="0,0,174,24"/>
-<area href="a00255.html" alt="engine::NonMoveable" shape="rect" coords="184,0,358,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a6f657b971312b31eab5ff0b2148fab05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00223.html">Application</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00271.html#a6f657b971312b31eab5ff0b2148fab05">getApplication</a> ()</td></tr>
-<tr class="separator:a6f657b971312b31eab5ff0b2148fab05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a90ed1f21b1811a569eafccc78fcd12ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00271.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00267.html#a90ed1f21b1811a569eafccc78fcd12ca">getInstance</a> ()</td></tr>
-<tr class="separator:a90ed1f21b1811a569eafccc78fcd12ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebb4997c079ae1c07a3b16a85c331931"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00267.html#aebb4997c079ae1c07a3b16a85c331931">createInstance</a> (Args ...args)</td></tr>
-<tr class="separator:aebb4997c079ae1c07a3b16a85c331931"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fbed1f6a78cdf1d0c11467a3be61841"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00267.html#a3fbed1f6a78cdf1d0c11467a3be61841">releaseInstance</a> ()</td></tr>
-<tr class="separator:a3fbed1f6a78cdf1d0c11467a3be61841"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad8eb482b76b9be1eaffb7e81f5ce32e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00271.html#ad8eb482b76b9be1eaffb7e81f5ce32e6">isInitialized</a> () const</td></tr>
-<tr class="separator:ad8eb482b76b9be1eaffb7e81f5ce32e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ad579f1883f887a1593ef8d2161435124"><td class="memItemLeft" align="right" valign="top"><a id="ad579f1883f887a1593ef8d2161435124"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>BaseBuilder</b></td></tr>
-<tr class="separator:ad579f1883f887a1593ef8d2161435124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Engine's context. This class contains the members which are necessary from everywhere in the application. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00038_source.html#l00014">14</a> of file <a class="el" href="a00038_source.html">Context.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aebb4997c079ae1c07a3b16a85c331931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebb4997c079ae1c07a3b16a85c331931">&#9670;&nbsp;</a></span>createInstance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="a00267.html">engine::Singleton</a>&lt; <a class="el" href="a00271.html">Context</a>  &gt;::createInstance </td>
-          <td>(</td>
-          <td class="paramtype">Args ...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Create an instance with the given arguments </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">creation</td><td>arguments </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6f657b971312b31eab5ff0b2148fab05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f657b971312b31eab5ff0b2148fab05">&#9670;&nbsp;</a></span>getApplication()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00223.html">Application</a>* engine::Context::getApplication </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns the current appliation. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00223.html">Application</a> </dd></dl>
-
-</div>
-</div>
-<a id="a90ed1f21b1811a569eafccc78fcd12ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ed1f21b1811a569eafccc78fcd12ca">&#9670;&nbsp;</a></span>getInstance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="a00271.html">Context</a> * <a class="el" href="a00267.html">engine::Singleton</a>&lt; <a class="el" href="a00271.html">Context</a>  &gt;::getInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the instance object </dd></dl>
-
-</div>
-</div>
-<a id="ad8eb482b76b9be1eaffb7e81f5ce32e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8eb482b76b9be1eaffb7e81f5ce32e6">&#9670;&nbsp;</a></span>isInitialized()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool engine::Context::isInitialized </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>The context can be used only if it is initialized. Because the context creation is a complicated task, it is done in separate steps by builders. </p>
-
-</div>
-</div>
-<a id="a3fbed1f6a78cdf1d0c11467a3be61841"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fbed1f6a78cdf1d0c11467a3be61841">&#9670;&nbsp;</a></span>releaseInstance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="a00267.html">engine::Singleton</a>&lt; <a class="el" href="a00271.html">Context</a>  &gt;::releaseInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Delete the instance </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/<a class="el" href="a00038_source.html">Context.h</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a00274.html">engine::BuildFinalizer</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a00270.html#a52fb449fadc5d3a074e3fc7bfb56744b">addModule</a>(const ContextModuleType value)</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00270.html#ac1d22d4031be98e715d8ea733fc4463b">BaseBuilder</a>()=default</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00274.html#a1a1fa8cbc1658b9a0240845c9335ab47">build</a>()</td><td class="entry"><a class="el" href="a00274.html">engine::BuildFinalizer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00274.html#abb814b037e8526d18118036c5142c96a">BuildFinalizer</a>()=default</td><td class="entry"><a class="el" href="a00274.html">engine::BuildFinalizer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00274.html#ac23ed21d3f95a3c91ecdf900387fd9c6">BuildFinalizer</a>(BuildFinalizer &amp;&amp;)</td><td class="entry"><a class="el" href="a00274.html">engine::BuildFinalizer</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00270.html#a20c5dafa6892142bc352c13a5f3ac09a">setApplication</a>(std::unique_ptr&lt; Application &gt; app)</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00270.html#a52b490a3ef4d2a5b5b7e8e0f82d9a27c">setEventManager</a>(std::unique_ptr&lt; EventManager &gt; manager)</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00270.html#af23e3bdfb30ca9f2076cacc9029d96c2">setInitialized</a>()</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00270.html#a641fb06484bdb07220f445f14db8c0e7">setWindowManager</a>(std::unique_ptr&lt; WindowManager &gt; manager)</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00270.html#af762f3acae53396e0621113e1bb3156b">~BaseBuilder</a>()</td><td class="entry"><a class="el" href="a00270.html">engine::BaseBuilder</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:23:37 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

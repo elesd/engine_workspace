@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::ContextModule_traits&lt; ContextModuleType::WinApi &gt; Struct Template Reference</title>
+<title>Engine: engine::Signal&lt; Args &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,40 +59,242 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00383.html">ContextModule_traits&lt; ContextModuleType::WinApi &gt;</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00383.html">Signal</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00380.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::ContextModule_traits&lt; ContextModuleType::WinApi &gt; Struct Template Reference</div>  </div>
+<div class="title">engine::Signal&lt; Args &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="a00107_source.html">C:/Projects/myProject/engine-workspace/Engine/source/engine/signalSlot/Signal.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for engine::Signal&lt; Args &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="a00383.png" usemap="#engine::Signal_3C_20Args_20_3E_map" alt=""/>
+  <map id="engine::Signal_3C_20Args_20_3E_map" name="engine::Signal_3C_20Args_20_3E_map">
+<area href="a00375.html" alt="engine::ISignal" shape="rect" coords="0,0,142,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a655b512a8ed83e8d2b78642e9654cc99"><td class="memItemLeft" align="right" valign="top"><a id="a655b512a8ed83e8d2b78642e9654cc99"></a>
-static const ContextModuleClassification&#160;</td><td class="memItemRight" valign="bottom"><b>classification</b></td></tr>
-<tr class="separator:a655b512a8ed83e8d2b78642e9654cc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f9f8f5e908291aed01a5e0845208d23"><td class="memItemLeft" align="right" valign="top"><a id="a1f9f8f5e908291aed01a5e0845208d23"></a>
-static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
-<tr class="separator:a1f9f8f5e908291aed01a5e0845208d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac27bc541be14d6ad516d858c3039df97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#ac27bc541be14d6ad516d858c3039df97">Signal</a> ()=default</td></tr>
+<tr class="separator:ac27bc541be14d6ad516d858c3039df97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29c5d469f7f68d00e6895d1cf5121025"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#a29c5d469f7f68d00e6895d1cf5121025">~Signal</a> () override</td></tr>
+<tr class="separator:a29c5d469f7f68d00e6895d1cf5121025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba0c679c2026a6ddaafdac1f6a71cb70"><td class="memTemplParams" colspan="2">template&lt;class T , void(T::*)(Args...) slot&gt; </td></tr>
+<tr class="memitem:aba0c679c2026a6ddaafdac1f6a71cb70"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#aba0c679c2026a6ddaafdac1f6a71cb70">connect</a> (T *holder)</td></tr>
+<tr class="separator:aba0c679c2026a6ddaafdac1f6a71cb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dc6184edbd36dd8717d07c37a1f5fad"><td class="memTemplParams" colspan="2">template&lt;class T , void(T::*)(Args...) slot&gt; </td></tr>
+<tr class="memitem:a4dc6184edbd36dd8717d07c37a1f5fad"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#a4dc6184edbd36dd8717d07c37a1f5fad">disconnect</a> (T *holder)</td></tr>
+<tr class="separator:a4dc6184edbd36dd8717d07c37a1f5fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3a4fcb844c23af742eac03e26bbc1b"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a4f3a4fcb844c23af742eac03e26bbc1b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00383.html#a4f3a4fcb844c23af742eac03e26bbc1b">disconnectAll</a> (T *holder)</td></tr>
+<tr class="separator:a4f3a4fcb844c23af742eac03e26bbc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30d893a11cab555853e409c5966bf048"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00383.html#a30d893a11cab555853e409c5966bf048">emit</a> (Args... args)</td></tr>
+<tr class="separator:a30d893a11cab555853e409c5966bf048"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-struct engine::ContextModule_traits&lt; ContextModuleType::WinApi &gt;</h3>
+<div class="textblock"><h3>template&lt;typename ... Args&gt;<br />
+class engine::Signal&lt; Args &gt;</h3>
 
+<p>This class implements a signal. A signal can be emitted in this case all the slots will be called. The call is depend on the slot's signalManager. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Signature of the signal. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00052">52</a> of file <a class="el" href="a00104_source.html">ModuleDefinitions.h</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/<a class="el" href="a00104_source.html">ModuleDefinitions.h</a></li>
+<p class="definition">Definition at line <a class="el" href="a00107_source.html#l00020">20</a> of file <a class="el" href="a00107_source.html">Signal.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac27bc541be14d6ad516d858c3039df97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac27bc541be14d6ad516d858c3039df97">&#9670;&nbsp;</a></span>Signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::<a class="el" href="a00383.html">Signal</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Defualt constructor. </p>
+
+</div>
+</div>
+<a id="a29c5d469f7f68d00e6895d1cf5121025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29c5d469f7f68d00e6895d1cf5121025">&#9670;&nbsp;</a></span>~Signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::~<a class="el" href="a00383.html">Signal</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Notify all connected slot </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aba0c679c2026a6ddaafdac1f6a71cb70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba0c679c2026a6ddaafdac1f6a71cb70">&#9670;&nbsp;</a></span>connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<div class="memtemplate">
+template&lt;class T , void(T::*)(Args...) slot&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::connect </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>holder</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Connect the holder member function to this signal. When the signal is emitted a task will crated which will call this member function on the given object. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">slot</td><td>Slot to connect to this signal </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">holder</td><td>owner of the slot. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4dc6184edbd36dd8717d07c37a1f5fad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc6184edbd36dd8717d07c37a1f5fad">&#9670;&nbsp;</a></span>disconnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<div class="memtemplate">
+template&lt;class T , void(T::*)(Args...) slot&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::disconnect </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>holder</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disconnect the given slot and object from this signal. Via the shared pointer all the created tasks are invalidated. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">slot</td><td>Slot to disconnect to this signal </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">holder</td><td>owner of the slot. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4f3a4fcb844c23af742eac03e26bbc1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3a4fcb844c23af742eac03e26bbc1b">&#9670;&nbsp;</a></span>disconnectAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::disconnectAll </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>holder</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disconnect all the slots of the given slot holder </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">holder</td><td>owner of the slot </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a30d893a11cab555853e409c5966bf048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30d893a11cab555853e409c5966bf048">&#9670;&nbsp;</a></span>emit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00383.html">engine::Signal</a>&lt; Args &gt;::emit </td>
+          <td>(</td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Emit the signal. For all the connected slot a task is created and added to the corresponding signal manager. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>C:/Projects/myProject/engine-workspace/Engine/source/engine/signalSlot/<a class="el" href="a00107_source.html">Signal.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 10:14:41 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

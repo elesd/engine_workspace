@@ -59,28 +59,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00411.html">Signal</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00411.html">StateBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::Signal&lt; Args &gt; Member List</div>  </div>
+<div class="title">engine::StateBase Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00411.html">engine::StateBase</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00411.html#aba0c679c2026a6ddaafdac1f6a71cb70">connect</a>(T *holder)</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00411.html#a4dc6184edbd36dd8717d07c37a1f5fad">disconnect</a>(T *holder)</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a4f3a4fcb844c23af742eac03e26bbc1b">disconnectAll</a>(T *holder)</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00411.html#a30d893a11cab555853e409c5966bf048">emit</a>(Args... args)</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00411.html#ac27bc541be14d6ad516d858c3039df97">Signal</a>()=default</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~ISignal</b>() (defined in <a class="el" href="a00403.html">engine::ISignal</a>)</td><td class="entry"><a class="el" href="a00403.html">engine::ISignal</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a29c5d469f7f68d00e6895d1cf5121025">~Signal</a>() override</td><td class="entry"><a class="el" href="a00411.html">engine::Signal&lt; Args &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a95a7fffdec13deafa7855755f6f5f153">changeState</a>(std::unique_ptr&lt; StateBase &gt; nextState)</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#a28c40b43d8852235b3f2ea4ca39c0cad">destroy</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a04227376a170bdb851e0e03a4949f564">exitState</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#aa80ea4f74acd99c5b51d61e397b84e0b">initialize</a>(StateStack *stack)</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a9b8aee2fcae20a1af3b02824351ad2fb">isActive</a>() const</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#a23912537ab296e82239cd39d2742cc01">isInitialized</a>() const</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#afc1babd7aee855cfa3f31b99c9d248b5">isLeaving</a>() const</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00239.html#a9f7cb34234d5117fbe31e0e82cf164b8">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00239.html#a6018f0c6b722b97077bfb807f03f0f69">NonCopyable</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00239.html#a21f1cc26f8f967d5c636e580cc728821">operator=</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#acc1a281ee5cd9192fb7a703c5ef8c49b">pause</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#a0e52521456a98ab4b8a58ba01d356836">render</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a7a109867f252655aa625f8421071fa23">resume</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#aee338ee916b37c21d986e2f0c6a3cf01">StateBase</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#aa585934f221ce16ddac54f79c759e30e">stateChanged</a></td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#aa833cf334d703956398b0eab5353fb14">stateTerminated</a></td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00411.html#a1c31dedb42aa4b3dc9f814eec5c999a6">trace</a>(std::ostream &amp;) const</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#a90b80b1002ed942c2f3b8dd9965cfba0">update</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00239.html#a30addd3c42fbbe053a7484ed209ef8c3">~NonCopyable</a>()</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00411.html#ab664691d7ef22f9764816ab9aaf7d537">~StateBase</a>()</td><td class="entry"><a class="el" href="a00411.html">engine::StateBase</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:40 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

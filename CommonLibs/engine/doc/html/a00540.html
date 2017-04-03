@@ -59,30 +59,40 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><b>glfw</b></li><li class="navelem"><a class="el" href="a00543.html">DriverImpl</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><b>sdl</b></li><li class="navelem"><a class="el" href="a00543.html">WindowManagerImpl</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::glfw::DriverImpl Member List</div>  </div>
+<div class="title">engine::sdl::WindowManagerImpl Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00543.html">engine::glfw::DriverImpl</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#aed71bf52de93e2fc50f12eb860a52acc">Driver</a>()=default</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#aed71bf52de93e2fc50f12eb860a52acc">Driver</a>()=default</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a97b0fadb208251c7a998e0a1e2480a67">DriverImpl</a>()</td><td class="entry"><a class="el" href="a00543.html">engine::glfw::DriverImpl</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#a4e283b1274b6ffea595cb7329b09c16d">init</a>(const DriverInitParameters &amp;params, Window *window)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a4e283b1274b6ffea595cb7329b09c16d">init</a>(const DriverInitParameters &amp;params, Window *window)</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00543.html#ab25927deeb820162e36fe494e6abb357">initImpl</a>(const DriverInitParameters &amp;params, Window *window) override</td><td class="entry"><a class="el" href="a00543.html">engine::glfw::DriverImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00531.html#a4772e871ef5639c84cbb5569d75c1de9">~Driver</a>()</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00531.html#a4772e871ef5639c84cbb5569d75c1de9">~Driver</a>()</td><td class="entry"><a class="el" href="a00531.html">engine::Driver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a18a74e07839478fede104c56a7ec73a1">~DriverImpl</a>() override</td><td class="entry"><a class="el" href="a00543.html">engine::glfw::DriverImpl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#ae3db5b15c48ca872145439ab60c58075">createDriverForWindow</a>(const DriverInitParameters &amp;params, Window *) const override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#a9c2adc3003612cafb99fd7a156bc9655">createFullScreenMainWindow</a>(const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#ae345cf8a66a523782ea4920ffaa04f96">createFullScreenMainWindowImpl</a>(const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId) override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#a863ac648c2c2a93a57c4a898fb176718">createMainWindow</a>(const WindowParameter &amp;parameters, const std::string &amp;title)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a724b94a86d7fa24a317ca2400e19c3a6">createMainWindowImpl</a>(const WindowParameter &amp;parameters, const std::string &amp;title) override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#a8d3b6392e5389e7e5706f92ceed96fa0">createSecondaryFullScreenWindow</a>(const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId, Window *mainWindow)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a28e27c9fe4ec728ff2a88b3ee7286884">createSecondaryFullScreenWindowImpl</a>(const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId, Window *mainWindow) override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#afc8f953d7aa1e2822b8ced1e5b855ab8">createSecondaryWindow</a>(const WindowParameter &amp;parameters, const std::string &amp;title, Window *mainWindow)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a31aaa0f6700a06b1f6da638577673bce">createSecondaryWindowImpl</a>(const WindowParameter &amp;parameters, const std::string &amp;title, Window *mainWindow) override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#aecfb9aa6471ecf82e5c76a96440c275c">destroyWindow</a>(Window *)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00563.html#a6569772ddee72abeef618a9b7757a395">getAllWindows</a>() const</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00543.html#af8dc2fe5d84988d8546c36275ff8ea74">getMainMonitorId</a>() const override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00563.html#a7ccb3265cab90117a4face1c5ebb5e29">getMainWindow</a>()</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#a24baae17fda3aa17e85ad7497dc2c976">getMainWindow</a>() const</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00543.html#a9cc4a32fe29cd040836d51e8727faaef">getMonitorCount</a>() const override</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00563.html#a9aaa765ab360c7093dd1f1d3f5f3d621">setDriverParameter</a>(const DriverInitParameters &amp;defaultParameters)</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00563.html#a6749235b97d99fd37e3364b5028c05f4">WindowManager</a>()</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>WindowManagerImpl</b>()=default (defined in <a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a>)</td><td class="entry"><a class="el" href="a00543.html">engine::sdl::WindowManagerImpl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00563.html#a86a0bbdde5137d9fefdb3fd3d2f4ba27">~WindowManager</a>()</td><td class="entry"><a class="el" href="a00563.html">engine::WindowManager</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:41 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

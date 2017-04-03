@@ -59,25 +59,33 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00255.html">NonMoveable</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00255.html">Singleton</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::NonMoveable Member List</div>  </div>
+<div class="title">engine::Singleton&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00255.html">engine::NonMoveable</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00255.html">engine::Singleton&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00255.html#afc10190e7b658e00593b253c0d49cb35">NonMoveable</a>()=default</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00255.html#a32b7d1f14280ffa724bd6404801a6bef">NonMoveable</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00255.html#ae233a63d597305bc8a2175eab7e498d8">operator=</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~NonMoveable</b>() (defined in <a class="el" href="a00255.html">engine::NonMoveable</a>)</td><td class="entry"><a class="el" href="a00255.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00255.html#aebb4997c079ae1c07a3b16a85c331931">createInstance</a>(Args ...args)</td><td class="entry"><a class="el" href="a00255.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00255.html#a90ed1f21b1811a569eafccc78fcd12ca">getInstance</a>()</td><td class="entry"><a class="el" href="a00255.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00239.html#a9f7cb34234d5117fbe31e0e82cf164b8">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00239.html#a6018f0c6b722b97077bfb807f03f0f69">NonCopyable</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00243.html#afc10190e7b658e00593b253c0d49cb35">NonMoveable</a>()=default</td><td class="entry"><a class="el" href="a00243.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00243.html#a32b7d1f14280ffa724bd6404801a6bef">NonMoveable</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00243.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00239.html#a21f1cc26f8f967d5c636e580cc728821">engine::operator=</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00243.html#ae233a63d597305bc8a2175eab7e498d8">engine::NonMoveable::operator=</a>(NonMoveable &amp;&amp;)=delete</td><td class="entry"><a class="el" href="a00243.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00255.html#a3fbed1f6a78cdf1d0c11467a3be61841">releaseInstance</a>()</td><td class="entry"><a class="el" href="a00255.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00239.html#a30addd3c42fbbe053a7484ed209ef8c3">~NonCopyable</a>()</td><td class="entry"><a class="el" href="a00239.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~NonMoveable</b>() (defined in <a class="el" href="a00243.html">engine::NonMoveable</a>)</td><td class="entry"><a class="el" href="a00243.html">engine::NonMoveable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00255.html#aeafb1d6aa931098cd1bab44ffe6532bb">~Singleton</a>()</td><td class="entry"><a class="el" href="a00255.html">engine::Singleton&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:40 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

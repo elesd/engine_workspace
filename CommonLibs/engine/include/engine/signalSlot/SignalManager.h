@@ -23,8 +23,10 @@ namespace engine
 		/** Default destructor, extension because of the PIMPL idiom.*/
 		~SignalManager()  override;
 
-		SignalManager(SignalManager &&o);
-		SignalManager &operator=(SignalManager &&o);
+		/**Moveable but not copyable*/
+		SignalManager(SignalManager &&);
+		/**Moveable but not copyable*/
+		SignalManager &operator=(SignalManager &&);
 
 		/**
 		* Add a task to the container of this manager.

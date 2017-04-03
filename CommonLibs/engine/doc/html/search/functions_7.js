@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['keyboard',['Keyboard',['../a00323.html#ac81d08f53f7b2b4917dfb2785529651b',1,'engine::Keyboard::Keyboard()'],['../a00323.html#ad4410c745ee235f4418feb55656f59e2',1,'engine::Keyboard::Keyboard(Keyboard &amp;&amp;o)']]],
-  ['keyboardbuttontostring',['KeyboardButtonToString',['../a00323.html#ae9afce424611d4405266ce4ecfbac6a3',1,'engine::Keyboard']]]
+  ['handleevent',['handleEvent',['../a00230.html#a8622725348cb094eae90294be4896f66',1,'engine::winapi::ApplicationImpl::handleEvent()'],['../a00310.html#ab3fc7d9983060d9f5cb078f650b00944',1,'engine::winapi::EventManagerImpl::handleEvent()'],['../a00314.html#a71dec63b611c18f3ea41c8fdebc81191',1,'engine::winapi::KeyboardImpl::handleEvent()'],['../a00546.html#a1c50a37f249f2f03f48fd62abc647b89',1,'engine::winapi::WindowImpl::handleEvent()']]]
 ];

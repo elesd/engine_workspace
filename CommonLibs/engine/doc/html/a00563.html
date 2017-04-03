@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::glfw::WindowImpl Class Reference</title>
+<title>Engine: engine::WindowManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,135 +59,100 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><b>glfw</b></li><li class="navelem"><a class="el" href="a00563.html">WindowImpl</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00563.html">WindowManager</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a00560.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::glfw::WindowImpl Class Reference</div>  </div>
+<div class="title">engine::WindowManager Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00697_source.html">C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/view/glfw/WindowImpl.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00197_source.html">C:/Projects/myProject/engine-workspace/Engine/source/engine/view/WindowManager.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for engine::glfw::WindowImpl:</div>
+Inheritance diagram for engine::WindowManager:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="a00563.png" usemap="#engine::glfw::WindowImpl_map" alt=""/>
-  <map id="engine::glfw::WindowImpl_map" name="engine::glfw::WindowImpl_map">
-<area href="a00591.html" alt="engine::Window" shape="rect" coords="142,112,416,136"/>
-<area href="a00319.html" alt="engine::EventSourceBase" shape="rect" coords="142,56,416,80"/>
-<area href="a00259.html" alt="engine::PIMPLCopyable&lt; EventSourceBase &gt;" shape="rect" coords="0,0,274,24"/>
-<area href="a00263.html" alt="engine::PIMPLMoveable&lt; EventSourceBase &gt;" shape="rect" coords="284,0,558,24"/>
+  <img src="a00563.png" usemap="#engine::WindowManager_map" alt=""/>
+  <map id="engine::WindowManager_map" name="engine::WindowManager_map">
+<area href="a00239.html" alt="engine::NonCopyable" shape="rect" coords="225,0,440,24"/>
+<area href="a00535.html" alt="engine::glfw::WindowManagerImpl" shape="rect" coords="0,112,215,136"/>
+<area href="a00543.html" alt="engine::sdl::WindowManagerImpl" shape="rect" coords="225,112,440,136"/>
+<area href="a00551.html" alt="engine::winapi::WindowManagerImpl" shape="rect" coords="450,112,665,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a283f89ad5cd08b0ae888fb6ce2374c4c"><td class="memItemLeft" align="right" valign="top"><a id="a283f89ad5cd08b0ae888fb6ce2374c4c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WindowImpl</b> (GLFWwindow *window, const <a class="el" href="a00587.html">WindowParameter</a> &amp;parameters, const std::string &amp;title=&quot;Window&quot;)</td></tr>
-<tr class="separator:a283f89ad5cd08b0ae888fb6ce2374c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61401c4173b8da3306e5186234703ed1"><td class="memItemLeft" align="right" valign="top"><a id="a61401c4173b8da3306e5186234703ed1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WindowImpl</b> (GLFWwindow *window, const std::string &amp;title=&quot;Window&quot;)</td></tr>
-<tr class="separator:a61401c4173b8da3306e5186234703ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae01e9a52f2efe2b061c7c46bd7756496"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#ae01e9a52f2efe2b061c7c46bd7756496">operator bool</a> () const</td></tr>
-<tr class="separator:ae01e9a52f2efe2b061c7c46bd7756496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af52abedfc7695f94f32167d52e501b3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#af52abedfc7695f94f32167d52e501b3d">setPositionImp</a> (int32_t x, int32_t y) override</td></tr>
-<tr class="separator:af52abedfc7695f94f32167d52e501b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a42c1ce8e90c3adef80e5973b91bb38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a2a42c1ce8e90c3adef80e5973b91bb38">setWidthImpl</a> (uint32_t width) override</td></tr>
-<tr class="separator:a2a42c1ce8e90c3adef80e5973b91bb38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a877ca64eee45c4f5abc766c4164e316c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a877ca64eee45c4f5abc766c4164e316c">setHeightImpl</a> (uint32_t height) override</td></tr>
-<tr class="separator:a877ca64eee45c4f5abc766c4164e316c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a226cde7add1fb27044e3eccd167f361f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a226cde7add1fb27044e3eccd167f361f">setSizeImpl</a> (uint32_t width, uint32_t height) override</td></tr>
-<tr class="separator:a226cde7add1fb27044e3eccd167f361f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3cb40f7fe9b45115e348eb53bd3bfb5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00587.html">WindowParameter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#aa3cb40f7fe9b45115e348eb53bd3bfb5">getParameters</a> () const</td></tr>
-<tr class="separator:aa3cb40f7fe9b45115e348eb53bd3bfb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6874b68c5cd0b59ec75ac8ad15f2a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#ad6874b68c5cd0b59ec75ac8ad15f2a3a">setPosition</a> (int32_t x, int32_t y)</td></tr>
-<tr class="separator:ad6874b68c5cd0b59ec75ac8ad15f2a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3435c3bf0e07492ec77f3977c9b5e355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a3435c3bf0e07492ec77f3977c9b5e355">setWidth</a> (uint32_t width)</td></tr>
-<tr class="separator:a3435c3bf0e07492ec77f3977c9b5e355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a968c05fd5960002db0f863718625187c"><td class="memItemLeft" align="right" valign="top"><a id="a968c05fd5960002db0f863718625187c"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getWidth</b> () const</td></tr>
-<tr class="separator:a968c05fd5960002db0f863718625187c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b8b6f2c1a08327d4010e2b6aceb319"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a87b8b6f2c1a08327d4010e2b6aceb319">setHeight</a> (uint32_t height)</td></tr>
-<tr class="separator:a87b8b6f2c1a08327d4010e2b6aceb319"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f4994f314e8b3fd3dfbd0d58e3d5f9a"><td class="memItemLeft" align="right" valign="top"><a id="a0f4994f314e8b3fd3dfbd0d58e3d5f9a"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getHeight</b> () const</td></tr>
-<tr class="separator:a0f4994f314e8b3fd3dfbd0d58e3d5f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefaae1015e22521e0a0168633a7d413f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#aefaae1015e22521e0a0168633a7d413f">setSize</a> (uint32_t width, uint32_t height)</td></tr>
-<tr class="separator:aefaae1015e22521e0a0168633a7d413f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b952deb527dc6177ada25619f3a77fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a2b952deb527dc6177ada25619f3a77fb">isFullScreen</a> () const</td></tr>
-<tr class="separator:a2b952deb527dc6177ada25619f3a77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a847f17375ee12658a0ae64df1cb86021"><td class="memItemLeft" align="right" valign="top"><a id="a847f17375ee12658a0ae64df1cb86021"></a>
-<a class="el" href="a00531.html">Driver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getDriver</b> () const</td></tr>
-<tr class="separator:a847f17375ee12658a0ae64df1cb86021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23c30f984006bdf0d2ceda4513ee12b9"><td class="memItemLeft" align="right" valign="top"><a id="a23c30f984006bdf0d2ceda4513ee12b9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initDriver</b> (std::unique_ptr&lt; <a class="el" href="a00531.html">Driver</a> &gt; driver)</td></tr>
-<tr class="separator:a23c30f984006bdf0d2ceda4513ee12b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae529242181c16462bef9bd6b8fb56b93"><td class="memItemLeft" align="right" valign="top"><a id="ae529242181c16462bef9bd6b8fb56b93"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setEventsEnabled</b> (bool v)</td></tr>
-<tr class="separator:ae529242181c16462bef9bd6b8fb56b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8edbeec129d35b5597456b5b31c71698"><td class="memItemLeft" align="right" valign="top"><a id="a8edbeec129d35b5597456b5b31c71698"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isEventsEnabled</b> () const</td></tr>
-<tr class="separator:a8edbeec129d35b5597456b5b31c71698"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafbaa7d58834878f682483c9f95fc0c6"><td class="memItemLeft" align="right" valign="top"><a id="aafbaa7d58834878f682483c9f95fc0c6"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getEventSourceId</b> () const</td></tr>
-<tr class="separator:aafbaa7d58834878f682483c9f95fc0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26fdb9b3d449d04dc653c7ae942f452b"><td class="memItemLeft" align="right" valign="top"><a id="a26fdb9b3d449d04dc653c7ae942f452b"></a>
-<a class="el" href="a00319.html">EventSourceBase</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>PIMPLCopyable::operator=</b> (const <a class="el" href="a00259.html">PIMPLCopyable</a> &amp;o)</td></tr>
-<tr class="separator:a26fdb9b3d449d04dc653c7ae942f452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac67025e8a25edffe99fa9bf67ed8ca19"><td class="memItemLeft" align="right" valign="top"><a id="ac67025e8a25edffe99fa9bf67ed8ca19"></a>
-<a class="el" href="a00319.html">EventSourceBase</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>PIMPLMoveable::operator=</b> (<a class="el" href="a00263.html">PIMPLMoveable</a> &amp;&amp;o)</td></tr>
-<tr class="separator:ac67025e8a25edffe99fa9bf67ed8ca19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6749235b97d99fd37e3364b5028c05f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a6749235b97d99fd37e3364b5028c05f4">WindowManager</a> ()</td></tr>
+<tr class="separator:a6749235b97d99fd37e3364b5028c05f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86a0bbdde5137d9fefdb3fd3d2f4ba27"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a86a0bbdde5137d9fefdb3fd3d2f4ba27">~WindowManager</a> ()</td></tr>
+<tr class="separator:a86a0bbdde5137d9fefdb3fd3d2f4ba27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae0a3fe9258e4873494eeb75dbc33fb"><td class="memItemLeft" align="right" valign="top">virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a8ae0a3fe9258e4873494eeb75dbc33fb">getMonitorCount</a> () const =0</td></tr>
+<tr class="separator:a8ae0a3fe9258e4873494eeb75dbc33fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1418dbc721644d59064cf79e10c99ba3"><td class="memItemLeft" align="right" valign="top">virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a1418dbc721644d59064cf79e10c99ba3">getMainMonitorId</a> () const =0</td></tr>
+<tr class="separator:a1418dbc721644d59064cf79e10c99ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a863ac648c2c2a93a57c4a898fb176718"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a863ac648c2c2a93a57c4a898fb176718">createMainWindow</a> (const <a class="el" href="a00555.html">WindowParameter</a> &amp;parameters, const std::string &amp;title)</td></tr>
+<tr class="separator:a863ac648c2c2a93a57c4a898fb176718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c2adc3003612cafb99fd7a156bc9655"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a9c2adc3003612cafb99fd7a156bc9655">createFullScreenMainWindow</a> (const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId)</td></tr>
+<tr class="separator:a9c2adc3003612cafb99fd7a156bc9655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8f953d7aa1e2822b8ced1e5b855ab8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#afc8f953d7aa1e2822b8ced1e5b855ab8">createSecondaryWindow</a> (const <a class="el" href="a00555.html">WindowParameter</a> &amp;parameters, const std::string &amp;title, <a class="el" href="a00559.html">Window</a> *mainWindow)</td></tr>
+<tr class="separator:afc8f953d7aa1e2822b8ced1e5b855ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d3b6392e5389e7e5706f92ceed96fa0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a8d3b6392e5389e7e5706f92ceed96fa0">createSecondaryFullScreenWindow</a> (const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId, <a class="el" href="a00559.html">Window</a> *mainWindow)</td></tr>
+<tr class="separator:a8d3b6392e5389e7e5706f92ceed96fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfb9aa6471ecf82e5c76a96440c275c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#aecfb9aa6471ecf82e5c76a96440c275c">destroyWindow</a> (<a class="el" href="a00559.html">Window</a> *)</td></tr>
+<tr class="separator:aecfb9aa6471ecf82e5c76a96440c275c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccb3265cab90117a4face1c5ebb5e29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a7ccb3265cab90117a4face1c5ebb5e29">getMainWindow</a> ()</td></tr>
+<tr class="separator:a7ccb3265cab90117a4face1c5ebb5e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24baae17fda3aa17e85ad7497dc2c976"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a24baae17fda3aa17e85ad7497dc2c976">getMainWindow</a> () const</td></tr>
+<tr class="separator:a24baae17fda3aa17e85ad7497dc2c976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6569772ddee72abeef618a9b7757a395"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00559.html">Window</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a6569772ddee72abeef618a9b7757a395">getAllWindows</a> () const</td></tr>
+<tr class="separator:a6569772ddee72abeef618a9b7757a395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aaa765ab360c7093dd1f1d3f5f3d621"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a9aaa765ab360c7093dd1f1d3f5f3d621">setDriverParameter</a> (const <a class="el" href="a00495.html">DriverInitParameters</a> &amp;defaultParameters)</td></tr>
+<tr class="separator:a9aaa765ab360c7093dd1f1d3f5f3d621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a5bb494c228eb398d6893327fcf03d2d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a5bb494c228eb398d6893327fcf03d2d3">windowClosed</a></td></tr>
-<tr class="separator:a5bb494c228eb398d6893327fcf03d2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20978a09b8843aa8960dc9d3a989b11a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&lt; uint32_t, uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a20978a09b8843aa8960dc9d3a989b11a">windowSizeChanged</a></td></tr>
-<tr class="separator:a20978a09b8843aa8960dc9d3a989b11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c6ef7abcac1063c91a84123c81f9347"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&lt; uint32_t, uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a0c6ef7abcac1063c91a84123c81f9347">windowFrameBufferSizeChanged</a></td></tr>
-<tr class="separator:a0c6ef7abcac1063c91a84123c81f9347"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bdb42d789ed9587ff8f840065752506"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&lt; int32_t, int32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a4bdb42d789ed9587ff8f840065752506">windowMoved</a></td></tr>
-<tr class="separator:a4bdb42d789ed9587ff8f840065752506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a81dc83b5e8433eb39e1ca8263d0c0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a2a81dc83b5e8433eb39e1ca8263d0c0f">windowInFocus</a></td></tr>
-<tr class="separator:a2a81dc83b5e8433eb39e1ca8263d0c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6f8cc0d616685683d5c6b52b4cc07d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00411.html">engine::Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#af6f8cc0d616685683d5c6b52b4cc07d0">windowOutFocus</a></td></tr>
-<tr class="separator:af6f8cc0d616685683d5c6b52b4cc07d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aed5e1991e9a16cc45ce80f4477e33fb9"><td class="memItemLeft" align="right" valign="top"><a id="aed5e1991e9a16cc45ce80f4477e33fb9"></a>
-static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>EventSourceId</b></td></tr>
-<tr class="separator:aed5e1991e9a16cc45ce80f4477e33fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:aae1d39f3df529497025772967ac578a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00587.html">WindowParameter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#aae1d39f3df529497025772967ac578a0">_parameters</a></td></tr>
-<tr class="separator:aae1d39f3df529497025772967ac578a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5167b1318668d7639112ce85eafc6c8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00591.html#a5167b1318668d7639112ce85eafc6c8b">_fullScreen</a> = false</td></tr>
-<tr class="separator:a5167b1318668d7639112ce85eafc6c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ad8e352d288f067b153868f77fc81a2b3"><td class="memItemLeft" align="right" valign="top"><a id="ad8e352d288f067b153868f77fc81a2b3"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::WindowManagerImpl</b></td></tr>
-<tr class="separator:ad8e352d288f067b153868f77fc81a2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad5dba47d5f1da2abfa9bacffd318ba3d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#ad5dba47d5f1da2abfa9bacffd318ba3d">createMainWindowImpl</a> (const <a class="el" href="a00555.html">WindowParameter</a> &amp;parameters, const std::string &amp;title)=0</td></tr>
+<tr class="separator:ad5dba47d5f1da2abfa9bacffd318ba3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af32a24c80a711eb8473d54876c4d28"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a3af32a24c80a711eb8473d54876c4d28">createFullScreenMainWindowImpl</a> (const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId)=0</td></tr>
+<tr class="separator:a3af32a24c80a711eb8473d54876c4d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3944290d64b7d8f23764464f5f2df82f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a3944290d64b7d8f23764464f5f2df82f">createSecondaryWindowImpl</a> (const <a class="el" href="a00555.html">WindowParameter</a> &amp;parameters, const std::string &amp;title, <a class="el" href="a00559.html">Window</a> *mainWindow)=0</td></tr>
+<tr class="separator:a3944290d64b7d8f23764464f5f2df82f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62c22afc4f34aa5447f45239702ac67a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00559.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#a62c22afc4f34aa5447f45239702ac67a">createSecondaryFullScreenWindowImpl</a> (const uint32_t width, const uint32_t height, const std::string &amp;title, uint32_t monitorId, <a class="el" href="a00559.html">Window</a> *mainWindow)=0</td></tr>
+<tr class="separator:a62c22afc4f34aa5447f45239702ac67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af54981d694f5cbdfed28446725ba663d"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a00499.html">Driver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00563.html#af54981d694f5cbdfed28446725ba663d">createDriverForWindow</a> (const <a class="el" href="a00495.html">DriverInitParameters</a> &amp;, <a class="el" href="a00559.html">Window</a> *) const =0</td></tr>
+<tr class="separator:af54981d694f5cbdfed28446725ba663d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Glfw <a class="el" href="a00591.html">Window</a> implementation. </p>
+<div class="textblock"><p>Class for manage window creation and windows connected functionality. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00697_source.html#l00016">16</a> of file <a class="el" href="a00697_source.html">WindowImpl.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa3cb40f7fe9b45115e348eb53bd3bfb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3cb40f7fe9b45115e348eb53bd3bfb5">&#9670;&nbsp;</a></span>getParameters()</h2>
+<p class="definition">Definition at line <a class="el" href="a00197_source.html#l00015">15</a> of file <a class="el" href="a00197_source.html">WindowManager.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6749235b97d99fd37e3364b5028c05f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6749235b97d99fd37e3364b5028c05f4">&#9670;&nbsp;</a></span>WindowManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">engine::WindowManager::WindowManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default constructable. </p>
+
+</div>
+</div>
+<a id="a86a0bbdde5137d9fefdb3fd3d2f4ba27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86a0bbdde5137d9fefdb3fd3d2f4ba27">&#9670;&nbsp;</a></span>~WindowManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,102 +161,25 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::Window
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00587.html">WindowParameter</a>&amp; engine::Window::getParameters </td>
+          <td class="memname">virtual engine::WindowManager::~WindowManager </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns the window creation parameter. </dd></dl>
-
-</div>
-</div>
-<a id="a2b952deb527dc6177ada25619f3a77fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b952deb527dc6177ada25619f3a77fb">&#9670;&nbsp;</a></span>isFullScreen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool engine::Window::isFullScreen </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns true if the window is full screen. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00096">96</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="ae01e9a52f2efe2b061c7c46bd7756496"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae01e9a52f2efe2b061c7c46bd7756496">&#9670;&nbsp;</a></span>operator bool()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">engine::glfw::WindowImpl::operator bool </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns true if the window is created successfuly. </dd></dl>
-
-</div>
-</div>
-<a id="a87b8b6f2c1a08327d4010e2b6aceb319"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b8b6f2c1a08327d4010e2b6aceb319">&#9670;&nbsp;</a></span>setHeight()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Window::setHeight </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>height</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Resize the window. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">height</td><td>New height of the window. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Destructor for PIMPL </p>
 
 </div>
 </div>
-<a id="a877ca64eee45c4f5abc766c4164e316c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a877ca64eee45c4f5abc766c4164e316c">&#9670;&nbsp;</a></span>setHeightImpl()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af54981d694f5cbdfed28446725ba663d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af54981d694f5cbdfed28446725ba663d">&#9670;&nbsp;</a></span>createDriverForWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,181 +188,116 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::Window
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void engine::glfw::WindowImpl::setHeightImpl </td>
+          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="a00499.html">Driver</a>&gt; engine::WindowManager::createDriverForWindow </td>
           <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>height</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Resize the window. It's implementation is depend on the current library. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">height</td><td>New height of the window. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a00591.html">engine::Window</a>.</p>
-
-</div>
-</div>
-<a id="ad6874b68c5cd0b59ec75ac8ad15f2a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6874b68c5cd0b59ec75ac8ad15f2a3a">&#9670;&nbsp;</a></span>setPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Window::setPosition </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype">const <a class="el" href="a00495.html">DriverInitParameters</a> &amp;&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Move the window in the given position. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>X coordinate of the new position. </td></tr>
-    <tr><td class="paramname">y</td><td>Y coordinate of the new position. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>This function purpos to create a driver for the given window. This driver later will be attached to the given window </p>
+
+<p>Implemented in <a class="el" href="a00551.html#a9c405fdecadd77f5c3df5e49d34e0320">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#aa8ee18338ad0164d59643df04c8e02be">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#ae3db5b15c48ca872145439ab60c58075">engine::sdl::WindowManagerImpl</a>.</p>
 
 </div>
 </div>
-<a id="af52abedfc7695f94f32167d52e501b3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52abedfc7695f94f32167d52e501b3d">&#9670;&nbsp;</a></span>setPositionImp()</h2>
+<a id="a9c2adc3003612cafb99fd7a156bc9655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c2adc3003612cafb99fd7a156bc9655">&#9670;&nbsp;</a></span>createFullScreenMainWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void engine::glfw::WindowImpl::setPositionImp </td>
+          <td class="memname"><a class="el" href="a00559.html">Window</a>* engine::WindowManager::createFullScreenMainWindow </td>
           <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Repositioning the current window. It's implementation is depend on the current library. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>X coordinate of the new position. </td></tr>
-    <tr><td class="paramname">y</td><td>Y coordinate of the new position. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a00591.html">engine::Window</a>.</p>
-
-</div>
-</div>
-<a id="aefaae1015e22521e0a0168633a7d413f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefaae1015e22521e0a0168633a7d413f">&#9670;&nbsp;</a></span>setSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::Window::setSize </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramtype">const uint32_t&#160;</td>
           <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Resize the window. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>New width of the window. </td></tr>
-    <tr><td class="paramname">height</td><td>New height of the window. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a226cde7add1fb27044e3eccd167f361f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a226cde7add1fb27044e3eccd167f361f">&#9670;&nbsp;</a></span>setSizeImpl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::glfw::WindowImpl::setSizeImpl </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="paramname"><em>monitorId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a main full screened window with the given parameter and title. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>width of the window in pixels </td></tr>
+    <tr><td class="paramname">height</td><td>height of the window in pixels </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+    <tr><td class="paramname">monitorId</td><td>id of the monitor where the window will created. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3af32a24c80a711eb8473d54876c4d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af32a24c80a711eb8473d54876c4d28">&#9670;&nbsp;</a></span>createFullScreenMainWindowImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a00559.html">Window</a>* engine::WindowManager::createFullScreenMainWindowImpl </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>monitorId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -484,24 +307,61 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::Window
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Resize the window. It's implementation is depend on the current library. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="a00559.html">Window</a> system dependent creation function. This function must create a full screen window with the given parameters. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">width</td><td>New width of the window. </td></tr>
-    <tr><td class="paramname">height</td><td>New height of the window. </td></tr>
+    <tr><td class="paramname">width</td><td>: width of the window in pixels </td></tr>
+    <tr><td class="paramname">height</td><td>: height of the window in pixels </td></tr>
+    <tr><td class="paramname">title</td><td>: title of the window </td></tr>
+    <tr><td class="paramname">monitorId</td><td>: id of the monitor where the window will created. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a00591.html">engine::Window</a>.</p>
+<p>Implemented in <a class="el" href="a00551.html#a9684f59d2995f89182e039e7591a59cc">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#acb8925ac309ba2705221a8db7357bb60">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#ae345cf8a66a523782ea4920ffaa04f96">engine::sdl::WindowManagerImpl</a>.</p>
 
 </div>
 </div>
-<a id="a3435c3bf0e07492ec77f3977c9b5e355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3435c3bf0e07492ec77f3977c9b5e355">&#9670;&nbsp;</a></span>setWidth()</h2>
+<a id="a863ac648c2c2a93a57c4a898fb176718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a863ac648c2c2a93a57c4a898fb176718">&#9670;&nbsp;</a></span>createMainWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00559.html">Window</a>* engine::WindowManager::createMainWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00555.html">WindowParameter</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a main window with the given parameter and title. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td><a class="el" href="a00559.html">Window</a> creation parameters. </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad5dba47d5f1da2abfa9bacffd318ba3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5dba47d5f1da2abfa9bacffd318ba3d">&#9670;&nbsp;</a></span>createMainWindowImpl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -510,30 +370,296 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::Window
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void engine::Window::setWidth </td>
+          <td class="memname">virtual <a class="el" href="a00559.html">Window</a>* engine::WindowManager::createMainWindowImpl </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00555.html">WindowParameter</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="a00559.html">Window</a> system dependent creation function. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td><a class="el" href="a00559.html">Window</a> creation parameters. </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a00551.html#a4c3adbbf883d7bbc15e17cc4c868ee14">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#ab33ae118afb5a7048c61d437e54b5c43">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#a724b94a86d7fa24a317ca2400e19c3a6">engine::sdl::WindowManagerImpl</a>.</p>
+
+</div>
+</div>
+<a id="a8d3b6392e5389e7e5706f92ceed96fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d3b6392e5389e7e5706f92ceed96fa0">&#9670;&nbsp;</a></span>createSecondaryFullScreenWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00559.html">Window</a>* engine::WindowManager::createSecondaryFullScreenWindow </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>width</em></td><td>)</td>
+          <td class="paramname"><em>monitorId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname"><em>mainWindow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a secondary full screened window with the given parameter and title. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>width of the window in pixels </td></tr>
+    <tr><td class="paramname">height</td><td>height of the window in pixels </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+    <tr><td class="paramname">monitorId</td><td>id of the monitor where the window will created. </td></tr>
+    <tr><td class="paramname">mainWindow</td><td>Main window, the secondary window shares the main window context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a62c22afc4f34aa5447f45239702ac67a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62c22afc4f34aa5447f45239702ac67a">&#9670;&nbsp;</a></span>createSecondaryFullScreenWindowImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a00559.html">Window</a>* engine::WindowManager::createSecondaryFullScreenWindowImpl </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>monitorId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname"><em>mainWindow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="a00559.html">Window</a> system dependent creation function. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>width of the window in pixels </td></tr>
+    <tr><td class="paramname">height</td><td>height of the window in pixels </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+    <tr><td class="paramname">monitorId</td><td>id of the monitor where the window will created. </td></tr>
+    <tr><td class="paramname">mainWindow</td><td>Main window, the secondary window shares the main window context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a00551.html#acb25d1f39aec8507fd80bdff20d7abc3">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#a7fce1ce88b1aa3ec24b0b78fd5e56a64">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#a28e27c9fe4ec728ff2a88b3ee7286884">engine::sdl::WindowManagerImpl</a>.</p>
+
+</div>
+</div>
+<a id="afc8f953d7aa1e2822b8ced1e5b855ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc8f953d7aa1e2822b8ced1e5b855ab8">&#9670;&nbsp;</a></span>createSecondaryWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00559.html">Window</a>* engine::WindowManager::createSecondaryWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00555.html">WindowParameter</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname"><em>mainWindow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a secondary window with the given parameter and title. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td><a class="el" href="a00559.html">Window</a> creation parameters. </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+    <tr><td class="paramname">mainWindow</td><td>Main window, the secondary window shares the main window context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3944290d64b7d8f23764464f5f2df82f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3944290d64b7d8f23764464f5f2df82f">&#9670;&nbsp;</a></span>createSecondaryWindowImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a00559.html">Window</a>* engine::WindowManager::createSecondaryWindowImpl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00555.html">WindowParameter</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname"><em>mainWindow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="a00559.html">Window</a> system dependent creation function. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td><a class="el" href="a00559.html">Window</a> creation parameters. </td></tr>
+    <tr><td class="paramname">title</td><td>title of the window </td></tr>
+    <tr><td class="paramname">mainWindow</td><td>Main window, the secondary window shares the main window context. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a00551.html#ac82c286d1666a12ea3fa807958ff546d">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#aed46f77f80b40c2a2e6ec23cb5dc5bf7">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#a31aaa0f6700a06b1f6da638577673bce">engine::sdl::WindowManagerImpl</a>.</p>
+
+</div>
+</div>
+<a id="aecfb9aa6471ecf82e5c76a96440c275c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecfb9aa6471ecf82e5c76a96440c275c">&#9670;&nbsp;</a></span>destroyWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void engine::WindowManager::destroyWindow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00559.html">Window</a> *&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p>Resize the window. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>New width of the window. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Destroy the given window. </p>
 
 </div>
 </div>
-<a id="a2a42c1ce8e90c3adef80e5973b91bb38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a42c1ce8e90c3adef80e5973b91bb38">&#9670;&nbsp;</a></span>setWidthImpl()</h2>
+<a id="a6569772ddee72abeef618a9b7757a395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6569772ddee72abeef618a9b7757a395">&#9670;&nbsp;</a></span>getAllWindows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a00559.html">Window</a>*&gt; engine::WindowManager::getAllWindows </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Returns all created window. </dd></dl>
+
+</div>
+</div>
+<a id="a1418dbc721644d59064cf79e10c99ba3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1418dbc721644d59064cf79e10c99ba3">&#9670;&nbsp;</a></span>getMainMonitorId()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,238 +668,119 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>engine::glfw::Window
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void engine::glfw::WindowImpl::setWidthImpl </td>
+          <td class="memname">virtual uint32_t engine::WindowManager::getMainMonitorId </td>
           <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>width</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Return the main monitor id. </dd></dl>
+
+<p>Implemented in <a class="el" href="a00551.html#a322adb2623594b3d1a1be9a847dfb702">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#a12b80fb74e36ced73a8a56be03ccd82f">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#af8dc2fe5d84988d8546c36275ff8ea74">engine::sdl::WindowManagerImpl</a>.</p>
+
+</div>
+</div>
+<a id="a7ccb3265cab90117a4face1c5ebb5e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ccb3265cab90117a4face1c5ebb5e29">&#9670;&nbsp;</a></span>getMainWindow() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00559.html">Window</a>* engine::WindowManager::getMainWindow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Returns the main window. </dd></dl>
+
+</div>
+</div>
+<a id="a24baae17fda3aa17e85ad7497dc2c976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24baae17fda3aa17e85ad7497dc2c976">&#9670;&nbsp;</a></span>getMainWindow() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00559.html">Window</a>* engine::WindowManager::getMainWindow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Returns the main window. </dd></dl>
+
+</div>
+</div>
+<a id="a8ae0a3fe9258e4873494eeb75dbc33fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae0a3fe9258e4873494eeb75dbc33fb">&#9670;&nbsp;</a></span>getMonitorCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uint32_t engine::WindowManager::getMonitorCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Resize the window. It's implementation is depend on the current library. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="section return"><dt>Returns</dt><dd>Returns the number of available monitors. </dd></dl>
+
+<p>Implemented in <a class="el" href="a00551.html#acd598f55e83038a346af36ec8db79037">engine::winapi::WindowManagerImpl</a>, <a class="el" href="a00535.html#a0fb272a177a29b8f5241ab6132404ec1">engine::glfw::WindowManagerImpl</a>, and <a class="el" href="a00543.html#a9cc4a32fe29cd040836d51e8727faaef">engine::sdl::WindowManagerImpl</a>.</p>
+
+</div>
+</div>
+<a id="a9aaa765ab360c7093dd1f1d3f5f3d621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aaa765ab360c7093dd1f1d3f5f3d621">&#9670;&nbsp;</a></span>setDriverParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void engine::WindowManager::setDriverParameter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00495.html">DriverInitParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>defaultParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the default driver creation parameters. When a new window is created a driver will be attached to it. This is the driver creation parameters. It will use when the next window is created. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">width</td><td>New width of the window. </td></tr>
+    <tr><td class="paramname">defaultParameters</td><td>driver creation parameters </td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Implements <a class="el" href="a00591.html">engine::Window</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a5167b1318668d7639112ce85eafc6c8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5167b1318668d7639112ce85eafc6c8b">&#9670;&nbsp;</a></span>_fullScreen</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool engine::Window::_fullScreen = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Whether the window is in full screen mode. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00147">147</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="aae1d39f3df529497025772967ac578a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae1d39f3df529497025772967ac578a0">&#9670;&nbsp;</a></span>_parameters</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00587.html">WindowParameter</a> engine::Window::_parameters</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Creation parameters. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00145">145</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="a5bb494c228eb398d6893327fcf03d2d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bb494c228eb398d6893327fcf03d2d3">&#9670;&nbsp;</a></span>windowClosed</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a> engine::Window::windowClosed</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window is closed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00132">132</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="a0c6ef7abcac1063c91a84123c81f9347"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c6ef7abcac1063c91a84123c81f9347">&#9670;&nbsp;</a></span>windowFrameBufferSizeChanged</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a>&lt;uint32_t, uint32_t&gt; engine::Window::windowFrameBufferSizeChanged</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window's frame buffer size is changed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00136">136</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="a2a81dc83b5e8433eb39e1ca8263d0c0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a81dc83b5e8433eb39e1ca8263d0c0f">&#9670;&nbsp;</a></span>windowInFocus</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a> engine::Window::windowInFocus</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window get focus </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00140">140</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="a4bdb42d789ed9587ff8f840065752506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bdb42d789ed9587ff8f840065752506">&#9670;&nbsp;</a></span>windowMoved</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a>&lt;int32_t, int32_t&gt; engine::Window::windowMoved</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window is moved in new position. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00138">138</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="af6f8cc0d616685683d5c6b52b4cc07d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6f8cc0d616685683d5c6b52b4cc07d0">&#9670;&nbsp;</a></span>windowOutFocus</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a> engine::Window::windowOutFocus</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window lose the focus </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00142">142</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
-
-</div>
-</div>
-<a id="a20978a09b8843aa8960dc9d3a989b11a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20978a09b8843aa8960dc9d3a989b11a">&#9670;&nbsp;</a></span>windowSizeChanged</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00411.html">engine::Signal</a>&lt;uint32_t, uint32_t&gt; engine::Window::windowSizeChanged</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p><a class="el" href="a00411.html">Signal</a> is emitted when the window's size is changed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00134">134</a> of file <a class="el" href="a00206_source.html">Window.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/view/glfw/<a class="el" href="a00697_source.html">WindowImpl.h</a></li>
+<li>C:/Projects/myProject/engine-workspace/Engine/source/engine/view/<a class="el" href="a00197_source.html">WindowManager.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:41 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

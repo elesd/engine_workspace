@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::winapi::WinProcExtension Class Reference</title>
+<title>Engine: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,55 +59,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><b>winapi</b></li><li class="navelem"><a class="el" href="a00399.html">WinProcExtension</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00402.html">SignalTask</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="a00396.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::winapi::WinProcExtension Class Reference</div>  </div>
+<div class="title">engine::SignalTask&lt; Args &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for engine::winapi::WinProcExtension:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a00399.png" usemap="#engine::winapi::WinProcExtension_map" alt=""/>
-  <map id="engine::winapi::WinProcExtension_map" name="engine::winapi::WinProcExtension_map">
-<area href="a00367.html" alt="engine::IModuleExtension" shape="rect" coords="0,0,200,24"/>
-<area href="a00251.html" alt="engine::NonCopyable" shape="rect" coords="210,0,410,24"/>
-<area href="a00255.html" alt="engine::NonMoveable" shape="rect" coords="420,0,620,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c6d797b794492fb8e4f4c13248d7281"><td class="memItemLeft" align="right" valign="top"><a id="a4c6d797b794492fb8e4f4c13248d7281"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WinProcExtension</b> (<a class="el" href="a00271.html">Context</a> *context)</td></tr>
-<tr class="separator:a4c6d797b794492fb8e4f4c13248d7281"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63fe58c5db6977bdd6cc4ef425f45ac1"><td class="memItemLeft" align="right" valign="top"><a id="a63fe58c5db6977bdd6cc4ef425f45ac1"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)</td></tr>
-<tr class="separator:a63fe58c5db6977bdd6cc4ef425f45ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:af3b1f227600b6b1b640f957b657a431d"><td class="memItemLeft" align="right" valign="top"><a id="af3b1f227600b6b1b640f957b657a431d"></a>
-static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExtensionId</b></td></tr>
-<tr class="separator:af3b1f227600b6b1b640f957b657a431d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00013">13</a> of file <a class="el" href="a00110_source.html">WinProcExtension.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/modules/winapi/<a class="el" href="a00110_source.html">WinProcExtension.h</a></li>
-</ul>
-</div><!-- contents -->
+
+<p>This is the complete list of members for <a class="el" href="a00402.html">engine::SignalTask&lt; Args &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a00402.html#a87f32f300dcbec8e18cff49c3b598657">isExpired</a>() const override</td><td class="entry"><a class="el" href="a00402.html">engine::SignalTask&lt; Args &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00402.html#a66e71dfc80f4320c2d5c260028b0bbff">operator()</a>() override</td><td class="entry"><a class="el" href="a00402.html">engine::SignalTask&lt; Args &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00402.html#aa084db82b7369830ae2121d03c411045">SignalTask</a>(std::weak_ptr&lt; SignalCaller&lt; Args... &gt;&gt; caller, const std::tuple&lt; Args... &gt; &amp;args)</td><td class="entry"><a class="el" href="a00402.html">engine::SignalTask&lt; Args &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00398.html#a8f7c6610cc8bfd5249d3b391c6efc95b">~ISignalTask</a>()</td><td class="entry"><a class="el" href="a00398.html">engine::ISignalTask</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:15 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:23:37 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

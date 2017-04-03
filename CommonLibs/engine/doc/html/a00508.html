@@ -59,29 +59,27 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00511.html">ScopeExit</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><b>glfw</b></li><li class="navelem"><a class="el" href="a00511.html">DriverImpl</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">engine::ScopeExit Member List</div>  </div>
+<div class="title">engine::glfw::DriverImpl Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00511.html">engine::ScopeExit</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00511.html">engine::glfw::DriverImpl</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00251.html#a9f7cb34234d5117fbe31e0e82cf164b8">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00251.html#a6018f0c6b722b97077bfb807f03f0f69">NonCopyable</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>operator=</b>(ScopeExit &amp;&amp;o) (defined in <a class="el" href="a00511.html">engine::ScopeExit</a>)</td><td class="entry"><a class="el" href="a00511.html">engine::ScopeExit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00251.html#a21f1cc26f8f967d5c636e580cc728821">engine::NonCopyable::operator=</a>(const NonCopyable &amp;)=delete</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ScopeExit</b>(std::function&lt; void()&gt; &amp;&amp;f) (defined in <a class="el" href="a00511.html">engine::ScopeExit</a>)</td><td class="entry"><a class="el" href="a00511.html">engine::ScopeExit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>ScopeExit</b>(ScopeExit &amp;&amp;o) (defined in <a class="el" href="a00511.html">engine::ScopeExit</a>)</td><td class="entry"><a class="el" href="a00511.html">engine::ScopeExit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00251.html#a30addd3c42fbbe053a7484ed209ef8c3">~NonCopyable</a>()</td><td class="entry"><a class="el" href="a00251.html">engine::NonCopyable</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~ScopeExit</b>() (defined in <a class="el" href="a00511.html">engine::ScopeExit</a>)</td><td class="entry"><a class="el" href="a00511.html">engine::ScopeExit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00499.html#aed71bf52de93e2fc50f12eb860a52acc">Driver</a>()=default</td><td class="entry"><a class="el" href="a00499.html">engine::Driver</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00511.html#a97b0fadb208251c7a998e0a1e2480a67">DriverImpl</a>()</td><td class="entry"><a class="el" href="a00511.html">engine::glfw::DriverImpl</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00499.html#a4e283b1274b6ffea595cb7329b09c16d">init</a>(const DriverInitParameters &amp;params, Window *window)</td><td class="entry"><a class="el" href="a00499.html">engine::Driver</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00511.html#ab25927deeb820162e36fe494e6abb357">initImpl</a>(const DriverInitParameters &amp;params, Window *window) override</td><td class="entry"><a class="el" href="a00511.html">engine::glfw::DriverImpl</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00499.html#a4772e871ef5639c84cbb5569d75c1de9">~Driver</a>()</td><td class="entry"><a class="el" href="a00499.html">engine::Driver</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00511.html#a18a74e07839478fede104c56a7ec73a1">~DriverImpl</a>() override</td><td class="entry"><a class="el" href="a00511.html">engine::glfw::DriverImpl</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:41 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

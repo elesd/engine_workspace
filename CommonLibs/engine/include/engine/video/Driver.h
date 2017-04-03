@@ -18,6 +18,10 @@ namespace engine
 		int32_t sampleCount;
 	};
 
+	/**
+	* Video driver interface implementation.
+	* All the graphical instructions will be executed via this class implementation.
+	*/
 	class Driver
 	{
 		friend class WindowManager;

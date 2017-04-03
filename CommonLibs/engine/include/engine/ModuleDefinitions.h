@@ -31,27 +31,37 @@ namespace engine
 	{};
 
     ///////////////////////////////////////////////////////////////
+	/**@see ContextModule_traits*/
 	template<>
 	struct ContextModule_traits<ContextModuleType::Glfw>
 	{
+		/**Classification of the module*/
 		static const ContextModuleClassification classification;
+		/**Name of the module*/
 		static const std::string name;
 	};
 
     ///////////////////////////////////////////////////////////////
 
+	/**@see ContextModule_traits*/
 	template<>
 	struct ContextModule_traits<ContextModuleType::Sdl>
 	{
+		/**Classification of the module*/
 		static const ContextModuleClassification classification;
+		/**Name of the module*/
 		static const std::string name;
 	};
 
 	///////////////////////////////////////////////////////////////
+
+	/**@see ContextModule_traits*/
 	template<>
 	struct ContextModule_traits<ContextModuleType::WinApi>
 	{
+		/**Classification of the module*/
 		static const ContextModuleClassification classification;
+		/**Name of the module*/
 		static const std::string name;
 	};
 

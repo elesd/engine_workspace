@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::StateStack Class Reference</title>
+<title>Engine: engine::CountedObject&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,244 +59,144 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00447.html">StateStack</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00447.html">CountedObject</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a00444.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::StateStack Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
+<div class="title">engine::CountedObject&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00137_source.html">C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/stateStack/StateStack.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for engine::StateStack:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a00447.png" usemap="#engine::StateStack_map" alt=""/>
-  <map id="engine::StateStack_map" name="engine::StateStack_map">
-<area href="a00251.html" alt="engine::NonCopyable" shape="rect" coords="0,0,135,24"/>
-<area href="a00255.html" alt="engine::NonMoveable" shape="rect" coords="145,0,280,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00149_source.html">C:/Projects/myProject/engine-workspace/Engine/source/engine/utils/CountedObject.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a866f3ce726d328dc3488f3300b94be07"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a866f3ce726d328dc3488f3300b94be07">StateList</a> = std::list&lt; <a class="el" href="a00443.html">StateBase</a> *&gt;</td></tr>
-<tr class="separator:a866f3ce726d328dc3488f3300b94be07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9991f513ac237f6140c5239c8e90f576"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a9991f513ac237f6140c5239c8e90f576">getObjectCount</a> () const</td></tr>
+<tr class="separator:a9991f513ac237f6140c5239c8e90f576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:af80814eae37384bbbf07f3c041ff9489"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#af80814eae37384bbbf07f3c041ff9489">StateStack</a> ()</td></tr>
-<tr class="separator:af80814eae37384bbbf07f3c041ff9489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c5c62604825cc9e4395212cd2986829"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a1c5c62604825cc9e4395212cd2986829">~StateStack</a> ()</td></tr>
-<tr class="separator:a1c5c62604825cc9e4395212cd2986829"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a129b751979654c033dfbb5595519db48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a129b751979654c033dfbb5595519db48">update</a> ()</td></tr>
-<tr class="separator:a129b751979654c033dfbb5595519db48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a948f666845a6bbebc6f629a3eef8de0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a948f666845a6bbebc6f629a3eef8de0b">render</a> ()</td></tr>
-<tr class="separator:a948f666845a6bbebc6f629a3eef8de0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae3b3caef3cf8dfd7ba9ea0232b5babd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#aae3b3caef3cf8dfd7ba9ea0232b5babd">pushState</a> (std::unique_ptr&lt; <a class="el" href="a00443.html">StateBase</a> &gt; state)</td></tr>
-<tr class="separator:aae3b3caef3cf8dfd7ba9ea0232b5babd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4332c156e0169fcde04044acb59928d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#ad4332c156e0169fcde04044acb59928d">popState</a> ()</td></tr>
-<tr class="separator:ad4332c156e0169fcde04044acb59928d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45559df7b21ed5485df9d7335c9e0538"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a45559df7b21ed5485df9d7335c9e0538">trace</a> (std::ostream &amp;os) const</td></tr>
-<tr class="separator:a45559df7b21ed5485df9d7335c9e0538"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb76537bd423570e11c93895e500c24"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a3fb76537bd423570e11c93895e500c24">isEmpty</a> () const</td></tr>
-<tr class="separator:a3fb76537bd423570e11c93895e500c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a9f4f5b1610e616b8c7ffa347c99729e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a9f4f5b1610e616b8c7ffa347c99729e3">CountedObject</a> ()</td></tr>
+<tr class="separator:a9f4f5b1610e616b8c7ffa347c99729e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8858bb0d52059b19ffa684c7dc716fe3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00447.html#a8858bb0d52059b19ffa684c7dc716fe3">~CountedObject</a> ()</td></tr>
+<tr class="separator:a8858bb0d52059b19ffa684c7dc716fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class is responsible to handle game state changes. This stack has 2 face, one is not midified during the current frame execution, the other one is changing when push or pop is called. At the begining of the frame the update of the stack is called and it applies the modification what was done in the previous frame. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct engine::CountedObject&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00137_source.html#l00018">18</a> of file <a class="el" href="a00137_source.html">StateStack.h</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a866f3ce726d328dc3488f3300b94be07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a866f3ce726d328dc3488f3300b94be07">&#9670;&nbsp;</a></span>StateList</h2>
+<p>Base class to check object creation. Thread safe. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The class which creation will counted. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00447.html#a866f3ce726d328dc3488f3300b94be07">engine::StateStack::StateList</a> =  std::list &lt; <a class="el" href="a00443.html">StateBase</a>* &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Container for states </p>
-
-<p class="definition">Definition at line <a class="el" href="a00137_source.html#l00024">24</a> of file <a class="el" href="a00137_source.html">StateStack.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af80814eae37384bbbf07f3c041ff9489"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af80814eae37384bbbf07f3c041ff9489">&#9670;&nbsp;</a></span>StateStack()</h2>
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00014">14</a> of file <a class="el" href="a00149_source.html">CountedObject.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9f4f5b1610e616b8c7ffa347c99729e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f4f5b1610e616b8c7ffa347c99729e3">&#9670;&nbsp;</a></span>CountedObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">engine::StateStack::StateStack </td>
+          <td class="memname"><a class="el" href="a00447.html">engine::CountedObject</a>&lt; T &gt;::<a class="el" href="a00447.html">CountedObject</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Default constuctor </p>
+<p>Constructor for counting </p>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00032">32</a> of file <a class="el" href="a00149_source.html">CountedObject.h</a>.</p>
 
 </div>
 </div>
-<a id="a1c5c62604825cc9e4395212cd2986829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c5c62604825cc9e4395212cd2986829">&#9670;&nbsp;</a></span>~StateStack()</h2>
+<a id="a8858bb0d52059b19ffa684c7dc716fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8858bb0d52059b19ffa684c7dc716fe3">&#9670;&nbsp;</a></span>~CountedObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">engine::StateStack::~StateStack </td>
+          <td class="memname">virtual <a class="el" href="a00447.html">engine::CountedObject</a>&lt; T &gt;::~<a class="el" href="a00447.html">CountedObject</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Non virtual destructor. Further inheritance is not allowed. </p>
+<p>Destructor for counting </p>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00040">40</a> of file <a class="el" href="a00149_source.html">CountedObject.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3fb76537bd423570e11c93895e500c24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fb76537bd423570e11c93895e500c24">&#9670;&nbsp;</a></span>isEmpty()</h2>
+<a id="a9991f513ac237f6140c5239c8e90f576"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9991f513ac237f6140c5239c8e90f576">&#9670;&nbsp;</a></span>getObjectCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool engine::StateStack::isEmpty </td>
+          <td class="memname">static uint64_t <a class="el" href="a00447.html">engine::CountedObject</a>&lt; T &gt;::getObjectCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns true if it is empty. </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>The stack is constant in the frame, so pop end push functions are ignored and this function returns the top of the previous frame. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Retuns how much object is still alive from the given class. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00020">20</a> of file <a class="el" href="a00149_source.html">CountedObject.h</a>.</p>
 
 </div>
 </div>
-<a id="ad4332c156e0169fcde04044acb59928d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4332c156e0169fcde04044acb59928d">&#9670;&nbsp;</a></span>popState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::StateStack::popState </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Pops the top from the stack. </p><dl class="section warning"><dt>Warning</dt><dd>This function will be applied only in the next frame. </dd></dl>
-
-</div>
-</div>
-<a id="aae3b3caef3cf8dfd7ba9ea0232b5babd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae3b3caef3cf8dfd7ba9ea0232b5babd">&#9670;&nbsp;</a></span>pushState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::StateStack::pushState </td>
-          <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a00443.html">StateBase</a> &gt;&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Pushes a new state to the top of the stack. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>State to push to the top. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section warning"><dt>Warning</dt><dd>This function will be applied only in the next frame. </dd></dl>
-
-</div>
-</div>
-<a id="a948f666845a6bbebc6f629a3eef8de0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a948f666845a6bbebc6f629a3eef8de0b">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::StateStack::render </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Render the top state if it exists. </p>
-
-</div>
-</div>
-<a id="a45559df7b21ed5485df9d7335c9e0538"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45559df7b21ed5485df9d7335c9e0538">&#9670;&nbsp;</a></span>trace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::StateStack::trace </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Trace the states in the container. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">os</td><td>stream where data will dumped. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a129b751979654c033dfbb5595519db48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a129b751979654c033dfbb5595519db48">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::StateStack::update </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Update the stack. All the modifications from the previous frame will be applied in this function, and calls the top state's update. </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/stateStack/<a class="el" href="a00137_source.html">StateStack.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>C:/Projects/myProject/engine-workspace/Engine/source/engine/utils/<a class="el" href="a00149_source.html">CountedObject.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:14 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:40 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

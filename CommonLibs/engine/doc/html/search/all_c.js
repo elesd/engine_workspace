@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['mouse',['Mouse',['../a00327.html',1,'engine::Mouse'],['../a00299.html#a6d136f2bc5e63ae4dc52882adcb48ab1af2a47c6809d88e175dade0ef7b16aa13',1,'engine::EventBuilder::Mouse()']]]
+  ['middlebuttonpressed',['middleButtonPressed',['../a00306.html#a5600598fd751ba99ef2d308264519fcb',1,'engine::Mouse']]],
+  ['middlebuttonreleased',['middleButtonReleased',['../a00306.html#aa4ef1f528375a47a2678fb2d410bf1a7',1,'engine::Mouse']]],
+  ['mouse',['Mouse',['../a00306.html',1,'engine::Mouse'],['../a00306.html#a911cd10bd9fbf4704d3abff8bf7783d1',1,'engine::Mouse::Mouse()']]],
+  ['moved',['moved',['../a00306.html#a2f8435311a86e43ce712428068be4388',1,'engine::Mouse']]]
 ];

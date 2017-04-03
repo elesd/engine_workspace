@@ -4,23 +4,22 @@
 
 namespace engine
 {
-	struct ExpiredError : std::runtime_error
-	{
-		explicit ExpiredError(const std::string &error):
-			std::runtime_error(error)
-		{}
-
-		explicit ExpiredError(const char *error) :
-			std::runtime_error(error)
-		{}
-	};
-
+	/**
+	* Exception when an element somewhere should be there but somehow it is missing during runtime.
+	*/
 	struct ItemNotFound : std::runtime_error
 	{
-		explicit ItemNotFound(const std::string &error) :
+		/**
+		* Init exception with error message
+		* @param error: Specific error message for the certain case.
+		*/		explicit ItemNotFound(const std::string &error) :
 			std::runtime_error(error)
 		{}
 
+		/**
+		* Init exception with error message
+		* @param error: Specific error message for the certain case.
+		*/
 		explicit ItemNotFound(const char *error) :
 			std::runtime_error(error)
 		{}

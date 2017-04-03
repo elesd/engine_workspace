@@ -22,7 +22,7 @@ namespace engine
 
 		/**
 		* Create an instance with the given arguments
-		* @param creation arguments
+		* @param args: creation arguments
 		*/
 		template<typename... Args>
 		static void createInstance(Args ...args);

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Engine: engine::test::TestCase&lt; TS, func &gt; Class Template Reference</title>
+<title>Engine: engine::GenSequence&lt; N, Is &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,52 +59,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>engine</b></li><li class="navelem"><b>test</b></li><li class="navelem"><a class="el" href="a00467.html">TestCase</a></li>  </ul>
+<li class="navelem"><b>engine</b></li><li class="navelem"><a class="el" href="a00467.html">GenSequence</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a00464.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">engine::test::TestCase&lt; TS, func &gt; Class Template Reference</div>  </div>
+<div class="title">engine::GenSequence&lt; N, Is &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for engine::test::TestCase&lt; TS, func &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="a00467.png" usemap="#engine::test::TestCase_3C_20TS_2C_20func_20_3E_map" alt=""/>
-  <map id="engine::test::TestCase_3C_20TS_2C_20func_20_3E_map" name="engine::test::TestCase_3C_20TS_2C_20func_20_3E_map">
-<area href="a00459.html" alt="engine::test::ITestCase" shape="rect" coords="0,0,206,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a0a575a70c45c2096fcd1841e9755d025"><td class="memItemLeft" align="right" valign="top"><a id="a0a575a70c45c2096fcd1841e9755d025"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TestCase</b> (TS *testSuite, const std::string &amp;name)</td></tr>
-<tr class="separator:a0a575a70c45c2096fcd1841e9755d025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6d3dc87bef42f18ea52eddb9546566"><td class="memItemLeft" align="right" valign="top"><a id="a2c6d3dc87bef42f18ea52eddb9546566"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> () override</td></tr>
-<tr class="separator:a2c6d3dc87bef42f18ea52eddb9546566"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb0507f25808118174ab301d59c431a6"><td class="memItemLeft" align="right" valign="top"><a id="acb0507f25808118174ab301d59c431a6"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const override</td></tr>
-<tr class="separator:acb0507f25808118174ab301d59c431a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
+
+<p><code>#include &lt;<a class="el" href="a00158_source.html">C:/Projects/myProject/engine-workspace/Engine/source/engine/utils/GenSequence.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class TS, void(TS::*)() func&gt;<br />
-class engine::test::TestCase&lt; TS, func &gt;</h3>
+<div class="textblock"><h3>template&lt;int N, int... Is&gt;<br />
+struct engine::GenSequence&lt; N, Is &gt;</h3>
 
+<p>Generate compile time sequence, like Index&lt;5, 4, 3, 2, 1&gt;. It is really usefull for generate placeholders in compile time </p>
 
-<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00013">13</a> of file <a class="el" href="a00152_source.html">TestCase.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Projects/myProject/engine-workspace/CommonLibs/engine/include/engine/test/<a class="el" href="a00152_source.html">TestCase.h</a></li>
+<p class="definition">Definition at line <a class="el" href="a00158_source.html#l00014">14</a> of file <a class="el" href="a00158_source.html">GenSequence.h</a>.</p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>C:/Projects/myProject/engine-workspace/Engine/source/engine/utils/<a class="el" href="a00158_source.html">GenSequence.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 3 2017 09:29:15 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 3 2017 13:08:40 for Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

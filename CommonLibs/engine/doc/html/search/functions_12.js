@@ -1,25 +1,5 @@
 var searchData=
 [
-  ['_7eapplication',['~Application',['../a00223.html#a02c92008318072312a4f972298c77246',1,'engine::Application']]],
-  ['_7ebasebuilder',['~BaseBuilder',['../a00283.html#af762f3acae53396e0621113e1bb3156b',1,'engine::BaseBuilder']]],
-  ['_7econtextbuilder',['~ContextBuilder',['../a00291.html#acbc8b557d2a1755b41dc4e39cfefaa79',1,'engine::ContextBuilder']]],
-  ['_7ecountedobject',['~CountedObject',['../a00479.html#a8858bb0d52059b19ffa684c7dc716fe3',1,'engine::CountedObject']]],
-  ['_7edriver',['~Driver',['../a00531.html#a4772e871ef5639c84cbb5569d75c1de9',1,'engine::Driver::~Driver()'],['../a00531.html#a4772e871ef5639c84cbb5569d75c1de9',1,'engine::Driver::~Driver()']]],
-  ['_7edriverimpl',['~DriverImpl',['../a00543.html#a18a74e07839478fede104c56a7ec73a1',1,'engine::glfw::DriverImpl::~DriverImpl()'],['../a00551.html#afc245b5c1c99e8b5d73e14c52239e319',1,'engine::sdl::DriverImpl::~DriverImpl()'],['../a00559.html#a700cf49e15416ea10fc567459535f9f1',1,'engine::winapi::DriverImpl::~DriverImpl()']]],
-  ['_7eeventbuilder',['~EventBuilder',['../a00299.html#ad8bbbc8c0cb10337a73cde239a44be2e',1,'engine::EventBuilder']]],
-  ['_7egame',['~Game',['../a00227.html#a36ee1fe045159234e2916e20f0d94562',1,'engine::Game']]],
-  ['_7eimain',['~IMain',['../a00235.html#a3e512e4387b1517f99466e1eb01e0d78',1,'engine::IMain']]],
-  ['_7eisignalmanager',['~ISignalManager',['../a00407.html#a96df44c1e1235d42d5632a5138d684e0',1,'engine::ISignalManager']]],
-  ['_7eisignaltask',['~ISignalTask',['../a00431.html#a8f7c6610cc8bfd5249d3b391c6efc95b',1,'engine::ISignalTask']]],
-  ['_7ekeyboard',['~Keyboard',['../a00323.html#abc61f7323ef7912d9de86e831ae09725',1,'engine::Keyboard']]],
-  ['_7enoncopyable',['~NonCopyable',['../a00251.html#a30addd3c42fbbe053a7484ed209ef8c3',1,'engine::NonCopyable']]],
-  ['_7esignal',['~Signal',['../a00411.html#a29c5d469f7f68d00e6895d1cf5121025',1,'engine::Signal']]],
-  ['_7esignalmanager',['~SignalManager',['../a00427.html#a1ad7e4f03ac0657b1ecf90c981053cde',1,'engine::SignalManager']]],
-  ['_7estandardapplicationparameter',['~StandardApplicationParameter',['../a00239.html#a91c65b5c5cc6c87005fb618b61daef5a',1,'engine::StandardApplicationParameter']]],
-  ['_7estatebase',['~StateBase',['../a00443.html#ab664691d7ef22f9764816ab9aaf7d537',1,'engine::StateBase']]],
-  ['_7estatestack',['~StateStack',['../a00447.html#a1c5c62604825cc9e4395212cd2986829',1,'engine::StateStack']]],
-  ['_7ewinapiapplicationparameter',['~WinApiApplicationParameter',['../a00247.html#a8cf7f2740093b195aa980b9791b2b4cb',1,'engine::winapi::WinApiApplicationParameter']]],
-  ['_7ewindow',['~Window',['../a00591.html#a9540302516f5eda30facee89517346ed',1,'engine::Window']]],
-  ['_7ewindowenvironmentbuilder',['~WindowEnvironmentBuilder',['../a00303.html#a193f03159de54e2db47751504e523180',1,'engine::WindowEnvironmentBuilder']]],
-  ['_7ewindowmanager',['~WindowManager',['../a00595.html#a86a0bbdde5137d9fefdb3fd3d2f4ba27',1,'engine::WindowManager']]]
+  ['unsupportedfeature',['UnsupportedFeature',['../a00326.html#adf506e7a80acd5615803065c18b55b8d',1,'engine::UnsupportedFeature::UnsupportedFeature(const std::string &amp;error)'],['../a00326.html#a0774b1ed4a1653d17c14053dc87e427e',1,'engine::UnsupportedFeature::UnsupportedFeature(const char *error)']]],
+  ['update',['update',['../a00210.html#a149822f20163e98d41728f4752d7a7f7',1,'engine::Application::update()'],['../a00222.html#a6ae095ca594d7ad67704efc97bb50adf',1,'engine::IMain::update()'],['../a00294.html#a5e321019b94d4be4e294951dc15d9bc8',1,'engine::EventManager::update()'],['../a00374.html#ab28b704d755b789e6f88d7c30e2aa625',1,'engine::ISignalManager::update()'],['../a00394.html#a4e2dbe6e08226abfca06f172606b102b',1,'engine::SignalManager::update()'],['../a00410.html#a90b80b1002ed942c2f3b8dd9965cfba0',1,'engine::StateBase::update()'],['../a00414.html#a129b751979654c033dfbb5595519db48',1,'engine::StateStack::update()']]]
 ];
