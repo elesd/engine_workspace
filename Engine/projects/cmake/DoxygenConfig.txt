@@ -9,6 +9,7 @@ if(BUILD_DOCUMENTATION)
 
     set(doxyfile_in ${PROJECT_SOURCE_DIR}/../doxygen/Doxyfile.cmake)
     set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+	set(DOXYGEN_OUTDIR ${PROJECT_SOURCE_DIR}/../doxygen/out)
 
     configure_file(${doxyfile_in} ${doxyfile} @ONLY)
 
@@ -18,7 +19,7 @@ if(BUILD_DOCUMENTATION)
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc)
+    install(DIRECTORY ${DOXYGEN_OUTDIR}/html DESTINATION ${INSTALL_DIR}/doc)
 else(BUILD_DOCUMENTATION)
 	message("WARNING: Doxygen not found!")
 endif()

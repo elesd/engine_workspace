@@ -51,7 +51,7 @@ PROJECT_LOGO           =
 # If a relative path is entered, it will be relative to the location 
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = @INSTALL_DIR@/docs/
+OUTPUT_DIRECTORY       = @DOXYGEN_OUTDIR@
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create 
 # 4096 sub-directories (in 2 levels) under the output directory of each output 
@@ -1493,7 +1493,7 @@ TAGFILES               =
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create 
 # a tag file that is based on the input files it reads.
 
-GENERATE_TAGFILE       = @INSTALL_DIR@/docs/@PROJECT_NAME@.tag
+GENERATE_TAGFILE       = @DOXYGEN_OUTDIR@/@PROJECT_NAME@.tag
 
 
 # If the ALLEXTERNALS tag is set to YES all external classes will be listed 
