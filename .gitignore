@@ -2,6 +2,10 @@
 ###################
 Engine/build/*
 
+# Exclude for installed items
+######################
+CommonLibs/engine/doc
+
 # Exclude all project except the cmake and generation scripts
 !Engine/projects
 Engine/projects/*

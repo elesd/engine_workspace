@@ -90,7 +90,7 @@ namespace engine
 
 	uint32_t Window::getHeight() const
 	{
-		return getParameters().width;
+		return getParameters().height;
 	}
 
 	uint32_t Window::getWidth() const
