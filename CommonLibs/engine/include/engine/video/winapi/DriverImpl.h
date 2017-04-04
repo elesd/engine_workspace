@@ -20,6 +20,8 @@ namespace engine
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
 		private:
+			void createDevice();
+			void createSwapChain(const DriverInitParameters& params, Window *window);
 			/**PIMPL*/
 			struct DriverImplPrivate *_members = nullptr;
 		};
