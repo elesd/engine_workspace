@@ -135,7 +135,7 @@ namespace engine
 			scd.OutputWindow = winapiWindow->getWindowHandler();	// the window to be used
 			scd.SampleDesc.Count = params.sampleCount;				// how many multisamples
 			scd.SampleDesc.Quality = 0;				// how many multisamples
-			scd.Windowed = winapiWindow->isFullScreen();			// windowed/full-screen mode
+			scd.Windowed = !winapiWindow->isFullScreen();			// windowed/full-screen mode
 																	// TODO Setup buffer widht, height
 			scd.BufferDesc.Height = winapiWindow->getHeight();
 			scd.BufferDesc.Width = winapiWindow->getWidth();

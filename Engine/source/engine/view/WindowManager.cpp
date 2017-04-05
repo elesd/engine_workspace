@@ -33,7 +33,7 @@ namespace engine
 		_members->driverParameters.sampleCount = 1;
 		_members->driverParameters.description.format = TextureFormat::_R8G8B8A8;
 		_members->driverParameters.description.isSRGB = false;
-		_members->driverParameters.description.type = BufferType::UnsignedInteger;
+		_members->driverParameters.description.type = BufferType::UnsignedNormalized;
 	}
 
 	WindowManager::~WindowManager()
