@@ -111,14 +111,14 @@ namespace engine
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
 			_members->windowContainer.emplace_back(std::move(window));
 
-		//	std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-		//	window->initDriver(std::move(driver));
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
+			window->initDriver(std::move(driver));
 		}
 		else
 		{
-	//		std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-			//window->initDriver(std::move(driver));
+			window->initDriver(std::move(driver));
 			_members->windowContainer.emplace_back(std::move(window));
 
 		}

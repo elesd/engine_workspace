@@ -15,17 +15,17 @@ namespace engine
 															   LPSTR ,
 															   int )
 		{
-			HARD_ASSERT("Not implemented module");
+			HARD_FAIL("Not implemented module");
 		}
 
 		WinApiApplicationParameter::~WinApiApplicationParameter()
 		{
-			HARD_ASSERT("Not implemented module");
+			HARD_FAIL("Not implemented module");
 		}
 
 		HINSTANCE WinApiApplicationParameter::getInstance() const
 		{
-			HARD_ASSERT("Not implemented module");
+			HARD_FAIL("Not implemented module");
 			return nullptr;
 		}
 

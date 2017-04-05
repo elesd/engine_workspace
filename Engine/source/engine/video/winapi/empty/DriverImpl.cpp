@@ -21,6 +21,16 @@ namespace engine
 		{
 			HARD_FAIL("Unimplemented module");
 		}
+		
+		void DriverImpl::createDevice()
+		{
+			HARD_FAIL("Unimplemented module");
+		}
+
+		void DriverImpl::createSwapChain(const DriverInitParameters& params, Window *window)
+		{
+			HARD_FAIL("Unimplemented module");
+		}
 	}
 }
 #endif

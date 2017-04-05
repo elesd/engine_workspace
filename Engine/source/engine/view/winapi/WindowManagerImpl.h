@@ -2,7 +2,6 @@
 
 #include <engine/view/WindowManager.h>
 
-#include <Windows.h>
 namespace engine
 {
 	namespace winapi

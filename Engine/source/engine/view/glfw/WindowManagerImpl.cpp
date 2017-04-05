@@ -1,7 +1,8 @@
 #include <stdafx.h>
-#if ENGINE_USE_GLFW
 #include <engine/view/glfw/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
+#if ENGINE_USE_GLFW
+#include <engine/events/glfw/EventManagerImpl.h>
 #include <engine/view/glfw/WindowImpl.h>
 #include <engine/video/glfw/DriverImpl.h>
 
@@ -9,6 +10,15 @@
 
 #include <engine/video/Driver.h>
 
+namespace
+{
+	void registerInputCallbacks(GLFWwindow *window)
+	{
+		glfwSetCursorPosCallback(window, engine::glfw::EventManagerImpl::mouseMovedCallback);
+		glfwSetMouseButtonCallback(window, engine::glfw::EventManagerImpl::mouseButtonCallback);
+		glfwSetScrollCallback(window, engine::glfw::EventManagerImpl::mouseScrolledCallback);
+	}
+}
 
 namespace engine
 {
@@ -21,6 +31,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
+				registerInputCallbacks(window);
 				result.reset(new WindowImpl(std::move(window), parameters, title));
 				glfwMakeContextCurrent(result->getGlfwWindow());
 			}
@@ -37,6 +48,7 @@ namespace engine
 				GLFWwindow *window(glfwCreateWindow(width, height, title.c_str(), monitors[monitorId], NULL));
 				if(window)
 				{
+					registerInputCallbacks(window);
 					result.reset(new WindowImpl(window, title));
 					glfwMakeContextCurrent(result->getGlfwWindow());
 				}
@@ -53,6 +65,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
+				registerInputCallbacks(window);
 				result.reset(new WindowImpl(std::move(window), parameters, title));
 			}
 			return result.release();
@@ -69,6 +82,7 @@ namespace engine
 				GLFWwindow *window(glfwCreateWindow(width, height, title.c_str(), monitors[monitorId], glfMainWindow->getGlfwWindow()));
 				if(window)
 				{
+					registerInputCallbacks(window);
 					result.reset(new WindowImpl(window, title));
 				}
 			}
