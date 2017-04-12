@@ -1,8 +1,6 @@
 #pragma once
-#if ENGINE_USE_WINAPI
 
 #include <engine/events/Mouse.h>
-#include <Windows.h>
 
 namespace engine
 {
@@ -32,4 +30,3 @@ namespace engine
 	}
 }
 
-#endif

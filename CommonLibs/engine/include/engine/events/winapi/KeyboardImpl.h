@@ -2,7 +2,6 @@
 
 #include <engine/events/Keyboard.h>
 
-#include <Windows.h>
 
 namespace engine
 {

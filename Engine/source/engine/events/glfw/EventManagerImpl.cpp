@@ -1,0 +1,46 @@
+#include <stdafx.h>
+#include <engine/events/glfw/EventManagerImpl.h>
+
+#if ENGINE_USE_GLFW
+#include <engine/app/Application.h>
+
+#include <engine/events/glfw/MouseImpl.h>
+#include <engine/events/EventManager.h>
+
+#include <engine/Context.h>
+
+namespace engine
+{
+	namespace glfw
+	{
+		void EventManagerImpl::mouseMovedCallback(GLFWwindow* window, double xpos, double ypos)
+		{
+			Application *app = Context::getInstance()->getApplication();
+			std::vector<glfw::MouseImpl*> sources = app->getEventManager()->findEventSource<glfw::MouseImpl>();
+			if(!sources.empty())
+			{
+				sources[0]->handleMoveEvent(float(xpos), float(ypos));
+			}
+		}
+		void EventManagerImpl::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+		{
+			Application *app = Context::getInstance()->getApplication();
+			std::vector<glfw::MouseImpl*> sources = app->getEventManager()->findEventSource<glfw::MouseImpl>();
+			if(!sources.empty())
+			{
+				sources[0]->handleClickEvent(button, action, mods);
+			}
+		}
+
+		void EventManagerImpl::mouseScrolledCallback(GLFWwindow* window, double xoffset, double yoffset)
+		{
+			Application *app = Context::getInstance()->getApplication();
+			std::vector<glfw::MouseImpl*> sources = app->getEventManager()->findEventSource<glfw::MouseImpl>();
+			if(!sources.empty())
+			{
+				sources[0]->handleScollEvent(float(xoffset), float(yoffset));
+			}
+		}
+	}
+}
+#endif

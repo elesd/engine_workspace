@@ -35,7 +35,7 @@ namespace
 
 	bool isTypeSet(BufferTypes a, BufferTypes b)
 	{
-		return bool(a & b);
+		return (int32_t(a) & int32_t(b)) > 0;
 	}
 
 	BufferTypes getFormatType(const engine::BufferDesc &desc)
@@ -412,7 +412,7 @@ namespace engine
 				case TextureFormat::_A8P8:						result = 8; break;
 				case TextureFormat::_B4G4R4A4:					break;
 				default:											break;
-			}			
+			}
 			if(!result)
 			{
 				throw UnsupportedFeature("Alpha bit format is not supported");

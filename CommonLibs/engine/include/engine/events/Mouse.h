@@ -44,43 +44,40 @@ namespace engine
 		MouseButtonState getButtonState(MouseButton) const;
 		/**@return the signal manager of the eventManager.*/
 		ISignalManager *getSignalManager() const override;
+
+		ScreenSpacePosition getPosition() const;
 	protected:
+
+		/**
+		 * Called right after the event happen in order to set the button state as soon as it is possible.
+		 * @param x: x coordinate of the cursor
+		 * @param y: y coordinate of the cursor
+		 */
+		void onMouseMoved(int32_t x, int32_t y);
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onLeftButtonPressed(int32_t x, int32_t y);
+		void onLeftButtonPressed();
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onRightButtonPressed(int32_t x, int32_t y);
+		void onRightButtonPressed();
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onMiddleButtonPressed(int32_t x, int32_t y);
+		void onMiddleButtonPressed();
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onLeftButtonReleased(int32_t x, int32_t y);
+		void onLeftButtonReleased();
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onRightButtonReleased(int32_t x, int32_t y);
+		void onRightButtonReleased();
 		/**
 		* Called right after the event happen in order to set the button state as soon as it is possible.
-		* @param x: x coordinate of the cursor
-		* @param y: y coordinate of the cursor
 		*/
-		void onMiddleButtonReleased(int32_t x, int32_t y);
+		void onMiddleButtonReleased();
 	public:
 		/**Signal emitted when the mouse moved*/
 		Signal<int32_t /*x*/, int32_t /*y*/> moved;
@@ -96,9 +93,9 @@ namespace engine
 		Signal<int32_t /*x*/, int32_t /*y*/> leftButtonReleased;
 		/**Signal emitted when the right mouse button released*/
 		Signal<int32_t /*x*/, int32_t /*y*/> rightButtonReleased;
-		/**Signal emitted when the middle mouse button released*/
+  		/**Signal emitted when the middle mouse button released*/
 		Signal<int32_t /*x*/, int32_t /*y*/> middleButtonReleased;
-		
+
 		/**Signal emitted when the mouse wheel moved*/
 		Signal<int32_t /*x*/, int32_t /*y*/, int32_t /*scrollAmount*/ > scrolled;
 	private:

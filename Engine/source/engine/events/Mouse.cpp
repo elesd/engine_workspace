@@ -6,6 +6,8 @@
 #include <engine/app/Application.h>
 #include <engine/events/EventManager.h>
 
+#include <engine/Types.h>
+
 namespace
 {
 	engine::MouseButtonState getDescriptionValue(const std::map<engine::MouseButton, engine::MouseButtonState> &info, engine::MouseButton button)
@@ -22,6 +24,7 @@ namespace engine
 	struct MousePrivate
 	{
 		std::map<MouseButton, MouseButtonState> buttonDescription;
+		ScreenSpacePosition position;
 	};
 
 	Mouse::Mouse()
@@ -47,32 +50,43 @@ namespace engine
 		return it != _members->buttonDescription.end() ? it->second : MouseButtonState::Unknown;
 	}
 
-	void Mouse::onLeftButtonPressed(const int32_t x, const int32_t y)
+	void Mouse::onMouseMoved(int32_t x, int32_t y)
+	{
+		_members->position[0] = x;
+		_members->position[1] = y;
+	}
+
+	ScreenSpacePosition Mouse::getPosition() const
+	{
+		return _members->position;
+	}
+
+	void Mouse::onLeftButtonPressed()
 	{
 		_members->buttonDescription[MouseButton::Left] = MouseButtonState::Pressed;
 	}
 
-	void Mouse::onRightButtonPressed(const int32_t x, const int32_t y)
+	void Mouse::onRightButtonPressed()
 	{
 		_members->buttonDescription[MouseButton::Right] = MouseButtonState::Pressed;
 	}
 
-	void Mouse::onMiddleButtonPressed(const int32_t x, const int32_t y)
+	void Mouse::onMiddleButtonPressed()
 	{
 		_members->buttonDescription[MouseButton::Middle] = MouseButtonState::Pressed;
 	}
 
-	void Mouse::onLeftButtonReleased(const int32_t x, const int32_t y)
+	void Mouse::onLeftButtonReleased()
 	{
 		_members->buttonDescription[MouseButton::Left] = MouseButtonState::Released;
 	}
 
-	void Mouse::onRightButtonReleased(const int32_t x, const int32_t y)
+	void Mouse::onRightButtonReleased()
 	{
 		_members->buttonDescription[MouseButton::Right] = MouseButtonState::Released;
 	}
 
-	void Mouse::onMiddleButtonReleased(const int32_t x, const int32_t y)
+	void Mouse::onMiddleButtonReleased()
 	{
 		_members->buttonDescription[MouseButton::Middle] = MouseButtonState::Released;
 	}

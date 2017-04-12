@@ -146,6 +146,7 @@ SOURCE_GROUP (engine\\view\\winapi\\empty FILES ${src_view_winapi_empty})
 SOURCE_GROUP (engine\\pch FILES ${src_pch} ${header_pch})
 
 include_directories("${MAIN_PROJECT_DIR}/pch")
+include_directories("${EXTERNALS_DIR}")
 
 if (DEBUG_BUILD)
   set (lib_name "Engine_d")

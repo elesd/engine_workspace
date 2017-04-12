@@ -106,7 +106,7 @@ namespace engine
 		auto it = _members->managedEventSources.find(key);
 		if(it == _members->managedEventSources.end())
 			return {};
-		
+
 		std::vector<EventSourceBase*> result;
 		result.reserve(it->second.size());
 		std::transform(it->second.begin(), it->second.end(), std::back_inserter(result),
@@ -119,7 +119,7 @@ namespace engine
 		auto it = _members->unmanagedEventSources.find(key);
 		return it == _members->unmanagedEventSources.end() ? std::vector<EventSourceBase*>() : it->second;
 	}
-	
+
 	std::vector<EventSourceBase*> EventManager::collectEventSources() const
 	{
 		std::vector<EventSourceBase*> result = collectManagedEventSources();
@@ -131,7 +131,7 @@ namespace engine
 		}
 		return result;
 	}
-	
+
 	std::vector<EventSourceBase*> EventManager::collectManagedEventSources() const
 	{
 		std::vector<EventSourceBase*> result;
@@ -165,7 +165,7 @@ namespace engine
 		uint32_t count = 0;
 		for(auto &pair : _members->managedEventSources)
 		{
-			count += pair.second.size();
+			count += uint32_t(pair.second.size());
 		}
 		return count;
 	}
@@ -175,7 +175,7 @@ namespace engine
 		uint32_t count = 0;
 		for(auto pair : _members->unmanagedEventSources)
 		{
-			count += pair.second.size();
+			count += uint32_t(pair.second.size());
 		}
 		return count;
 	}

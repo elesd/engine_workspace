@@ -33,6 +33,10 @@
 #include <type_traits>
 #include <iomanip>
 
+// Math
+
+#include <glm/gtc/type_precision.hpp>
+
 // Macros
 
 #define ASSERT(cond) assert(cond)
@@ -40,6 +44,9 @@
 #define FAIL(msg) assert(false && msg)
 #define HARD_FAIL(msg) assert(false && msg)
 
+// Engine files
 #include <engine/EngineConfig.h>
+#include <engine/Types.h>
 
+// Platform specific codes
 #include <stdafx_win.h>
