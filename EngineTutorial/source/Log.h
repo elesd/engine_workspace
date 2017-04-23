@@ -33,4 +33,14 @@ void Log(const std::string &format, Args... params)
 	std::string str = os.str();
 	OutputDebugString(str.c_str());
 }
+#else
+template<class ...Args>
+void Log(const std::string &format, Args... params)
+{
+	std::ostringstream os;
+	LogToStream(os, format, params...);
+	std::string str = os.str();
+    std::cout << str << std::endl;
+}
+
 #endif

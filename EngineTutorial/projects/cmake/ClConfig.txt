@@ -2,6 +2,8 @@
 
 include_directories("${MAIN_PROJECT_DIR}/source")
 include_directories("${EXTERNALS_DIR}/engine/include")
+include_directories("${EXTERNALS_DIR}")
+
 if (DEBUG_BUILD)
   if (USE_64_BIT)
     target_link_libraries(Tutorial "${EXTERNALS_DIR}/engine/lib/x64/Engine_d.lib")
@@ -18,9 +20,9 @@ endif (DEBUG_BUILD)
 
 if (USE_GLFW)
   if (USE_64_BIT)
-    find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win64/lib-vc2013")
+    find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win64/lib-vc2015")
   else (USE_64_BIT)
-    find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win32/lib-vc2013")
+    find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win32/lib-vc2015")
   endif (USE_64_BIT)
   include_directories("${EXTERNALS_DIR}/glfw/include")
   target_link_libraries(Tutorial ${glfw_library})

@@ -2,7 +2,7 @@
 
 #include <engine/events/EventManager.h>
 
-class GLFWwindow;
+struct GLFWwindow;
 
 
 namespace engine
@@ -15,6 +15,7 @@ namespace engine
 			static void mouseMovedCallback(GLFWwindow* window, double xpos, double ypos);
 			static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 			static void mouseScrolledCallback(GLFWwindow* window, double xoffset, double yoffset);
+			static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		};
 	}
 }

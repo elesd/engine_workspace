@@ -17,6 +17,7 @@ namespace
 		glfwSetCursorPosCallback(window, engine::glfw::EventManagerImpl::mouseMovedCallback);
 		glfwSetMouseButtonCallback(window, engine::glfw::EventManagerImpl::mouseButtonCallback);
 		glfwSetScrollCallback(window, engine::glfw::EventManagerImpl::mouseScrolledCallback);
+		glfwSetKeyCallback(window, engine::glfw::EventManagerImpl::keyboardCallback);
 	}
 }
 

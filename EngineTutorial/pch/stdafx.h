@@ -31,6 +31,10 @@
 #include <type_traits>
 #include <iomanip>
 
+// Math
+
+#include <glm/gtc/type_precision.hpp>
+
 // Macros
 
 #define ASSERT(cond) assert(cond)
@@ -44,3 +48,5 @@
 #ifdef TUTORIAL_USE_WINAPI
 #include <Windows.h>
 #endif
+
+#include <engine/Types.h>

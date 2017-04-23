@@ -12,7 +12,8 @@
 
 int main(int argc, char* argv[])
 {
-	engine::EasyBuilder builder(std::make_unique<TestMain>());
+	std::unique_ptr<engine::IMain> main(new TestMain());
+	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Glfw);
 	builder.AddInput(engine::EventBuilder::BasicInputType::Keyboard)
 		   .AddInput(engine::EventBuilder::BasicInputType::Mouse);
 	engine::Application *app = builder.buildEngine(argc, argv);
@@ -25,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				   HINSTANCE hPrevInstance,
 				   LPSTR lpCmdLine,
 				   int nCmdShow)
-{  
+{
 	std::unique_ptr<engine::IMain> main(new TestMain());
 	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::WinApi);
 	builder.AddInput(engine::EventBuilder::BasicInputType::Keyboard)

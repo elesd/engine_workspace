@@ -5,6 +5,7 @@
 #include <engine/app/Application.h>
 
 #include <engine/events/glfw/MouseImpl.h>
+#include <engine/events/glfw/KeyboardImpl.h>
 #include <engine/events/EventManager.h>
 
 #include <engine/Context.h>
@@ -39,6 +40,15 @@ namespace engine
 			if(!sources.empty())
 			{
 				sources[0]->handleScollEvent(float(xoffset), float(yoffset));
+			}
+		}
+		void EventManagerImpl::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			Application *app = Context::getInstance()->getApplication();
+			std::vector<glfw::KeyboardImpl*> sources = app->getEventManager()->findEventSource<glfw::KeyboardImpl>();
+			if(!sources.empty())
+			{
+				sources[0]->handleKeyEvent(key, scancode, action, mods);
 			}
 		}
 	}
