@@ -165,7 +165,10 @@ namespace engine
 							_members->pressedKeys.end(),
 							button);
 		// cannot emit 2 times the press event for the same key.
-		_members->pressedKeys.push_back(button);
+		if(it == _members->pressedKeys.end())
+		{
+			_members->pressedKeys.push_back(button);
+		}
 	}
 
 	void Keyboard::onKeyReleased(KeyboardButton button)
@@ -185,7 +188,7 @@ namespace engine
 							_members->pressedKeys.end(),
 							button);
 		return it != _members->pressedKeys.end()
-						? KeyState::Pressed 
+						? KeyState::Pressed
 						: KeyState::Released;
 	}
 }
