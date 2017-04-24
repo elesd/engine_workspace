@@ -36,6 +36,8 @@ file (GLOB src_ "${SOURCE_DIR}/engine/*.cpp")
 file (GLOB src_app "${SOURCE_DIR}/engine/app/*.cpp")
 file (GLOB src_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.cpp")
 file (GLOB src_app_winapi_empty "${SOURCE_DIR}/engine/app/winapi/empty/*.cpp")
+file (GLOB src_app_glfw "${SOURCE_DIR}/engine/app/glfw/*.cpp")
+file (GLOB src_app_glfw_empty "${SOURCE_DIR}/engine/app/glfw/empty/*.cpp")
 file (GLOB src_constraints "${SOURCE_DIR}/engine/constraints/*.cpp")
 file (GLOB src_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.cpp")
 file (GLOB src_exceptions "${SOURCE_DIR}/engine/exceptions/*.cpp")
@@ -76,6 +78,7 @@ file (GLOB src_pch "${MAIN_PROJECT_DIR}/pch/*.cpp")
 file (GLOB header_ "${SOURCE_DIR}/engine/*.h")
 file (GLOB header_app "${SOURCE_DIR}/engine/app/*.h*")
 file (GLOB header_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.h*")
+file (GLOB header_app_glfw "${SOURCE_DIR}/engine/app/glfw/*.h*")
 file (GLOB header_constraints "${SOURCE_DIR}/engine/constraints/*.h*")
 file (GLOB header_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.h*")
 file (GLOB header_exceptions "${SOURCE_DIR}/engine/exceptions/*.h")
@@ -108,6 +111,8 @@ SOURCE_GROUP (engine FILES ${src_} ${header_})
 SOURCE_GROUP (engine\\app FILES ${src_app} ${header_app})
 SOURCE_GROUP (engine\\app\\winapi FILES ${src_app_winapi} ${header_app_winapi})
 SOURCE_GROUP (engine\\app\\winapi\\empty FILES ${src_app_winapi_empty})
+SOURCE_GROUP (engine\\app\\glfw FILES ${src_app_glfw} ${header_app_glfw})
+SOURCE_GROUP (engine\\app\\glfw\\empty FILES ${src_app_glfw_empty})
 SOURCE_GROUP (engine\\constraints FILES ${src_constraints} ${header_constraints})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${src_environmentBuilder} ${header_environmentBuilder})
 SOURCE_GROUP (engine\\exceptions FILES ${src_exceptions} ${header_exceptions})
@@ -158,6 +163,8 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_app} 
 						   ${src_app_winapi} 
 						   ${src_app_winapi_empty} 
+						   ${src_app_glfw} 
+						   ${src_app_glfw_empty} 
                            ${src_constraints}
                            ${src_environmentBuilder}
                            ${src_exceptions}
@@ -197,6 +204,7 @@ add_library (${lib_name} STATIC ${src_}
                            ${header_} 
                            ${header_app} 
 						   ${header_app_winapi} 
+						   ${header_app_glfw} 
                            ${header_constraints}
                            ${header_environmentBuilder}
                            ${header_exceptions}

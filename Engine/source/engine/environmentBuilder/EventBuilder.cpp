@@ -11,6 +11,10 @@
 
 #include <engine/exceptions/LogicalErrors.h>
 
+#include <engine/events/glfw/EventManagerImpl.h>
+#include <engine/events/glfw/MouseImpl.h>
+#include <engine/events/glfw/KeyboardImpl.h>
+
 #include <engine/events/winapi/EventManagerImp.h>
 #include <engine/events/winapi/MouseImpl.h>
 #include <engine/events/winapi/KeyboardImpl.h>
@@ -81,11 +85,12 @@ namespace engine
 		std::unique_ptr<EventSourceBase> result;
 		switch(_members->windowModule)
 		{
-			case ContextModuleType::Glfw:
+			case ContextModuleType::Glfw: result = std::make_unique<glfw::MouseImpl>(); break;
 			case ContextModuleType::Sdl: // TODO
 				break;
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::MouseImpl>();
 		}
+		ASSERT(result);
 		return result;
 	}
 
@@ -94,11 +99,12 @@ namespace engine
 		std::unique_ptr<EventSourceBase> result;
 		switch(_members->windowModule)
 		{
-			case ContextModuleType::Glfw:
+			case ContextModuleType::Glfw: result = std::make_unique<glfw::KeyboardImpl>(); break;
 			case ContextModuleType::Sdl: // TODO
 				break;
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::KeyboardImpl>();
 		}
+		ASSERT(result);
 		return result;
 	}
 
@@ -107,11 +113,12 @@ namespace engine
 		std::unique_ptr<EventManager> result;
 		switch(_members->windowModule)
 		{
-			case ContextModuleType::Glfw:
+			case ContextModuleType::Glfw: result = std::make_unique<glfw::EventManagerImpl>(); break;
 			case ContextModuleType::Sdl: // TODO
 				break;
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::EventManagerImpl>();
 		}
+		ASSERT(result);
 		return result;
 	}
 }

@@ -14,6 +14,7 @@ namespace engine
 		void MouseImpl::handleMoveEvent(float x, float y)
 		{
 			onMouseMoved(int32_t(x), int32_t(y));
+			moved.emit(int32_t(x), int32_t(y));
 		}
 
 		void MouseImpl::handleClickEvent(int32_t button, int32_t action, int32_t mods)
