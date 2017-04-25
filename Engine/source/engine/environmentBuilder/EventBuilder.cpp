@@ -4,6 +4,8 @@
 
 #include <engine/ModuleDefinitions.h>
 
+#include <engine/app/Application.h>
+
 #include <engine/environmentBuilder/WindowEnvironmentBuilder.h>
 
 #include <engine/events/EventManager.h>
@@ -23,15 +25,16 @@ namespace engine
 {
 	struct EventBuilderPrivate
 	{
-		EventBuilderPrivate(const ContextModuleType windowModule)
-			: windowModule(windowModule)
+		EventBuilderPrivate(const ContextModuleType windowModule, Application *app)
+			: windowModule(windowModule), application(app)
 		{	}
 		ContextModuleType windowModule;
-		std::unique_ptr<EventManager> eventManager;
+		std::set<BasicInputType> basicInputs;
+		Application *application;
 	};
 
-	EventBuilder::EventBuilder(const ContextModuleType windowModule)
-		:_members(new EventBuilderPrivate(windowModule))
+	EventBuilder::EventBuilder(const ContextModuleType windowModule, Application *app)
+		:_members(new EventBuilderPrivate(windowModule, app))
 	{
 	}
 
@@ -48,9 +51,8 @@ namespace engine
 
 	WindowEnvironmentBuilder EventBuilder::build(const std::set<BasicInputType> &basicInputs)
 	{
-		_members->eventManager = createEventManager();
-		initBasicInputs(basicInputs);
-		setEventManager(std::move(_members->eventManager));
+		_members->basicInputs = basicInputs;
+		setEventBuilder(_members->application, clone());
 		return WindowEnvironmentBuilder(_members->windowModule);
 	}
 
@@ -110,6 +112,7 @@ namespace engine
 
 	std::unique_ptr<EventManager> EventBuilder::createEventManager()
 	{
+		initBasicInputs(_members->basicInputs);
 		std::unique_ptr<EventManager> result;
 		switch(_members->windowModule)
 		{
@@ -119,6 +122,12 @@ namespace engine
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::EventManagerImpl>();
 		}
 		ASSERT(result);
+		return result;
+	}
+	std::unique_ptr<EventBuilder> EventBuilder::clone()
+	{
+		auto result = std::make_unique<EventBuilder>(_members->windowModuleType, _members->application);
+		result->_members->basicInputs = _members->basicInputs;
 		return result;
 	}
 }

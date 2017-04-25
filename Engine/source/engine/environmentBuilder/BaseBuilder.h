@@ -3,16 +3,14 @@
 #include <engine/constraints/NonCopyable.h>
 #include <engine/Context.h>
 
+
 namespace engine
 {
 	class Application;
 	class WindowManager;
 	class EventManager;
+	class EventBuilder;
 	enum class ContextModuleType;
-}
-
-namespace engine
-{
 	/**
 	* Base class for builder phases.
 	* Only via this class one can set up context parameters.
@@ -37,17 +35,13 @@ namespace engine
 		*/
 		void setApplication(std::unique_ptr<Application> app);
 
+		void setEventBuilder(Application *app, std::unique_ptr<EventBuilder> &&eventBuilder);
+
 		/**
 		* Set the window manager of the context.
 		* @param manager: window manager to use
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> manager);
-
-		/**
-		* Set the event manager of the context.
-		* @param manager: window manager to use
-		*/
-		void setEventManager(std::unique_ptr<EventManager> manager);
 
 		/**
 		* When the environment is built up this function finalize the context.

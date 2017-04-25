@@ -20,6 +20,8 @@ namespace engine
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 
+		void update();
+
 		/**
 		* @return Returns the number of available monitors.
 		*/
@@ -140,6 +142,7 @@ namespace engine
 		*/
 		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
 	private:
+		void initWindow(Window *window);
 		virtual bool driverNeedsWindow() const = 0;
 	private:
 		struct WindowManagerPrivate *_members = nullptr;

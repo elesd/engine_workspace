@@ -1,8 +1,11 @@
 #include <stdafx.h>
-
 #include <engine/app/Application.h>
+///////////////////////////////////////////////////////////////////////////////
+
 #include <engine/app/IApplicationParameter.h>
 #include <engine/app/IMain.h>
+
+#include <engine/environmentBuilder/EventBuilder.h>
 
 #include <engine/events/EventManager.h>
 
@@ -14,8 +17,8 @@ namespace engine
 	{
 		std::unique_ptr<IMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
-		std::unique_ptr<EventManager> eventManager;
 		std::unique_ptr<WindowManager> windowManager;
+        std::unique_ptr<EventBuilder> eventBuilder;
 		bool active = false;
 	};
 
@@ -48,10 +51,7 @@ namespace engine
 		if(isActive())
 		{
 			updateImpl();
-			if(_members->eventManager)
-			{
-				_members->eventManager->update();
-			}
+            _members->windowManager->update();
 			_members->main->update();
 		}
 	}
@@ -69,30 +69,31 @@ namespace engine
 		return _members->active;
 	}
 
+    EventBuilder* Application::getEventBuilder() const
+    {
+      return _members->eventBuilder.get();
+    }
+
 	const IApplicationParameter* Application::getArguments() const
 	{
 		return _members->arguments.get();
 	}
 
-	EventManager *Application::getEventManager() const
-	{
-		return _members->eventManager.get();
-	}
 
 	WindowManager *Application::getWindowManager() const
 	{
 		return _members->windowManager.get();
 	}
 
-	void Application::setEventManager(std::unique_ptr<EventManager> eventManager)
-	{
-		_members->eventManager = std::move(eventManager);
-	}
-
 	void Application::setWindowManager(std::unique_ptr<WindowManager> windowManager)
 	{
 		_members->windowManager = std::move(windowManager);
 	}
+
+    void Application::setEventBuilder(std::unique_ptr<EventBuilder> &&builder)
+    {
+        _members->eventBuilder = std::move(builder);
+    }
 
 	void Application::run()
 	{

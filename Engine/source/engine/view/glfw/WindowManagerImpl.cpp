@@ -25,6 +25,17 @@ namespace engine
 {
 	namespace glfw
 	{
+		WindowImpl *WindowManagerImpl::findWindow(GLFWwindow *window)
+		{
+			for(Window *window : getAllWindows())
+			{
+				WindowImpl *w = static_cast<WindowImpl*>(window);
+				if(w->getGlfwWindow() == window)
+					return w;
+			}
+			return nullptr;
+		}
+
 		Window *WindowManagerImpl::createMainWindowImpl(const WindowParameter &parameters,
 															  const std::string &title)
 		{

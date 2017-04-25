@@ -22,7 +22,10 @@ namespace
 {
 	bool handleEventsOfEventManager(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		engine::winapi::EventManagerImpl *eventManager = static_cast<engine::winapi::EventManagerImpl*>(engine::Context::getInstance()->getApplication()->getEventManager());
+		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::getInstance()->getWindowManager());
+		engine::winapi::WindowImpl *window = windowManager->findWindowById(hWnd);
+		ASSERT(window);
+		engine::winapi::EventManagerImpl *eventManager = static_cast<engine::winapi::EventManagerImpl>(window->getEventManager());
 		return eventManager->handleEvent(hWnd, message, wParam, lParam);
 	}
 

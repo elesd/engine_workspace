@@ -18,11 +18,6 @@ namespace engine
 		Context::getInstance()->getApplicationUnsafe()->setWindowManager(std::move(manager));
 	}
 
-	void BaseBuilder::setEventManager(std::unique_ptr<EventManager> manager)
-	{
-		Context::getInstance()->getApplicationUnsafe()->setEventManager(std::move(manager));
-	}
-
 	void BaseBuilder::addModule(const ContextModuleType value)
 	{
 		Context::getInstance()->getModuls()[uint32_t(value)] = true;
@@ -31,5 +26,9 @@ namespace engine
 	void BaseBuilder::setInitialized()
 	{
 		Context::getInstance()->setInitialized();
+	}
+	void BaseBuilder::setEventBuilder(Application *app, std::unique_ptr<EventBuilder> &&eventBuilder)
+	{
+		app->setEventBuilder(std::move(eventBuilder));
 	}
 }

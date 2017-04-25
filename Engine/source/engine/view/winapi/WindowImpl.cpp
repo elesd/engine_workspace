@@ -1,8 +1,9 @@
 #include <stdafx.h>
 #if ENGINE_USE_WINAPI
-
 #include <engine/view/winapi/WindowImpl.h>
 /////////////////////////////////////////
+
+#include <engine/events/winapi/EventManagerImpl.h>
 
 namespace engine
 {
@@ -20,6 +21,13 @@ namespace engine
 		{
 			_members->windowHandler = window;
 			_members->title = title;
+			_parameters = parameters;
+
+			SetWindowPos(_members->windowHandler, HWND_TOP,
+					_parameters.x,
+					_parameters.y,
+					_parameters.width,
+					_parameters.height, SWP_SHOWWINDOW);
 		}
 
 		WindowImpl::WindowImpl(HWND window, const std::string &title)
@@ -28,7 +36,6 @@ namespace engine
 		{
 			_members->windowHandler = window;
 			_members->title = title;
-
 		}
 
 		WindowImpl::~WindowImpl()

@@ -2,6 +2,8 @@
 
 #include <engine/view/WindowManager.h>
 
+struct GLFWwindow;
+
 namespace engine
 {
 	namespace glfw
@@ -16,6 +18,7 @@ namespace engine
 
 			uint32_t getMonitorCount() const override;
 			uint32_t getMainMonitorId() const override;
+			WindowImpl *findWindow(GLFWwindow *window);
 		protected:
 			Window *createMainWindowImpl(const WindowParameter &parameters,
 											   const std::string &title) override;

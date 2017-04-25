@@ -4,13 +4,15 @@
 
 namespace engine
 {
-	class WindowEnvironmentBuilder;
-	class ContextBuilder;
-	class EventSourceBase;
 }
 
 namespace engine
 {
+	class WindowEnvironmentBuilder;
+	class ContextBuilder;
+	class EventSourceBase;
+	class Application;
+
 	/**
 	* Build step for EventManager of the application
 	*/
@@ -31,7 +33,7 @@ namespace engine
 		* Construct a builder. It can be done only another builder step, therefore it is private.
 		* @param windowModuleType: Type of the window moudle.
 		*/
-		EventBuilder(const ContextModuleType windowModuleType);
+		EventBuilder(const ContextModuleType windowModuleType, Application *application);
 	public:
 		/**PIMPL*/
 		EventBuilder(EventBuilder &&eventBuilder);
@@ -50,15 +52,16 @@ namespace engine
 		*/
 		WindowEnvironmentBuilder skip();
 
+		/** @return Returns the created event manager which is belong to the window module type*/
+		std::unique_ptr<EventManager> createEventManager();
 	private:
+		std::unique_ptr<EventBuilder> clone() const;
 		/**
 		* Initialization of basic input types
 		* @param basicInputs: basic input types
 		*/
 		void initBasicInputs(const std::set<BasicInputType> &basicInputs) const;
-		/** @return Returns the created event manager which is belong to the window module type*/
-		std::unique_ptr<EventManager> createEventManager();
-		/** 
+		/**
 		* @param type: Source type
 		* @return Returns the created event source which is belong to the given type
 		*/

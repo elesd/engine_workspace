@@ -41,6 +41,15 @@ namespace engine
 		delete _members;
 	}
 
+	void WindoManager::update()
+	{
+		_members->mainWindow->update();
+		for(std::unique_ptr<Window> &window : _members->windowContainer)
+		{
+			window->update();
+		}
+	}
+
 	Window *WindowManager::createMainWindow(const WindowParameter &parameters, const std::string &title)
 	{
 		if(_members->mainWindow != nullptr)
@@ -166,4 +175,11 @@ namespace engine
 	{
 		_members->driverParameters = defaultParameters;
 	}
+
+	void WindowManager::initWindow(Window *window)
+	{
+		Application *application = Context::getInstance()->getApplication();
+		window->setWindowManager(application->getEventBuilder()->createEventManager());
+	}
+
 }

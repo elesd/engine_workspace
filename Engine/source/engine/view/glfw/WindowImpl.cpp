@@ -4,6 +4,8 @@
 /////////////////////////////////////////
 #include <GLFW/glfw3.h>
 
+#include <engine/events/glfw/EventManagerImpl.h>
+
 namespace engine
 {
 	namespace glfw
@@ -79,7 +81,6 @@ namespace engine
 		{
 			return _members->window;
 		}
-
 	}
 }
 #endif

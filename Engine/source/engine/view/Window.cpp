@@ -4,6 +4,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/events/EventManager.h>
+
 #include <engine/exceptions/LogicalErrors.h>
 
 #include <engine/video/Driver.h>
@@ -15,6 +17,7 @@ namespace engine
 	struct WindowPrivate
 	{
 		std::unique_ptr<Driver> driver;
+		std::unique_ptr<EventManager> eventManager;
 	};
 
 	Window::Window()
@@ -96,5 +99,20 @@ namespace engine
 	uint32_t Window::getWidth() const
 	{
 		return getParameters().width;
+	}
+
+	void Window::update()
+	{
+		_members->eventManager->update();
+	}
+
+	EventManager *Window::getEventManager() const
+	{
+		 return _members->eventManager;
+	}
+
+	void Window::setEventManager(std::unique_ptr<EventManager> &&manager)
+	{
+		_members->eventManager = std::move(manager);
 	}
 }
