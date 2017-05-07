@@ -28,8 +28,7 @@ namespace engine
 	/**
 	* Mouse implementation.
 	*/
-	class Mouse : public EventSourceBase,
-		public SlotHolder
+	class Mouse : public EventSourceBase
 	{
 	public:
 		/**Event source id*/
@@ -42,8 +41,6 @@ namespace engine
 
 		/**@return Returns the stat of the given button*/
 		MouseButtonState getButtonState(MouseButton) const;
-		/**@return the signal manager of the eventManager.*/
-		ISignalManager *getSignalManager() const override;
 
 		ScreenSpacePosition getPosition() const;
 	protected:

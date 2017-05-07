@@ -29,7 +29,7 @@ namespace engine
 			: windowModule(windowModule), application(app)
 		{	}
 		ContextModuleType windowModule;
-		std::set<BasicInputType> basicInputs;
+		std::set<EventBuilder::BasicInputType> basicInputs;
 		Application *application;
 	};
 
@@ -52,7 +52,8 @@ namespace engine
 	WindowEnvironmentBuilder EventBuilder::build(const std::set<BasicInputType> &basicInputs)
 	{
 		_members->basicInputs = basicInputs;
-		setEventBuilder(_members->application, clone());
+		std::unique_ptr<EventBuilder> builder = clone();
+		setEventBuilder(_members->application, std::move(builder));
 		return WindowEnvironmentBuilder(_members->windowModule);
 	}
 
@@ -61,12 +62,12 @@ namespace engine
 		return WindowEnvironmentBuilder(_members->windowModule);
 	}
 
-	void EventBuilder::initBasicInputs(const std::set<BasicInputType> &basicInputs) const
+	void EventBuilder::initBasicInputs(EventManager *eventManager, const std::set<BasicInputType> &basicInputs) const
 	{
 		for(BasicInputType inputType : basicInputs)
 		{
 			std::unique_ptr<EventSourceBase> input = createEventHandler(inputType);
-			_members->eventManager->addEventSource(std::move(input));
+			eventManager->addEventSource(std::move(input));
 		}
 	}
 
@@ -112,7 +113,6 @@ namespace engine
 
 	std::unique_ptr<EventManager> EventBuilder::createEventManager()
 	{
-		initBasicInputs(_members->basicInputs);
 		std::unique_ptr<EventManager> result;
 		switch(_members->windowModule)
 		{
@@ -122,11 +122,13 @@ namespace engine
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::EventManagerImpl>();
 		}
 		ASSERT(result);
+		initBasicInputs(result.get(), _members->basicInputs);
 		return result;
 	}
-	std::unique_ptr<EventBuilder> EventBuilder::clone()
+
+	std::unique_ptr<EventBuilder> EventBuilder::clone() const
 	{
-		auto result = std::make_unique<EventBuilder>(_members->windowModuleType, _members->application);
+		std::unique_ptr<EventBuilder> result(new EventBuilder(_members->windowModule, _members->application));
 		result->_members->basicInputs = _members->basicInputs;
 		return result;
 	}

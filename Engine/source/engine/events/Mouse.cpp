@@ -39,11 +39,6 @@ namespace engine
 		_members = nullptr;
 	}
 
-	ISignalManager *Mouse::getSignalManager() const
-	{
-		return Context::getInstance()->getApplication()->getEventManager()->getEventsSignalManager();
-	}
-
 	MouseButtonState Mouse::getButtonState(MouseButton button) const
 	{
 		auto it = _members->buttonDescription.find(button);

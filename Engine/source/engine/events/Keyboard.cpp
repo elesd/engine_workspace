@@ -154,11 +154,6 @@ namespace engine
 		return *this;
 	}
 
-	ISignalManager *Keyboard::getSignalManager() const
-	{
-		return Context::getInstance()->getApplication()->getEventManager()->getEventsSignalManager();
-	}
-
 	void Keyboard::onKeyPressed(KeyboardButton button)
 	{
 		auto it = std::find(_members->pressedKeys.begin(),

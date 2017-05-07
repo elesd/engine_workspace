@@ -56,6 +56,7 @@ namespace engine
 			* @return Returns the glfw window.
 			*/
 			GLFWwindow *getGlfwWindow();
+
 		private:
 			/**PIMPL*/
 			struct WindowImplPrivate *_members = nullptr;

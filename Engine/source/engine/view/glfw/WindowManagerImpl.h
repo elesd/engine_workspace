@@ -8,6 +8,7 @@ namespace engine
 {
 	namespace glfw
 	{
+		class WindowImpl;
 		/**
 		* Glfw window manager implementation.
 		*/

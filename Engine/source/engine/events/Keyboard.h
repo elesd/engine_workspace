@@ -131,13 +131,12 @@ namespace engine
 		Key_Right,
 
 		EnumSize
-	};		
+	};
 
 	/**
 	* Keyboard implementation.
 	*/
-	class Keyboard : public EventSourceBase,
-					 public SlotHolder
+	class Keyboard : public EventSourceBase
 	{
 	public:
 		/**Event source id of the keyboards*/
@@ -160,17 +159,13 @@ namespace engine
 
 		/**@return Returns the key state of the given button*/
 		KeyState getKeyState(KeyboardButton) const;
-		/**@return Returns the signal manager*/
-		ISignalManager *getSignalManager() const override;
 
 	protected:
 		/**
-		* Slot for key pressed signal.
 		* It is called directly when the key pressed in order to set the key state as soon as it is possible.
 		*/
 		void onKeyPressed(KeyboardButton);
 		/**
-		* Slot for key released signal.
 		* It is called directly when the key pressed in order to set the key state as soon as it is possible.
 		*/
 		void onKeyReleased(KeyboardButton);

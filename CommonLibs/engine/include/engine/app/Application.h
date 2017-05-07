@@ -63,25 +63,19 @@ namespace engine
 		const IApplicationParameter *getArguments() const;
 
 		/**
-		* @return Returns the event manager of the application
-		*/
-		EventManager *getEventManager() const;
-		/**
 		* @return Returns the window manager of the application
 		*/
 		WindowManager *getWindowManager() const;
 
+        EventBuilder *getEventBuilder() const;
+
 	private:
-		/**
-		* Setter for the Builder in order to setup event manager.
-		* @see EventBuilder
-		*/
-		void setEventManager(std::unique_ptr<EventManager>);
 		/**
 		* Setter for the Builder in order to setup window manager.
 		* @see WindowBuilder
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
+        void setEventBuilder(std::unique_ptr<EventBuilder> &&builder);
 	private:
 		/**
 		* Update function before done any other update.

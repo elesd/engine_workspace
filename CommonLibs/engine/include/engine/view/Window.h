@@ -7,8 +7,10 @@
 namespace engine
 {
 	class Window;
-
 	class Driver;
+	class EventManager;
+	class EventBuilder;
+
 	/**
 	* Holds the creation parameter for a window.
 	*/
@@ -45,6 +47,7 @@ namespace engine
 	*/
 	class Window : public EventSourceBase
 	{
+		friend class WindowManager;
 	public:
 		/**Event source id for windows*/
 		static const std::string EventSourceId;
@@ -105,6 +108,12 @@ namespace engine
 
 		/**Initilize the window with the given video driver*/
 		void initDriver(std::unique_ptr<Driver>);
+
+		void update();
+
+		EventManager* getEventManager() const;
+	protected:
+		void setEventManager(std::unique_ptr<EventManager> &&manager);
 	private:
 
 		/**

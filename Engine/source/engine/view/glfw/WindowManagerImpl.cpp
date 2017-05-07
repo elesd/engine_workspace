@@ -25,12 +25,12 @@ namespace engine
 {
 	namespace glfw
 	{
-		WindowImpl *WindowManagerImpl::findWindow(GLFWwindow *window)
+		WindowImpl *WindowManagerImpl::findWindow(GLFWwindow *glfwWindow)
 		{
 			for(Window *window : getAllWindows())
 			{
 				WindowImpl *w = static_cast<WindowImpl*>(window);
-				if(w->getGlfwWindow() == window)
+				if(w->getGlfwWindow() == glfwWindow)
 					return w;
 			}
 			return nullptr;

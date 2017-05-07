@@ -5,7 +5,7 @@
 #include <engine/Context.h>
 
 #include <engine/app/Application.h>
-
+#include <engine/environmentBuilder/EventBuilder.h>
 #include <engine/events/EventManager.h>
 
 #include <engine/exceptions/LogicalErrors.h>
@@ -41,7 +41,7 @@ namespace engine
 		delete _members;
 	}
 
-	void WindoManager::update()
+	void WindowManager::update()
 	{
 		_members->mainWindow->update();
 		for(std::unique_ptr<Window> &window : _members->windowContainer)
@@ -67,7 +67,7 @@ namespace engine
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
-		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->mainWindow.get());
+		_members->mainWindow->getEventManager()->registerEventSource(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
 
@@ -87,7 +87,7 @@ namespace engine
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
-		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->mainWindow.get());
+		_members->mainWindow->getEventManager()->registerEventSource(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
 
@@ -109,7 +109,7 @@ namespace engine
 			window->initDriver(std::move(driver));
 			_members->windowContainer.emplace_back(std::move(window));
 		}
-		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
+		_members->windowContainer.back()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
@@ -131,13 +131,13 @@ namespace engine
 			_members->windowContainer.emplace_back(std::move(window));
 
 		}
-		Context::getInstance()->getApplication()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
+		_members->windowContainer.back()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
 	void WindowManager::destroyWindow(Window *window)
 	{
-		Context::getInstance()->getApplication()->getEventManager()->removeEventSource(window);
+		window->getEventManager()->removeEventSource(window);
 
 		if(_members->mainWindow.get() == window)
 		{
@@ -179,7 +179,7 @@ namespace engine
 	void WindowManager::initWindow(Window *window)
 	{
 		Application *application = Context::getInstance()->getApplication();
-		window->setWindowManager(application->getEventBuilder()->createEventManager());
+		window->setEventManager(application->getEventBuilder()->createEventManager());
 	}
 
 }

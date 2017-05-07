@@ -9,6 +9,7 @@
 #include <engine/events/glfw/EventManagerImpl.h>
 #include <engine/events/EventManager.h>
 #include <engine/view/glfw/WindowManagerImpl.h>
+#include <engine/view/glfw/WindowImpl.h>
 
 #include <engine/Context.h>
 
@@ -16,11 +17,11 @@ namespace engine
 {
 	namespace glfw
 	{
-		void EventManagerImpl::mouseMovedCallback(GLFWwindow* window, double xpos, double ypos)
+		void EventManagerImpl::mouseMovedCallback(GLFWwindow* glfwWindow, double xpos, double ypos)
 		{
 			Application *app = Context::getInstance()->getApplication();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
-			WindowImpl *window = windowManager->findWindow(window);
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
 			std::vector<glfw::MouseImpl*> sources = window->getEventManager()->findEventSource<glfw::MouseImpl>();
 			if(!sources.empty())
@@ -28,11 +29,11 @@ namespace engine
 				sources[0]->handleMoveEvent(float(xpos), float(ypos));
 			}
 		}
-		void EventManagerImpl::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+		void EventManagerImpl::mouseButtonCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
 		{
 			Application *app = Context::getInstance()->getApplication();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
-			WindowImpl *window = windowManager->findWindow(window);
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
 			std::vector<glfw::MouseImpl*> sources = window->getEventManager()->findEventSource<glfw::MouseImpl>();
 			if(!sources.empty())
@@ -41,11 +42,11 @@ namespace engine
 			}
 		}
 
-		void EventManagerImpl::mouseScrolledCallback(GLFWwindow* window, double xoffset, double yoffset)
+		void EventManagerImpl::mouseScrolledCallback(GLFWwindow* glfwWindow, double xoffset, double yoffset)
 		{
 			Application *app = Context::getInstance()->getApplication();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
-			WindowImpl *window = windowManager->findWindow(window);
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
 			std::vector<glfw::MouseImpl*> sources = window->getEventManager()->findEventSource<glfw::MouseImpl>();
 			if(!sources.empty())
@@ -53,11 +54,11 @@ namespace engine
 				sources[0]->handleScollEvent(float(xoffset), float(yoffset));
 			}
 		}
-		void EventManagerImpl::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+		void EventManagerImpl::keyboardCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods)
 		{
 			Application *app = Context::getInstance()->getApplication();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
-			WindowImpl *window = windowManager->findWindow(window);
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
 			std::vector<glfw::KeyboardImpl*> sources = window->getEventManager()->findEventSource<glfw::KeyboardImpl>();
 			if(!sources.empty())

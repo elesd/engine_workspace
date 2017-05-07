@@ -60,7 +60,7 @@ namespace engine
 		* Initialization of basic input types
 		* @param basicInputs: basic input types
 		*/
-		void initBasicInputs(const std::set<BasicInputType> &basicInputs) const;
+		void initBasicInputs(EventManager *eventManager, const std::set<BasicInputType> &basicInputs) const;
 		/**
 		* @param type: Source type
 		* @return Returns the created event source which is belong to the given type

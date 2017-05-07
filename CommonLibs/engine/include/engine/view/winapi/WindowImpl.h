@@ -59,6 +59,7 @@ namespace engine
 			* @return Returns true if the event was handled
 			*/
 			bool handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 		private:
 			/** PIMPL */
 			struct WindowImplPrivate *_members = nullptr;

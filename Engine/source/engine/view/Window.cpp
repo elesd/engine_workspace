@@ -108,7 +108,7 @@ namespace engine
 
 	EventManager *Window::getEventManager() const
 	{
-		 return _members->eventManager;
+		 return _members->eventManager.get();
 	}
 
 	void Window::setEventManager(std::unique_ptr<EventManager> &&manager)

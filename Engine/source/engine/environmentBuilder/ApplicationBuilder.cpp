@@ -42,9 +42,11 @@ namespace engine
 	EventBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 	{
 		std::unique_ptr<Application> app = createApplication(std::move(arguments), std::move(main));
+		EventBuilder result(_members->windowModule, app.get());
 		BaseBuilder::setApplication(std::move(app));
 
-		return EventBuilder(_members->windowModule);
+
+		return result;
 	}
 	std::unique_ptr<Application> ApplicationBuilder::createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 	{
