@@ -11,7 +11,9 @@
 #include <engine/events/EventManager.h>
 #include <engine/events/EventSourceBase.h>
 #include <engine/events/EventManagerFactory.h>
+
 #include <engine/events/glfw/EventManagerFactoryImpl.h>
+#include <engine/events/winapi/EventManagerFactoryImpl.h>
 
 #include <engine/exceptions/LogicalErrors.h>
 
@@ -49,7 +51,7 @@ namespace engine
 		switch(_members->windowModule)
 		{
 			case ContextModuleType::Glfw: factory.reset(new glfw::EventManagerFactoryImpl(basicInputs)); break;
-			case ContextModuleType::WinApi: // TODO
+			case ContextModuleType::WinApi: factory.reset(new winapi::EventManagerFactoryImpl(basicInputs)); break;
 			case ContextModuleType::Sdl: //TODO
 			default: HARD_FAIL("Not implemented");
 		}

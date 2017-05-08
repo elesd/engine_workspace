@@ -10,7 +10,7 @@
 #include <engine/app/winapi/ApplicationImpl.h>
 
 #include <engine/events/EventManager.h>
-#include <engine/events/winapi/EventManagerImp.h>
+#include <engine/events/winapi/EventManagerImpl.h>
 
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
@@ -22,11 +22,17 @@ namespace
 {
 	bool handleEventsOfEventManager(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::getInstance()->getWindowManager());
+		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::getInstance()->getApplication()->getWindowManager());
 		engine::winapi::WindowImpl *window = windowManager->findWindowById(hWnd);
-		ASSERT(window);
-		engine::winapi::EventManagerImpl *eventManager = static_cast<engine::winapi::EventManagerImpl>(window->getEventManager());
-		return eventManager->handleEvent(hWnd, message, wParam, lParam);
+		if(window)
+		{
+			engine::winapi::EventManagerImpl *eventManager = static_cast<engine::winapi::EventManagerImpl*>(window->getEventManager());
+			return eventManager->handleEvent(hWnd, message, wParam, lParam);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool handleEventsOfApplication(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

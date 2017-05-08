@@ -2,6 +2,7 @@
 #include <engine/events/glfw/EventManagerFactoryImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLFW
 #include <engine/events/glfw/MouseImpl.h>
 #include <engine/events/glfw/KeyboardImpl.h>
 #include <engine/events/glfw/EventManagerImpl.h>
@@ -33,3 +34,4 @@ namespace engine
 		}
 	}
 }
+#endif

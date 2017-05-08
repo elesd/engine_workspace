@@ -168,7 +168,10 @@ namespace engine
 		std::vector<Window*> windows;
 		std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),
 					   [](std::unique_ptr<Window> &window)->Window*{return window.get(); });
-		windows.push_back(_members->mainWindow.get());
+		if(_members->mainWindow)
+		{
+			windows.push_back(_members->mainWindow.get());
+		}
 		return windows;
 	}
 

@@ -9,7 +9,7 @@ def writeAndCheckLine(line, out):
     global g_moduleName
     matcher = re.compile("\s*#if\s*ENGINE_USE_" + g_moduleName + "\s*")
     if matcher.match(line):
-        out.write("#if !ENGINE_USE_" + g_moduleName)
+        out.write("#if !ENGINE_USE_" + g_moduleName + "\n")
     else:
         out.write(line)
 

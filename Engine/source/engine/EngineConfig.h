@@ -32,5 +32,5 @@ namespace engine
 }
 
 #define ENGINE_USE_SDL 0
-#define ENGINE_USE_GLFW 1
-#define ENGINE_USE_WINAPI 0
+#define ENGINE_USE_GLFW 0
+#define ENGINE_USE_WINAPI 1

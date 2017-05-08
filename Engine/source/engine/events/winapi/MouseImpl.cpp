@@ -55,7 +55,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				leftButtonPressed.emit(x, y);
-				onLeftButtonPressed(x, y);
+				onLeftButtonPressed();
 			}
 			return true;
 		}
@@ -68,7 +68,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				leftButtonReleased.emit(x, y);
-				onLeftButtonReleased(x, y);
+				onLeftButtonReleased();
 			}
 			return true;
 		}
@@ -81,7 +81,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				rightButtonPressed.emit(x, y);
-				onRightButtonPressed(x, y);
+				onRightButtonPressed();
 			}
 			return true;
 		}
@@ -94,7 +94,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				rightButtonReleased.emit(x, y);
-				onRightButtonReleased(x, y);
+				onRightButtonReleased();
 			}
 			return true;
 		}
@@ -107,7 +107,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				middleButtonPressed.emit(x, y);
-				onMiddleButtonPressed(x, y);
+				onMiddleButtonPressed();
 			}
 			return true;
 		}
@@ -120,7 +120,7 @@ namespace engine
 				int32_t x = points.x;
 				int32_t y = points.y;
 				middleButtonReleased.emit(x, y);
-				onMiddleButtonReleased(x, y);
+				onMiddleButtonReleased();
 			}
 			return true;
 		}
@@ -132,7 +132,7 @@ namespace engine
 			int32_t y = points.y;
 
 			moved.emit(x, y);
-			
+			onMouseMoved(x, y);
 			return true;
 		}
 

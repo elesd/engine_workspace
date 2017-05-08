@@ -2,9 +2,6 @@
 
 #include <engine/environmentBuilder/BaseBuilder.h>
 
-namespace engine
-{
-}
 
 namespace engine
 {
