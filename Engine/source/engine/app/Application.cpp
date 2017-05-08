@@ -5,7 +5,7 @@
 #include <engine/app/IApplicationParameter.h>
 #include <engine/app/IMain.h>
 
-#include <engine/environmentBuilder/EventBuilder.h>
+#include <engine/events/EventManagerFactory.h>
 
 #include <engine/events/EventManager.h>
 
@@ -18,7 +18,7 @@ namespace engine
 		std::unique_ptr<IMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<WindowManager> windowManager;
-        std::unique_ptr<EventBuilder> eventBuilder;
+        std::unique_ptr<EventManagerFactory> eventManagerFactory;
 		bool active = false;
 	};
 
@@ -69,9 +69,9 @@ namespace engine
 		return _members->active;
 	}
 
-    EventBuilder* Application::getEventBuilder() const
+    EventManagerFactory* Application::getEventManagerFactory() const
     {
-      return _members->eventBuilder.get();
+      return _members->eventManagerFactory.get();
     }
 
 	const IApplicationParameter* Application::getArguments() const
@@ -90,9 +90,9 @@ namespace engine
 		_members->windowManager = std::move(windowManager);
 	}
 
-    void Application::setEventBuilder(std::unique_ptr<EventBuilder> &&builder)
+    void Application::setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory)
     {
-        _members->eventBuilder = std::move(builder);
+        _members->eventManagerFactory = std::move(factory);
     }
 
 	void Application::run()

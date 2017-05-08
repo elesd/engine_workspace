@@ -11,6 +11,7 @@ namespace engine
 	class StateStack;
 	class WindowManager;
 	class EventManager;
+	class EventManagerFactory;
 }
 
 namespace engine
@@ -67,7 +68,7 @@ namespace engine
 		*/
 		WindowManager *getWindowManager() const;
 
-        EventBuilder *getEventBuilder() const;
+        EventManagerFactory *getEventManagerFactory() const;
 
 	private:
 		/**
@@ -75,7 +76,7 @@ namespace engine
 		* @see WindowBuilder
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
-        void setEventBuilder(std::unique_ptr<EventBuilder> &&builder);
+        void setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory);
 	private:
 		/**
 		* Update function before done any other update.

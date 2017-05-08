@@ -27,8 +27,8 @@ namespace engine
 	{
 		Context::getInstance()->setInitialized();
 	}
-	void BaseBuilder::setEventBuilder(Application *app, std::unique_ptr<EventBuilder> &&eventBuilder)
+	void BaseBuilder::setEventManagerFactory(Application *app, std::unique_ptr<EventManagerFactory> &&factory)
 	{
-		app->setEventBuilder(std::move(eventBuilder));
+		app->setEventManagerFactory(std::move(factory));
 	}
 }

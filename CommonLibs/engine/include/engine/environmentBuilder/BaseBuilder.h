@@ -9,7 +9,7 @@ namespace engine
 	class Application;
 	class WindowManager;
 	class EventManager;
-	class EventBuilder;
+	class EventManagerFactory;
 	enum class ContextModuleType;
 	/**
 	* Base class for builder phases.
@@ -35,7 +35,7 @@ namespace engine
 		*/
 		void setApplication(std::unique_ptr<Application> app);
 
-		void setEventBuilder(Application *app, std::unique_ptr<EventBuilder> &&eventBuilder);
+		void setEventManagerFactory(Application *app, std::unique_ptr<EventManagerFactory> &&factory);
 
 		/**
 		* Set the window manager of the context.

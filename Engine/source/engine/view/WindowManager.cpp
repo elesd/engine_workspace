@@ -5,7 +5,7 @@
 #include <engine/Context.h>
 
 #include <engine/app/Application.h>
-#include <engine/environmentBuilder/EventBuilder.h>
+#include <engine/events/EventManagerFactory.h>
 #include <engine/events/EventManager.h>
 
 #include <engine/exceptions/LogicalErrors.h>
@@ -180,7 +180,7 @@ namespace engine
 	void WindowManager::initWindow(Window *window)
 	{
 		Application *application = Context::getInstance()->getApplication();
-		window->setEventManager(application->getEventBuilder()->createEventManager());
+		window->setEventManager(application->getEventManagerFactory()->createEventManager());
 		window->getEventManager()->registerEventSource(window);
 	}
 

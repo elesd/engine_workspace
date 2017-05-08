@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <engine/app/Application.h>
+#include <engine/environmentBuilder/EventBuilder.h>
 #include <engine/environmentBuilder/EasyBuilder.h>
 #include <engine/ModuleDefinitions.h>
 
@@ -14,8 +15,8 @@ int main(int argc, char* argv[])
 {
 	std::unique_ptr<engine::IMain> main(new TestMain());
 	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Glfw);
-	builder.AddInput(engine::EventBuilder::BasicInputType::Keyboard)
-		   .AddInput(engine::EventBuilder::BasicInputType::Mouse);
+	builder.AddInput(engine::BasicInputType::Keyboard)
+		   .AddInput(engine::BasicInputType::Mouse);
 	engine::Application *app = builder.buildEngine(argc, argv);
 	app->run();
 	return 0;
@@ -29,8 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 {
 	std::unique_ptr<engine::IMain> main(new TestMain());
 	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::WinApi);
-	builder.AddInput(engine::EventBuilder::BasicInputType::Keyboard)
-		   .AddInput(engine::EventBuilder::BasicInputType::Mouse);
+	builder.AddInput(engine::BasicInputType::Keyboard)
+		   .AddInput(engine::BasicInputType::Mouse);
 	engine::Application *app = builder.buildEngine(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 	app->run();
 

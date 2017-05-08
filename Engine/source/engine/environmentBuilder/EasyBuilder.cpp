@@ -18,7 +18,7 @@ namespace engine
 	struct EasyBuilderPrivate
 	{
 		std::unique_ptr<IMain> main;
-		std::set<engine::EventBuilder::BasicInputType> inputs;
+		std::set<engine::BasicInputType> inputs;
 		engine::ContextModuleType windowModule;
 	};
 
@@ -34,7 +34,7 @@ namespace engine
 		delete _members;
 	}
 
-	EasyBuilder& EasyBuilder::AddInput(engine::EventBuilder::BasicInputType input)
+	EasyBuilder& EasyBuilder::AddInput(engine::BasicInputType input)
 	{
 		_members->inputs.insert(input);
 		return *this;

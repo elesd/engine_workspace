@@ -2,13 +2,16 @@
 
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
-#include <engine/environmentBuilder/EventBuilder.h>
 
+// Include for the BasicInputType enum to make easier to engine build process
+#include <engine/environmentBuilder/EventBuilder.h>
 namespace engine
 {
 	class IMain;
 	class IApplicationParameter;
 	class Application;
+	enum class BasicInputType;
+	enum class ContextModuleType;
 
 	/**
 	* All in one builder which calls the different builder steps and creates an application and engine context.
@@ -29,7 +32,7 @@ namespace engine
 		* Add an input for the context.
 		* @return Returns a reference to this to be able to do call chain.
 		*/
-		EasyBuilder& AddInput(engine::EventBuilder::BasicInputType);
+		EasyBuilder& AddInput(engine::BasicInputType);
 
 		/**
 		* One step build for the engine in case of winapi application.

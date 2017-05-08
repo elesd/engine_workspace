@@ -12,6 +12,14 @@ namespace engine
 	class ContextBuilder;
 	class EventSourceBase;
 	class Application;
+	/**
+	* Input event source types
+	*/
+	enum class BasicInputType
+	{
+		Mouse,
+		Keyboard
+	};
 
 	/**
 	* Build step for EventManager of the application
@@ -20,14 +28,6 @@ namespace engine
 	{
 		friend class ApplicationBuilder;
 	public:
-		/**
-		* Input event source types
-		*/
-		enum class BasicInputType
-		{
-			Mouse,
-			Keyboard
-		};
 	private:
 		/**
 		* Construct a builder. It can be done only another builder step, therefore it is private.
@@ -51,29 +51,6 @@ namespace engine
 		* It is not a mandatory step, the application can work without events.
 		*/
 		WindowEnvironmentBuilder skip();
-
-		/** @return Returns the created event manager which is belong to the window module type*/
-		std::unique_ptr<EventManager> createEventManager();
-	private:
-		std::unique_ptr<EventBuilder> clone() const;
-		/**
-		* Initialization of basic input types
-		* @param basicInputs: basic input types
-		*/
-		void initBasicInputs(EventManager *eventManager, const std::set<BasicInputType> &basicInputs) const;
-		/**
-		* @param type: Source type
-		* @return Returns the created event source which is belong to the given type
-		*/
-		std::unique_ptr<EventSourceBase> createEventHandler(BasicInputType type) const;
-		/**
-		* @return Returns a mouse event source based on the window module type
-		*/
-		std::unique_ptr<EventSourceBase> createMouse() const;
-		/**
-		* @return Returns a keyboardevent source based on the window module type
-		*/
-		std::unique_ptr<EventSourceBase> createKeyboard() const;
 
 	private:
 		/**PIMPL*/
