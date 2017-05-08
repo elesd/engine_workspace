@@ -67,7 +67,7 @@ namespace engine
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
-		_members->mainWindow->getEventManager()->registerEventSource(_members->mainWindow.get());
+		initWindow(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
 
@@ -87,7 +87,7 @@ namespace engine
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
 			_members->mainWindow->initDriver(std::move(driver));
 		}
-		_members->mainWindow->getEventManager()->registerEventSource(_members->mainWindow.get());
+		initWindow(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
 
@@ -109,7 +109,7 @@ namespace engine
 			window->initDriver(std::move(driver));
 			_members->windowContainer.emplace_back(std::move(window));
 		}
-		_members->windowContainer.back()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
+		initWindow(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
@@ -131,7 +131,7 @@ namespace engine
 			_members->windowContainer.emplace_back(std::move(window));
 
 		}
-		_members->windowContainer.back()->getEventManager()->registerEventSource(_members->windowContainer.back().get());
+		initWindow(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
@@ -168,6 +168,7 @@ namespace engine
 		std::vector<Window*> windows;
 		std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),
 					   [](std::unique_ptr<Window> &window)->Window*{return window.get(); });
+		windows.push_back(_members->mainWindow.get());
 		return windows;
 	}
 
@@ -180,6 +181,7 @@ namespace engine
 	{
 		Application *application = Context::getInstance()->getApplication();
 		window->setEventManager(application->getEventBuilder()->createEventManager());
+		window->getEventManager()->registerEventSource(window);
 	}
 
 }

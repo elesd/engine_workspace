@@ -15,11 +15,11 @@ void TestMain::load()
 {
 	using engine::Context;
 	//engine::view::Window *mainWindow = Context::getInstance()->getWindowManager()->createFullScreenMainWindow(640, 480, "TestWindow", 0);
-	engine::Window *mainWindow = Context::getInstance()->getApplication()->getWindowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
+	_mainWindow = Context::getInstance()->getApplication()->getWindowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
 	//	engine::view::Window *second = Context::getInstance()->getWindowManager()->createSecondaryWindow(engine::WindowParameter(180, 200, 640, 480), "TestWindow", mainWindow);
-	ASSERT(mainWindow != nullptr);
+	ASSERT(_mainWindow != nullptr);
 
-	auto mouses = Context::getInstance()->getApplication()->getEventManager()->findEventSource<engine::Mouse>();
+	auto mouses = _mainWindow->getEventManager()->findEventSource<engine::Mouse>();
 	auto mouse = mouses.front();
 	CONNECT_SIGNAL(mouse, leftButtonPressed,
 				   this, onMouseLeftDown);
@@ -37,7 +37,7 @@ void TestMain::load()
 				   this, onMouseMoved);
 	CONNECT_SIGNAL(mouse, scrolled,
 				   this, onMouseWheel);
-	auto keyboards = Context::getInstance()->getApplication()->getEventManager()->findEventSource<engine::Keyboard>();
+	auto keyboards = _mainWindow->getEventManager()->findEventSource<engine::Keyboard>();
 	auto keyboard = keyboards.front();
 	CONNECT_SIGNAL(keyboard, keyPressed,
 				   this, onKeyPressed);
@@ -101,5 +101,5 @@ void TestMain::onKeyReleased(engine::KeyboardButton button)
 
 engine::ISignalManager* TestMain::getSignalManager() const
 {
-	return engine::Context::getInstance()->getApplication()->getEventManager()->getEventsSignalManager();
+	return _mainWindow->getEventManager()->getEventsSignalManager();
 }

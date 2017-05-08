@@ -5,6 +5,7 @@
 namespace engine
 {
 	enum class KeyboardButton;
+    class Window;
 }
 
 class TestMain : public engine::IMain,
@@ -30,4 +31,6 @@ public:
 	void onKeyReleased(engine::KeyboardButton button);
 
 	engine::ISignalManager* getSignalManager() const override;
+private:
+    engine::Window* _mainWindow = nullptr;
 };
