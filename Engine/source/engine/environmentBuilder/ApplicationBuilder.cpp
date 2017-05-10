@@ -13,6 +13,7 @@
 #include <engine/app/IMain.h>
 
 #include <engine/app/glfw/ApplicationImpl.h>
+#include <engine/app/sdl/ApplicationImpl.h>
 #include <engine/app/winapi/ApplicationImpl.h>
 
 namespace engine
@@ -55,8 +56,7 @@ namespace engine
 		{
 			case ContextModuleType::WinApi: result = std::make_unique<winapi::ApplicationImpl>(std::move(arguments), std::move(main)); break;
 			case ContextModuleType::Glfw:	result = std::make_unique<glfw::ApplicationImpl>(std::move(arguments), std::move(main)); break;
-				// TODO
-			case ContextModuleType::Sdl:
+			case ContextModuleType::Sdl:	result = std::make_unique<sdl::ApplicationImpl>(std::move(arguments), std::move(main)); break;
 			default:HARD_FAIL("Not implemented"); break;
 		}
 		return result;

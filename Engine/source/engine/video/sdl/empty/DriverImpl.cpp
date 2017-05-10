@@ -2,7 +2,7 @@
 
 #include <engine/video/sdl/DriverImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
-#if ENGINE_USE_GLFW == 0
+#if ENGINE_USE_SDL == 0
 
 namespace engine
 {

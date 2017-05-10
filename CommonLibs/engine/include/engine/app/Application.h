@@ -50,11 +50,11 @@ namespace engine
 		bool isActive() const;
 
 		/**
-		* Starts the application.
+		* Terminate the application
 		*/
 		void stop();
 		/**
-		* Terminate the application
+		* Starts the application.
 		*/
 		void start();
 
@@ -68,7 +68,7 @@ namespace engine
 		*/
 		WindowManager *getWindowManager() const;
 
-        EventManagerFactory *getEventManagerFactory() const;
+		EventManagerFactory *getEventManagerFactory() const;
 
 	private:
 		/**

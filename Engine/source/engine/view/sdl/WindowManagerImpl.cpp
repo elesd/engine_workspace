@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 
 #include <engine/video/Driver.h>
+#include <engine/video/sdl/DriverImpl.h>
 
 namespace engine
 {
@@ -84,10 +85,55 @@ namespace engine
 			return 0;
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *) const 
+		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *window) const
 		{
-			HARD_FAIL("Not implemented");
+			std::unique_ptr<Driver> driver(new DriverImpl());
+			driver->init(params, window);
+			return driver;
 			return nullptr;
+		}
+
+		WindowImpl *WindowManagerImpl::findWindowBySDLId(uint32_t id) const
+		{
+			std::vector<Window*> allWindow = getAllWindows();
+			SDL_Window *sdlWindow = SDL_GetWindowFromID(id);
+			if(sdlWindow == nullptr)
+			{
+				return nullptr;
+			}
+			for(Window *window : allWindow)
+			{
+				WindowImpl *w = static_cast<WindowImpl*>(window);
+				if(w->getSDLWindow() == sdlWindow)
+					return w;
+			}
+			return nullptr;
+		}
+
+		void WindowManagerImpl::handleEvent(const SDL_WindowEvent& event)
+		{
+			Window *window = findWindowBySDLId(event.windowID);
+			if(window)
+			{
+				switch(event.event)
+				{
+					case SDL_WINDOWEVENT_MOVED:
+						window->windowMoved.emit(event.data1, event.data2);
+						break;
+					case SDL_WINDOWEVENT_SIZE_CHANGED:
+						window->windowSizeChanged.emit(event.data1, event.data2);
+						break;
+					case SDL_WINDOWEVENT_FOCUS_GAINED:
+						window->windowInFocus.emit();
+						break;
+					case SDL_WINDOWEVENT_FOCUS_LOST:
+						window->windowOutFocus.emit();
+						break;
+					case SDL_WINDOWEVENT_CLOSE:
+						window->windowClosed.emit();
+						break;
+				}
+			}
 		}
 	}
 }

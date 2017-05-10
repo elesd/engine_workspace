@@ -14,6 +14,7 @@
 
 #include <engine/events/glfw/EventManagerFactoryImpl.h>
 #include <engine/events/winapi/EventManagerFactoryImpl.h>
+#include <engine/events/sdl/EventManagerFactoryImpl.h>
 
 #include <engine/exceptions/LogicalErrors.h>
 
@@ -52,7 +53,7 @@ namespace engine
 		{
 			case ContextModuleType::Glfw: factory.reset(new glfw::EventManagerFactoryImpl(basicInputs)); break;
 			case ContextModuleType::WinApi: factory.reset(new winapi::EventManagerFactoryImpl(basicInputs)); break;
-			case ContextModuleType::Sdl: //TODO
+			case ContextModuleType::Sdl: factory.reset(new sdl::EventManagerFactoryImpl(basicInputs)); break;
 			default: HARD_FAIL("Not implemented");
 		}
 		setEventManagerFactory(_members->application, std::move(factory));

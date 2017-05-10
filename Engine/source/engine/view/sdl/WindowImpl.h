@@ -55,6 +55,7 @@ namespace engine
 			* @return Returns the Sdl window.
 			*/
 			SDL_Window *getSDLWindow();
+
 		private:
 			/**PIMPL*/
 			struct WindowImplPrivate *_members = nullptr;

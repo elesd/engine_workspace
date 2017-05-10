@@ -1,12 +1,12 @@
 #include <stdafx.h>
-#include <engine/events/glfw/EventManagerFactoryImpl.h>
+#include <engine/events/winapi/EventManagerFactoryImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
 #if !ENGINE_USE_WINAPI
 
-#include <engine/events/glfw/MouseImpl.h>
-#include <engine/events/glfw/KeyboardImpl.h>
-#include <engine/events/glfw/EventManagerImpl.h>
+#include <engine/events/winapi/MouseImpl.h>
+#include <engine/events/winapi/KeyboardImpl.h>
+#include <engine/events/winapi/EventManagerImpl.h>
 
 namespace engine
 {
