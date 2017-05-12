@@ -84,7 +84,6 @@ namespace engine
 		*/
 		const Window *getMainWindow() const;
 
-
 		/**
 		* @return Returns all created window.
 		*/
@@ -140,6 +139,8 @@ namespace engine
 		* This driver later will be attached to the given window
 		*/
 		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
+
+		void windowClosed(Window *window);
 	private:
 		/**
 		* Common initialization of a window.
@@ -148,10 +149,12 @@ namespace engine
 		void initWindow(Window *window);
 
 		/**
-		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around 
+		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around
 		* it returns false.
 		*/
 		virtual bool driverNeedsWindow() const = 0;
+
+		void eraseClosedWindows();
 	private:
 		/**PIMPL*/
 		struct WindowManagerPrivate *_members = nullptr;

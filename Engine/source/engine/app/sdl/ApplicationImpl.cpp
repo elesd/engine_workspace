@@ -70,7 +70,10 @@ namespace engine
 					}
 					break;
 					case SDL_QUIT:
-						stop();
+						// Application is stoped when the main window is closed. This is the general behaviour of the engine.
+						// Therefore sdl event can be ignored.
+						//stop();
+
 						break;
 					case SDL_WINDOWEVENT:
 						windowManager->handleEvent(event.window);

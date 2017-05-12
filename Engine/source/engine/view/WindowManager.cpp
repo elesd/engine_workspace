@@ -25,6 +25,7 @@ namespace engine
 		std::unique_ptr<Window> mainWindow = nullptr;
 		std::vector<std::unique_ptr<Window>> windowContainer;
 		DriverInitParameters driverParameters;
+		std::vector<Window*> closedWindows;
 	};
 
 	WindowManager::WindowManager()
@@ -48,6 +49,7 @@ namespace engine
 		{
 			window->update();
 		}
+		eraseClosedWindows();
 	}
 
 	Window *WindowManager::createMainWindow(const WindowParameter &parameters, const std::string &title)
@@ -167,7 +169,7 @@ namespace engine
 	{
 		std::vector<Window*> windows;
 		std::transform(_members->windowContainer.begin(), _members->windowContainer.end(), std::back_inserter(windows),
-					   [](std::unique_ptr<Window> &window)->Window*{return window.get(); });
+					   [](std::unique_ptr<Window> &window)->Window* { return window.get(); });
 		if(_members->mainWindow)
 		{
 			windows.push_back(_members->mainWindow.get());
@@ -187,4 +189,33 @@ namespace engine
 		window->getEventManager()->registerEventSource(window);
 	}
 
+	void WindowManager::eraseClosedWindows()
+	{
+		for(Window *window : _members->closedWindows)
+		{
+			if(_members->mainWindow.get() == window)
+			{
+				_members->mainWindow.reset(nullptr);
+				Context::getInstance()->getApplication()->stop();
+				for(std::unique_ptr<Window> &w : _members->windowContainer)
+				{
+					w.reset(nullptr);
+				}
+				_members->windowContainer.clear();
+			}
+			else
+			{
+				auto it = std::find_if(_members->windowContainer.begin(), _members->windowContainer.end(),
+									   PointerEqualTo<Window>(window));
+				ASSERT(it != _members->windowContainer.end());
+				it->reset(nullptr);
+			}
+		}
+		_members->closedWindows.clear();
+	}
+
+	void WindowManager::windowClosed(Window *window)
+	{
+		_members->closedWindows.push_back(window);
+	}
 }

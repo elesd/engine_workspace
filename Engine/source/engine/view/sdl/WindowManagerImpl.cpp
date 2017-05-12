@@ -131,6 +131,7 @@ namespace engine
 						break;
 					case SDL_WINDOWEVENT_CLOSE:
 						window->windowClosed.emit();
+						windowClosed(window);
 						break;
 				}
 			}

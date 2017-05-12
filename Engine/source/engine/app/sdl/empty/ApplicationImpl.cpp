@@ -3,7 +3,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #if !ENGINE_USE_SDL
-
 #include <engine/app/IMain.h>
 #include <engine/app/IApplicationParameter.h>
 
