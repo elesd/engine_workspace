@@ -15,23 +15,33 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
+			/**Default constructable*/
 			WindowManagerImpl() = default;
 
+			/** @copydoc */
 			uint32_t getMonitorCount() const override;
+			/** @copydoc */
 			uint32_t getMainMonitorId() const override;
+			/** 
+			* Search the corresponding window wrapper for a given glfw window.
+			* @param window: glfwWindow.
+			* @return Returns nullptr if the window was not found otherwise the corresponding WindowImpl.
+			*/
 			WindowImpl *findWindow(GLFWwindow *window);
 		protected:
-			Window *createMainWindowImpl(const WindowParameter &parameters,
-											   const std::string &title) override;
+			/** @copydoc */
+			Window *createMainWindowImpl(const WindowParameter &parameters, const std::string &title) override;
+			/** @copydoc */
 			Window *createFullScreenMainWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId) override;
-			Window *createSecondaryWindowImpl(const WindowParameter &parameters,
-													const std::string &title,
-													Window *mainWindow) override;
+			/** @copydoc */
+			Window *createSecondaryWindowImpl(const WindowParameter &parameters, const std::string &title, Window *mainWindow) override;
+			/** @copydoc */
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
+			/** @copydoc */
 			std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &params, Window *) const override;
 		private:
+			/** @copydoc */
 			bool driverNeedsWindow() const override { return false; }
-
 		};
 	}
 }

@@ -20,6 +20,9 @@ namespace engine
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 
+		/**
+		* Update its windows.
+		*/
 		void update();
 
 		/**
@@ -54,9 +57,7 @@ namespace engine
 		* @param title: title of the window
 		* @param mainWindow: Main window, the secondary window shares the main window context.
 		*/
-		Window *createSecondaryWindow(const WindowParameter &parameters,
-									  const std::string &title,
-									  Window *mainWindow);
+		Window *createSecondaryWindow(const WindowParameter &parameters, const std::string &title, Window *mainWindow);
 
 		/**
 		* Creates a secondary full screened window with the given parameter and title.
@@ -122,9 +123,7 @@ namespace engine
 		* @param title: title of the window
 		* @param mainWindow: Main window, the secondary window shares the main window context.
 		*/
-		virtual Window *createSecondaryWindowImpl(const WindowParameter &parameters,
-												  const std::string &title,
-												  Window *mainWindow) = 0;
+		virtual Window *createSecondaryWindowImpl(const WindowParameter &parameters, const std::string &title, Window *mainWindow) = 0;
 
 		/**
 		* Window system dependent creation function.
@@ -142,9 +141,19 @@ namespace engine
 		*/
 		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
 	private:
+		/**
+		* Common initialization of a window.
+		* @param window: Window to be initialized
+		*/
 		void initWindow(Window *window);
+
+		/**
+		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around 
+		* it returns false.
+		*/
 		virtual bool driverNeedsWindow() const = 0;
 	private:
+		/**PIMPL*/
 		struct WindowManagerPrivate *_members = nullptr;
 	};
 }

@@ -109,10 +109,19 @@ namespace engine
 		/**Initilize the window with the given video driver*/
 		void initDriver(std::unique_ptr<Driver>);
 
+		/**
+		* Updates the window and its events.
+		*/
 		void update();
 
+		/** @return Returns the window's event manager.*/
 		EventManager* getEventManager() const;
 	protected:
+		/** 
+		* Setter for the window event manager.
+		* It is set up during the window creation.
+		* @param manager: This will be the event manager of the window.
+		*/
 		void setEventManager(std::unique_ptr<EventManager> &&manager);
 	private:
 

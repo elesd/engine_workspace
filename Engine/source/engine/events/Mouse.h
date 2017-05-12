@@ -42,6 +42,7 @@ namespace engine
 		/**@return Returns the stat of the given button*/
 		MouseButtonState getButtonState(MouseButton) const;
 
+		/** @return Returns the current position of the mouse.*/
 		ScreenSpacePosition getPosition() const;
 	protected:
 

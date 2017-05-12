@@ -35,6 +35,11 @@ namespace engine
 		*/
 		void setApplication(std::unique_ptr<Application> app);
 
+		/**
+		* Set the given application's event manager factory.
+		* @param app: This application's event manager factory will be set up.
+		* @param factory: Factory to set up.
+		*/
 		void setEventManagerFactory(Application *app, std::unique_ptr<EventManagerFactory> &&factory);
 
 		/**

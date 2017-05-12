@@ -68,6 +68,9 @@ namespace engine
 		*/
 		WindowManager *getWindowManager() const;
 
+		/**
+		* @return Returns the event manager factory of the application.
+		*/
 		EventManagerFactory *getEventManagerFactory() const;
 
 	private:
