@@ -84,7 +84,6 @@ namespace engine
 		*/
 		const Window *getMainWindow() const;
 
-
 		/**
 		* @return Returns all created window.
 		*/
@@ -148,7 +147,7 @@ namespace engine
 		void initWindow(Window *window);
 
 		/**
-		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around 
+		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around
 		* it returns false.
 		*/
 		virtual bool driverNeedsWindow() const = 0;
