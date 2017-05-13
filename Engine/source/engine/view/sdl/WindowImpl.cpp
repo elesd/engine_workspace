@@ -3,6 +3,8 @@
 #include <engine/view/sdl/WindowImpl.h>
 /////////////////////////////////////////
 
+#include <engine/view/WindowManager.h>
+
 #include <SDL2/SDL.h>
 
 namespace engine
@@ -15,8 +17,8 @@ namespace engine
 			std::string title;
 		};
 
-		WindowImpl::WindowImpl(SDL_Window *window, const WindowParameter &parameters, const std::string &title)
-			: Window(parameters),
+		WindowImpl::WindowImpl(WindowManager *windowManager, SDL_Window *window, const WindowParameter &parameters, const std::string &title)
+			: Window(windowManager, parameters),
 			_members(new WindowImplPrivate())
 		{
 			_members->window = window;
@@ -29,8 +31,8 @@ namespace engine
 
 		}
 
-		WindowImpl::WindowImpl(SDL_Window *window, const std::string &title)
-			: Window(),
+		WindowImpl::WindowImpl(WindowManager *windowManager, SDL_Window *window, const std::string &title)
+			: Window(windowManager),
 			_members(new WindowImplPrivate())
 		{
 			_members->window = window;
@@ -82,6 +84,28 @@ namespace engine
 			return _members->window;
 		}
 
+		void WindowImpl::handleEvent(const SDL_WindowEvent& event)
+		{
+			switch(event.event)
+			{
+				case SDL_WINDOWEVENT_MOVED:
+					windowMoved.emit(event.data1, event.data2);
+					break;
+				case SDL_WINDOWEVENT_SIZE_CHANGED:
+					windowSizeChanged.emit(event.data1, event.data2);
+					break;
+				case SDL_WINDOWEVENT_FOCUS_GAINED:
+					windowInFocus.emit();
+					break;
+				case SDL_WINDOWEVENT_FOCUS_LOST:
+					windowOutFocus.emit();
+					break;
+				case SDL_WINDOWEVENT_CLOSE:
+					windowClosed.emit();
+					getWindowManager()->windowClosed(this);
+					break;
+			}
+		}
 	}
 }
 #endif

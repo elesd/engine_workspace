@@ -20,7 +20,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				result.reset(new WindowImpl(std::move(window), parameters, title));
+				result.reset(new WindowImpl(this, std::move(window), parameters, title));
 			}
 			return result.release();
 		}
@@ -36,7 +36,7 @@ namespace engine
 			{
 				SDL_GLContext context = SDL_GL_CreateContext(window);
 				SDL_GL_MakeCurrent(window, context);
-				result.reset(new WindowImpl(std::move(window), title));
+				result.reset(new WindowImpl(this, std::move(window), title));
 			}
 			return result.release();
 		}
@@ -112,28 +112,10 @@ namespace engine
 
 		void WindowManagerImpl::handleEvent(const SDL_WindowEvent& event)
 		{
-			Window *window = findWindowBySDLId(event.windowID);
+			WindowImpl *window = findWindowBySDLId(event.windowID);
 			if(window)
 			{
-				switch(event.event)
-				{
-					case SDL_WINDOWEVENT_MOVED:
-						window->windowMoved.emit(event.data1, event.data2);
-						break;
-					case SDL_WINDOWEVENT_SIZE_CHANGED:
-						window->windowSizeChanged.emit(event.data1, event.data2);
-						break;
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-						window->windowInFocus.emit();
-						break;
-					case SDL_WINDOWEVENT_FOCUS_LOST:
-						window->windowOutFocus.emit();
-						break;
-					case SDL_WINDOWEVENT_CLOSE:
-						window->windowClosed.emit();
-						windowClosed(window);
-						break;
-				}
+				window->handleEvent(event);
 			}
 		}
 	}

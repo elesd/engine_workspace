@@ -9,14 +9,14 @@ namespace engine
 	namespace winapi
 	{
 
-		WindowImpl::WindowImpl(HWND , const WindowParameter &, const std::string &)
-			: Window()
+		WindowImpl::WindowImpl(WindowManager *windowManager, HWND , const WindowParameter &, const std::string &)
+			: Window(windowManager)
 		{
 			HARD_FAIL("Inactive module");
 		}
 
-		WindowImpl::WindowImpl(HWND , const std::string &)
-			: Window()
+		WindowImpl::WindowImpl(WindowManager *windowManager, HWND , const std::string &)
+			: Window(windowManager)
 		{
 			HARD_FAIL("Inactive module");
 		}

@@ -3,6 +3,7 @@
 #include <engine/view/Window.h>
 
 struct SDL_Window;
+struct SDL_WindowEvent;
 
 namespace engine
 {
@@ -56,6 +57,7 @@ namespace engine
 			*/
 			SDL_Window *getSDLWindow();
 
+			void handleEvent(const SDL_WindowEvent& event);
 		private:
 			/**PIMPL*/
 			struct WindowImplPrivate *_members = nullptr;
