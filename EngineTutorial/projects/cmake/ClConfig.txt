@@ -24,8 +24,13 @@ if (USE_GLFW)
   else (USE_64_BIT)
     find_library(glfw_library glfw3.lib "${EXTERNALS_DIR}/glfw-Win32/lib-vc2015")
   endif (USE_64_BIT)
+  
   include_directories("${EXTERNALS_DIR}/glfw/include")
   target_link_libraries(Tutorial ${glfw_library})
+  if (WIN32)
+    find_library(legacy_stdio_library legacy_stdio_definitions.lib "${VISUAL_STUDIO_DIR}")
+    target_link_libraries(Tutorial ${legacy_stdio_library})
+  endif (WIN32)
 endif(USE_GLFW)
 
 if (USE_SDL)

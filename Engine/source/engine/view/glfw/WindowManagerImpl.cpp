@@ -2,6 +2,7 @@
 #include <engine/view/glfw/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
 #if ENGINE_USE_GLFW
+
 #include <engine/events/glfw/EventManagerImpl.h>
 #include <engine/view/glfw/WindowImpl.h>
 #include <engine/video/glfw/DriverImpl.h>
@@ -18,6 +19,11 @@ namespace
 		glfwSetMouseButtonCallback(window, engine::glfw::EventManagerImpl::mouseButtonCallback);
 		glfwSetScrollCallback(window, engine::glfw::EventManagerImpl::mouseScrolledCallback);
 		glfwSetKeyCallback(window, engine::glfw::EventManagerImpl::keyboardCallback);
+		glfwSetWindowCloseCallback(window, engine::glfw::WindowImpl::windowClosedCallback);
+		glfwSetWindowFocusCallback(window, engine::glfw::WindowImpl::windowFocusCallback);
+		glfwSetWindowSizeCallback(window, engine::glfw::WindowImpl::windowResizedCallback);
+		glfwSetWindowPosCallback(window, engine::glfw::WindowImpl::windowMovedCallback);
+		glfwSetFramebufferSizeCallback(window, engine::glfw::WindowImpl::windowFrameBufferResizeCallback);
 	}
 }
 
@@ -25,6 +31,7 @@ namespace engine
 {
 	namespace glfw
 	{
+
 		WindowImpl *WindowManagerImpl::findWindow(GLFWwindow *glfwWindow)
 		{
 			for(Window *window : getAllWindows())
@@ -44,7 +51,7 @@ namespace engine
 			if(window)
 			{
 				registerInputCallbacks(window);
-				result.reset(new WindowImpl(std::move(window), parameters, title));
+				result.reset(new WindowImpl(this, std::move(window), parameters, title));
 				glfwMakeContextCurrent(result->getGlfwWindow());
 			}
 			return result.release();
@@ -61,7 +68,7 @@ namespace engine
 				if(window)
 				{
 					registerInputCallbacks(window);
-					result.reset(new WindowImpl(window, title));
+					result.reset(new WindowImpl(this, window, title));
 					glfwMakeContextCurrent(result->getGlfwWindow());
 				}
 			}
@@ -78,7 +85,7 @@ namespace engine
 			if(window)
 			{
 				registerInputCallbacks(window);
-				result.reset(new WindowImpl(std::move(window), parameters, title));
+				result.reset(new WindowImpl(this, std::move(window), parameters, title));
 			}
 			return result.release();
 		}
@@ -95,7 +102,7 @@ namespace engine
 				if(window)
 				{
 					registerInputCallbacks(window);
-					result.reset(new WindowImpl(window, title));
+					result.reset(new WindowImpl(this, window, title));
 				}
 			}
 			return result.release();

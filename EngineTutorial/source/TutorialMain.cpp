@@ -14,7 +14,7 @@
 int main(int argc, char* argv[])
 {
 	std::unique_ptr<engine::IMain> main(new TestMain());
-	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Sdl);
+	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Glfw);
 	builder.AddInput(engine::BasicInputType::Keyboard)
 		   .AddInput(engine::BasicInputType::Mouse);
 	engine::Application *app = builder.buildEngine(argc, argv);

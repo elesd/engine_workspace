@@ -11,7 +11,9 @@ string(TIMESTAMP ${CMAKE_PROJECT_NAME}_VERSION_DAY "%d" UTC)
 set (MAIN_PROJECT_DIR "${PROJECT_SOURCE_DIR}/../..")
 set (SOURCE_DIR "${MAIN_PROJECT_DIR}/source")
 set (EXTERNALS_DIR "${MAIN_PROJECT_DIR}/../CommonLibs")
-
+if (WIN32)
+  set (VISUAL_STUDIO_DIR "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/lib/")
+endif (WIN32)
 include(../../../CommonConfig.txt)
 
 

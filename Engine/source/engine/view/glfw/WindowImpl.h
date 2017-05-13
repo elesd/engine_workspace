@@ -17,6 +17,12 @@ namespace engine
 		{
 			friend class engine::glfw::WindowManagerImpl;
 		public:
+			static void windowClosedCallback(GLFWwindow *);
+			static void windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height);
+			static void windowMovedCallback(GLFWwindow *glfwWindow, int32_t x, int32_t y);
+			static void windowFocusCallback(GLFWwindow *glfwWindow, int32_t focused);
+			static void windowFrameBufferResizeCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height);
+		public:
 			/**
 			* Creates a glfw window
 			* @param window: Created glfw window.

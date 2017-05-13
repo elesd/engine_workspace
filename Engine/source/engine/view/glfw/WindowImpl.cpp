@@ -4,7 +4,10 @@
 /////////////////////////////////////////
 #include <GLFW/glfw3.h>
 
+#include <engine/Context.h>
+#include <engine/app/Application.h>
 #include <engine/events/glfw/EventManagerImpl.h>
+#include <engine/view/glfw/WindowManagerImpl.h>
 
 namespace engine
 {
@@ -16,8 +19,66 @@ namespace engine
 			std::string title;
 		};
 
-		WindowImpl::WindowImpl(GLFWwindow *window, const WindowParameter &parameters, const std::string &title)
-			: Window(parameters),
+		void WindowImpl::windowClosedCallback(GLFWwindow *glfwWindow)
+		{
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
+			if(window)
+			{
+				window->windowClosed.emit();
+				windowManager->windowClosed(window);
+			}
+		}
+
+		void WindowImpl::windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
+		{
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
+			if(window)
+			{
+				window->windowClosed.emit();
+			}
+		}
+
+		void WindowImpl::windowMovedCallback(GLFWwindow *glfwWindow, int32_t x, int32_t y)
+		{
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
+			if(window)
+			{
+				window->windowMoved.emit(x, y);
+			}
+		}
+
+		void WindowImpl::windowFocusCallback(GLFWwindow *glfwWindow, int32_t focused)
+		{
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
+			if(window)
+			{
+				if(focused == GLFW_TRUE)
+				{
+					window->windowInFocus.emit();
+				}
+				else
+				{
+					window->windowOutFocus.emit();
+				}
+			}
+		}
+
+		void WindowImpl::windowFrameBufferResizeCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
+		{
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowImpl *window = windowManager->findWindow(glfwWindow);
+			if(window)
+			{
+				window->windowFrameBufferSizeChanged.emit(width, height);
+			}
+		}
+
+		WindowImpl::WindowImpl(WindowManager *windowManager, GLFWwindow *window, const WindowParameter &parameters, const std::string &title)
+			: Window(windowManager, parameters),
 			_members(new WindowImplPrivate())
 		{
 			_members->window = window;
@@ -30,8 +91,8 @@ namespace engine
 
 		}
 
-		WindowImpl::WindowImpl(GLFWwindow *window, const std::string &title)
-			: Window(),
+		WindowImpl::WindowImpl(WindowManager *windowManager, GLFWwindow *window, const std::string &title)
+			: Window(windowManager),
 			_members(new WindowImplPrivate())
 		{
 			_members->window = window;
