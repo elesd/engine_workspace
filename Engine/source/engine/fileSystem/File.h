@@ -25,7 +25,7 @@ namespace engine
 	{
 		friend class FileSystem;
 	private:
-		File(const FilePath &path, FileMode mode, FileOpenMode openMode);
+		File(const FilePath &path, FileMode mode, FileOpenMode openMode, bool append);
 	public:
 		~File();
 
