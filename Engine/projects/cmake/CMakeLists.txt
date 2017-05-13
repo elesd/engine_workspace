@@ -44,6 +44,7 @@ file (GLOB src_constraints "${SOURCE_DIR}/engine/constraints/*.cpp")
 file (GLOB src_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.cpp")
 file (GLOB src_exceptions "${SOURCE_DIR}/engine/exceptions/*.cpp")
 file (GLOB src_functional "${SOURCE_DIR}/engine/functional/*.cpp")
+file (GLOB src_fileSystem "${SOURCE_DIR}/engine/fileSystem/*.cpp")
 file (GLOB src_events "${SOURCE_DIR}/engine/events/*.cpp")
 file (GLOB src_events_sdl "${SOURCE_DIR}/engine/events/sdl/*.cpp")
 file (GLOB src_events_sdl_empty "${SOURCE_DIR}/engine/events/sdl/empty/*.cpp")
@@ -86,6 +87,7 @@ file (GLOB header_constraints "${SOURCE_DIR}/engine/constraints/*.h*")
 file (GLOB header_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.h*")
 file (GLOB header_exceptions "${SOURCE_DIR}/engine/exceptions/*.h")
 file (GLOB header_functional "${SOURCE_DIR}/engine/functional/*.h*")
+file (GLOB header_fileSystem "${SOURCE_DIR}/engine/fileSystem/*.h*")
 file (GLOB header_events "${SOURCE_DIR}/engine/events/*.h*")
 file (GLOB header_events_sdl "${SOURCE_DIR}/engine/events/sdl/*.h*")
 file (GLOB header_events_sdl_empty "${SOURCE_DIR}/engine/events/sdl/empty/*.h*")
@@ -121,6 +123,7 @@ SOURCE_GROUP (engine\\app\\sdl\\empty FILES ${src_app_sdl_empty})
 SOURCE_GROUP (engine\\constraints FILES ${src_constraints} ${header_constraints})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${src_environmentBuilder} ${header_environmentBuilder})
 SOURCE_GROUP (engine\\exceptions FILES ${src_exceptions} ${header_exceptions})
+SOURCE_GROUP (engine\\fileSystem FILES ${src_fileSystem} ${header_fileSystem})
 SOURCE_GROUP (engine\\functional FILES ${src_functional} ${header_functional})
 SOURCE_GROUP (engine\\events FILES ${src_events} ${header_events})
 SOURCE_GROUP (engine\\events\\sdl FILES ${src_events_sdl} ${header_events_sdl})
@@ -175,6 +178,7 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_constraints}
                            ${src_environmentBuilder}
                            ${src_exceptions}
+						   ${src_fileSystem}
                            ${src_functional}
                            ${src_events}
                            ${src_events_sdl}
@@ -216,6 +220,7 @@ add_library (${lib_name} STATIC ${src_}
                            ${header_constraints}
                            ${header_environmentBuilder}
                            ${header_exceptions}
+						   ${header_fileSystem}
                            ${header_functional}
                            ${header_events}
 						   ${header_events_sdl}
@@ -249,6 +254,7 @@ install (FILES ${header_app_sdl} DESTINATION "${INSTALL_DIR}/include/engine/app/
 install (FILES ${header_constraints} DESTINATION "${INSTALL_DIR}/include/engine/constraints")
 install (FILES ${header_environmentBuilder} DESTINATION "${INSTALL_DIR}/include/engine/environmentBuilder")
 install (FILES ${header_exceptions} DESTINATION "${INSTALL_DIR}/include/engine/exceptions")
+install (FILES ${header_fileSystem} DESTINATION "${INSTALL_DIR}/include/engine/fileSystem")
 install (FILES ${header_functional} DESTINATION "${INSTALL_DIR}/include/engine/functional")
 install (FILES ${header_events} DESTINATION "${INSTALL_DIR}/include/engine/events")
 install (FILES ${header_events_sdl} DESTINATION "${INSTALL_DIR}/include/engine/events/sdl")
