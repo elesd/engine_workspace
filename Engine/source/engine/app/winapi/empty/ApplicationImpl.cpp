@@ -15,17 +15,17 @@ namespace engine
 		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 			:Application(std::move(arguments), std::move(main))
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 		}
 
 		void ApplicationImpl::updateImpl()
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 		}
 
 		bool ApplicationImpl::handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 	}

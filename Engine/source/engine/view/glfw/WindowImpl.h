@@ -23,13 +23,13 @@ namespace engine
 			* @param parameters: window creation parameter.
 			* @param title: title of the window.
 			*/
-			WindowImpl(GLFWwindow *window, const WindowParameter &parameters, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, GLFWwindow *window, const WindowParameter &parameters, const std::string &title = "Window");
 			/**
 			* Creates a full screened glfw window.
 			* @param window: Created glfw window.
 			* @param title: title of the window.
 			*/
-			WindowImpl(GLFWwindow *window, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, GLFWwindow *window, const std::string &title = "Window");
 
 			/**PIMPL*/
 			~WindowImpl();

@@ -9,7 +9,7 @@ namespace engine
 	class Window;
 	class Driver;
 	class EventManager;
-	class EventBuilder;
+	class WindowManager;
 
 	/**
 	* Holds the creation parameter for a window.
@@ -52,13 +52,17 @@ namespace engine
 		/**Event source id for windows*/
 		static const std::string EventSourceId;
 	public:
-		/** Construct a full screen window.*/
-		Window();
+		/** 
+		* Construct a full screen window.
+		* @param windowManager: The window manager pointer who created this instance.
+		*/
+		Window(WindowManager *windowManager);
 		/**
 		* Construct a window from the creation settings.
 		* @param parameter: Window creation parameters.
+		* @param windowManager: The window manager pointer who created this instance.
 		*/
-		Window(const WindowParameter &parameter);
+		Window(WindowManager *windowManager, const WindowParameter &parameter);
 
 		/** Default virtual destructor.*/
 		virtual ~Window();
@@ -116,6 +120,7 @@ namespace engine
 
 		/** @return Returns the window's event manager.*/
 		EventManager* getEventManager() const;
+
 	protected:
 		/** 
 		* Setter for the window event manager.
@@ -123,6 +128,8 @@ namespace engine
 		* @param manager: This will be the event manager of the window.
 		*/
 		void setEventManager(std::unique_ptr<EventManager> &&manager);
+
+		WindowManager *getWindowManager() const;
 	private:
 
 		/**

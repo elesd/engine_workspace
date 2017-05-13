@@ -7,14 +7,14 @@ namespace engine
 {
 	namespace glfw
 	{
-		WindowImpl::WindowImpl(GLFWwindow *, const WindowParameter &, const std::string &)
-			: Window()
+		WindowImpl::WindowImpl(WindowManager *windowManager, GLFWwindow *, const WindowParameter &, const std::string &)
+			: Window(windowManager)
 		{
 			HARD_FAIL("Not active module");
 		}
 
-		WindowImpl::WindowImpl(GLFWwindow *, const std::string &)
-			: Window()
+		WindowImpl::WindowImpl(WindowManager *windowManager, GLFWwindow *, const std::string &)
+			: Window(windowManager)
 		{
 			HARD_FAIL("Not active module");
 		}

@@ -12,13 +12,13 @@ namespace version
 		const int counter = 1;
 		const std::string year = "17";
 		const std::string month = "05";
-		const std::string day = "12";
+		const std::string day = "13";
 	};
 		
 	using Version = engine::VersionBase<VersionDef>;
 }
 
 
-#define TUTORIAL_USE_SDL 1
+#define TUTORIAL_USE_SDL 0
 #define TUTORIAL_USE_GLFW 0
-#define TUTORIAL_USE_WINAPI 0
+#define TUTORIAL_USE_WINAPI 1

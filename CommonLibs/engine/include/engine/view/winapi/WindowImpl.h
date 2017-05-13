@@ -20,13 +20,13 @@ namespace engine
 			* @param parameters: window creation parameter.
 			* @param title: title of the window.
 			*/
-			WindowImpl(HWND window, const WindowParameter &parameters, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, HWND window, const WindowParameter &parameters, const std::string &title = "Window");
 			/**
 			* Creates a full screened winapi window.
 			* @param window: Created winapi window.
 			* @param title: title of the window.
 			*/
-			WindowImpl(HWND window, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, HWND window, const std::string &title = "Window");
 			/**PIMPL*/
 			~WindowImpl();
 

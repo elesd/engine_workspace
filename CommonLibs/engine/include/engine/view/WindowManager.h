@@ -97,6 +97,8 @@ namespace engine
 		*/
 		void setDriverParameter(const DriverInitParameters &defaultParameters);
 
+		void windowClosed(Window *window);
+
 	protected:
 		/**
 		* Window system dependent creation function.
@@ -140,7 +142,6 @@ namespace engine
 		*/
 		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
 
-		void windowClosed(Window *window);
 	private:
 		/**
 		* Common initialization of a window.

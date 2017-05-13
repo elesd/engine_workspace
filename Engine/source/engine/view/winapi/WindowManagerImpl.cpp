@@ -117,7 +117,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(hWnd)
 			{
-				result.reset(new WindowImpl(hWnd, parameters, title));
+				result.reset(new WindowImpl(this, hWnd, parameters, title));
 				ShowWindow(hWnd, args->getCmdShow());
 				UpdateWindow(hWnd);
 			}
@@ -154,7 +154,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(hWnd)
 			{
-				result.reset(new WindowImpl(hWnd, title));
+				result.reset(new WindowImpl(this, hWnd, title));
 
 
 				ShowWindow(hWnd, args->getCmdShow());
@@ -188,7 +188,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(hWnd)
 			{
-				result.reset(new WindowImpl(hWnd, parameters, title));
+				result.reset(new WindowImpl(this, hWnd, parameters, title));
 				ShowWindow(hWnd, args->getCmdShow());
 				UpdateWindow(hWnd);
 			}
@@ -226,7 +226,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(hWnd)
 			{
-				result.reset(new WindowImpl(hWnd, title));
+				result.reset(new WindowImpl(this, hWnd, title));
 
 
 				ShowWindow(hWnd, args->getCmdShow());

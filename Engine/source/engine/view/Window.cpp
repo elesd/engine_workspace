@@ -18,20 +18,22 @@ namespace engine
 	{
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<EventManager> eventManager;
+		WindowManager *windowManager = nullptr;
+		WindowPrivate(WindowManager *m): windowManager(m){}
 	};
 
-	Window::Window()
+	Window::Window(WindowManager *windowManager)
 		: EventSourceBase(EventSourceId),
 		_fullScreen(true),
-		_members(new WindowPrivate())
+		_members(new WindowPrivate(windowManager))
 	{
 
 	}
 
-	Window::Window(const WindowParameter &parameter)
+	Window::Window(WindowManager *windowManager, const WindowParameter &parameter)
 		: EventSourceBase(EventSourceId),
 		 _parameters(parameter),
-		_members(new WindowPrivate())
+		_members(new WindowPrivate(windowManager))
 	{
 
 	}
@@ -114,5 +116,10 @@ namespace engine
 	void Window::setEventManager(std::unique_ptr<EventManager> &&manager)
 	{
 		_members->eventManager = std::move(manager);
+	}
+
+	WindowManager *Window::getWindowManager() const
+	{
+		return _members->windowManager;
 	}
 }

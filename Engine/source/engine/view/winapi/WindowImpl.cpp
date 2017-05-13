@@ -4,6 +4,7 @@
 /////////////////////////////////////////
 
 #include <engine/events/winapi/EventManagerImpl.h>
+#include <engine/view/WindowManager.h>
 
 namespace engine
 {
@@ -15,8 +16,8 @@ namespace engine
 			std::string title;
 		};
 
-		WindowImpl::WindowImpl(HWND window, const WindowParameter &parameters, const std::string &title)
-			: Window(parameters),
+		WindowImpl::WindowImpl(WindowManager *windowManager, HWND window, const WindowParameter &parameters, const std::string &title)
+			: Window(windowManager, parameters),
 			_members(new WindowImplPrivate())
 		{
 			_members->windowHandler = window;
@@ -30,8 +31,8 @@ namespace engine
 					_parameters.height, SWP_SHOWWINDOW);
 		}
 
-		WindowImpl::WindowImpl(HWND window, const std::string &title)
-			: Window(),
+		WindowImpl::WindowImpl(WindowManager *windowManager, HWND window, const std::string &title)
+			: Window(windowManager),
 			_members(new WindowImplPrivate())
 		{
 			_members->windowHandler = window;
@@ -83,6 +84,7 @@ namespace engine
 			{
 				case WM_CLOSE:
 					windowClosed.emit();
+					getWindowManager()->windowClosed(this);
 					handled = true;
 					break;
 				case WM_SIZE:

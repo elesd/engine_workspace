@@ -10,7 +10,7 @@ namespace engine
 	{
 		bool Core::init()
 		{
-			HARD_ASSERT("Not implemented module");
+			HARD_ASSERT("Inactive module");
 			return false;
 		}
 	}

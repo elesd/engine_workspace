@@ -9,55 +9,55 @@ namespace engine
 	{
 		bool MouseImpl::handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleLeftButtonDownEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleLeftButtonUpEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleRightButtonDownEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleRightButtonUpEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleMiddleButtonDownEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleMiddleButtonUpEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleMoveEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 
 		bool MouseImpl::handleScrollEvent(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 

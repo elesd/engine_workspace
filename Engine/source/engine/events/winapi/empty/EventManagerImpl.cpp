@@ -13,7 +13,7 @@ namespace engine
 	{
 		bool EventManagerImpl::handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
-			HARD_FAIL("Not implemented module");
+			HARD_FAIL("Inactive module");
 			return false;
 		}
 	}

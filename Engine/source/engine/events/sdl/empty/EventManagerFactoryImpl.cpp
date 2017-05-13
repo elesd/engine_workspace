@@ -16,7 +16,6 @@ namespace engine
 			: EventManagerFactory(basicInputs)
 		{
 			HARD_FAIL("Inactive module");
-			return nullptr;
 		}
 
 		std::unique_ptr<EventSourceBase> EventManagerFactoryImpl::createMouse() const

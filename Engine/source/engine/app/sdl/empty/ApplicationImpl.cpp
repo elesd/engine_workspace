@@ -15,7 +15,7 @@
 namespace engine
 {
 	namespace sdl
-	{
+	{ 
 		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 			:Application(std::move(arguments), std::move(main))
 		{

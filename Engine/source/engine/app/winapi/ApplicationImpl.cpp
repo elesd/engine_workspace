@@ -30,7 +30,10 @@ namespace engine
 				// send the message to the WindowProc function
 				DispatchMessage(&msg);
 				if(msg.message == WM_QUIT)
-					stop();
+				{
+					// Engine stop automatically when the main window is closed
+				//	stop();
+				}
 				memset(&msg, 0, sizeof(MSG));
 			}
 		}

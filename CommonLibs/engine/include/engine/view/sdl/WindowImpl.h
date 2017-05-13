@@ -23,13 +23,13 @@ namespace engine
 			* @param parameters: window creation parameter.
 			* @param title: title of the window.
 			*/
-			WindowImpl(SDL_Window *window, const WindowParameter &parameters, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, SDL_Window *window, const WindowParameter &parameters, const std::string &title = "Window");
 			/**
 			* Creates a full screened sdl window
 			* @param window: Created sdl window.
 			* @param title: title of the window.
 			*/
-			WindowImpl(SDL_Window *window, const std::string &title = "Window");
+			WindowImpl(WindowManager *windowManager, SDL_Window *window, const std::string &title = "Window");
 
 			/**PIMPL*/
 			~WindowImpl();
