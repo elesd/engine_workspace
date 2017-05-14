@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	class File;
+	class SimpleFile;
 	class FilePath;
 	enum class FileMode;
 	enum class FileOpenMode;
@@ -25,7 +25,7 @@ namespace engine
 	public:
 		~FileSystem();
 
-		File OpenFile(const FilePath &path, FileMode mode, FileOpenMode openMode) const;
+		SimpleFile OpenFile(const FilePath &path, FileMode mode, FileOpenMode openMode) const;
 		bool IsFileExists() const;
 	};
 }
