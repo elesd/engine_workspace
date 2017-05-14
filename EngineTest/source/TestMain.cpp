@@ -3,6 +3,7 @@
 #include "SignalSlotRegression.h"
 #include "FunctionsRegression.h"
 #include "StateStackRegression.h"
+#include "FileSystemRegression.h"
 #include "engine/test/TestManager.h"
 #include "EngineTestConfig.h"
 #include "engine/EngineConfig.h"
@@ -19,6 +20,7 @@ int main(char **args, size_t nArgs)
 		manager.addRegression(std::move(tests::SignalSlotRegression()));
 		manager.addRegression(tests::FunctionsRegression());
 		manager.addRegression(tests::StateStackRegression());
+		manager.addRegression(tests::FileSystemRegression());
 		manager.run();
 	}
 	else

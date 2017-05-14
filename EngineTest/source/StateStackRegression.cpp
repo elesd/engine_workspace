@@ -2,17 +2,17 @@
 
 #include "StateStackRegression.h"
 
-#include "stateStack/StateBaseTestSuite.h"
-#include "stateStack/StateStackTestSuite.h"
+#include "stateStack/StateBaseTestSuit.h"
+#include "stateStack/StateStackTestSuit.h"
 
 namespace tests
 {
 	StateStackRegression::StateStackRegression()
 		:BaseRegression("StateStack")
 	{
-		std::unique_ptr<engine::test::TestSuite> stateBaseTest(new tests::StateBaseTestSuite());
-		addTestSuite(std::move(stateBaseTest));
-		std::unique_ptr<engine::test::TestSuite> stateStackTest(new tests::StateStackTestSuite());
-		addTestSuite(std::move(stateStackTest));
+		std::unique_ptr<engine::test::TestSuit> stateBaseTest(new tests::StateBaseTestSuit());
+		addTestSuit(std::move(stateBaseTest));
+		std::unique_ptr<engine::test::TestSuit> stateStackTest(new tests::StateStackTestSuit());
+		addTestSuit(std::move(stateStackTest));
 	}
 }

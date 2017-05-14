@@ -2,14 +2,14 @@
 
 #include "FunctionsRegression.h"
 
-#include "functional/FunctionsTestSuite.h"
+#include "functional/FunctionsTestSuit.h"
 
 namespace tests
 {
 	FunctionsRegression::FunctionsRegression()
 		:BaseRegression("Functions")
 	{
-		std::unique_ptr<engine::test::TestSuite> functionalTest(new tests::FunctionsTestSuite());
-		addTestSuite(std::move(functionalTest));
+		std::unique_ptr<engine::test::TestSuit> functionalTest(new tests::FunctionsTestSuit());
+		addTestSuit(std::move(functionalTest));
 	}
 }

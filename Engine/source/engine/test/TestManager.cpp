@@ -3,7 +3,7 @@
 #include <engine/test/TestManager.h>
 //////////////////////////////////////
 #include <engine/test/BaseRegression.h>
-#include <engine/test/TestSuite.h>
+#include <engine/test/TestSuit.h>
 
 namespace engine
 {
@@ -63,7 +63,7 @@ namespace engine
 			}
 			float percentage = 1.0f - float(nNok) / nTestCases;
 			percentage *= 100.0f;
-			_members->outStream << std::string(TestSuite::lineLength, '#') << std::endl;
+			_members->outStream << std::string(TestSuit::lineLength, '#') << std::endl;
 			_members->outStream << "Summary:" << std::endl;
 			for(BaseRegression &regression : _members->regressions)
 			{
@@ -73,9 +73,9 @@ namespace engine
 				localPercentate *= 100.0f;
 				_members->outStream << "  - " << regression.getName() << ": " << localPercentate << "%  [" << localTests << " / " << (localTests - localNoks) << " ]" << std::endl;
 			}
-			_members->outStream << std::string(TestSuite::lineLength, '-') << std::endl;
+			_members->outStream << std::string(TestSuit::lineLength, '-') << std::endl;
 			_members->outStream << "Overall result: " << percentage << "%  [" << nTestCases << " / " << (nTestCases - nNok) << " ]" << std::endl;
-			_members->outStream << std::string(TestSuite::lineLength, '#') << std::endl;
+			_members->outStream << std::string(TestSuit::lineLength, '#') << std::endl;
 		}
 	}
 }

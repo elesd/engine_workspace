@@ -2,7 +2,7 @@
 
 #include <engine/test/BaseRegression.h>
 
-#include <engine/test/TestSuite.h>
+#include <engine/test/TestSuit.h>
 
 namespace engine
 {
@@ -10,7 +10,7 @@ namespace engine
 	{
 		struct BaseRegressionPrivate
 		{
-			std::list<TestSuite*> testSuites;
+			std::list<TestSuit*> TestSuits;
 			std::ostream *out = nullptr;
 			std::string name;
 			uint32_t nExecutedTC = 0;
@@ -28,7 +28,7 @@ namespace engine
 		{
 			if(_members)
 			{
-				for(TestSuite *suite : _members->testSuites)
+				for(TestSuit *suite : _members->TestSuits)
 				{
 					delete suite;
 				}
@@ -47,38 +47,38 @@ namespace engine
 			return _members->name;
 		}
 
-		void BaseRegression::addTestSuite(std::unique_ptr<TestSuite> &&testSuite)
+		void BaseRegression::addTestSuit(std::unique_ptr<TestSuit> &&TestSuit)
 		{
-			testSuite->setStream(_members->out);
-			_members->testSuites.emplace_back(testSuite.release());
+			TestSuit->setStream(_members->out);
+			_members->TestSuits.emplace_back(TestSuit.release());
 		}
 
 		void BaseRegression::setStream(std::ostream *os)
 		{
 			_members->out = os;
-			for(TestSuite *testSuites : _members->testSuites)
+			for(TestSuit *TestSuits : _members->TestSuits)
 			{
-				testSuites->setStream(os);
+				TestSuits->setStream(os);
 			}
 		}
 
 		void BaseRegression::run() const
 		{
-			(*_members->out) << std::string(TestSuite::lineLength, '#') << std::endl;
+			(*_members->out) << std::string(TestSuit::lineLength, '#') << std::endl;
 			(*_members->out) << "Regression: " << _members->name << std::endl;
 			_members->nExecutedTC = 0;
 			_members->nNokTC = 0;
-			for(TestSuite *testSuite : _members->testSuites)
+			for(TestSuit *TestSuit : _members->TestSuits)
 			{
-				testSuite->run();
-				_members->nExecutedTC += testSuite->getNumOfTestCases();
-				_members->nNokTC += testSuite->getNumOfNok();
+				TestSuit->run();
+				_members->nExecutedTC += TestSuit->getNumOfTestCases();
+				_members->nNokTC += TestSuit->getNumOfNok();
 			}
 			float percentage = 1.0f - float(_members->nNokTC) / _members->nExecutedTC;
 			percentage *= 100.0f;
-			(*_members->out) << std::string(TestSuite::lineLength, '-') << std::endl;
+			(*_members->out) << std::string(TestSuit::lineLength, '-') << std::endl;
 			(*_members->out) << _members->name << "-Regression Result: " << percentage << "%  [" << _members->nExecutedTC << " / " << (_members->nExecutedTC - _members->nNokTC) << " ]" << std::endl;
-			(*_members->out) << std::string(TestSuite::lineLength, '#') << std::endl;
+			(*_members->out) << std::string(TestSuit::lineLength, '#') << std::endl;
 
 		}
 

@@ -20,20 +20,27 @@ namespace engine
 		Binary
 	};
 
-	class File : NonCopyable,
-		public PIMPLMoveable<File>
+	class SimpleFile : NonCopyable
 	{
 		friend class FileSystem;
 	private:
-		File(const FilePath &path, FileMode mode, FileOpenMode openMode, bool append);
+		SimpleFile(const FilePath &path, FileMode mode, FileOpenMode openMode, bool append);
 	public:
-		~File();
+		SimpleFile(SimpleFile &&o);
+		~SimpleFile();
 
-		std::string readAll();
-		std::vector<char> readAllData();
+		SimpleFile &operator=(SimpleFile &&o);
+		operator bool() const { return isOk(); }
+
+		std::string readLine();
+		std::vector<std::string> readLines();
+		std::vector<char> readAll();
 
 		size_t getSize() const;
+
+		bool isOk() const;
+		bool atEof() const;
 	private:
-		struct FilePrivate *_members = nullptr;
+		struct SimpleFilePrivate *_members = nullptr;
 	};
 }

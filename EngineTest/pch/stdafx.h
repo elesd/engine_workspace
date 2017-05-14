@@ -28,6 +28,7 @@
 #include <set>
 #include <unordered_map>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <sstream>
 #include <type_traits>
@@ -48,3 +49,5 @@
 #include <engine/EngineConfig.h>
 
 #include <stdafx_win.h>
+
+#include <engine/Types.h>

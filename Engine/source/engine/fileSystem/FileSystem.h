@@ -24,8 +24,10 @@ namespace engine
 		FileSystem(const FileSystemSettings &settings);
 	public:
 		~FileSystem();
-
-		SimpleFile OpenFile(const FilePath &path, FileMode mode, FileOpenMode openMode) const;
-		bool IsFileExists() const;
+		
+		SimpleFile OpenFileSimple(const FilePath &path, FileMode mode, FileOpenMode openMode, bool append) const;
+		bool IsFileExists(const FilePath &path) const;
+	private:
+		struct FileSystemPrivate *_members = nullptr;
 	};
 }
