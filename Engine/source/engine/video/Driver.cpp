@@ -43,4 +43,9 @@ namespace engine
 		}
 		initImpl(params, window);
 	}
+
+	void Driver::draw(const VertexBuffer* verticies, const IndexBuffer* indicies)
+	{
+		drawImpl(verticies, indicies);
+	}
 }

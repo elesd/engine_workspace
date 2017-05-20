@@ -31,6 +31,7 @@ namespace engine
 		*/
 		T& PIMPLMoveable::operator=(PIMPLMoveable &&o)
 		{
+			delete static_cast<T*>(this)->_members;
 			static_cast<T*>(this)->_members = static_cast<T&&>(o)._members;
 			static_cast<T&&>(o)._members = nullptr;
 			return *static_cast<T*>(this);
