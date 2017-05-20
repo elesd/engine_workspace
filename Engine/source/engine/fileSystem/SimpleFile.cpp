@@ -16,7 +16,7 @@ namespace
 		{		}
 		~PositionGuard()
 		{
-			fstream.seekg(0, originalPos);
+			fstream.seekg(originalPos);
 		}
 
 	private:

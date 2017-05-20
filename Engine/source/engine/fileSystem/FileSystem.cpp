@@ -2,8 +2,8 @@
 #include <engine/fileSystem/FileSystem.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/fileSystem/FilePath.h>
 #include <engine/fileSystem/SimpleFile.h>
-
 namespace engine
 {
 	struct FileSystemPrivate
@@ -25,6 +25,8 @@ namespace engine
 
 	SimpleFile FileSystem::OpenFileSimple(const FilePath &path, FileMode mode, FileOpenMode openMode, bool append) const
 	{
+		FilePath pathToUse(_members->settings.workingDirectory);
+		pathToUse.append(path.str());
 		SimpleFile file(path, mode, openMode, append);
 		return std::move(file);
 	}

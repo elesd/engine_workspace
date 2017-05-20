@@ -4,11 +4,14 @@
 
 #include <engine/app/winapi/WinApiApplicationParameter.h>
 #include <engine/app/IMain.h>
-#include <engine/environmentBuilder/ContextBuilder.h>
 #include <engine/environmentBuilder/ApplicationBuilder.h>
-#include <engine/environmentBuilder/WindowEnvironmentBuilder.h>
-#include <engine/environmentBuilder/EventBuilder.h>
 #include <engine/environmentBuilder/BuildFinalizer.h>
+#include <engine/environmentBuilder/ContextBuilder.h>
+#include <engine/environmentBuilder/EventBuilder.h>
+#include <engine/environmentBuilder/FileSystemBuilder.h>
+#include <engine/environmentBuilder/WindowEnvironmentBuilder.h>
+
+#include <engine/fileSystem/FileSystem.h>
 
 #include <engine/ModuleDefinitions.h>
 
@@ -19,6 +22,7 @@ namespace engine
 	{
 		std::unique_ptr<IMain> main;
 		std::set<engine::BasicInputType> inputs;
+		FileSystemSettings fileSystemSettings;
 		engine::ContextModuleType windowModule;
 	};
 
@@ -27,6 +31,7 @@ namespace engine
 	{
 		_members->main = std::move(main);
 		_members->windowModule = windowModul;
+		_members->fileSystemSettings.workingDirectory = "./";
 	}
 
 	EasyBuilder::~EasyBuilder()
@@ -38,6 +43,11 @@ namespace engine
 	{
 		_members->inputs.insert(input);
 		return *this;
+	}
+
+	void EasyBuilder::setFileSystemSetting(const FileSystemSettings &settings)
+	{
+		_members->fileSystemSettings = settings;
 	}
 
 	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,
@@ -64,7 +74,8 @@ namespace engine
 	{
 		ContextBuilder envBuilder({_members->windowModule});
 		ApplicationBuilder appBuilder = envBuilder.buildForApplication();
-		EventBuilder eventBuilder = appBuilder.build(std::move(args), std::move(_members->main));
+		FileSystemBuilder fsBuilder = appBuilder.build(std::move(args), std::move(_members->main));
+		EventBuilder eventBuilder = fsBuilder.build(_members->fileSystemSettings);
 		WindowEnvironmentBuilder windowBuilder = eventBuilder.build(_members->inputs);
 		BuildFinalizer lastStep = windowBuilder.build();
 		lastStep.build();

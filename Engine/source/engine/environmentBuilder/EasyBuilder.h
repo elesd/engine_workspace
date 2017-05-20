@@ -10,6 +10,7 @@ namespace engine
 	class IMain;
 	class IApplicationParameter;
 	class Application;
+	struct FileSystemSettings;
 	enum class BasicInputType;
 	enum class ContextModuleType;
 
@@ -33,6 +34,8 @@ namespace engine
 		* @return Returns a reference to this to be able to do call chain.
 		*/
 		EasyBuilder& AddInput(engine::BasicInputType);
+
+		void setFileSystemSetting(const FileSystemSettings &settings);
 
 		/**
 		* One step build for the engine in case of winapi application.

@@ -3,7 +3,7 @@
 #include <engine/environmentBuilder/ApplicationBuilder.h>
 ///////////////////////////////////////
 
-#include <engine/environmentBuilder/EventBuilder.h>
+#include <engine/environmentBuilder/FileSystemBuilder.h>
 
 #include <engine/Context.h>
 #include <engine/ModuleDefinitions.h>
@@ -40,12 +40,11 @@ namespace engine
 		delete _members;
 	}
 
-	EventBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	FileSystemBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 	{
 		std::unique_ptr<Application> app = createApplication(std::move(arguments), std::move(main));
-		EventBuilder result(_members->windowModule, app.get());
+		FileSystemBuilder result(app.get(), _members->windowModule);
 		BaseBuilder::setApplication(std::move(app));
-
 
 		return result;
 	}

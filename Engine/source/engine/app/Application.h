@@ -6,12 +6,13 @@
 
 namespace engine
 {
-	class IMain;
-	struct WindowParameter;
-	class StateStack;
-	class WindowManager;
 	class EventManager;
 	class EventManagerFactory;
+	class FileSystem;
+	class IMain;
+	class StateStack;
+	class WindowManager;
+	struct WindowParameter;
 }
 
 namespace engine
@@ -61,17 +62,19 @@ namespace engine
 		/**
 		* @return Returns the initial arguments of the application
 		*/
-		const IApplicationParameter *getArguments() const;
+		const IApplicationParameter* getArguments() const;
 
 		/**
 		* @return Returns the window manager of the application
 		*/
-		WindowManager *getWindowManager() const;
+		WindowManager* getWindowManager() const;
 
 		/**
 		* @return Returns the event manager factory of the application.
 		*/
-		EventManagerFactory *getEventManagerFactory() const;
+		EventManagerFactory* getEventManagerFactory() const;
+
+		FileSystem* getFileSystem() const;
 
 	private:
 		/**
@@ -80,6 +83,7 @@ namespace engine
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
         void setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory);
+		void setFileSystem(std::unique_ptr<FileSystem> &&fileSystem);
 	private:
 		/**
 		* Update function before done any other update.

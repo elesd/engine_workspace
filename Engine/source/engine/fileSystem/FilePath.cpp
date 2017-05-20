@@ -20,7 +20,7 @@ namespace
 		while(offset != std::string::npos)
 		{
 			path.erase(offset, 1);
-			offset = path.find("//", std::max(int32_t(offset - 1), 0));
+			offset = path.find("//", (std::max)(int32_t(offset - 1), 0));
 		}
 	}
 

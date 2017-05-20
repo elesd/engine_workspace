@@ -27,8 +27,15 @@ namespace engine
 	{
 		Context::getInstance()->setInitialized();
 	}
+
 	void BaseBuilder::setEventManagerFactory(Application *app, std::unique_ptr<EventManagerFactory> &&factory)
 	{
 		app->setEventManagerFactory(std::move(factory));
 	}
+
+	void BaseBuilder::setFileSystem(Application *app, std::unique_ptr<FileSystem> &&fileSystem)
+	{
+		app->setFileSystem(std::move(fileSystem));
+	}
+
 }

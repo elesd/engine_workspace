@@ -6,8 +6,9 @@
 #include <engine/app/IMain.h>
 
 #include <engine/events/EventManagerFactory.h>
-
 #include <engine/events/EventManager.h>
+
+#include <engine/fileSystem/FileSystem.h>
 
 #include <engine/view/WindowManager.h>
 
@@ -19,6 +20,7 @@ namespace engine
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<WindowManager> windowManager;
         std::unique_ptr<EventManagerFactory> eventManagerFactory;
+		std::unique_ptr<FileSystem> fileSystem;
 		bool active = false;
 	};
 
@@ -79,6 +81,10 @@ namespace engine
 		return _members->arguments.get();
 	}
 
+	FileSystem* Application::getFileSystem() const
+	{
+		return _members->fileSystem.get();
+	}
 
 	WindowManager *Application::getWindowManager() const
 	{
@@ -94,6 +100,11 @@ namespace engine
     {
         _members->eventManagerFactory = std::move(factory);
     }
+
+	void Application::setFileSystem(std::unique_ptr<FileSystem> &&fileSystem)
+	{
+		_members->fileSystem = std::move(fileSystem);
+	}
 
 	void Application::run()
 	{
