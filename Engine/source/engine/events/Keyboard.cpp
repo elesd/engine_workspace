@@ -141,7 +141,7 @@ namespace engine
 	}
 
 	Keyboard::Keyboard(Keyboard &&o)
-		:EventSourceBase(EventSourceId),
+		:EventSourceBase(std::move(o)),
 		_members(o._members)
 	{
 		o._members = nullptr;
@@ -149,6 +149,7 @@ namespace engine
 
 	Keyboard& Keyboard::operator=(Keyboard &&o)
 	{
+		EventSourceBase::operator=(std::move(o));
 		_members = o._members;
 		o._members = nullptr;
 		return *this;

@@ -3,6 +3,8 @@
 #include <engine/video/Driver.h>
 ///////////////////////////////////////////////////////////////////////////////
 #include <engine/exceptions/LogicalErrors.h>
+
+#include <engine/render/RenderContext.h>
 namespace
 {
 	enum class InitDriverParameterError
@@ -33,8 +35,27 @@ namespace
 
 namespace engine
 {
-	void Driver::init(const DriverInitParameters &params, Window *window)
+	struct DriverPrivate
 	{
+		RenderContext* renderContext = nullptr;
+	};
+
+	Driver::Driver()
+		: _members(new DriverPrivate())
+	{
+
+	}
+
+	Driver::~Driver()
+	{
+		delete _members;
+		_members = nullptr;
+	}
+
+	void Driver::init(RenderContext *renderContext, const DriverInitParameters &params, Window *window)
+	{
+		_members->renderContext = renderContext;
+
 		InitDriverParameterError checkResult = checkDriverInitParameters(params);
 		if(checkResult != InitDriverParameterError::Ok)
 		{
@@ -47,5 +68,33 @@ namespace engine
 	void Driver::draw(const VertexBuffer* verticies, const IndexBuffer* indicies)
 	{
 		drawImpl(verticies, indicies);
+	}
+
+	void Driver::setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height)
+	{
+		setViewPortImpl(topX, topY, width, height);
+	 }
+
+	RenderContext* Driver::getRenderContext()
+	{
+		return _members->renderContext;
+	}
+
+	void Driver::setRenderTarget(RenderTarget* renderTarget)
+	{
+		if(getRenderContext()->getCurrentRenderTarget() != renderTarget)
+		{
+			setRenderTargetImpl(renderTarget);
+			getRenderContext()->setCurrentRenderTarget(renderTarget);
+		}
+	}
+
+	void Driver::setMaterial(Material* material)
+	{
+		if(getRenderContext()->getCurrentMaterial() != material)
+		{
+			setMaterialImpl(material);
+			getRenderContext()->setCurrentMaterial(material);
+		}
 	}
 }

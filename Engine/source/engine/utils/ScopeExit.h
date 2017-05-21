@@ -8,7 +8,8 @@ namespace engine
 	* Simple implementation of scope exit.
 	* When this object dies executes a function which was given during construction.
 	*/
-	class ScopeExit : private NonCopyable
+	class ScopeExit
+		: private NonCopyable
 	{
 	public:
 		/**

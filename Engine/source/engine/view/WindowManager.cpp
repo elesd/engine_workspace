@@ -13,9 +13,10 @@
 
 #include <engine/functional/functions.h>
 
+#include <engine/render/RenderContext.h>
+
 #include <engine/view/Window.h>
 
-#include <engine/video/Driver.h>
 #include <engine/video/BufferDesc.h>
 
 namespace engine
@@ -24,17 +25,19 @@ namespace engine
 	{
 		std::unique_ptr<Window> mainWindow = nullptr;
 		std::vector<std::unique_ptr<Window>> windowContainer;
-		DriverInitParameters driverParameters;
+		RenderContextParameters renderContextParameters;
 		std::vector<Window*> closedWindows;
 	};
 
 	WindowManager::WindowManager()
 		: _members(new WindowManagerPrivate())
 	{
-		_members->driverParameters.sampleCount = 1;
-		_members->driverParameters.description.format = TextureFormat::_R8G8B8A8;
-		_members->driverParameters.description.isSRGB = false;
-		_members->driverParameters.description.type = BufferType::UnsignedNormalized;
+		DriverInitParameters driverParameters;
+		driverParameters.sampleCount = 1;
+		driverParameters.description.format = TextureFormat::_R8G8B8A8;
+		driverParameters.description.isSRGB = false;
+		driverParameters.description.type = BufferType::UnsignedNormalized;
+		_members->renderContextParameters.driverParameters = driverParameters;
 	}
 
 	WindowManager::~WindowManager()
@@ -60,14 +63,14 @@ namespace engine
 		if(driverNeedsWindow())
 		{
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
-			_members->mainWindow->initDriver(std::move(driver));
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		else
 		{
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-			_members->mainWindow->initDriver(std::move(driver));
+			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		initWindow(_members->mainWindow.get());
 		return _members->mainWindow.get();
@@ -80,14 +83,14 @@ namespace engine
 		if(driverNeedsWindow())
 		{
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, _members->mainWindow.get());
-			_members->mainWindow->initDriver(std::move(driver));
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		else
 		{
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
-			_members->mainWindow->initDriver(std::move(driver));
+			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		initWindow(_members->mainWindow.get());
 		return _members->mainWindow.get();
@@ -101,14 +104,14 @@ namespace engine
 		{
 			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
 			_members->windowContainer.emplace_back(std::move(window));
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-			window->initDriver(std::move(driver));
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		else
 		{
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
 			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
-			window->initDriver(std::move(driver));
+			window->initRenderContext(std::move(context));
 			_members->windowContainer.emplace_back(std::move(window));
 		}
 		initWindow(_members->windowContainer.back().get());
@@ -122,14 +125,14 @@ namespace engine
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
 			_members->windowContainer.emplace_back(std::move(window));
 
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, window.get());
-			window->initDriver(std::move(driver));
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			window->initRenderContext(std::move(context));
 		}
 		else
 		{
-			std::unique_ptr<Driver> driver = createDriverForWindow(_members->driverParameters, nullptr);
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-			window->initDriver(std::move(driver));
+			window->initRenderContext(std::move(context));
 			_members->windowContainer.emplace_back(std::move(window));
 
 		}
@@ -177,9 +180,9 @@ namespace engine
 		return windows;
 	}
 
-	void WindowManager::setDriverParameter(const DriverInitParameters &defaultParameters)
+	void WindowManager::setRenderContextParameter(const RenderContextParameters &defaultParameters)
 	{
-		_members->driverParameters = defaultParameters;
+		_members->renderContextParameters = defaultParameters;
 	}
 
 	void WindowManager::initWindow(Window *window)

@@ -4,7 +4,8 @@
 
 namespace engine
 {
-	class VideoBufferBase : NonCopyable
+	class VideoBufferBase
+		: private NonCopyable
 	{
 	public:
 		VideoBufferBase();

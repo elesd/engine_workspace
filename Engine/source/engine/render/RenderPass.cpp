@@ -28,6 +28,20 @@ namespace engine
 
 	}
 
+	RenderPass::RenderPass(RenderPass&& o)
+		: _members(o._members)
+	{
+		o._members = nullptr;
+	}
+
+	RenderPass& RenderPass::operator=(RenderPass&& o)
+	{
+		delete _members;
+		_members = o._members;
+		o._members = nullptr;
+		return *this;
+	}
+
 	RenderPass::~RenderPass()
 	{
 		delete _members;

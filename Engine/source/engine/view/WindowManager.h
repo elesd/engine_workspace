@@ -4,8 +4,8 @@
 
 namespace engine
 {
-	struct DriverInitParameters;
-	class Driver;
+	struct RenderContextParameters;
+	class RenderContext;
 	struct WindowParameter;
 	class Window;
 
@@ -95,7 +95,7 @@ namespace engine
 		* It will use when the next window is created.
 		* @param defaultParameters: driver creation parameters
 		*/
-		void setDriverParameter(const DriverInitParameters &defaultParameters);
+		void setRenderContextParameter(const RenderContextParameters &defaultParameters);
 
 		void windowClosed(Window *window);
 
@@ -136,11 +136,8 @@ namespace engine
 		*/
 		virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
 
-		/**
-		* This function purpos to create a driver for the given window.
-		* This driver later will be attached to the given window
-		*/
-		virtual std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &, Window *) const = 0;
+		
+		virtual std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &, Window *) const = 0;
 
 	private:
 		/**

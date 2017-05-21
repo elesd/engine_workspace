@@ -1,18 +1,20 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
-#include <engine/constraints/PIMPLMoveable.h>
 
 namespace engine
 {
 	class IRenderable;
 	class Driver;
 
-	class RenderPass : private NonCopyable
-		, public PIMPLMoveable<RenderPass>
+	class RenderPass 
+		: private NonCopyable
 	{
 	public:
 		RenderPass(const std::string& name, Driver *driver);
+		RenderPass(RenderPass&&);
+		RenderPass& operator=(RenderPass&&);
+
 		virtual ~RenderPass();
 
 		void render();

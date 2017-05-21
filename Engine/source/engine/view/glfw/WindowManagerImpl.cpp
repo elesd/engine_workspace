@@ -125,11 +125,12 @@ namespace engine
 
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *) const
 		{
 			std::unique_ptr<Driver> driver(new glfw::DriverImpl());
-			driver->init(params, nullptr);
-			return driver;
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
+			context->init(params, window);
+			return context;
 		}
 
 	}

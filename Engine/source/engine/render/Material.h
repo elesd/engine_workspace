@@ -1,18 +1,18 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
-#include <engine/constraints/PIMPLMoveable.h>
 
 namespace engine
 {
 	class Shader;
-	class Material : private NonCopyable
-		, public PIMPLMoveable<Material>
-
+	class Material 
+		: private NonCopyable
 	{
 	public:
 		Material(const std::string& name);
 		~Material();
+		Material(Material&&);
+		Material& operator=(Material&&);
 		void SetVertexShader(const Shader&);
 		void SetFragmentShader(const Shader&);
 

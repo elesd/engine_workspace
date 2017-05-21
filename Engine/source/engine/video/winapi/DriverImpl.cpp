@@ -8,6 +8,8 @@
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 #include <engine/video/winapi/BufferDescUtils.h>
+#include <engine/video/winapi/RenderTargetImpl.h>
+#include <engine/video/winapi/TextureImpl.h>
 
 #include <d3d11.h>
 
@@ -17,9 +19,10 @@ namespace engine
 	{
 		struct DriverImplPrivate
 		{
-			IDXGISwapChain *swapChain = nullptr;
-			ID3D11Device *device = nullptr;
-			ID3D11DeviceContext *deviceContext = nullptr;
+			IDXGISwapChain* swapChain = nullptr;
+			ID3D11Device* device = nullptr;
+			ID3D11DeviceContext* deviceContext = nullptr;
+			std::unique_ptr<RenderTargetImpl> backBuffer = nullptr;
 		};
 
 		DriverImpl::DriverImpl() :
@@ -51,6 +54,20 @@ namespace engine
 		{
 			createDevice();
 			createSwapChain(params, window);
+			initViewPort(window);
+			initRenderTarget();
+		}
+
+		void DriverImpl::setViewPortImpl(int32_t topX, int32_t topY, int32_t width, int32_t height)
+		{
+			D3D11_VIEWPORT viewport = {0};
+
+			viewport.TopLeftX = float(topX);
+			viewport.TopLeftY = float(topY);
+			viewport.Width = float(width);
+			viewport.Height = float(height);
+
+			_members->deviceContext->RSSetViewports(1, &viewport);
 		}
 
 		void DriverImpl::createDevice()
@@ -125,6 +142,60 @@ namespace engine
 				throw InitializationError(os.str());
 			}
 		}
+
+		void DriverImpl::initRenderTarget()
+		{
+			createBackBufferRenderTarget();
+
+			setRenderTarget(_members->backBuffer.get());
+		}
+
+		void DriverImpl::createBackBufferRenderTarget()
+		{
+			ID3D11Texture2D* backBufferTexture = nullptr;
+			HRESULT hr;
+			hr = _members->swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferTexture);
+			if(FAILED(hr))
+			{
+				std::ostringstream os;
+				os << "Back buffer texture not found, error code: " << hr;
+				throw InitializationError(os.str());
+			}
+
+			TextureImpl texture(backBufferTexture);
+			ID3D11RenderTargetView *backbuffer = nullptr;
+			hr = _members->device->CreateRenderTargetView(backBufferTexture, nullptr, &backbuffer);
+			if(FAILED(hr))
+			{
+				std::ostringstream os;
+				os << "Back buffer render target cannot be created, error code: " << hr;
+				throw InitializationError(os.str());
+			}
+			_members->backBuffer = std::make_unique<RenderTargetImpl>(backbuffer);
+		}
+
+		void DriverImpl::initViewPort(Window *window)
+		{
+			setViewPort(0, 0, window->getWidth(), window->getHeight());
+		}
+
+		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies)
+		{
+			 
+		}
+
+		void DriverImpl::setRenderTargetImpl(RenderTarget* renderTarget)
+		{
+			RenderTargetImpl* rt = static_cast<RenderTargetImpl*>(renderTarget);
+			ID3D11RenderTargetView *target = rt->getRenderTargetView();
+			_members->deviceContext->OMSetRenderTargets(1, &target, nullptr);
+		}
+
+		void DriverImpl::setMaterialImpl(Material* material)
+		{
+			FAIL("Not implemented");
+		}
+
 	}
 }
 #else

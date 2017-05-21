@@ -11,7 +11,8 @@ namespace engine
 		/**
 		* The porpse of this class to manage test cases and regressions.
 		*/
-		class TestManager : engine::NonCopyable
+		class TestManager 
+			: private engine::NonCopyable
 		{
 		public:
 			/**Default constructable*/

@@ -4,15 +4,17 @@
 
 namespace engine
 {
+	class Driver;
 	class PipelineRendererBase;
 
 	class Render final : private NonCopyable
 	{
 	public:
-		Render(std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
+		Render(Driver *driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
 		~Render();
 
 		void render();
+
 	private:
 		struct RenderPrivate* _members = nullptr;
 	};

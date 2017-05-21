@@ -8,7 +8,7 @@
 
 #include <engine/exceptions/LogicalErrors.h>
 
-#include <engine/video/Driver.h>
+#include <engine/render/RenderContext.h>
 
 namespace engine
 {
@@ -16,7 +16,7 @@ namespace engine
 
 	struct WindowPrivate
 	{
-		std::unique_ptr<Driver> driver;
+		std::unique_ptr<RenderContext> renderContext;
 		std::unique_ptr<EventManager> eventManager;
 		WindowManager *windowManager = nullptr;
 		WindowPrivate(WindowManager *m): windowManager(m){}
@@ -82,15 +82,15 @@ namespace engine
 		setSizeImpl(width, height);
 	}
 
-	Driver *Window::getDriver() const
+	RenderContext* Window::getRenderContext() const
 	{
-		return _members->driver.get();
+		return _members->renderContext.get();
 	}
 
-	void Window::initDriver(std::unique_ptr<Driver> driver)
+	void Window::initRenderContext(std::unique_ptr<RenderContext>&& context)
 	{
-		HARD_ASSERT(!_members->driver);
-		_members->driver = std::move(driver);
+		HARD_ASSERT(!_members->renderContext);
+		_members->renderContext = std::move(context);
 	}
 
 	uint32_t Window::getHeight() const

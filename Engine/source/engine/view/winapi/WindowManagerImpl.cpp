@@ -12,6 +12,8 @@
 #include <engine/events/EventManager.h>
 #include <engine/events/winapi/EventManagerImpl.h>
 
+#include <engine/render/RenderContext.h>
+
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 
@@ -267,11 +269,12 @@ namespace engine
 			_members->hasWindowClass = true;
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *window) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
 			std::unique_ptr<Driver> driver(new winapi::DriverImpl());
-			driver->init(params, window);
-			return driver;
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
+			context->init(params, window);
+			return context;
 		}
 	}
 }

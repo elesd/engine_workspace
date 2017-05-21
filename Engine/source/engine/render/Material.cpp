@@ -19,6 +19,26 @@ namespace engine
 
 	}
 
+	Material::Material(Material&& o)
+		: _members(o._members)
+	{
+		o._members = nullptr;
+	}
+
+	Material& Material::operator=(Material&& o)
+	{
+		delete _members;
+		_members = o._members;
+		o._members = nullptr;
+		return *this;
+	}
+
+	Material::~Material()
+	{
+		delete _members;
+		_members = nullptr;
+	}
+
 	void Material::SetVertexShader(const Shader& shader)
 	{
 		_members->vertexShader = shader;

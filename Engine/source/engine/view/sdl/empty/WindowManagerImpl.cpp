@@ -4,7 +4,7 @@
 ///////////////////////////////////////////////////
 #include <engine/view/sdl/WindowImpl.h>
 
-#include <engine/video/Driver.h>
+#include <engine/render/RenderContext.h>
 
 namespace engine
 {
@@ -49,7 +49,7 @@ namespace engine
 			return 0;
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &, Window *) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;

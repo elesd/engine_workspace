@@ -7,7 +7,7 @@
 namespace engine
 {
 	class Window;
-	class Driver;
+	class RenderContext;
 	class EventManager;
 	class WindowManager;
 
@@ -108,10 +108,10 @@ namespace engine
 		bool isFullScreen() const { return _fullScreen; }
 
 		/**@return Returns the video driver of the window*/
-		Driver *getDriver() const;
+		RenderContext* getRenderContext() const;
 
 		/**Initilize the window with the given video driver*/
-		void initDriver(std::unique_ptr<Driver>);
+		void initRenderContext(std::unique_ptr<RenderContext>&&);
 
 		/**
 		* Updates the window and its events.

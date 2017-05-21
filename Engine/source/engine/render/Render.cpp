@@ -8,13 +8,15 @@ namespace engine
 	struct RenderPrivate
 	{
 		std::unique_ptr<PipelineRendererBase> pipelineRender;
-		RenderPrivate(std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+		Driver *driver = nullptr;
+		RenderPrivate(Driver* driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 			: pipelineRender(std::move(pipelineRenderer))
+			, driver(driver)
 		{ }
 	};
 
-	Render::Render(std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
-		: _members(new RenderPrivate(std::move(pipelineRenderer)))
+	Render::Render(Driver* driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+		: _members(new RenderPrivate(driver, std::move(pipelineRenderer)))
 	{
 
 	}

@@ -72,7 +72,7 @@ namespace engine
 			* @param window: The driver will created to this window.
 			* @return Returns the driver which was created for the given window.
 			*/
-			std::unique_ptr<Driver> createDriverForWindow(const DriverInitParameters &params, Window *window) const override;
+			std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &params, Window *window) const override;
 
 		private:
 			/** @copydoc */

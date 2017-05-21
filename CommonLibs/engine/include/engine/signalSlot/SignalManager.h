@@ -13,8 +13,9 @@ namespace engine
 	* @see ISignalManager
 	* @warning: not thread safe
 	*/
-	class SignalManager : public ISignalManager,
-						  private NonCopyable
+	class SignalManager 
+		: public ISignalManager
+		, private NonCopyable
 	{
 	public:
 		/** Default constructor, extension because of the PIMPL idiom.*/

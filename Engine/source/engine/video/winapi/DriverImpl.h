@@ -9,7 +9,8 @@ namespace engine
 		/**
 		* Video driver implementation for winapi
 		*/
-		class DriverImpl : public Driver
+		class DriverImpl 
+			: public Driver
 		{
 		public:
 			/**Simple constructor*/
@@ -17,11 +18,21 @@ namespace engine
 			/**For PIMPL*/
 			~DriverImpl() override;
 
+		private:
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
-		private:
+			void drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies) override;
+			void setViewPortImpl(int32_t topX, int32_t topY, int32_t width, int32_t height) override;
+			void setRenderTargetImpl(RenderTarget* renderTarget) override;
+			void setMaterialImpl(Material* material) override;
+
 			void createDevice();
 			void createSwapChain(const DriverInitParameters& params, Window *window);
+			void initRenderTarget();
+			void createBackBufferRenderTarget();
+			void initViewPort(Window *window);
+
+		private:
 			/**PIMPL*/
 			struct DriverImplPrivate *_members = nullptr;
 		};

@@ -10,7 +10,8 @@ namespace engine
 	class IndexBuffer;
 	class Material;
 
-	class Mesh : public IRenderable
+	class Mesh 
+		: public IRenderable
 		, NonCopyable
 	{
 	public:

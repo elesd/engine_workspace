@@ -1,16 +1,13 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
-#include <engine/constraints/PIMPLCopyable.h>
-#include <engine/constraints/PIMPLMoveable.h>
 
 namespace engine
 {
 	/**
 	* Base class for event sources.
 	*/
-	class EventSourceBase : public PIMPLCopyable<EventSourceBase>
-		, public PIMPLMoveable<EventSourceBase>
+	class EventSourceBase
 	{
 	protected:
 		/**
@@ -21,7 +18,13 @@ namespace engine
 		/**PIMPL*/
 		virtual ~EventSourceBase();
 
-	public:
+		EventSourceBase(const EventSourceBase&);
+
+		EventSourceBase(EventSourceBase&&);
+
+		EventSourceBase& operator=(const EventSourceBase&);
+
+		EventSourceBase& operator=(EventSourceBase&&);
 
 		/** Setter for enable property.	*/
 		void setEventsEnabled(bool);

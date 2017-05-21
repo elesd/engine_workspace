@@ -85,12 +85,12 @@ namespace engine
 			return 0;
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &params, Window *window) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
-			std::unique_ptr<Driver> driver(new DriverImpl());
-			driver->init(params, window);
-			return driver;
-			return nullptr;
+			std::unique_ptr<Driver> driver(new winapi::DriverImpl());
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
+			context->init(params, window);
+			return context;
 		}
 
 		WindowImpl *WindowManagerImpl::findWindowBySDLId(uint32_t id) const
