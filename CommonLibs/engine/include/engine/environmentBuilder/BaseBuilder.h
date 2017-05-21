@@ -8,6 +8,7 @@ namespace engine
 {
 	class Application;
 	class WindowManager;
+	class FileSystem;
 	class EventManager;
 	class EventManagerFactory;
 	enum class ContextModuleType;
@@ -34,6 +35,8 @@ namespace engine
 		* @param app: Application to use
 		*/
 		void setApplication(std::unique_ptr<Application> app);
+
+		void setFileSystem(Application *app, std::unique_ptr<FileSystem> &&fileSystem);
 
 		/**
 		* Set the given application's event manager factory.

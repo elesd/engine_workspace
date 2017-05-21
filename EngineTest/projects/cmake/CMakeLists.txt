@@ -14,6 +14,10 @@ set (ENGINE_DIR "${MAIN_PROJECT_DIR}/../Engine/source")
 set (EXTERNALS_DIR "${MAIN_PROJECT_DIR}/../CommonLibs")
 
 include(../../../CommonConfig.txt)
+# not use any of the graphcis library
+set (USE_GLFW 0)
+set (USE_SDL 0)
+set (USE_WINAPI 0)
 
 if (USE_64_BIT)
   set (EXECUTABLE_OUTPUT_PATH ${MAIN_PROJECT_DIR}/build/x64)
@@ -42,11 +46,8 @@ file (GLOB header_pch "${MAIN_PROJECT_DIR}/pch/*.h*")
 file (GLOB engine_src_ "${ENGINE_DIR}/engine/*.cpp")
 file (GLOB engine_src_app "${ENGINE_DIR}/engine/app/*.cpp")
 file (GLOB engine_src_app_glfw "${ENGINE_DIR}/engine/app/glfw/*.cpp")
-file (GLOB engine_src_app_glfw_empty "${ENGINE_DIR}/engine/app/glfw/empty/*.cpp")
 file (GLOB engine_src_app_sdl "${ENGINE_DIR}/engine/app/sdl/*.cpp")
-file (GLOB engine_src_app_sdl_empty "${ENGINE_DIR}/engine/app/sdl/empty/*.cpp")
 file (GLOB engine_src_app_winapi "${ENGINE_DIR}/engine/app/winapi/*.cpp")
-file (GLOB engine_src_app_winapi_empty "${ENGINE_DIR}/engine/app/winapi/empty/*.cpp")
 file (GLOB engine_src_constraints "${ENGINE_DIR}/engine/constraints/*.cpp")
 file (GLOB engine_src_environmentBuilder "${ENGINE_DIR}/engine/environmentBuilder/*.cpp")
 file (GLOB engine_src_exceptions "${ENGINE_DIR}/engine/exceptions/*.cpp")
@@ -54,35 +55,23 @@ file (GLOB engine_src_fileSystem "${ENGINE_DIR}/engine/fileSystem/*.cpp")
 file (GLOB engine_src_functional "${ENGINE_DIR}/engine/functional/*.cpp")
 file (GLOB engine_src_events "${ENGINE_DIR}/engine/events/*.cpp")
 file (GLOB engine_src_events_winapi "${ENGINE_DIR}/engine/events/winapi/*.cpp")
-file (GLOB engine_src_events_winapi_empty "${ENGINE_DIR}/engine/events/winapi/empty/*.cpp")
 file (GLOB engine_src_events_sdl "${ENGINE_DIR}/engine/events/sdl/*.cpp")
-file (GLOB engine_src_events_sdl_empty "${ENGINE_DIR}/engine/events/sdl/empty/*.cpp")
 file (GLOB engine_src_events_glfw "${ENGINE_DIR}/engine/events/glfw/*.cpp")
-file (GLOB engine_src_events_glfw_empty "${ENGINE_DIR}/engine/events/glfw/empty/*.cpp")
 file (GLOB engine_src_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.cpp")
-file (GLOB engine_src_moduls_sdl_empty "${ENGINE_DIR}/engine/modules/sdl/empty/*.cpp")
 file (GLOB engine_src_moduls_glfw "${ENGINE_DIR}/engine/modules/glfw/*.cpp")
-file (GLOB engine_src_moduls_glfw_empty "${ENGINE_DIR}/engine/modules/glfw/empty/*.cpp")
 file (GLOB engine_src_moduls_winapi "${ENGINE_DIR}/engine/modules/winapi/*.cpp")
-file (GLOB engine_src_moduls_winapi_empty "${ENGINE_DIR}/engine/modules/winapi/empty/*.cpp")
 file (GLOB engine_src_signalSlot "${ENGINE_DIR}/engine/signalSlot/*.cpp")
 file (GLOB engine_src_stateStack "${ENGINE_DIR}/engine/stateStack/*.cpp")
 file (GLOB engine_src_test "${ENGINE_DIR}/engine/test/*.cpp")
 file (GLOB engine_src_video "${ENGINE_DIR}/engine/video/*.cpp")
 file (GLOB engine_src_video_glfw "${ENGINE_DIR}/engine/video/glfw/*.cpp")
-file (GLOB engine_src_video_glfw_empty "${ENGINE_DIR}/engine/video/glfw/empty*.cpp")
 file (GLOB engine_src_video_sdl "${ENGINE_DIR}/engine/video/sdl/*.cpp")
-file (GLOB engine_src_video_sdl_empty "${ENGINE_DIR}/engine/video/sdl/empty*.cpp")
 file (GLOB engine_src_video_winapi "${ENGINE_DIR}/engine/video/winapi/*.cpp")
-file (GLOB engine_src_video_winapi_empty "${ENGINE_DIR}/engine/video/winapi/empty*.cpp")
 file (GLOB engine_src_utils "${ENGINE_DIR}/engine/utils/*.cpp")
 file (GLOB engine_src_view "${ENGINE_DIR}/engine/view/*.cpp")
 file (GLOB engine_src_view_glfw "${ENGINE_DIR}/engine/view/glfw/*.cpp")
-file (GLOB engine_src_view_glfw_empty "${ENGINE_DIR}/engine/view/glfw/empty/*.cpp")
 file (GLOB engine_src_view_sdl "${ENGINE_DIR}/engine/view/sdl/*.cpp")
-file (GLOB engine_src_view_sdl_empty "${ENGINE_DIR}/engine/view/sdl/empty/*.cpp")
 file (GLOB engine_src_view_winapi "${ENGINE_DIR}/engine/view/winapi/*.cpp")
-file (GLOB engine_src_view_winapi_empty "${ENGINE_DIR}/engine/view/winapi/empty/*.cpp")
 
 file (GLOB engine_header_ "${ENGINE_DIR}/engine/*.h")
 file (GLOB engine_header_app "${ENGINE_DIR}/engine/app/*.h*")
@@ -96,11 +85,8 @@ file (GLOB engine_header_fileSystem "${ENGINE_DIR}/engine/fileSystem/*.h*")
 file (GLOB engine_header_functional "${ENGINE_DIR}/engine/functional/*.h*")
 file (GLOB engine_header_events "${ENGINE_DIR}/engine/events/*.h*")
 file (GLOB engine_header_events_winapi "${ENGINE_DIR}/engine/events/winapi/*.h*")
-file (GLOB engine_header_events_winapi_empty "${ENGINE_DIR}/engine/events/winapi/empty/*.h*")
 file (GLOB engine_header_events_sdl "${ENGINE_DIR}/engine/events/sdl/*.h*")
-file (GLOB engine_header_events_sdl_empty "${ENGINE_DIR}/engine/events/sdl/empty/*.h*")
 file (GLOB engine_header_events_glfw "${ENGINE_DIR}/engine/events/glfw/*.h*")
-file (GLOB engine_header_events_glfw_empty "${ENGINE_DIR}/engine/events/glfw/empty/*.h*")
 file (GLOB engine_header_moduls_sdl "${ENGINE_DIR}/engine/modules/sdl/*.h*")
 file (GLOB engine_header_moduls_glfw "${ENGINE_DIR}/engine/modules/glfw/*.h*")
 file (GLOB engine_header_moduls_winapi "${ENGINE_DIR}/engine/modules/winapi/*.h*")
@@ -118,11 +104,8 @@ file (GLOB engine_header_view_winapi "${ENGINE_DIR}/engine/view/winapi/*.h*")
 SOURCE_GROUP (engine FILES ${engine_src_} ${engine_header_})
 SOURCE_GROUP (engine\\app FILES ${engine_src_app} ${engine_header_app})
 SOURCE_GROUP (engine\\app\\winapi FILES ${engine_src_app_winapi} ${engine_header_app_winapi})
-SOURCE_GROUP (engine\\app\\winapi\\empty FILES ${engine_src_app_winapi_empty})
 SOURCE_GROUP (engine\\app\\glfw FILES ${engine_src_app_glfw} ${engine_header_app_glfw})
-SOURCE_GROUP (engine\\app\\glfw\\empty FILES ${engine_src_app_glfw_empty})
 SOURCE_GROUP (engine\\app\\sdl FILES ${engine_src_app_sdl} ${engine_header_app_sdl})
-SOURCE_GROUP (engine\\app\\sdl\\empty FILES ${engine_src_app_sdl_empty})
 SOURCE_GROUP (engine\\constraints FILES ${engine_src_constraints} ${engine_header_constraints})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${engine_src_environmentBuilder} ${engine_header_environmentBuilder})
 SOURCE_GROUP (engine\\exceptions FILES ${engine_src_exceptions} ${engine_header_exceptions})
@@ -130,35 +113,23 @@ SOURCE_GROUP (engine\\fileSystem FILES ${engine_src_fileSystem} ${engine_header_
 SOURCE_GROUP (engine\\functional FILES ${engine_src_functional} ${engine_header_functional})
 SOURCE_GROUP (engine\\events FILES ${engine_src_events} ${engine_header_events})
 SOURCE_GROUP (engine\\events\\winapi FILES ${engine_src_events_winapi} ${engine_header_events_winapi})
-SOURCE_GROUP (engine\\events\\winapi\\empty FILES ${engine_src_events_winapi_empty} ${engine_header_events_winapi_empty})
 SOURCE_GROUP (engine\\events\\sdl FILES ${engine_src_events_sdl} ${engine_header_events_sdl})
-SOURCE_GROUP (engine\\events\\sdl\\empty FILES ${engine_src_events_sdl_empty} ${engine_header_events_sdl_empty})
 SOURCE_GROUP (engine\\events\\glfw FILES ${engine_src_events_glfw} ${engine_header_events_glfw})
-SOURCE_GROUP (engine\\events\\glfw\\empty FILES ${engine_src_events_glfw_empty} ${engine_header_events_glfw_empty})
 SOURCE_GROUP (engine\\modules\\sdl FILES ${engine_src_moduls_sdl} ${engine_header_moduls_sdl})
-SOURCE_GROUP (engine\\modules\\sdl\\empty FILES ${engine_src_moduls_sdl_empty})
 SOURCE_GROUP (engine\\modules\\glwf FILES ${engine_src_moduls_glfw} ${engine_header_moduls_glfw})
-SOURCE_GROUP (engine\\modules\\glwf\\empty FILES ${engine_src_moduls_glfw_empty})
 SOURCE_GROUP (engine\\modules\\winapi FILES ${engine_src_moduls_winapi} ${engine_header_moduls_winapi})
-SOURCE_GROUP (engine\\modules\\winapi\\empty FILES ${engine_src_moduls_winapi_empty})
 SOURCE_GROUP (engine\\signalSlot FILES ${engine_src_signalSlot} ${engine_header_signalSlot})
 SOURCE_GROUP (engine\\stateStack FILES ${engine_src_stateStack} ${engine_header_stateStack})
 SOURCE_GROUP (engine\\test FILES ${engine_src_test} ${engine_header_test})
 SOURCE_GROUP (engine\\video FILES ${engine_src_video} ${engine_header_video})
 SOURCE_GROUP (engine\\video\\glfw FILES ${engine_src_video_glfw} ${engine_header_video_glfw})
-SOURCE_GROUP (engine\\video\\glfw\\empty FILES ${engine_src_video_glfw_empty})
 SOURCE_GROUP (engine\\video\\sdl FILES ${engine_src_video_sdl} ${engine_header_video_sdl})
-SOURCE_GROUP (engine\\video\\sdl\\empty FILES ${engine_src_video_sdl_empty})
 SOURCE_GROUP (engine\\video\\winapi FILES ${engine_src_video_winapi} ${engine_header_video_winapi})
-SOURCE_GROUP (engine\\video\\winapi\\empty FILES ${engine_src_video_winapi_empty})
 SOURCE_GROUP (engine\\utils FILES ${engine_src_utils} ${engine_header_utils})
 SOURCE_GROUP (engine\\view FILES ${engine_src_view} ${engine_header_view})
 SOURCE_GROUP (engine\\view\\glfw FILES ${engine_src_view_glfw} ${engine_header_view_glfw})
-SOURCE_GROUP (engine\\view\\glfw\\empty FILES ${engine_src_view_glfw_empty})
 SOURCE_GROUP (engine\\view\\sdl FILES ${engine_src_view_sdl} ${engine_header_view_sdl})
-SOURCE_GROUP (engine\\view\\sdl\\empty FILES ${engine_src_view_sdl_empty})
 SOURCE_GROUP (engine\\view\\winapi FILES ${engine_src_view_winapi} ${engine_header_view_winapi})
-SOURCE_GROUP (engine\\view\\winapi\\empty FILES ${engine_src_view_winapi_empty})
 
 
 SOURCE_GROUP (src\\functional FILES ${src_functional} ${header_functional})
@@ -188,11 +159,8 @@ add_executable(engineTest ${src_}
                           ${engine_src_} 
                           ${engine_src_app} 
 						  ${engine_src_app_sdl} 
-						  ${engine_src_app_sdl_empty} 
 						  ${engine_src_app_glfw} 
-						  ${engine_src_app_glfw_empty} 
 						  ${engine_src_app_winapi} 
-						  ${engine_src_app_winapi_empty} 
                           ${engine_src_constraints}
                           ${engine_src_environmentBuilder}
                           ${engine_src_exceptions}
@@ -200,36 +168,24 @@ add_executable(engineTest ${src_}
                           ${engine_src_functional}
                           ${engine_src_events}
                           ${engine_src_events_winapi}
-						  ${engine_src_events_winapi_empty}
 						  ${engine_src_events_glfw}
-						  ${engine_src_events_glfw_empty}
 						  ${engine_src_events_sdl}
-						  ${engine_src_events_sdl_empty}
 
                           ${engine_src_moduls_sdl}
-                          ${engine_src_moduls_sdl_empty}
                           ${engine_src_moduls_glfw}
-                          ${engine_src_moduls_glfw_empty}
                           ${engine_src_moduls_winapi}
-                          ${engine_src_moduls_winapi_empty}
                           ${engine_src_signalSlot}
                           ${engine_src_stateStack}
                           ${engine_src_test}
                           ${engine_src_utils}
                           ${engine_src_view}
 						  ${engine_src_view_glfw}
-						  ${engine_src_view_glfw_empty}
 						  ${engine_src_view_sdl}
-						  ${engine_src_view_sdl_empty}
 						  ${engine_src_view_winapi}
-						  ${engine_src_view_winapi_empty}
 						  ${engine_src_video}
 						  ${engine_src_video_sdl}
-						  ${engine_src_video_sdl_empty}
 						  ${engine_src_video_glfw}
-						  ${engine_src_video_glfw_empty}
 						  ${engine_src_video_winapi}
-						  ${engine_src_video_winapi_empty}
                           ${engine_header_} 
                           ${engine_header_app} 
 						  ${engine_header_app_glfw}
@@ -242,11 +198,8 @@ add_executable(engineTest ${src_}
                           ${engine_header_functional}
                           ${engine_header_events}
 						  ${engine_header_events_winapi}
-						  ${engine_header_events_winapi_empty}
 						  ${engine_header_events_glfw}
-						  ${engine_header_events_glfw_empty}
 						  ${engine_header_events_sdl}
-						  ${engine_header_events_sdl_empty}
                           ${engine_header_moduls_glfw}
                           ${engine_header_moduls_sdl}
                           ${engine_header_moduls_winapi}

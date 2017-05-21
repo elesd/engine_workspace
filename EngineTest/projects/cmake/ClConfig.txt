@@ -1,6 +1,8 @@
 include_directories("${MAIN_PROJECT_DIR}/source")
 
 include_directories("${EXTERNALS_DIR}/boost/include")
+include_directories("${EXTERNALS_DIR}/glm")
+
 
 
 if (USE_GLFW)

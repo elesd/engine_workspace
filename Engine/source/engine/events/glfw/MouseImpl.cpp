@@ -73,5 +73,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/events/glfw/empty/MouseImpl.cpp>
 
 #endif

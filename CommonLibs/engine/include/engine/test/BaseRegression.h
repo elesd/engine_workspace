@@ -6,7 +6,7 @@ namespace engine
 {
 	namespace test
 	{
-		class TestSuite;
+		class TestSuit;
 
 		/**
 		* Base class for regressions.
@@ -40,7 +40,7 @@ namespace engine
 			const std::string &getName() const;
 		protected:
 			/**Add a test suit to the regression.*/
-			void addTestSuite(std::unique_ptr<TestSuite> &&);
+			void addTestSuit(std::unique_ptr<TestSuit> &&);
 		private:
 			/**PIMPL*/
 			struct BaseRegressionPrivate *_members = nullptr;

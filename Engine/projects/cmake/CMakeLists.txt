@@ -91,9 +91,7 @@ file (GLOB header_functional "${SOURCE_DIR}/engine/functional/*.h*")
 file (GLOB header_fileSystem "${SOURCE_DIR}/engine/fileSystem/*.h*")
 file (GLOB header_events "${SOURCE_DIR}/engine/events/*.h*")
 file (GLOB header_events_sdl "${SOURCE_DIR}/engine/events/sdl/*.h*")
-file (GLOB header_events_sdl_empty "${SOURCE_DIR}/engine/events/sdl/empty/*.h*")
 file (GLOB header_events_glfw "${SOURCE_DIR}/engine/events/glfw/*.h*")
-file (GLOB header_events_glfw_empty "${SOURCE_DIR}/engine/events/glfw/empty/*.h*")
 file (GLOB header_events_winapi "${SOURCE_DIR}/engine/events/winapi/*.h*")
 file (GLOB header_events_winapi_empty "${SOURCE_DIR}/engine/events/winapi/empty/*.h*")
 file (GLOB header_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.h*")
@@ -162,7 +160,6 @@ SOURCE_GROUP (engine\\view\\winapi\\empty FILES ${src_view_winapi_empty})
 SOURCE_GROUP (engine\\pch FILES ${src_pch} ${header_pch})
 
 include_directories("${MAIN_PROJECT_DIR}/pch")
-include_directories("${EXTERNALS_DIR}")
 
 if (DEBUG_BUILD)
   set (lib_name "Engine_d")
@@ -173,11 +170,8 @@ endif (DEBUG_BUILD)
 add_library (${lib_name} STATIC ${src_}
                            ${src_app} 
 						   ${src_app_winapi} 
-						   ${src_app_winapi_empty} 
 						   ${src_app_glfw} 
-						   ${src_app_glfw_empty} 
 						   ${src_app_sdl} 
-						   ${src_app_sdl_empty} 
                            ${src_constraints}
                            ${src_environmentBuilder}
                            ${src_exceptions}
@@ -185,17 +179,11 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_functional}
                            ${src_events}
                            ${src_events_sdl}
-                           ${src_events_sdl_empty}
 						   ${src_events_glfw}
-                           ${src_events_glfw_empty}
 						   ${src_events_winapi}
-                           ${src_events_winapi_empty}
                            ${src_moduls_sdl}
-                           ${src_moduls_sdl_empty}
                            ${src_moduls_glfw}
-                           ${src_moduls_glfw_empty}
                            ${src_moduls_winapi}
-                           ${src_moduls_winapi_empty}
                            ${src_render}
                            ${src_signalSlot}
                            ${src_stateStack}
@@ -203,18 +191,12 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_utils}
                            ${src_view}
 						   ${src_view_glfw}
-						   ${src_view_glfw_empty}
 						   ${src_view_sdl}
-						   ${src_view_sdl_empty}
 						   ${src_view_winapi}
-						   ${src_view_winapi_empty}
 						   ${src_video}
 						   ${src_video_winapi}
-						   ${src_video_winapi_empty}
 						   ${src_video_glfw}
-						   ${src_video_glfw_empty}
 						   ${src_video_sdl}
-						   ${src_video_sdl_empty}
                            ${src_pch}
                            ${header_} 
                            ${header_app} 
@@ -228,11 +210,8 @@ add_library (${lib_name} STATIC ${src_}
                            ${header_functional}
                            ${header_events}
 						   ${header_events_sdl}
-                           ${header_events_sdl_empty}
 						   ${header_events_glfw}
-                           ${header_events_glfw_empty}
 						   ${header_events_winapi}
-                           ${header_events_winapi_empty}
                            ${header_moduls_glfw}
                            ${header_moduls_sdl}
                            ${header_moduls_winapi}

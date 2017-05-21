@@ -117,4 +117,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/view/winapi/empty/WindowImpl.cpp>
+
 #endif

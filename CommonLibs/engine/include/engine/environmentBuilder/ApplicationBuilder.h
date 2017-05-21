@@ -6,7 +6,7 @@ namespace engine
 {
 	class IMain;
 	class IApplicationParameter;
-	class EventBuilder;
+	class FileSystemBuilder;
 	class Application;
 	enum class ContextModuleType;
 
@@ -42,7 +42,7 @@ namespace engine
 		* @param main: Main functionality.
 		* @return The next building phase.
 		*/
-		EventBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		FileSystemBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
 	private:
 		/**
 		* Create an application based on the window module type which is given in creation

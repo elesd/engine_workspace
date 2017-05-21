@@ -34,4 +34,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/events/sdl/empty/EventManagerFactoryImpl.cpp>
+
 #endif

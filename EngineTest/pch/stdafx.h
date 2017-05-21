@@ -47,7 +47,12 @@
 #define protected public
 
 #include <engine/EngineConfig.h>
-
+#undef ENGINE_USE_SDL 
+#undef ENGINE_USE_GLFW 
+#undef ENGINE_USE_WINAPI 
+#define ENGINE_USE_SDL 0
+#define ENGINE_USE_GLFW 0
+#define ENGINE_USE_WINAPI 0
 #include <stdafx_win.h>
 
 #include <engine/Types.h>

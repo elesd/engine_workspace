@@ -53,5 +53,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/app/winapi/empty/ApplicationImpl.cpp>
 
 #endif

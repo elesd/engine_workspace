@@ -34,4 +34,8 @@ namespace engine
 		}
 	}
 }
+#else
+
+#include <engine/events/glfw/empty/EventManagerFactoryImpl.cpp>
+
 #endif

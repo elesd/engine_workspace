@@ -1,5 +1,6 @@
 
 include_directories("${EXTERNALS_DIR}/boost/include")
+include_directories("${EXTERNALS_DIR}/glm")
 
 include_directories("${MAIN_PROJECT_DIR}/source")
 

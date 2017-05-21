@@ -53,4 +53,8 @@ namespace engine
 
 	}
 }
+#else 
+
+#include <engine/events/sdl/empty/EventManagerImpl.cpp>
+
 #endif

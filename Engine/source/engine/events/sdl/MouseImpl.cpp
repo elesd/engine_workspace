@@ -65,5 +65,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/events/sdl/empty/MouseImpl.cpp>
 
 #endif

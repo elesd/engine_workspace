@@ -2,7 +2,7 @@
 
 include_directories("${MAIN_PROJECT_DIR}/source")
 include_directories("${EXTERNALS_DIR}/engine/include")
-include_directories("${EXTERNALS_DIR}")
+include_directories("${EXTERNALS_DIR}/glm")
 
 if (DEBUG_BUILD)
   if (USE_64_BIT)

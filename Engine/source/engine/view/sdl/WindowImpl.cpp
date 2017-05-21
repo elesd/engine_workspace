@@ -108,4 +108,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/view/sdl/empty/WindowImpl.cpp>
+
 #endif

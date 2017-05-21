@@ -120,4 +120,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/view/sdl/empty/WindowManagerImpl.cpp>
+
 #endif

@@ -26,4 +26,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/modules/glfw/empty/Core.cpp>
+
 #endif

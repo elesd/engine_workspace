@@ -55,4 +55,9 @@ namespace engine
 		}
 	}
 }
+
+#else 
+
+#include <engine/app/winapi/empty/WinApiApplicationParameter.cpp>
+
 #endif

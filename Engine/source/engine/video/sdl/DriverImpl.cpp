@@ -44,4 +44,8 @@ namespace engine
 		}
 	}
 }
+#else
+
+#include <engine/video/sdl/empty/DriverImpl.cpp>
+
 #endif

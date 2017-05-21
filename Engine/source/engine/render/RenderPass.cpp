@@ -11,7 +11,7 @@ namespace engine
 	{
 		Driver* driver = nullptr;
 
-		//Color4 clearColor;
+		Color4 clearColor;
 
 		std::vector<IRenderable*> objects;
 		std::string name;
@@ -57,14 +57,14 @@ namespace engine
 		return _members->objects;
 	}
 
-	//void RenderPass::setClearColor(Color4 color)
-	//{
-	//	//_members->clearColor = color;
-	//}
+	void RenderPass::setClearColor(Color4 color)
+	{
+		_members->clearColor = color;
+	}
 
-	//const Color4& RenderPass::getClearColor() const
-	//{
-	//	static Color4 result;
-	//	return result; 
-	//}
+	const Color4& RenderPass::getClearColor() const
+	{
+		static Color4 result;
+		return result; 
+	}
 }

@@ -17,8 +17,8 @@ namespace engine
 
 		void render();
 
-		//void setClearColor(Color4 color);
-		//const Color4 &getClearColor() const;
+		void setClearColor(Color4 color);
+		const Color4 &getClearColor() const;
 
 		const std::vector<IRenderable*>& getObjects() const;
 		std::vector<IRenderable*>& getObjects();

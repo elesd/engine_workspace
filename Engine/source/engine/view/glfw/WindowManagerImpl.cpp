@@ -134,4 +134,8 @@ namespace engine
 
 	}
 }
+#else 
+
+#include <engine/view/glfw/empty/WindowManagerImpl.cpp>
+
 #endif

@@ -24,5 +24,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/app/glfw/empty/ApplicationImpl.cpp>
 
 #endif

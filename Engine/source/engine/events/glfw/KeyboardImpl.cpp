@@ -154,4 +154,8 @@ namespace engine
 	}
 }
 
+#else 
+
+#include <engine/events/glfw/empty/KeyboardImpl.cpp>
+
 #endif

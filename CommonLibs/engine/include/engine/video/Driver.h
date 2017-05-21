@@ -7,6 +7,8 @@ namespace engine
 
 	class Window;
 	class WindowManager;
+	class VertexBuffer;
+	class IndexBuffer;
 	struct WindowManagerPrivate;
 
 	/**Initialization parameters for the driver*/
@@ -36,8 +38,11 @@ namespace engine
 		/**Init function*/
 		void init(const DriverInitParameters& params, Window *window);
 
+		void draw(const VertexBuffer* verticies, const IndexBuffer* indicies);
 	private:
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
+		/// TODO
+		virtual void drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies) {};
 	};
 }

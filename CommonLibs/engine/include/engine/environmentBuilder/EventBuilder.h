@@ -23,7 +23,7 @@ namespace engine
 	*/
 	class EventBuilder : public BaseBuilder
 	{
-		friend class ApplicationBuilder;
+		friend class FileSystemBuilder;
 	public:
 	private:
 		/**

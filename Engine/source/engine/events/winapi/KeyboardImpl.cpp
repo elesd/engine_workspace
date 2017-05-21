@@ -191,5 +191,8 @@ namespace engine
 		}
 	}
 }
+#else 
+
+#include <engine/events/winapi/empty/KeyboardImpl.cpp>
 
 #endif
