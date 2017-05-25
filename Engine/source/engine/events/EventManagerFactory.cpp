@@ -50,45 +50,10 @@ namespace engine
 		return result;
 	}
 
-//	std::unique_ptr<EventSourceBase> EventManagerFactory::createMouse() const
-//	{
-//		std::unique_ptr<EventSourceBase> result;
-//		switch(_members->windowModule)
-//		{
-//			case ContextModuleType::Glfw: result = std::make_unique<glfw::MouseImpl>(); break;
-//			case ContextModuleType::Sdl: // TODO
-//				break;
-//			case ContextModuleType::WinApi: result = std::make_unique<winapi::MouseImpl>();
-//		}
-//		ASSERT(result);
-//		return result;
-//	}
-//
-//	std::unique_ptr<EventSourceBase> EventManagerFactory::createKeyboard() const
-//	{
-//		std::unique_ptr<EventSourceBase> result;
-//		switch(_members->windowModule)
-//		{
-//			case ContextModuleType::Glfw: result = std::make_unique<glfw::KeyboardImpl>(); break;
-//			case ContextModuleType::Sdl: // TODO
-//				break;
-//			case ContextModuleType::WinApi: result = std::make_unique<winapi::KeyboardImpl>();
-//		}
-//		ASSERT(result);
-//		return result;
-//	}
-
 	std::unique_ptr<EventManager> EventManagerFactory::createEventManager()
 	{
 		std::unique_ptr<EventManager> result;
 		result = createEventManagerImpl();
-//		switch(_members->windowModule)
-//		{
-//			case ContextModuleType::Glfw: result = std::make_unique<glfw::EventManagerImpl>(); break;
-//			case ContextModuleType::Sdl: // TODO
-//				break;
-//			case ContextModuleType::WinApi: result = std::make_unique<winapi::EventManagerImpl>();
-//		}
 		ASSERT(result);
 		initBasicInputs(result.get(), _members->basicInputs);
 		return result;

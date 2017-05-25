@@ -36,7 +36,12 @@ namespace engine
 		bool removeRender(const std::string& id);
 		Render* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
-
+		
+		// TODO
+		// CreateRenderTarget
+		// CompileShader
+		// SetViewPort
+		// SetShader
 		RenderTarget* getCurrentRenderTarget();
 		Material* getCurrentMaterial();
 	private:
