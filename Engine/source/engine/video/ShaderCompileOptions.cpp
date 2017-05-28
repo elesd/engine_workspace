@@ -2,11 +2,14 @@
 #include <engine/video/ShaderCompileOptions.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/ShaderLayout.h>
+
 namespace engine
 {
 	struct ShaderCompileOptionsPrivate
 	{
 		ShaderVersion version;
+		ShaderLayout attributeLayout;
 		std::vector<std::string> defines;
 		std::vector<ShaderCompileFlag> flags;
 
@@ -59,7 +62,8 @@ namespace engine
 	{
 		return _members->defines == o._members->defines
 			&& _members->flags == o._members->flags
-			&& _members->version == o._members->version;
+			&& _members->version == o._members->version
+			&& _members->attributeLayout == o._members->attributeLayout;
 	}
 
 	void ShaderCompileOptions::addDefine(const std::string& define)
@@ -115,4 +119,15 @@ namespace engine
 	{
 		return _members->version;
 	}
+
+	void ShaderCompileOptions::setLayout(const ShaderLayout& attributeLayout)
+	{
+		_members->attributeLayout = attributeLayout;
+	}
+
+	const ShaderLayout &ShaderCompileOptions::getLayout() const
+	{
+		return _members->attributeLayout;
+	}
+
 }

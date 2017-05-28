@@ -2,6 +2,8 @@
 
 namespace engine
 {
+	class ShaderLayout;
+
 	enum class ShaderVersion
 	{
 		HLSL_4_0_level_9_1,
@@ -47,6 +49,9 @@ namespace engine
 		bool hasFlag(ShaderCompileFlag flag) const;
 		void removeFlag(ShaderCompileFlag);
 		const std::vector<ShaderCompileFlag>& getFlags() const;
+
+		void setLayout(const ShaderLayout& attributeLayout);
+		const ShaderLayout &getLayout() const;
 	private:
 		struct ShaderCompileOptionsPrivate* _members = nullptr;
 		

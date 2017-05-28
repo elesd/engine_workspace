@@ -12,17 +12,19 @@ namespace engine
 	struct ShaderCompilerPrivate
 	{
 		Driver* driver = nullptr;
-		ShaderCompileOptions options;
+		ShaderVersion version;
+		std::map<std::string, ShaderCompileOptions> techniqueMap;
 
 		ShaderCompilerPrivate(Driver* driver, ShaderVersion version)
 			: driver(driver)
-			, options(version)
+			, version(version)
 		{
 		}
 
 		ShaderCompilerPrivate(ShaderCompilerPrivate& o)
 			: driver(o.driver)
-			, options(o.options)
+			, version(o.version)
+			, techniqueMap(o.techniqueMap)
 		{
 
 		}
@@ -30,7 +32,9 @@ namespace engine
 		ShaderCompilerPrivate& operator=(ShaderCompilerPrivate& o)
 		{
 			driver = o.driver;
-			options = o.options;
+			techniqueMap = o.techniqueMap;
+			version = o.version;
+			return *this;
 		}
 	};
 
@@ -72,22 +76,35 @@ namespace engine
 		return *this;
 	}
 
+	void ShaderCompiler::init(const std::map<std::string, ShaderCompileOptions>& techniqueMap)
+	{
+		_members->techniqueMap = techniqueMap;
+	}
+
+	ShaderCompileOptions ShaderCompiler::createEmptyOptions() const
+	{
+		return ShaderCompileOptions(_members->version);
+	}
+
 	bool ShaderCompiler::compileShader(Shader* shader, const std::string& techniqueName)
 	{
-
-		_members->driver->compileShader(shader, techniqueName, _members->options);
+		auto it = _members->techniqueMap.find(techniqueName);
+		ASSERT(it != _members->techniqueMap.end());
+		_members->driver->compileShader(shader, techniqueName, it->second);
 
 		return shader->getCompilationData(techniqueName)->compilationWasSuccessfull();
 	}
 
 
-	const ShaderCompileOptions& ShaderCompiler::getOptions() const
+	const ShaderCompileOptions& ShaderCompiler::getOptions(const std::string& techniqueName) const
 	{
-		return _members->options;
+		auto it = _members->techniqueMap.find(techniqueName);
+		ASSERT(it != _members->techniqueMap.end());
+		return it->second;
 	}
 
-	ShaderCompileOptions& ShaderCompiler::getOptions()
+	ShaderCompileOptions& ShaderCompiler::getOptions(const std::string& techniqueName)
 	{
-		return _members->options;
+		return _members->techniqueMap[techniqueName];
 	}
 }
