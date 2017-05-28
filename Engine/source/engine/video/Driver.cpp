@@ -5,6 +5,8 @@
 #include <engine/exceptions/LogicalErrors.h>
 
 #include <engine/render/RenderContext.h>
+
+#include <engine/video/RenderTarget.h>
 namespace
 {
 	enum class InitDriverParameterError
@@ -35,26 +37,19 @@ namespace
 
 namespace engine
 {
-	struct DriverPrivate
-	{
-		RenderContext* renderContext = nullptr;
-	};
+
 
 	Driver::Driver()
-		: _members(new DriverPrivate())
 	{
 
 	}
 
 	Driver::~Driver()
 	{
-		delete _members;
-		_members = nullptr;
 	}
 
-	void Driver::init(RenderContext *renderContext, const DriverInitParameters &params, Window *window)
+	void Driver::init(const DriverInitParameters &params, Window *window)
 	{
-		_members->renderContext = renderContext;
 
 		InitDriverParameterError checkResult = checkDriverInitParameters(params);
 		if(checkResult != InitDriverParameterError::Ok)
@@ -75,26 +70,23 @@ namespace engine
 		setViewPortImpl(topX, topY, width, height);
 	 }
 
-	RenderContext* Driver::getRenderContext()
+	std::unique_ptr<RenderTarget> Driver::createRenderTarget(Texture* texture)
 	{
-		return _members->renderContext;
+		return createRenderTargetImpl(texture);
+	}
+
+	void Driver::compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
+	{
+		compileShaderImpl(shader, techniqueName, options);
 	}
 
 	void Driver::setRenderTarget(RenderTarget* renderTarget)
 	{
-		if(getRenderContext()->getCurrentRenderTarget() != renderTarget)
-		{
-			setRenderTargetImpl(renderTarget);
-			getRenderContext()->setCurrentRenderTarget(renderTarget);
-		}
+		setRenderTargetImpl(renderTarget);
 	}
 
-	void Driver::setMaterial(Material* material)
+	void Driver::setShader(Shader* shader, const std::string& techniqueName)
 	{
-		if(getRenderContext()->getCurrentMaterial() != material)
-		{
-			setMaterialImpl(material);
-			getRenderContext()->setCurrentMaterial(material);
-		}
+		setShaderImpl(shader, techniqueName);
 	}
 }

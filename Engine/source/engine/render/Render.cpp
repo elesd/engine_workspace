@@ -1,22 +1,24 @@
 #include <stdafx.h>
 #include <engine/render/Render.h>
+///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/PipelineRendererBase.h>
+#include <engine/render/RenderContext.h>
 
 namespace engine
 {
 	struct RenderPrivate
 	{
 		std::unique_ptr<PipelineRendererBase> pipelineRender;
-		Driver *driver = nullptr;
-		RenderPrivate(Driver* driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+		RenderContext* renderContext = nullptr;
+		RenderPrivate(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 			: pipelineRender(std::move(pipelineRenderer))
-			, driver(driver)
+			, renderContext(renderContext)
 		{ }
 	};
 
-	Render::Render(Driver* driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
-		: _members(new RenderPrivate(driver, std::move(pipelineRenderer)))
+	Render::Render(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+		: _members(new RenderPrivate(renderContext, std::move(pipelineRenderer)))
 	{
 
 	}

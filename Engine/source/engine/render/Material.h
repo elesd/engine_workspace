@@ -5,7 +5,7 @@
 namespace engine
 {
 	class Shader;
-	class Material 
+	class Material
 		: private NonCopyable
 	{
 	public:
@@ -13,11 +13,17 @@ namespace engine
 		~Material();
 		Material(Material&&);
 		Material& operator=(Material&&);
-		void SetVertexShader(const Shader&);
-		void SetFragmentShader(const Shader&);
 
-		const Shader& getVertexShader();
-		const Shader& getFragmentShader();
+		void setVertexShader(std::unique_ptr<Shader>&& shader, const std::string& techniqueName);
+		void setFragmentShader(std::unique_ptr<Shader>&&, const std::string& techniqueName);
+
+		const Shader* getVertexShader() const;
+		const Shader* getFragmentShader() const;
+
+		void setVertexShaderTechniqueName(const std::string&);
+		void setFragmentShaderTechniqueName(const std::string&);
+		const std::string& getVertexShaderTechniqueName() const;
+		const std::string& getFragmentShaderTechniqueName() const;
 
 	private:
 		struct MaterialPrivate* _members = nullptr;

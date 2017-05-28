@@ -3,20 +3,36 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/Render.h>
+#include <engine/render/Material.h>
 
 #include <engine/video/Driver.h>
+#include <engine/video/RenderTarget.h>
+#include <engine/video/ShaderCompiler.h>
+#include <engine/video/Shader.h>
+
+
+namespace
+{
+	struct ShaderCache
+	{
+		const engine::Shader* shader = nullptr;
+		std::string techniqueName = "";
+	};
+}
 
 namespace engine
 {
 	struct RenderContextPrivate
 	{
 		std::map<std::string, std::unique_ptr<Render>> renders;
-		Material* currentMaterial = nullptr;
-		RenderTarget* currentRenderTarget = nullptr;
+		ShaderCache fragmentShaderCache;
+		ShaderCache vertexShaderCache;
+		const RenderTarget* currentRenderTarget = nullptr;
 		std::unique_ptr<Driver> driver;
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver)
 			: driver(std::move(driver))
-		{ }
+		{
+		}
 	};
 
 	RenderContext::RenderContext(std::unique_ptr<Driver>&& driver)
@@ -32,7 +48,7 @@ namespace engine
 
 	void RenderContext::init(const RenderContextParameters& params, Window *window)
 	{
-		_members->driver->init(this, params.driverParameters, window);
+		_members->driver->init(params.driverParameters, window);
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -61,23 +77,44 @@ namespace engine
 		return deletedItems > 0;
 	}
 
-	RenderTarget* RenderContext::getCurrentRenderTarget()
+	std::unique_ptr<RenderTarget> RenderContext::createRenderTarget(Texture* texture) const
 	{
-		return _members->currentRenderTarget;
+		std::unique_ptr<RenderTarget> result = _members->driver->createRenderTarget(texture);
+		return result;
 	}
 
-	Material* RenderContext::getCurrentMaterial()
+	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version) const
 	{
-		return _members->currentMaterial;
+		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version));
 	}
 
-	void RenderContext::setCurrentRenderTarget(RenderTarget* renderTarget)
+	void RenderContext::setRenderTarget(const RenderTarget* renderTarget)
 	{
-		_members->currentRenderTarget = renderTarget;
+		if(_members->currentRenderTarget != renderTarget)
+		{
+			_members->driver->setRenderTarget(renderTarget);
+		}
 	}
 
-	void RenderContext::setCurrentMaterial(Material* material)
+	void RenderContext::setMaterial(const Material* material)
 	{
-		_members->currentMaterial = material;
+		if(_members->fragmentShaderCache.shader == nullptr
+		   || _members->fragmentShaderCache.techniqueName != material->getFragmentShaderTechniqueName()
+		   || !_members->fragmentShaderCache.shader->isSame(_members->fragmentShaderCache.techniqueName, *material->getFragmentShader()))
+		{
+			_members->driver->setShader(material->getFragmentShader(), material->getFragmentShaderTechniqueName());
+			_members->fragmentShaderCache.shader = material->getFragmentShader();
+			_members->fragmentShaderCache.techniqueName = material->getFragmentShaderTechniqueName();
+		}
+		else if(_members->vertexShaderCache.shader == nullptr
+				|| _members->vertexShaderCache.techniqueName != material->getVertexShaderTechniqueName()
+				|| !_members->vertexShaderCache.shader->isSame(_members->vertexShaderCache.techniqueName, *material->getVertexShader()))
+		{
+			_members->driver->setShader(material->getVertexShader(), material->getVertexShaderTechniqueName());
+			_members->vertexShaderCache.shader = material->getVertexShader();
+			_members->vertexShaderCache.techniqueName = material->getVertexShaderTechniqueName();
+		}
 	}
+
+
 }

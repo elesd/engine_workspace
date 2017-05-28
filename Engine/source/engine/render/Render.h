@@ -1,18 +1,20 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/NonMoveable.h>
 
 namespace engine
 {
 	class Driver;
 	class PipelineRendererBase;
 
-	class Render final : private NonCopyable
+	class Render 
+		: private NonCopyable
+		, private NonMoveable
 	{
 	public:
-		// TODO Add RenderContext instead of driver
-		Render(Driver *driver, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
-		~Render();
+		Render(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
+		virtual ~Render();
 
 		void render();
 		// TODO:

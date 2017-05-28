@@ -1,14 +1,20 @@
 #include <stdafx.h>
 #include <engine/render/Material.h>
+///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/video/Shader.h>
+#include <engine/video/ShaderCompilationData.h>
+#include <engine/video/ShaderCompileOptions.h>
 
 namespace engine
 {
+	
 	struct MaterialPrivate
 	{
-		Shader vertexShader;
-		Shader fragmentShader;
+		std::unique_ptr<Shader> vertexShader;
+		std::string vertexTechniqueName;
+		std::string fragmentTechniqueName;
+		std::unique_ptr<Shader> fragmentShader;
 		std::string name;
 		MaterialPrivate(const std::string& name) : name(name) {}
 	};
@@ -39,23 +45,46 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void Material::SetVertexShader(const Shader& shader)
+	void Material::setVertexShader(std::unique_ptr<Shader>&& shader, const std::string& techniqueName)
 	{
-		_members->vertexShader = shader;
+		_members->vertexShader = std::move(shader);
+		_members->vertexTechniqueName = techniqueName;
 	}
 
-	void Material::SetFragmentShader(const Shader& shader)
+	void Material::setFragmentShader(std::unique_ptr<Shader>&& shader, const std::string& techniqueName)
 	{
-		_members->fragmentShader = shader;
+		_members->fragmentShader = std::move(shader);
+		_members->fragmentTechniqueName = techniqueName;
 	}
 
-	const Shader& Material::getVertexShader()
+	const Shader* Material::getVertexShader() const
 	{
-		return _members->vertexShader;
+		return _members->vertexShader.get();
 	}
 
-	const Shader& Material::getFragmentShader()
+	const Shader* Material::getFragmentShader() const
 	{
-		return _members->fragmentShader;
+		return _members->fragmentShader.get();
 	}
+
+	void Material::setVertexShaderTechniqueName(const std::string& techniqueName)
+	{
+		_members->vertexTechniqueName = techniqueName;
+	}
+
+	void Material::setFragmentShaderTechniqueName(const std::string& techniqueName)
+	{
+		_members->fragmentTechniqueName = techniqueName;
+	}
+
+	const std::string& Material::getVertexShaderTechniqueName() const
+	{
+		return _members->vertexTechniqueName;
+	}
+
+	const std::string& Material::getFragmentShaderTechniqueName() const
+	{
+		return _members->fragmentTechniqueName;
+	}
+	
 }

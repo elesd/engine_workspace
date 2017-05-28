@@ -2,28 +2,28 @@
 #include <engine/render/RenderPass.h>
 
 #include <engine/render/IRenderable.h>
+#include <engine/render/RenderContext.h>
 
-#include <engine/video/Driver.h>
 
 namespace engine
 {
 	struct RenderPassPrivate
 	{
-		Driver* driver = nullptr;
+		RenderContext* renderContext = nullptr;
 
 		Color4 clearColor;
 
 		std::vector<IRenderable*> objects;
 		std::string name;
 
-		RenderPassPrivate(const std::string& name, Driver *driver)
-			: name(name), driver(driver)
+		RenderPassPrivate(const std::string& name, RenderContext* driver)
+			: name(name), renderContext(renderContext)
 		{
 		}
 	};
 
-	RenderPass::RenderPass(const std::string& name, Driver *driver)
-		: _members(new RenderPassPrivate(name, driver))
+	RenderPass::RenderPass(const std::string& name, RenderContext* renderContext)
+		: _members(new RenderPassPrivate(name, renderContext))
 	{
 
 	}
@@ -51,13 +51,13 @@ namespace engine
 	void RenderPass::render()
 	{
 		// TODO 
-		// _members->dirver->setClearColor(_members->clearColor) 
+		// setClearColor(_members->clearColor) 
 		// ...
 		for(IRenderable* obj : _members->objects)
 		{
-			obj->preRender(_members->driver);
-			obj->render(_members->driver);
-			obj->postRender(_members->driver);
+			obj->preRender(_members->renderContext);
+			obj->render(_members->renderContext);
+			obj->postRender(_members->renderContext);
 		}
 	}
 

@@ -7,21 +7,27 @@
 #include <engine/fileSystem/FileSystem.h>
 #include <engine/fileSystem/SimpleFile.h>
 
+#include <engine/video/ShaderCompilationData.h>
+#include <engine/video/ShaderCompileOptions.h>
+
 namespace engine
 {
 	struct ShaderPrivate
 	{
 		std::string code;
-		std::vector<std::string> defines;
+		std::string mainFunctionName;
 		bool initialized = false;
+		ShaderType shaderType;
+		std::map<std::string, std::unique_ptr<ShaderCompilationData>> techniquesCompilationData;
+		ShaderPrivate(ShaderType type) : shaderType(shaderType) {}
 	};
 
-	Shader::Shader()
-		: _members(new ShaderPrivate)
+	Shader::Shader(ShaderType type)
+		: _members(new ShaderPrivate(type))
 	{
 	}
 
-	bool Shader::init(const FilePath& filePath)
+	bool Shader::init(const FilePath& filePath, const std::string& mainFunctionName)
 	{
 		SimpleFile source = Context::getInstance()->getApplication()->getFileSystem()->OpenFileSimple(filePath, FileMode::Read, FileOpenMode::Text, false);
 		if (source.isOk() == false)
@@ -31,13 +37,15 @@ namespace engine
 
 		_members->code = source.readAll().data();
 		_members->initialized = true;
+		_members->mainFunctionName = mainFunctionName;
 		return true;
 	}
 
-	void Shader::init(const std::string& shaderCode)
+	void Shader::init(const std::string& shaderCode, const std::string& mainFunctionName)
 	{
 		_members->code = shaderCode;
 		_members->initialized = true;
+		_members->mainFunctionName = mainFunctionName;
 	}
 
 	bool Shader::isInitialized() const
@@ -45,32 +53,48 @@ namespace engine
 		return _members->initialized;
 	}
 
+	bool Shader::isCompiled(const std::string& techniqueName) const
+	{
+		return _members->techniquesCompilationData.find(techniqueName) != _members->techniquesCompilationData.end();
+	}
+	
 	const std::string& Shader::getCode() const
 	{
+		ASSERT(isInitialized());
 		return _members->code;
 	}
 
-	const std::vector<std::string>& Shader::getDefines() const
+	ShaderType Shader::getShaderType() const
 	{
-		return _members->defines;
+		return _members->shaderType;
 	}
 
-	void Shader::addShaderDefine(const std::string& define)
+	const std::string& Shader::getMainFunctionName()
 	{
-		if (!hasShaderDefine(define))
-		{
-			_members->defines.push_back(define);
-		}
+		ASSERT(isInitialized());
+		return _members->mainFunctionName;
 	}
 
-	bool Shader::removeShaderDefine(const std::string& define)
+	void Shader::setCompiled(const std::string& techniqueName, std::unique_ptr<ShaderCompilationData>&& compilationData)
 	{
-		return false;
+		ASSERT(isInitialized());
+		_members->techniquesCompilationData.insert(std::make_pair(techniqueName, std::move(compilationData)));
 	}
 
-	bool Shader::hasShaderDefine(const std::string &define) const
+	const ShaderCompilationData* Shader::getCompilationData(const std::string& techniqueName) const
 	{
-		auto it = std::find(_members->defines.begin(), _members->defines.end(), define);
-		return it != _members->defines.end();
+		ASSERT(isInitialized());
+		ASSERT(isCompiled(techniqueName));
+		auto it = _members->techniquesCompilationData.find(techniqueName);
+		return it != _members->techniquesCompilationData.end() ? it->second.get() : nullptr;
 	}
+
+	bool Shader::isSame(const std::string& technique, const Shader& o) const
+	{
+		bool result = getCode() == o.getCode();
+		result = result && getCompilationData(technique)->getOptions() == o.getCompilationData(technique)->getOptions();
+		return result;
+	}
+
+
 }

@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	class Driver;
+	class RenderContext;
 
 	class IRenderable
 	{
@@ -12,8 +12,8 @@ namespace engine
 		virtual ~IRenderable() {}
 	public:
 
-		virtual void preRender(Driver*) {};
-		virtual void render(Driver*) = 0;
-		virtual void postRender(Driver*) {};
+		virtual void preRender(RenderContext*) {};
+		virtual void render(RenderContext*) = 0;
+		virtual void postRender(RenderContext*) {};
 	};
 }

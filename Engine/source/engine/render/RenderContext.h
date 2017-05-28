@@ -11,11 +11,16 @@ namespace engine
 	class RenderTarget;
 	class Material;
 	class Driver;
+	class Texture;
 	struct DriverInitParameters;
 	class Window;
 	class VertexBuffer;
 	class IndexBuffer;
 	class PipelineRendererBase;
+	class ShaderCompiler;
+
+	enum class ShaderVersion;
+
 	struct RenderContextParameters
 	{
 		DriverInitParameters driverParameters;
@@ -25,7 +30,6 @@ namespace engine
 		: private NonCopyable
 		, private NonMoveable
 	{
-		friend class Driver;
 	public:
 		RenderContext(std::unique_ptr<Driver>&& driver);
 		~RenderContext();
@@ -38,15 +42,12 @@ namespace engine
 		bool hasRender(const std::string& id) const;
 		
 		// TODO
-		// CreateRenderTarget
-		// CompileShader
 		// SetViewPort
-		// SetShader
-		RenderTarget* getCurrentRenderTarget();
-		Material* getCurrentMaterial();
-	private:
-		void setCurrentRenderTarget(RenderTarget* renderTarget);
-		void setCurrentMaterial(Material* material);
+		void setRenderTarget(const RenderTarget* renderTarget);
+		void setMaterial(const Material* material);
+		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture) const;
+		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
+
 	private:
 		struct RenderContextPrivate* _members = nullptr;
 	};
