@@ -1,10 +1,13 @@
 #pragma once
 
 #include <engine/video/Driver.h>
-struct ID3DBlob;
+
+struct ID3D11PixelShader;
+struct ID3D11VertexShader;
 
 namespace engine
 {
+	class ShaderCompilationData;
 	namespace winapi
 	{
 		class TextureImpl;
@@ -38,8 +41,8 @@ namespace engine
 			std::unique_ptr<TextureImpl> createBackBufferTexture();
 			void initViewPort(Window *window);
 
-			void createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
-			void createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
+			ID3D11PixelShader* createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
+			ID3D11VertexShader* createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
 
 		private:
 			/**PIMPL*/

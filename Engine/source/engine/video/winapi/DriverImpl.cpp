@@ -11,6 +11,7 @@
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderCompiler.h>
+#include <engine/video/ShaderLayoutDescription.h>
 #include <engine/video/winapi/BufferDescUtils.h>
 #include <engine/video/winapi/HLSLVSCompilationData.h>
 #include <engine/video/winapi/HLSLFSCompilationData.h>
@@ -28,7 +29,7 @@ namespace
 	{
 		const void* data = nullptr;
 		size_t dataSize;
-		D3D_SHADER_MACRO* defines = nullprt;
+		D3D_SHADER_MACRO* defines = nullptr;
 		ID3DInclude* includes = nullptr;
 		std::string entryPoint;
 		std::string target;
@@ -160,6 +161,59 @@ namespace
 		std::memcpy(strData.data(), blob->GetBufferPointer(), bufferSize);
 		std::string str(strData.data());
 		return str;
+	}
+
+	DXGI_FORMAT convertAttributeTypeToFormat(engine::ShaderMemberType type)
+	{
+		switch(type)
+		{
+			case engine::ShaderMemberType::Float:
+			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
+			break;
+			case engine::ShaderMemberType::Vec2:
+			return DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+			break;
+			case engine::ShaderMemberType::Vec3:
+			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+			break;
+			case engine::ShaderMemberType::Vec4:
+			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+			break;
+			case engine::ShaderMemberType::Mat3:
+			case engine::ShaderMemberType::Mat4:
+			case engine::ShaderMemberType::Undef:
+			default:
+			HARD_FAIL("Unsupported format for attribute");
+			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
+			break;
+		}
+	}
+
+	D3D11_INPUT_ELEMENT_DESC* convertLayout(const engine::ShaderLayoutDescription& layoutDesc)
+	{
+		D3D11_INPUT_ELEMENT_DESC* result = new D3D11_INPUT_ELEMENT_DESC[layoutDesc.getNumOfAttributes()];
+		uint32_t offset = 0;
+		for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
+		{
+			engine::ShaderLayout layout = layoutDesc.getAttribute(i);
+			if(layout.type == engine::ShaderMemberType::Undef)
+			{
+				std::ostringstream os;
+				os << "Layout is not defined:" << i << ", " << layout.name << std::endl;
+
+				delete[] result;
+				throw engine::InitializationError(os.str());
+			}
+
+			result[i].SemanticName = layout.name.c_str();
+			result[i].SemanticIndex = 0;
+			result[i].Format = convertAttributeTypeToFormat(layout.type);
+			result[i].InputSlot = 0;
+			result[i].AlignedByteOffset = i == 0 ? 0 : D3D11_APPEND_ALIGNED_ELEMENT;
+			result[i].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+			result[i].InstanceDataStepRate = 0;
+		}
+		return result;
 	}
 }
 
@@ -355,6 +409,7 @@ namespace engine
 					const HLSLVSCompilationData* data = static_cast<const HLSLVSCompilationData*>(shader->getCompilationData(techniqueName));
 					ASSERT(data->compilationWasSuccessfull());
 					_members->deviceContext->VSSetShader(data->getShaderInterface(), nullptr, 0);
+					_members->deviceContext->IASetInputLayout(data->getLayoutInterface());
 				}
 				break;
 				case ShaderType::FragmentShader:
@@ -362,6 +417,7 @@ namespace engine
 					const HLSLFSCompilationData* data = static_cast<const HLSLFSCompilationData*>(shader->getCompilationData(techniqueName));
 					ASSERT(data->compilationWasSuccessfull());
 					_members->deviceContext->PSSetShader(data->getShaderInterface(), nullptr, 0);
+					_members->deviceContext->IASetInputLayout(data->getLayoutInterface());
 				}
 				break;
 				default:
@@ -413,8 +469,16 @@ namespace engine
 			{
 				switch(shader->getShaderType())
 				{
-					case ShaderType::FragmentShader: createD3DFragmentShaderInto(compiledCode, resultData.get()); break;
-					case ShaderType::VertexShader: createD3DVertexShaderInto(compiledCode, resultData.get()); break;
+					case ShaderType::FragmentShader:
+					{
+						createD3DFragmentShaderInto(compiledCode, resultData.get());
+					}
+					break;
+					case ShaderType::VertexShader:
+					{
+						createD3DVertexShaderInto(compiledCode, resultData.get());				
+					}
+					break;
 					default: FAIL("Unimplemented shader type"); break;
 				}
 				compiledCode = nullptr;
@@ -423,7 +487,7 @@ namespace engine
 			shader->setCompiled(techniqueName, std::move(resultData));
 		}
 
-		void DriverImpl::createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
+		ID3D11PixelShader* DriverImpl::createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
 		{
 			ID3D11PixelShader* d3dShader = nullptr;
 			HRESULT result = _members->device->CreatePixelShader(compiledCode, compiledCode->GetBufferSize(), nullptr, &d3dShader);
@@ -432,14 +496,22 @@ namespace engine
 				resultData->setError("Shader creation error");
 				d3dShader->Release();
 				compiledCode->Release();
+				return nullptr;
 			}
 			else
 			{
-				static_cast<HLSLFSCompilationData*>(resultData)->setOk(compiledCode, d3dShader);
+				ID3D11InputLayout* d3dlayout = nullptr;
+				const ShaderLayoutDescription& layoutDesc = resultData->getOptions().getLayout();
+				D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
+				ScopeExit([desc]() { delete[] desc; });
+				_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
+
+				static_cast<HLSLFSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
+				return d3dShader;
 			}
 		}
 
-		void DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
+		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
 		{
 			ID3D11VertexShader* d3dShader = nullptr;
 			HRESULT result = _members->device->CreateVertexShader(compiledCode, compiledCode->GetBufferSize(), nullptr, &d3dShader);
@@ -448,10 +520,17 @@ namespace engine
 				resultData->setError("Shader creation error");
 				d3dShader->Release();
 				compiledCode->Release();
+				return nullptr;
 			}
 			else
 			{
-				static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader);
+				ID3D11InputLayout* d3dlayout = nullptr;
+				const ShaderLayoutDescription& layoutDesc = resultData->getOptions().getLayout();
+				D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
+				ScopeExit([desc]() { delete[] desc; });
+				_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
+				static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
+				return d3dShader;
 			}
 		}
 	}

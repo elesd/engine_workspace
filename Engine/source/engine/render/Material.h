@@ -20,6 +20,9 @@ namespace engine
 		const Shader* getVertexShader() const;
 		const Shader* getFragmentShader() const;
 
+		Shader* getVertexShader();
+		Shader* getFragmentShader();
+
 		void setVertexShaderTechniqueName(const std::string&);
 		void setFragmentShaderTechniqueName(const std::string&);
 		const std::string& getVertexShaderTechniqueName() const;

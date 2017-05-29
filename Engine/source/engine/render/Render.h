@@ -7,6 +7,7 @@ namespace engine
 {
 	class Driver;
 	class PipelineRendererBase;
+	class RenderContext;
 
 	class Render 
 		: private NonCopyable

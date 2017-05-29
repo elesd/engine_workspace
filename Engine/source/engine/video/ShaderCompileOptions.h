@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	class ShaderLayout;
+	class ShaderLayoutDescription;
 
 	enum class ShaderVersion
 	{
@@ -27,6 +27,7 @@ namespace engine
 	class ShaderCompileOptions final
 	{
 	public:
+		ShaderCompileOptions();
 		ShaderCompileOptions(ShaderVersion);
 		ShaderCompileOptions(const ShaderCompileOptions&);
 		ShaderCompileOptions(ShaderCompileOptions&&);
@@ -50,8 +51,8 @@ namespace engine
 		void removeFlag(ShaderCompileFlag);
 		const std::vector<ShaderCompileFlag>& getFlags() const;
 
-		void setLayout(const ShaderLayout& attributeLayout);
-		const ShaderLayout &getLayout() const;
+		void setLayout(const ShaderLayoutDescription& attributeLayout);
+		const ShaderLayoutDescription &getLayout() const;
 	private:
 		struct ShaderCompileOptionsPrivate* _members = nullptr;
 		

@@ -67,6 +67,16 @@ namespace engine
 		return _members->fragmentShader.get();
 	}
 
+	Shader* Material::getVertexShader() 
+	{
+		return _members->vertexShader.get();
+	}
+
+	Shader* Material::getFragmentShader()
+	{
+		return _members->fragmentShader.get();
+	}
+
 	void Material::setVertexShaderTechniqueName(const std::string& techniqueName)
 	{
 		_members->vertexTechniqueName = techniqueName;

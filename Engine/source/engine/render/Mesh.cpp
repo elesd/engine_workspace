@@ -2,8 +2,9 @@
 #include <engine/render/Mesh.h>
 
 #include <engine/render/Material.h>
+#include <engine/render/RenderContext.h>
 
-#include <engine/video/Driver.h>
+
 #include <engine/video/IndexBuffer.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -41,9 +42,9 @@ namespace engine
 		return *this;
 	}
 
-	void Mesh::render(Driver* driver) 
+	void Mesh::render(RenderContext* renderContext) 
 	{
-		driver->draw(_members->verticies.get(), _members->indicies.get());
+		//TODO renderContext->render(_members->verticies.get(), _members->indicies.get());
 	}
 
 	const VertexBuffer* Mesh::getVerticies() const

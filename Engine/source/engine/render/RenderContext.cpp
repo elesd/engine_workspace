@@ -54,7 +54,7 @@ namespace engine
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 	{
 		ASSERT(!hasRender(id));
-		std::unique_ptr<Render> newRender = std::make_unique<Render>(_members->driver.get(), std::move(pipelineRenderer));
+		std::unique_ptr<Render> newRender = std::make_unique<Render>(this, std::move(pipelineRenderer));
 		Render* result = newRender.get();
 		_members->renders.insert(std::make_pair(id, std::move(newRender)));
 		return result;
@@ -88,7 +88,7 @@ namespace engine
 		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version));
 	}
 
-	void RenderContext::setRenderTarget(const RenderTarget* renderTarget)
+	void RenderContext::setRenderTarget(RenderTarget* renderTarget)
 	{
 		if(_members->currentRenderTarget != renderTarget)
 		{
@@ -96,7 +96,7 @@ namespace engine
 		}
 	}
 
-	void RenderContext::setMaterial(const Material* material)
+	void RenderContext::setMaterial(Material* material)
 	{
 		if(_members->fragmentShaderCache.shader == nullptr
 		   || _members->fragmentShaderCache.techniqueName != material->getFragmentShaderTechniqueName()

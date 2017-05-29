@@ -1,7 +1,9 @@
 #if ENGINE_USE_WINAPI
 
 #	include <windows.h>
-
+#   if ENGINE_USE_WINAPI
+#       include <d3d11.h>
+#endif
 #else
 #define NULL_DEF(Type) using Type = void*;
 

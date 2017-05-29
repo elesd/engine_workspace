@@ -13,8 +13,8 @@ namespace engine
 	{
 	protected:
 		ShaderCompilationData(const ShaderCompileOptions& options);
-		virtual ~ShaderCompilationData();
 	public:
+		virtual ~ShaderCompilationData();
 
 		const ShaderCompileOptions& getOptions() const;
 
@@ -22,7 +22,7 @@ namespace engine
 
 		bool compilationWasSuccessfull() const;
 		const std::string& getError() const;
-		// TODO Add shaderLayout
+		// TODO Add ShaderLayoutDescription
 	protected:
 		void setOk();
 	private:

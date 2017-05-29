@@ -22,7 +22,7 @@ namespace engine
 
 		Mesh &operator=(Mesh&&);
 
-		void render(Driver*) override;
+		void render(RenderContext*) override;
 
 		const VertexBuffer* getVerticies() const;
 		const IndexBuffer* getIndicies() const;

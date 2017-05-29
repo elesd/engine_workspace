@@ -14,6 +14,7 @@ namespace engine
 		{
 			ID3DBlob* compiledCode = nullptr;
 			ID3D11VertexShader* shader = nullptr;
+			ID3D11InputLayout* layout = nullptr;
 		};
 
 		HLSLVSCompilationData::HLSLVSCompilationData(const ShaderCompileOptions& options)
@@ -33,21 +34,32 @@ namespace engine
 				{
 					_members->shader->Release();
 				}
+				if(_members->layout)
+				{
+					_members->layout->Release();
+				}
 			}
 			delete _members;
 		}
 
-		void HLSLVSCompilationData::setOk(ID3D10Blob* compiledCode, ID3D11VertexShader* shader)
+		void HLSLVSCompilationData::setOk(ID3D10Blob* compiledCode, ID3D11VertexShader* shader, ID3D11InputLayout* layout)
 		{
 			ShaderCompilationData::setOk();
 			_members->compiledCode = compiledCode;
 			_members->shader = shader;
+			_members->layout = layout;
 		}
 
 		ID3D11VertexShader* HLSLVSCompilationData::getShaderInterface() const
 		{
 			return _members->shader;
 		}
+
+		ID3D11InputLayout* HLSLVSCompilationData::getLayoutInterface() const
+		{
+			return _members->layout;
+		}
+
 
 	}
 }

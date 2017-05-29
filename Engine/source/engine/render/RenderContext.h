@@ -43,8 +43,8 @@ namespace engine
 		
 		// TODO
 		// SetViewPort
-		void setRenderTarget(const RenderTarget* renderTarget);
-		void setMaterial(const Material* material);
+		void setRenderTarget(RenderTarget* renderTarget);
+		void setMaterial(Material* material);
 		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture) const;
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
 
