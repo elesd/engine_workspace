@@ -5,6 +5,7 @@
 #include <engine/exceptions/LogicalErrors.h>
 
 #include <engine/render/RenderContext.h>
+#include <engine/render/Effect.h>
 
 #include <engine/video/RenderTarget.h>
 namespace
@@ -63,6 +64,12 @@ namespace engine
 	void Driver::draw(const VertexBuffer* verticies, const IndexBuffer* indicies)
 	{
 		drawImpl(verticies, indicies);
+	}
+
+	void Driver::setEffect(Effect* effect)
+	{
+		setShader(effect->getVertexShader(), effect->getName());
+		setShader(effect->getFragmentShader(), effect->getName());
 	}
 
 	void Driver::setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height)

@@ -7,6 +7,7 @@
 
 namespace engine
 {
+	class Effect;
 	class IndexBuffer;
 	class Material;
 	class RenderContext;
@@ -49,13 +50,14 @@ namespace engine
 		void init(const DriverInitParameters& params, Window *window);
 
 		void draw(const VertexBuffer* verticies, const IndexBuffer* indicies);
-		void setShader(Shader* shader, const std::string& techniqueName);
+		void setEffect(Effect* effect);
 		void setRenderTarget(RenderTarget* renderTarget);
 
 		void setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture);
 		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options);
 	private:
+		void setShader(Shader* shader, const std::string& techniqueName);
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) = 0;

@@ -7,17 +7,20 @@
 
 namespace engine
 {
+	class Driver;
+	class EffectCompiler;
+	class IndexBuffer;
+	class Material;
+	class MaterialDescription;
+	class PipelineRendererBase;
 	class Render;
 	class RenderTarget;
-	class Material;
-	class Driver;
-	class Texture;
-	struct DriverInitParameters;
-	class Window;
-	class VertexBuffer;
-	class IndexBuffer;
-	class PipelineRendererBase;
 	class ShaderCompiler;
+	class Texture;
+	class VertexBuffer;
+	class Window;
+
+	struct DriverInitParameters;
 
 	enum class ShaderVersion;
 
@@ -46,9 +49,9 @@ namespace engine
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setMaterial(Material* material);
 		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture) const;
-		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
-
+		std::unique_ptr<EffectCompiler> createEffectCompiler(const MaterialDescription&);
 	private:
+		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
 		struct RenderContextPrivate* _members = nullptr;
 	};
 }

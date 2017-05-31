@@ -4,6 +4,8 @@
 
 #include <engine/render/Render.h>
 #include <engine/render/Material.h>
+#include <engine/render/MaterialDescription.h>
+#include <engine/render/EffectCompiler.h>
 
 #include <engine/video/Driver.h>
 #include <engine/video/RenderTarget.h>
@@ -11,23 +13,14 @@
 #include <engine/video/Shader.h>
 
 
-namespace
-{
-	struct ShaderCache
-	{
-		const engine::Shader* shader = nullptr;
-		std::string techniqueName = "";
-	};
-}
 
 namespace engine
 {
 	struct RenderContextPrivate
 	{
 		std::map<std::string, std::unique_ptr<Render>> renders;
-		ShaderCache fragmentShaderCache;
-		ShaderCache vertexShaderCache;
 		const RenderTarget* currentRenderTarget = nullptr;
+		const Effect* currentEffect = nullptr;
 		std::unique_ptr<Driver> driver;
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver)
 			: driver(std::move(driver))
@@ -83,6 +76,13 @@ namespace engine
 		return result;
 	}
 
+	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(const MaterialDescription& description)
+	{
+		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(description.getShaderVersion());
+		std::unique_ptr<EffectCompiler> effectCompiler(new EffectCompiler(_members->driver.get(), std::move(shaderCompiler), description));
+		return effectCompiler;
+	}
+
 	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version) const
 	{
 		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version));
@@ -92,27 +92,17 @@ namespace engine
 	{
 		if(_members->currentRenderTarget != renderTarget)
 		{
+			_members->currentRenderTarget = renderTarget;
 			_members->driver->setRenderTarget(renderTarget);
 		}
 	}
 
 	void RenderContext::setMaterial(Material* material)
 	{
-		if(_members->fragmentShaderCache.shader == nullptr
-		   || _members->fragmentShaderCache.techniqueName != material->getFragmentShaderTechniqueName()
-		   || !_members->fragmentShaderCache.shader->isSame(_members->fragmentShaderCache.techniqueName, *material->getFragmentShader()))
+		if(material->getEffect() != _members->currentEffect)
 		{
-			_members->driver->setShader(material->getFragmentShader(), material->getFragmentShaderTechniqueName());
-			_members->fragmentShaderCache.shader = material->getFragmentShader();
-			_members->fragmentShaderCache.techniqueName = material->getFragmentShaderTechniqueName();
-		}
-		else if(_members->vertexShaderCache.shader == nullptr
-				|| _members->vertexShaderCache.techniqueName != material->getVertexShaderTechniqueName()
-				|| !_members->vertexShaderCache.shader->isSame(_members->vertexShaderCache.techniqueName, *material->getVertexShader()))
-		{
-			_members->driver->setShader(material->getVertexShader(), material->getVertexShaderTechniqueName());
-			_members->vertexShaderCache.shader = material->getVertexShader();
-			_members->vertexShaderCache.techniqueName = material->getVertexShaderTechniqueName();
+			_members->currentEffect = material->getEffect();
+			_members->driver->setEffect(material->getEffect());
 		}
 	}
 

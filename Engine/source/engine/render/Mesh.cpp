@@ -44,6 +44,7 @@ namespace engine
 
 	void Mesh::render(RenderContext* renderContext) 
 	{
+		renderContext->setMaterial(_members->material);
 		//TODO renderContext->render(_members->verticies.get(), _members->indicies.get());
 	}
 

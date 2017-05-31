@@ -2,27 +2,41 @@
 #include <engine/render/Material.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/render/MaterialDescription.h>
+#include <engine/render/EffectCompiler.h>
+#include <engine/render/Effect.h>
+
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
+
+namespace
+{
+	const std::string defaultEffectName = "Default";
+}
 
 namespace engine
 {
 	
 	struct MaterialPrivate
 	{
-		std::unique_ptr<Shader> vertexShader;
-		std::string vertexTechniqueName;
-		std::string fragmentTechniqueName;
-		std::unique_ptr<Shader> fragmentShader;
+		MaterialDescription description;
+		std::unique_ptr<EffectCompiler> effectCompiler;
+		std::map<std::string, std::unique_ptr<Effect>> effectCache;
 		std::string name;
-		MaterialPrivate(const std::string& name) : name(name) {}
+		std::string currentEffect;
+		MaterialPrivate(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description)
+			: name(name) 
+			, effectCompiler(std::move(effectCompiler))
+			, description(description)
+			, currentEffect(defaultEffectName)
+		{}
 	};
 
-	Material::Material(const std::string& name)
-		: _members(new MaterialPrivate(name))
+	Material::Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description)
+		: _members(new MaterialPrivate(name, std::move(effectCompiler), description))
 	{
-
+		setCurrentEffect(_members->currentEffect);
 	}
 
 	Material::Material(Material&& o)
@@ -45,56 +59,34 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void Material::setVertexShader(std::unique_ptr<Shader>&& shader, const std::string& techniqueName)
+	void Material::setCurrentEffect(const std::string& name)
 	{
-		_members->vertexShader = std::move(shader);
-		_members->vertexTechniqueName = techniqueName;
+		_members->currentEffect = name;
+		if(_members->effectCache.find(name) == _members->effectCache.end())
+		{
+			std::unique_ptr<Effect> effect = _members->effectCompiler->compileEffect(name);
+			_members->effectCache.insert(std::make_pair(name, std::move(effect)));
+		}
 	}
 
-	void Material::setFragmentShader(std::unique_ptr<Shader>&& shader, const std::string& techniqueName)
+	const std::string& Material::getCurrentEffectName() const
 	{
-		_members->fragmentShader = std::move(shader);
-		_members->fragmentTechniqueName = techniqueName;
+		return _members->currentEffect;
 	}
 
-	const Shader* Material::getVertexShader() const
+	Effect* Material::getEffect() const
 	{
-		return _members->vertexShader.get();
+		auto it = _members->effectCache.find(_members->currentEffect);
+		ASSERT(it != _members->effectCache.end());
+		return it->second.get();
 	}
 
-	const Shader* Material::getFragmentShader() const
+	const std::string& Material::getMaterialName() const
 	{
-		return _members->fragmentShader.get();
+		return _members->name;
 	}
 
-	Shader* Material::getVertexShader() 
-	{
-		return _members->vertexShader.get();
-	}
 
-	Shader* Material::getFragmentShader()
-	{
-		return _members->fragmentShader.get();
-	}
 
-	void Material::setVertexShaderTechniqueName(const std::string& techniqueName)
-	{
-		_members->vertexTechniqueName = techniqueName;
-	}
-
-	void Material::setFragmentShaderTechniqueName(const std::string& techniqueName)
-	{
-		_members->fragmentTechniqueName = techniqueName;
-	}
-
-	const std::string& Material::getVertexShaderTechniqueName() const
-	{
-		return _members->vertexTechniqueName;
-	}
-
-	const std::string& Material::getFragmentShaderTechniqueName() const
-	{
-		return _members->fragmentTechniqueName;
-	}
 	
 }
