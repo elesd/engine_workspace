@@ -6,6 +6,7 @@
 namespace engine
 {
 	class Shader;
+	class ShaderCompilationData;
 	class Effect
 		: private NonCopyable
 		, private NonMoveable
@@ -13,6 +14,9 @@ namespace engine
 	public:
 		Effect(const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader);
 		~Effect();
+
+		bool operator==(const Effect& o) const;
+
 		const Shader* getVertexShader() const;
 		const Shader* getFragmentShader() const;
 
@@ -22,6 +26,9 @@ namespace engine
 		const std::string& getName() const;
 	private:
 		void checkShaders() const;
+		const ShaderCompilationData* getCorrespondingData(Shader* shader) const;
+		const ShaderCompilationData* getVertexShaderData() const;
+		const ShaderCompilationData* getFragmentShaderData() const;
 	private:
 		struct EffectPrivate* _members = nullptr;
 	};

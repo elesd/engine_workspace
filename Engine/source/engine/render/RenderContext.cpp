@@ -2,6 +2,7 @@
 #include <engine/render/RenderContext.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/render/Effect.h>
 #include <engine/render/Render.h>
 #include <engine/render/Material.h>
 #include <engine/render/MaterialDescription.h>
@@ -99,7 +100,8 @@ namespace engine
 
 	void RenderContext::setMaterial(Material* material)
 	{
-		if(material->getEffect() != _members->currentEffect)
+		if(_members->currentEffect == nullptr
+		   || (*material->getEffect()) == (*_members->currentEffect))
 		{
 			_members->currentEffect = material->getEffect();
 			_members->driver->setEffect(material->getEffect());

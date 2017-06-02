@@ -4,6 +4,7 @@
 
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
+#include <engine/video/ShaderCompileOptions.h>
 
 namespace engine
 {
@@ -58,7 +59,32 @@ namespace engine
 
 	void Effect::checkShaders() const
 	{
-		ASSERT(_members->vertexShader->getCompilationData(getName())->compilationWasSuccessfull());
-		ASSERT(_members->fragmentShader->getCompilationData(getName())->compilationWasSuccessfull());
+		ASSERT(getVertexShaderData()->compilationWasSuccessfull());
+		ASSERT(getFragmentShaderData()->compilationWasSuccessfull());
+	}
+
+	const ShaderCompilationData* Effect::getCorrespondingData(Shader* shader) const
+	{
+		return shader->getCompilationData(getName());
+	}
+
+	const ShaderCompilationData* Effect::getVertexShaderData() const
+	{
+		return getCorrespondingData(_members->vertexShader);
+	}
+
+	const ShaderCompilationData* Effect::getFragmentShaderData() const
+	{
+		return getCorrespondingData(_members->fragmentShader);
+	}
+
+	bool Effect::operator==(const Effect& o) const
+	{
+		if(&o == this)
+			return true;
+
+		bool isSame = getVertexShaderData()->getOptions() == o.getVertexShaderData()->getOptions();
+		isSame = isSame && getFragmentShaderData()->getOptions() == o.getFragmentShaderData()->getOptions();
+		return isSame;
 	}
 }
