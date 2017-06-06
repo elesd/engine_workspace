@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/Effect.h>
+#include <engine/render/EffectComperator.h>
 #include <engine/render/Render.h>
 #include <engine/render/Material.h>
 #include <engine/render/MaterialDescription.h>
@@ -22,6 +23,7 @@ namespace engine
 		std::map<std::string, std::unique_ptr<Render>> renders;
 		const RenderTarget* currentRenderTarget = nullptr;
 		const Effect* currentEffect = nullptr;
+		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver)
 			: driver(std::move(driver))
@@ -100,11 +102,23 @@ namespace engine
 
 	void RenderContext::setMaterial(Material* material)
 	{
-		if(_members->currentEffect == nullptr
-		   || (*material->getEffect()) == (*_members->currentEffect))
+		_members->effectComperator.compare(_members->currentEffect, material->getEffect());
+		bool hasAnyChanges = false;
+
+		if(_members->effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
+		{
+			_members->driver->setShader(material->getEffect()->getVertexShader(), material->getEffect()->getName());
+			hasAnyChanges = true;
+		}
+		if(_members->effectComperator.isChanged(EffectComperator::DifferenceType::FragmentShader))
+		{
+			_members->driver->setShader(material->getEffect()->getFragmentShader(), material->getEffect()->getName());
+			hasAnyChanges = true;
+		}
+
+		if(hasAnyChanges)
 		{
 			_members->currentEffect = material->getEffect();
-			_members->driver->setEffect(material->getEffect());
 		}
 	}
 

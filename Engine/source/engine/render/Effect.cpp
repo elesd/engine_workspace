@@ -20,6 +20,7 @@ namespace engine
 		{ }
 	};
 
+
 	Effect::Effect(const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader)
 		: _members(new EffectPrivate(techniqueName, vertexShader, fragmentShader))
 	{
@@ -78,13 +79,5 @@ namespace engine
 		return getCorrespondingData(_members->fragmentShader);
 	}
 
-	bool Effect::operator==(const Effect& o) const
-	{
-		if(&o == this)
-			return true;
 
-		bool isSame = getVertexShaderData()->getOptions() == o.getVertexShaderData()->getOptions();
-		isSame = isSame && getFragmentShaderData()->getOptions() == o.getFragmentShaderData()->getOptions();
-		return isSame;
-	}
 }
