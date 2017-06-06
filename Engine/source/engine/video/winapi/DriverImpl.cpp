@@ -8,6 +8,7 @@
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 
+#include <engine/video/GPUTypes.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderCompiler.h>
@@ -163,25 +164,25 @@ namespace
 		return str;
 	}
 
-	DXGI_FORMAT convertAttributeTypeToFormat(engine::ShaderMemberType type)
+	DXGI_FORMAT convertAttributeTypeToFormat(engine::GPUMemberType type)
 	{
 		switch(type)
 		{
-			case engine::ShaderMemberType::Float:
+			case engine::GPUMemberType::Float:
 			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
 			break;
-			case engine::ShaderMemberType::Vec2:
+			case engine::GPUMemberType::Vec2:
 			return DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
 			break;
-			case engine::ShaderMemberType::Vec3:
+			case engine::GPUMemberType::Vec3:
 			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
 			break;
-			case engine::ShaderMemberType::Vec4:
+			case engine::GPUMemberType::Vec4:
 			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
 			break;
-			case engine::ShaderMemberType::Mat3:
-			case engine::ShaderMemberType::Mat4:
-			case engine::ShaderMemberType::Undef:
+			case engine::GPUMemberType::Mat3:
+			case engine::GPUMemberType::Mat4:
+			case engine::GPUMemberType::Undef:
 			default:
 			HARD_FAIL("Unsupported format for attribute");
 			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
@@ -196,7 +197,7 @@ namespace
 		for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
 		{
 			engine::ShaderLayout layout = layoutDesc.getAttribute(i);
-			if(layout.type == engine::ShaderMemberType::Undef)
+			if(layout.type == engine::GPUMemberType::Undef)
 			{
 				std::ostringstream os;
 				os << "Layout is not defined:" << i << ", " << layout.name << std::endl;

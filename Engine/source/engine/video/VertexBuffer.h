@@ -1,12 +1,24 @@
-#include <engine/video/VideoBufferBase.h>
+#pragma once
+
+#include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/NonMoveable.h>
 
 namespace engine
 {
-	class VertexBuffer : public VideoBufferBase
+	enum class GPUMemberType;
+
+	class VertexBuffer 
 	{
 	public:
-		VertexBuffer();
-		VertexBuffer(const std::vector<char>& data);
-		~VertexBuffer() override;
+		explicit VertexBuffer(const std::vector<GPUMemberType>& description);
+		VertexBuffer(const VertexBuffer&);
+		VertexBuffer(VertexBuffer&&);
+		~VertexBuffer();
+
+		VertexBuffer& operator=(const VertexBuffer&);
+		VertexBuffer& operator=(VertexBuffer&&);
+		void fill(const std::vector<char>& data);
+	private:
+
 	};
 }

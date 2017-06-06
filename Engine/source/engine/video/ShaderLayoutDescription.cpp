@@ -2,6 +2,8 @@
 #include <engine/video/ShaderLayoutDescription.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/GPUTypes.h>
+
 namespace engine
 {
 	bool ShaderLayout::operator==(const ShaderLayout& o) const
@@ -59,8 +61,9 @@ namespace engine
 		return _members == nullptr || o._members == nullptr || _members == o._members || _members->layouts == o._members->layouts;
 	}
 
-	void ShaderLayoutDescription::insertAttribute(ShaderMemberType type, uint32_t layout, const std::string& name)
+	void ShaderLayoutDescription::insertAttribute(GPUMemberType type, uint32_t layout, const std::string& name)
 	{
+		ASSERT(GPUMemberTypeTraits::isAttributeType(type));
 		_members->layouts[layout] = ShaderLayout({type, name});
 	}
 
@@ -77,6 +80,6 @@ namespace engine
 	ShaderLayout ShaderLayoutDescription::getAttribute(uint32_t layout) const
 	{
 		auto it = _members->layouts.find(layout);
-		return it == _members->layouts.end() ? ShaderLayout({ShaderMemberType::Undef, "Undef"}) : it->second;
+		return it == _members->layouts.end() ? ShaderLayout({GPUMemberType::Undef, "Undef"}) : it->second;
 	}
 }

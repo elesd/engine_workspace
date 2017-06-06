@@ -2,20 +2,11 @@
 
 namespace engine
 {
-	enum class ShaderMemberType
-	{
-		Undef,
-		Float,
-		Vec2,
-		Vec3,
-		Vec4,
-		Mat3,
-		Mat4
-	};
+	enum class GPUMemberType;
 
 	struct ShaderLayout
 	{
-		ShaderMemberType type;
+		GPUMemberType type;
 		std::string name;
 		bool operator==(const ShaderLayout& o) const;
 	};
@@ -32,7 +23,7 @@ namespace engine
 		ShaderLayoutDescription& operator=(ShaderLayoutDescription&&);
 
 		bool operator==(const ShaderLayoutDescription&) const;
-		void insertAttribute(ShaderMemberType type, uint32_t layout, const std::string& name);
+		void insertAttribute(GPUMemberType type, uint32_t layout, const std::string& name);
 		size_t getNumOfAttributes() const;
 		void removeAttirbute(uint32_t layout);
 		ShaderLayout getAttribute(uint32_t layout) const;
