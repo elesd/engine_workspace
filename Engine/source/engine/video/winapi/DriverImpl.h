@@ -4,13 +4,15 @@
 
 struct ID3D11PixelShader;
 struct ID3D11VertexShader;
-
+struct ID3D11Buffer;
+struct D3D11_BUFFER_DESC;
 namespace engine
 {
 	class ShaderCompilationData;
 	namespace winapi
 	{
 		class TextureImpl;
+		class VertexBufferObject;
 
 		/**
 		* Video driver implementation for winapi
@@ -23,6 +25,10 @@ namespace engine
 			DriverImpl();
 			/**For PIMPL*/
 			~DriverImpl() override;
+			
+			void bind(VertexBufferObject* vertexBuffer);
+			void unbind(VertexBufferObject* vertexBuffer);
+			ID3D11Buffer* createBuffer(const D3D11_BUFFER_DESC& description);
 
 		private:
 			/**Initialize based on the given window*/

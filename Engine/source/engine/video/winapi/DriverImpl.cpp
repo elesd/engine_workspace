@@ -18,6 +18,7 @@
 #include <engine/video/winapi/HLSLFSCompilationData.h>
 #include <engine/video/winapi/RenderTargetImpl.h>
 #include <engine/video/winapi/TextureImpl.h>
+#include <engine/video/winapi/VertexBufferObject.h>
 
 #include <engine/utils/ScopeExit.h>
 
@@ -253,6 +254,28 @@ namespace engine
 				}
 				delete _members;
 			}
+		}
+
+		void DriverImpl::bind(VertexBufferObject* vertexBuffer)
+		{
+			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> map = std::make_unique<D3D11_MAPPED_SUBRESOURCE>();
+			_members->deviceContext->Map(vertexBuffer->getBufferInterface(), 
+										 0, 
+										 D3D11_MAP_WRITE_DISCARD,
+										 0, map.get());
+			vertexBuffer->setBindResource(std::move(map));
+		}
+
+		void DriverImpl::unbind(VertexBufferObject* vertexBuffer)
+		{
+			_members->deviceContext->Unmap(vertexBuffer->getBufferInterface(), NULL);
+			vertexBuffer->setBindResource(nullptr);
+		}
+
+		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description)
+		{
+			ID3D11Buffer* result;
+			_members->device->CreateBuffer(&description, nullptr, &result);
 		}
 
 		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)

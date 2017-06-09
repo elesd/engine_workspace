@@ -3,11 +3,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/video/GPUTypes.h>
+#include <engine/video/BufferObject.h>
 
 namespace engine
 {
 	struct VertexBufferPrivate
 	{
+		std::unique_ptr<BufferObject> bufferObject;
 		std::vector<char> data;
 		std::vector<GPUMemberType> format;
 		VertexBufferPrivate() = default;
@@ -16,20 +18,9 @@ namespace engine
 			, data(data)
 		{}
 	};
-	VertexBuffer::VertexBuffer()
-		: _members(new VertexBufferPrivate())
-	{
-
-	}
-
+	
 	VertexBuffer::VertexBuffer(const std::vector<GPUMemberType>& format, const std::vector<char>& data)
 		: _members(new VertexBufferPrivate(format, data))
-	{
-
-	}
-
-	VertexBuffer::VertexBuffer(const VertexBuffer& o)
-		: _members(o._members ? new VertexBufferPrivate(*o._members), nullptr)
 	{
 
 	}
@@ -44,13 +35,6 @@ namespace engine
 	{
 		delete _members;
 		_members = nullptr;
-	}
-
-	VertexBuffer& VertexBuffer::operator=(const VertexBuffer& o)
-	{
-		delete _members;
-		_members = o._members ? new VertexBufferPrivate(*o._members) : nullptr;
-		return *this;
 	}
 
 	VertexBuffer& VertexBuffer::operator=(VertexBuffer&& o)
@@ -80,4 +64,28 @@ namespace engine
 		}
 		return _members->data.size() / vertexSize;
 	}
+
+	void VertexBuffer::setBufferObject(std::unique_ptr<BufferObject>&& bufferObject)
+	{
+		_members->bufferObject = std::move(bufferObject);
+	}
+
+	BufferObject* VertexBuffer::getBufferObject() const
+	{
+		return _members->bufferObject.get();
+	}
+
+	bool VertexBuffer::hasBufferObject() const
+	{
+		return getBufferObject() != nullptr;
+	}
+
+	VertexBuffer VertexBuffer::cloneClientData() const
+	{
+		VertexBuffer result(_members->format, _members->data);
+		return result;
+	}
+
+
+
 }
