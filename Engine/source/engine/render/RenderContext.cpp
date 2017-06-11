@@ -9,10 +9,13 @@
 #include <engine/render/MaterialDescription.h>
 #include <engine/render/EffectCompiler.h>
 
+#include <engine/video/BufferObject.h>
+#include <engine/video/BufferObjectFactory.h>
 #include <engine/video/Driver.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/Shader.h>
+#include <engine/video/BufferObjectFactory.h>
 
 
 
@@ -25,14 +28,19 @@ namespace engine
 		const Effect* currentEffect = nullptr;
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
-		RenderContextPrivate(std::unique_ptr<Driver>&& driver)
+		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
+
+		BufferObjectTypes currentBufferObjectType;
+
+		RenderContextPrivate(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 			: driver(std::move(driver))
+			, bufferObjectFactory(std::move(bufferObjectFactory))
 		{
 		}
 	};
 
-	RenderContext::RenderContext(std::unique_ptr<Driver>&& driver)
-		: _members(new RenderContextPrivate(std::move(driver)))
+	RenderContext::RenderContext(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
+		: _members(new RenderContextPrivate(std::move(driver), std::move(bufferObjectFactory)))
 	{
 	}
 
@@ -45,6 +53,7 @@ namespace engine
 	void RenderContext::init(const RenderContextParameters& params, Window *window)
 	{
 		_members->driver->init(params.driverParameters, window);
+		_members->currentBufferObjectType = params.bufferObjectsType;
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -65,6 +74,11 @@ namespace engine
 	bool RenderContext::hasRender(const std::string& id) const
 	{
 		return findRender(id) != nullptr;
+	}
+
+	std::unique_ptr<BufferObject> RenderContext::createVertexBufferObject(size_t size) const
+	{
+		return _members->bufferObjectFactory->createVertexBufferObject(_members->currentBufferObjectType, size);
 	}
 
 	bool RenderContext::removeRender(const std::string& id)

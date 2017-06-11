@@ -276,6 +276,7 @@ namespace engine
 		{
 			ID3D11Buffer* result;
 			_members->device->CreateBuffer(&description, nullptr, &result);
+			return result;
 		}
 
 		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)

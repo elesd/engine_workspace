@@ -45,6 +45,9 @@
 #define FAIL(msg) assert(false && msg)
 #define HARD_FAIL(msg) assert(false && msg)
 
+#define UNSUPPORTED_ERROR() HARD_FAIL("Unsupported feature usage")
+#define INACTIVE_MODULE_ERROR() HARD_FAIL("Module is inactive")
+
 // Engine files
 #include <engine/EngineConfig.h>
 #include <engine/Types.h>

@@ -7,6 +7,8 @@
 
 namespace engine
 {
+	class BufferObject;
+	class BufferObjectFactory;
 	class Driver;
 	class EffectCompiler;
 	class IndexBuffer;
@@ -23,10 +25,19 @@ namespace engine
 	struct DriverInitParameters;
 
 	enum class ShaderVersion;
+	enum class BufferObjectTypes;
 
 	struct RenderContextParameters
 	{
+		friend class RenderContext;
+		RenderContextParameters() = default;
+		RenderContextParameters(DriverInitParameters driverParams, BufferObjectTypes bufferObjectTypes)
+			: driverParameters(driverParams)
+			, bufferObjectsType(bufferObjectTypes)
+		{ }
+	private:
 		DriverInitParameters driverParameters;
+		BufferObjectTypes bufferObjectsType;
 	};
 
 	class RenderContext final
@@ -34,7 +45,7 @@ namespace engine
 		, private NonMoveable
 	{
 	public:
-		RenderContext(std::unique_ptr<Driver>&& driver);
+		RenderContext(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory);
 		~RenderContext();
 
 		void init(const RenderContextParameters& params, Window *window);
@@ -44,6 +55,7 @@ namespace engine
 		Render* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
 		
+		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		// TODO
 		// SetViewPort
 		void setRenderTarget(RenderTarget* renderTarget);

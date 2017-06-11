@@ -17,6 +17,7 @@
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 
+#include <engine/video/winapi/BufferObjectFactoryImpl.h>
 #include <engine/video/winapi/DriverImpl.h>
 
 
@@ -271,8 +272,9 @@ namespace engine
 
 		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
-			std::unique_ptr<Driver> driver(new winapi::DriverImpl());
-			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
+			std::unique_ptr<Driver> driver(new DriverImpl());
+			std::unique_ptr<BufferObjectFactory> bufferObjectFactory(new BufferObjectFactoryImpl(driver.get()));
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
 			context->init(params, window);
 			return context;
 		}

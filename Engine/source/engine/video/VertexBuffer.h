@@ -18,10 +18,10 @@ namespace engine
 		void setFormat(const std::vector<GPUMemberType>& format);
 		void fill(const std::vector<char>& data);
 		size_t getVertexCount() const;
+		size_t getSize() const;
 		
-		// TODO Create functons which creates the buffer object which is set up in the render context.
 		void map(RenderContext* renderContext);
-		bool ismapped();
+		bool isMapped() const;
 		void unmap();
 
 		VertexBuffer cloneClientData() const;
