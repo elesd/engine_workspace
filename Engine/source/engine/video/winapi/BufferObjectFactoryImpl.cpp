@@ -2,6 +2,7 @@
 #include <engine/video/winapi/BufferObjectFactoryImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/winapi/IndexBufferObject.h>
 #include <engine/video/winapi/VertexBufferObject.h>
 
 namespace engine
@@ -37,6 +38,11 @@ namespace engine
 		{
 			UNSUPPORTED_ERROR();
 			return std::unique_ptr<BufferObject>();
+		}
+		
+		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createIndexBufferObjectImpl(size_t size) const
+		{
+			return std::make_unique<IndexBufferObject>(size, _members->driver);
 		}
 	}
 }

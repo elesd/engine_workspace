@@ -9,13 +9,16 @@
 #include <engine/view/winapi/WindowImpl.h>
 
 #include <engine/video/GPUTypes.h>
+#include <engine/video/IndexBufferBase.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderLayoutDescription.h>
+#include <engine/video/VertexBuffer.h>
 #include <engine/video/winapi/BufferDescUtils.h>
 #include <engine/video/winapi/HLSLVSCompilationData.h>
 #include <engine/video/winapi/HLSLFSCompilationData.h>
+#include <engine/video/winapi/IndexBufferObject.h>
 #include <engine/video/winapi/RenderTargetImpl.h>
 #include <engine/video/winapi/TextureImpl.h>
 #include <engine/video/winapi/VertexBufferObject.h>
@@ -256,6 +259,22 @@ namespace engine
 			}
 		}
 
+		void DriverImpl::bind(IndexBufferObject* vertexBuffer)
+		{
+			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> map = std::make_unique<D3D11_MAPPED_SUBRESOURCE>();
+			_members->deviceContext->Map(vertexBuffer->getBufferInterface(),
+										 0,
+										 D3D11_MAP_WRITE_DISCARD,
+										 0, map.get());
+			vertexBuffer->setBindResource(std::move(map));
+		}
+
+		void DriverImpl::unbind(IndexBufferObject* vertexBuffer)
+		{
+			_members->deviceContext->Unmap(vertexBuffer->getBufferInterface(), NULL);
+			vertexBuffer->setBindResource(nullptr);
+		}
+
 		void DriverImpl::bind(VertexBufferObject* vertexBuffer)
 		{
 			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> map = std::make_unique<D3D11_MAPPED_SUBRESOURCE>();
@@ -413,9 +432,44 @@ namespace engine
 			setViewPort(0, 0, window->getWidth(), window->getHeight());
 		}
 
-		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies)
+		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies)
 		{
-			 
+			setVertexBuffer(verticies);
+			setIndexBuffer(indicies);
+			switch(indicies->getPrimitiveType())
+			{
+				case PrimitiveType::Triangle:
+				// TODO Check overhead
+				_members->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+				break;
+				default:
+				FAIL("Unknown primitive type");
+				break;
+				
+			}
+			_members->deviceContext->DrawIndexed(indicies->count(), 0, 0);
+		}
+
+		void DriverImpl::setVertexBuffer(const VertexBuffer* verticies)
+		{
+			BufferObject* mappedObject = verticies->getBufferObject();
+			size_t stride = verticies->getStride();
+			size_t offset = 0;
+			VertexBufferObject* vertexBufferObject = static_cast<VertexBufferObject*>(mappedObject);
+			ID3D11Buffer* buffer = vertexBufferObject->getBufferInterface();
+			_members->deviceContext->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
+		}
+
+		void DriverImpl::setIndexBuffer(const IndexBufferBase* indicies)
+		{
+
+			BufferObject* mappedObject = indicies->getBufferObject();
+			size_t offset = 0;
+			IndexBufferObject* indexBuffer = static_cast<IndexBufferObject*>(mappedObject);
+			ID3D11Buffer* buffer = indexBuffer->getBufferInterface();
+			DXGI_FORMAT format = indicies->getStride() == 4? DXGI_FORMAT_R32_UINT
+				: DXGI_FORMAT_R16_UINT;
+			_members->deviceContext->IASetIndexBuffer(buffer, format, 0);
 		}
 
 		void DriverImpl::setRenderTargetImpl(RenderTarget* renderTarget)
@@ -557,6 +611,11 @@ namespace engine
 				static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
 				return d3dShader;
 			}
+		}
+
+		void DriverImpl::swapBufferImpl() 
+		{
+			_members->swapChain->Present(0, 0);
 		}
 	}
 }

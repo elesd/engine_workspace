@@ -11,7 +11,7 @@ namespace engine
 	class BufferObjectFactory;
 	class Driver;
 	class EffectCompiler;
-	class IndexBuffer;
+	class IndexBufferBase;
 	class Material;
 	class MaterialDescription;
 	class PipelineRendererBase;
@@ -19,7 +19,6 @@ namespace engine
 	class RenderTarget;
 	class ShaderCompiler;
 	class Texture;
-	class VertexBuffer;
 	class Window;
 
 	struct DriverInitParameters;
@@ -56,6 +55,11 @@ namespace engine
 		bool hasRender(const std::string& id) const;
 		
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
+		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
+
+		void draw(VertexBuffer* verticies, IndexBufferBase* indicies) const;
+
+		void swapBuffer();
 		// TODO
 		// SetViewPort
 		void setRenderTarget(RenderTarget* renderTarget);

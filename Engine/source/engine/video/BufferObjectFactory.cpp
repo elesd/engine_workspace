@@ -16,4 +16,8 @@ namespace engine
 		}
 	}
 
+	std::unique_ptr<BufferObject> BufferObjectFactory::createIndexBufferObject(size_t size) const
+	{
+		return createIndexBufferObjectImpl(size);
+	}
 }

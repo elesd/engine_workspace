@@ -1,11 +1,18 @@
 #include <stdafx.h>
-
 #include <engine/stateStack/StateBase.h>
+///////////////////////////////////////////////////////////////////////////////
+
+#include <engine/app/Application.h>
+#include <engine/view/WindowManager.h>
 
 #include <engine/exceptions/LogicalErrors.h>
 #include <engine/exceptions/RuntimeErrors.h>
 
+#include <engine/render/RenderContext.h>
+
 #include <engine/stateStack/StateStack.h>
+
+#include <engine/Context.h>
 
 namespace engine
 {
@@ -107,6 +114,8 @@ namespace engine
 	{
 		ASSERT(isActive());
 		renderState();
+		// TODO swap all the buffers
+		Context::getInstance()->getApplication()->getWindowManager()->getMainWindow()->getRenderContext()->swapBuffer();
 	}
 
 	void StateBase::changeState(std::unique_ptr<StateBase> nextState)

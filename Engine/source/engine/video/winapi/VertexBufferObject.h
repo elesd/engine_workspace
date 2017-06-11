@@ -14,12 +14,12 @@ namespace engine
 			: public BufferObject
 		{
 		public:
-			explicit VertexBufferObject(size_t size, Driver* driver);
+			VertexBufferObject(size_t size, Driver* driver);
 			~VertexBufferObject() override;
 
 			void bind() override;
 			void unbind() override;
-			void setData(const std::vector<char>& data) override;
+			void setData(const char* data, size_t size) override;
 
 			const D3D11_BUFFER_DESC& getDescription() const;
 

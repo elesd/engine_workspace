@@ -61,7 +61,7 @@ namespace engine
 		initImpl(params, window);
 	}
 
-	void Driver::draw(const VertexBuffer* verticies, const IndexBuffer* indicies)
+	void Driver::draw(const VertexBuffer* verticies, const IndexBufferBase* indicies)
 	{
 		drawImpl(verticies, indicies);
 	}
@@ -89,5 +89,10 @@ namespace engine
 	void Driver::setShader(Shader* shader, const std::string& techniqueName)
 	{
 		setShaderImpl(shader, techniqueName);
+	}
+
+	void Driver::swapBuffer()
+	{
+		swapBufferImpl();
 	}
 }

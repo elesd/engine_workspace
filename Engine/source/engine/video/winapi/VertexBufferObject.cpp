@@ -61,10 +61,10 @@ namespace engine
 			_members->driver->bind(this);
 		}
 
-		void VertexBufferObject::setData(const std::vector<char>& data)
+		void VertexBufferObject::setData(const char* data, size_t size)
 		{
 			ASSERT(isBind());
-			memcpy(_members->bindResource.get(), data.data(), data.size());
+			memcpy(_members->bindResource.get(), data, size);
 		}
 
 		void VertexBufferObject::unbind()

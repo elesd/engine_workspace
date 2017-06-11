@@ -81,6 +81,21 @@ namespace engine
 		return _members->bufferObjectFactory->createVertexBufferObject(_members->currentBufferObjectType, size);
 	}
 
+	std::unique_ptr<BufferObject> RenderContext::createIndexBufferObject(size_t size) const
+	{
+		return _members->bufferObjectFactory->createIndexBufferObject(size);
+	}
+
+	void RenderContext::draw(VertexBuffer* verticies, IndexBufferBase* indicies) const
+	{
+		_members->driver->draw(verticies, indicies);
+	}
+
+	void RenderContext::swapBuffer()
+	{
+		_members->driver->swapBuffer();
+	}
+
 	bool RenderContext::removeRender(const std::string& id)
 	{
 		size_t deletedItems = _members->renders.erase(id);

@@ -8,7 +8,7 @@
 namespace engine
 {
 	class Effect;
-	class IndexBuffer;
+	class IndexBufferBase;
 	class Material;
 	class RenderContext;
 	class RenderTarget;
@@ -49,23 +49,24 @@ namespace engine
 		/**Init function*/
 		void init(const DriverInitParameters& params, Window *window);
 
-		void draw(const VertexBuffer* verticies, const IndexBuffer* indicies);
+		void draw(const VertexBuffer* verticies, const IndexBufferBase* indicies);
 		void setRenderTarget(RenderTarget* renderTarget);
 
 		void setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture);
 		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options);
 		void setShader(Shader* shader, const std::string& techniqueName);
+		void swapBuffer();
 	private:
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) = 0;
-		virtual void drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies) = 0;
+		virtual void drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) = 0;
 		virtual void setShaderImpl(Shader* shader, const std::string& techniqueName) = 0;
 		virtual std::unique_ptr<RenderTarget> createRenderTargetImpl(Texture* texture) = 0;
 
 		virtual void setViewPortImpl(int32_t topX, int32_t topY, int32_t width, int32_t height) = 0;
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
-
+		virtual void swapBufferImpl() = 0;
 	};
 }

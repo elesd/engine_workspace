@@ -5,13 +5,13 @@
 namespace engine
 {
 	class IRenderable;
-	class Driver;
+	class RenderContext;
 
 	class RenderPass 
 		: private NonCopyable
 	{
 	public:
-		RenderPass(const std::string& name, Driver *driver);
+		RenderPass(const std::string& name, RenderContext* driver);
 		RenderPass(RenderPass&&);
 		RenderPass& operator=(RenderPass&&);
 

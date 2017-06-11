@@ -7,27 +7,44 @@
 
 namespace engine
 {
+	class BufferObject;
+	class BufferObjectFactory;
+	class Driver;
+	class EffectCompiler;
+	class IndexBufferBase;
+	class Material;
+	class MaterialDescription;
+	class PipelineRendererBase;
 	class Render;
 	class RenderTarget;
-	class Material;
-	class Driver;
-	struct DriverInitParameters;
+	class ShaderCompiler;
+	class Texture;
 	class Window;
-	class VertexBuffer;
-	class IndexBuffer;
-	class PipelineRendererBase;
+
+	struct DriverInitParameters;
+
+	enum class ShaderVersion;
+	enum class BufferObjectTypes;
+
 	struct RenderContextParameters
 	{
+		friend class RenderContext;
+		RenderContextParameters() = default;
+		RenderContextParameters(DriverInitParameters driverParams, BufferObjectTypes bufferObjectTypes)
+			: driverParameters(driverParams)
+			, bufferObjectsType(bufferObjectTypes)
+		{ }
+	private:
 		DriverInitParameters driverParameters;
+		BufferObjectTypes bufferObjectsType;
 	};
 
 	class RenderContext final
 		: private NonCopyable
 		, private NonMoveable
 	{
-		friend class Driver;
 	public:
-		RenderContext(std::unique_ptr<Driver>&& driver);
+		RenderContext(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory);
 		~RenderContext();
 
 		void init(const RenderContextParameters& params, Window *window);
@@ -36,16 +53,21 @@ namespace engine
 		bool removeRender(const std::string& id);
 		Render* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
+		
+		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
+		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
-		void draw(const VertexBuffer* verticies, const IndexBuffer* indicies);
-		void setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height);
+		void draw(VertexBuffer* verticies, IndexBufferBase* indicies) const;
 
-		RenderTarget* getCurrentRenderTarget();
-		Material* getCurrentMaterial();
+		void swapBuffer();
+		// TODO
+		// SetViewPort
+		void setRenderTarget(RenderTarget* renderTarget);
+		void setMaterial(Material* material);
+		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture) const;
+		std::unique_ptr<EffectCompiler> createEffectCompiler(const MaterialDescription&);
 	private:
-		void setCurrentRenderTarget(RenderTarget* renderTarget);
-		void setCurrentMaterial(Material* material);
-	private:
+		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
 		struct RenderContextPrivate* _members = nullptr;
 	};
 }

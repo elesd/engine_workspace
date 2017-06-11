@@ -7,16 +7,19 @@
 
 namespace engine
 {
-
-	class Window;
-	class WindowManager;
-	class VertexBuffer;
-	class IndexBuffer;
+	class Effect;
+	class IndexBufferBase;
+	class Material;
 	class RenderContext;
 	class RenderTarget;
-	class Material;
-	struct WindowManagerPrivate;
+	class Shader;
+	class ShaderCompileOptions;
+	class Texture;
+	class VertexBuffer;
+	class WindowManager;
+	class Window;
 
+	
 	/**Initialization parameters for the driver*/
 	struct DriverInitParameters
 	{
@@ -25,6 +28,7 @@ namespace engine
 		/**Sample count of the driver*/
 		int32_t sampleCount;
 	};
+
 
 	/**
 	* Video driver interface implementation.
@@ -35,7 +39,6 @@ namespace engine
 		, private NonMoveable
 	{
 		friend class WindowManager;
-		friend struct WindowManagerPrivate;
 
 	protected:
 		/**Simple constructor*/
@@ -44,26 +47,26 @@ namespace engine
 		/**Virtual destructor*/
 		virtual ~Driver();
 		/**Init function*/
-		void init(RenderContext *renderContext, const DriverInitParameters& params, Window *window);
+		void init(const DriverInitParameters& params, Window *window);
 
-		void draw(const VertexBuffer* verticies, const IndexBuffer* indicies);
+		void draw(const VertexBuffer* verticies, const IndexBufferBase* indicies);
+		void setRenderTarget(RenderTarget* renderTarget);
 
 		void setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height);
-	protected:
-		RenderContext* getRenderContext();
-		void setRenderTarget(RenderTarget* renderTarget);
-		void setMaterial(Material* material);
+		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture);
+		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options);
+		void setShader(Shader* shader, const std::string& techniqueName);
+		void swapBuffer();
 	private:
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
-
-		virtual void drawImpl(const VertexBuffer* verticies, const IndexBuffer* indicies) = 0;
+		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) = 0;
+		virtual void drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) = 0;
+		virtual void setShaderImpl(Shader* shader, const std::string& techniqueName) = 0;
+		virtual std::unique_ptr<RenderTarget> createRenderTargetImpl(Texture* texture) = 0;
 
 		virtual void setViewPortImpl(int32_t topX, int32_t topY, int32_t width, int32_t height) = 0;
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
-		virtual void setMaterialImpl(Material* material) = 0;
-
-	private:
-		struct DriverPrivate* _members = nullptr;
+		virtual void swapBufferImpl() = 0;
 	};
 }

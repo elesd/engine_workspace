@@ -7,7 +7,7 @@
 namespace engine
 {
 	class VertexBuffer;
-	class IndexBuffer;
+	class IndexBufferBase;
 	class Material;
 
 	class Mesh 
@@ -15,17 +15,21 @@ namespace engine
 		, NonCopyable
 	{
 	public:
-		Mesh();
+		Mesh(const std::string& name);
 		Mesh(Mesh&&);
 
 		~Mesh() override;
 
 		Mesh &operator=(Mesh&&);
 
-		void render(Driver*) override;
+		void load(std::unique_ptr<VertexBuffer>&& verticies, // TODO create Mesh library
+				  std::unique_ptr<IndexBufferBase>&& indexBuffer,
+				  std::unique_ptr<Material>&& material); // TODO Move material to material library
+
+		void render(RenderContext*) override;
 
 		const VertexBuffer* getVerticies() const;
-		const IndexBuffer* getIndicies() const;
+		const IndexBufferBase* getIndicies() const;
 		const Material* getMaterial() const;
 	private:
 		struct MeshPrivate* _members = nullptr;

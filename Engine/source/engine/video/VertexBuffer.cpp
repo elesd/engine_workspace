@@ -21,19 +21,20 @@ namespace engine
 	{
 		std::vector<char> data;
 		std::vector<GPUMemberType> format;
+		size_t stride = 0;
 		VertexBufferMappingData mappingData;
 
 		VertexBufferPrivate() = default;
 		VertexBufferPrivate(const std::vector<GPUMemberType>& format, const std::vector<char>& data = {})
 			: format(format)
 			, data(data)
-		{}
+		{	}
 	};
 	
 	VertexBuffer::VertexBuffer(const std::vector<GPUMemberType>& format, const std::vector<char>& data)
 		: _members(new VertexBufferPrivate(format, data))
 	{
-
+		recalcStride();
 	}
 
 	VertexBuffer::VertexBuffer(VertexBuffer&& o)
@@ -59,6 +60,7 @@ namespace engine
 	void VertexBuffer::setFormat(const std::vector<GPUMemberType>& format)
 	{
 		_members->format = format;
+		recalcStride();
 	}
 
 	void VertexBuffer::fill(const std::vector<char>& data)
@@ -68,18 +70,29 @@ namespace engine
 
 	size_t VertexBuffer::getVertexCount() const
 	{
-		size_t vertexSize = 0;
+	
+		return _members->data.size() / _members->stride;
+	}
+
+	void VertexBuffer::recalcStride() 
+	{
+		_members->stride = 0;
 		for(GPUMemberType type : _members->format)
 		{
-			vertexSize += GPUMemberTypeTraits::getSize(type);
+			_members->stride += GPUMemberTypeTraits::getSize(type);
 		}
-		return _members->data.size() / vertexSize;
 	}
 
 	size_t VertexBuffer::getSize() const
 	{
 		return _members->data.size();
 	}
+
+	size_t VertexBuffer::getStride() const
+	{
+		return _members->stride;
+	}
+
 	
 	void VertexBuffer::map(RenderContext* renderContext)
 	{
@@ -87,7 +100,7 @@ namespace engine
 		_members->mappingData.renderContext = renderContext;
 		_members->mappingData.bufferObject = renderContext->createVertexBufferObject(getSize());
 		_members->mappingData.bufferObject->bind();
-		_members->mappingData.bufferObject->setData(_members->data);
+		_members->mappingData.bufferObject->setData(_members->data.data(), _members->data.size());
 		_members->mappingData.bufferObject->unbind();
 	}
 
@@ -100,6 +113,12 @@ namespace engine
 	{
 		_members->mappingData.renderContext = nullptr;
 		_members->mappingData.bufferObject.reset();
+	}
+
+	BufferObject* VertexBuffer::getBufferObject() const
+	{
+		ASSERT(isMapped());
+		return _members->mappingData.bufferObject.get();
 	}
 
 	VertexBuffer VertexBuffer::cloneClientData() const

@@ -4,20 +4,25 @@
 
 namespace engine
 {
+	class Effect;
+	class EffectCompiler;
 	class Shader;
-	class Material 
+	class MaterialDescription;
+
+	class Material
 		: private NonCopyable
 	{
 	public:
-		Material(const std::string& name);
+		Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description);
 		~Material();
 		Material(Material&&);
 		Material& operator=(Material&&);
-		void SetVertexShader(const Shader&);
-		void SetFragmentShader(const Shader&);
 
-		const Shader& getVertexShader();
-		const Shader& getFragmentShader();
+		const std::string& getMaterialName() const;
+
+		void setCurrentEffect(const std::string& name);
+		const std::string& getCurrentEffectName() const;
+		Effect* getEffect() const;
 
 	private:
 		struct MaterialPrivate* _members = nullptr;
