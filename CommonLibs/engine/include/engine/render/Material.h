@@ -6,14 +6,18 @@ namespace engine
 {
 	class Effect;
 	class EffectCompiler;
-	class Shader;
 	class MaterialDescription;
+	class RenderContext;
+	class Shader;
+	class VertexBuffer;
 
 	class Material
 		: private NonCopyable
 	{
 	public:
-		Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler);
+		static const std::string defaultEffectName;
+	public:
+		Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext);
 		~Material();
 		Material(Material&&);
 		Material& operator=(Material&&);
@@ -23,6 +27,8 @@ namespace engine
 		void setCurrentEffect(const std::string& name);
 		const std::string& getCurrentEffectName() const;
 		Effect* getEffect() const;
+
+		std::unique_ptr<VertexBuffer> createVertexBufferFor(const std::string& techniqueName) const;
 
 	private:
 		struct MaterialPrivate* _members = nullptr;

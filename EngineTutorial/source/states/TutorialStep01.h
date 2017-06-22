@@ -33,7 +33,7 @@ namespace states
 		void initShaders();
 
 		std::unique_ptr<engine::Material> loadMaterial();
-		std::unique_ptr<engine::VertexBuffer> loadTriangleVerticies();
+		std::unique_ptr<engine::VertexBuffer> loadTriangleVerticies(const engine::Material* material);
 		std::unique_ptr<engine::IndexBufferBase> loadTriangleIndicies();
 
 		struct TutorialStep01Private* _members = nullptr;

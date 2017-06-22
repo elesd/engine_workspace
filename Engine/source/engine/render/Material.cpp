@@ -2,18 +2,16 @@
 #include <engine/render/Material.h>
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <engine/render/MaterialDescription.h>
 #include <engine/render/EffectCompiler.h>
 #include <engine/render/Effect.h>
+#include <engine/render/MaterialDescription.h>
+#include <engine/render/RenderContext.h>
 
 #include <engine/video/Shader.h>
+#include <engine/video/ShaderLayoutDescription.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
-
-namespace
-{
-	const std::string defaultEffectName = "Default";
-}
+#include <engine/video/VertexBuffer.h>
 
 namespace engine
 {
@@ -22,18 +20,23 @@ namespace engine
 	{
 		std::unique_ptr<EffectCompiler> effectCompiler;
 		std::map<std::string, std::unique_ptr<Effect>> effectCache;
+		MaterialDescription description;
 		std::string name;
 		std::string currentEffect;
-		MaterialPrivate(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler)
+		MaterialPrivate(const std::string& name, const MaterialDescription& description)
 			: name(name) 
-			, effectCompiler(std::move(effectCompiler))
-			, currentEffect(defaultEffectName)
+			, description(description)
+			, currentEffect(Material::defaultEffectName)
 		{}
 	};
 
-	Material::Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler)
-		: _members(new MaterialPrivate(name, std::move(effectCompiler)))
+	const std::string Material::defaultEffectName = "Default";
+
+	Material::Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
+		: _members(new MaterialPrivate(name, description))
 	{
+		_members->effectCompiler = renderContext->createEffectCompiler(description);
+
 		setCurrentEffect(_members->currentEffect);
 	}
 
@@ -77,6 +80,19 @@ namespace engine
 		auto it = _members->effectCache.find(_members->currentEffect);
 		ASSERT(it != _members->effectCache.end());
 		return it->second.get();
+	}
+
+	std::unique_ptr<VertexBuffer> Material::createVertexBufferFor(const std::string& techniqueName) const
+	{
+		const ShaderLayoutDescription& layout = _members->description.getOptions(techniqueName).getLayout();
+		std::vector<GPUMemberType> format;
+		format.reserve(layout.getNumOfAttributes());
+		for(uint32_t i = 0; i < layout.getNumOfAttributes(); ++i)
+		{
+			format.push_back(layout.getAttribute(i).type);
+		}
+		std::unique_ptr<engine::VertexBuffer> buffer(new engine::VertexBuffer(format));
+		return buffer;
 	}
 
 	const std::string& Material::getMaterialName() const

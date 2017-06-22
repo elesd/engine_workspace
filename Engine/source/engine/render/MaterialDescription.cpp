@@ -2,6 +2,8 @@
 #include <engine/render/MaterialDescription.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/render/Material.h>
+
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/Shader.h>
 
@@ -63,6 +65,11 @@ namespace engine
 		_members->techniqueMap.insert(std::make_pair(name, compileOptions));
 	}
 
+	void MaterialDescription::setDefaultTechnique(const ShaderCompileOptions& compileOptions)
+	{
+		_members->techniqueMap.insert(std::make_pair(Material::defaultEffectName, compileOptions));
+	}
+
 	void MaterialDescription::setVertexShader(Shader* vertexShader)
 	{
 		_members->vertexShader = vertexShader;
@@ -93,7 +100,7 @@ namespace engine
 		return _members->fragmentShader;
 	}
 
-	ShaderCompileOptions MaterialDescription::getOption(const std::string& techniqueName) const
+	const ShaderCompileOptions&  MaterialDescription::getOptions(const std::string& techniqueName) const
 	{
 		auto it = _members->techniqueMap.find(techniqueName);
 		ASSERT(it != _members->techniqueMap.end());

@@ -102,7 +102,7 @@ namespace states
 	{
 		_members->triangle = std::make_unique<engine::Mesh>("triangle");
 		std::unique_ptr<engine::Material> material = loadMaterial();
-		std::unique_ptr<engine::VertexBuffer> verticies = loadTriangleVerticies();
+		std::unique_ptr<engine::VertexBuffer> verticies = loadTriangleVerticies(material.get());
 		std::unique_ptr<engine::IndexBufferBase> indicies = loadTriangleIndicies();
 		_members->triangle->load(std::move(verticies), std::move(indicies), std::move(material));
 	}
@@ -137,13 +137,12 @@ namespace states
 		engine::ShaderCompileOptions options = description.createEmptyOptions();
 		options.addFlag(engine::ShaderCompileFlag::Debug);
 		options.setLayout(layout);
-		description.addTechnique("Default", options);
+		description.setDefaultTechnique(options);
 		
-		std::unique_ptr<engine::EffectCompiler> compiler = _members->renderContext->createEffectCompiler(description);
-		return std::make_unique<engine::Material>("Triangle", std::move(compiler));
+		return std::make_unique<engine::Material>("Simple", description, _members->renderContext);
 	}
 
-	std::unique_ptr<engine::VertexBuffer> TutorialStep01::loadTriangleVerticies()
+	std::unique_ptr<engine::VertexBuffer> TutorialStep01::loadTriangleVerticies(const engine::Material* material)
 	{
 		std::vector<float> data(
 		{
@@ -155,7 +154,8 @@ namespace states
 		rawData.resize(data.size() * sizeof(float));
 		memcpy(rawData.data(), data.data(), rawData.size());
 
-		std::unique_ptr<engine::VertexBuffer> buffer(new engine::VertexBuffer({engine::GPUMemberType::Vec3, engine::GPUMemberType::Vec4}, rawData));
+		std::unique_ptr<engine::VertexBuffer> buffer = material->createVertexBufferFor(engine::Material::defaultEffectName);
+		buffer->fill(rawData);
 		buffer->map(_members->renderContext);
 		return buffer;
 	}
