@@ -2,6 +2,8 @@
 #include <engine/video/winapi/VertexBufferObject.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_WINAPI
+
 #include <engine/video/winapi/DriverImpl.h>
 
 #include <d3d11.h>
@@ -98,3 +100,9 @@ namespace engine
 		}
 	}
 }
+
+#else
+
+#include <engine/video/winapi/empty/VertexBufferObject.cpp>
+
+#endif

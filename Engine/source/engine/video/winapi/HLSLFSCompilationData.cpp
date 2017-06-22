@@ -2,6 +2,8 @@
 #include <engine/video/winapi/HLSLFSCompilationData.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_WINAPI
+
 #include <d3d11.h>
 #include <D3Dcompiler.h>
 
@@ -52,3 +54,10 @@ namespace engine
 		}
 	}
 }
+
+#else
+
+#include <engine/video/winapi/empty/HLSLFSCompilationData.cpp>
+
+
+#endif

@@ -2,6 +2,8 @@
 #include <engine/video/winapi/RenderTargetImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_WINAPI
+
 #include <d3d11.h>
 
 namespace engine
@@ -59,3 +61,9 @@ namespace engine
 		}
 	}
 }
+
+#else
+
+#include <engine/video/winapi/empty/RenderTargetImpl.cpp>
+
+#endif

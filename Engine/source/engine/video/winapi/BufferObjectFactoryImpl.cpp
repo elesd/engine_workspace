@@ -2,6 +2,8 @@
 #include <engine/video/winapi/BufferObjectFactoryImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_WINAPI
+
 #include <engine/video/winapi/IndexBufferObject.h>
 #include <engine/video/winapi/VertexBufferObject.h>
 
@@ -46,3 +48,9 @@ namespace engine
 		}
 	}
 }
+
+#else
+
+#include <engine/video/winapi/empty/BufferObjectFactoryImpl.cpp>
+
+#endif
