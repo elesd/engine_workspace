@@ -26,7 +26,7 @@ namespace engine
 		struct VertexBufferObjectPrivate
 		{
 			ID3D11Buffer* buffer = nullptr;
-			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> bindResource;
+			D3D11_MAPPED_SUBRESOURCE bindResource;
 			D3D11_BUFFER_DESC description;
 			DriverImpl* driver = nullptr;
 		};
@@ -64,7 +64,7 @@ namespace engine
 		void VertexBufferObject::setData(const char* data, size_t size)
 		{
 			ASSERT(isBind());
-			memcpy(_members->bindResource.get(), data, size);
+			memcpy(_members->bindResource.pData, data, size);
 		}
 
 		void VertexBufferObject::unbind()
@@ -89,12 +89,12 @@ namespace engine
 
 		D3D11_MAPPED_SUBRESOURCE* VertexBufferObject::getBindResource() const
 		{
-			return _members->bindResource.get();
+			return &_members->bindResource;
 		}
 
-		void VertexBufferObject::setBindResource(std::unique_ptr<D3D11_MAPPED_SUBRESOURCE>&& mapData)
+		void VertexBufferObject::setBindResource(const D3D11_MAPPED_SUBRESOURCE& mapData)
 		{
-			_members->bindResource = std::move(mapData);
+			_members->bindResource = mapData;
 		}
 	}
 }

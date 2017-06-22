@@ -27,7 +27,7 @@ namespace engine
 	{
 		FilePath pathToUse(_members->settings.workingDirectory);
 		pathToUse.append(path.str());
-		SimpleFile file(path, mode, openMode, append);
+		SimpleFile file(pathToUse, mode, openMode, append);
 		return std::move(file);
 	}
 

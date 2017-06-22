@@ -1,105 +1,74 @@
 #include <stdafx.h>
 #include <TestMain.h>
 ///////////////////////////////////////////////////////////////////////////////
+#include <engine/Context.h>
+
 #include <engine/app/Application.h>
+
+#include <engine/fileSystem/FileSystem.h>
+
 #include <engine/events/EventManager.h>
 #include <engine/events/Mouse.h>
 #include <engine/events/Keyboard.h>
-#include <engine/Context.h>
+
+#include <engine/render/RenderContext.h>
+
+#include <engine/stateStack/StateStack.h>
+
 #include <engine/view/WindowManager.h>
 
+#include <states/TutorialStep01.h>
 #include <Log.h>
+#include <RenderDefinitions.h>
 
+struct TestMainPrivate
+{
+	engine::Window* mainWindow = nullptr;
+	std::unique_ptr<engine::StateStack> stateStack;
+};
+
+TestMain::TestMain()
+	:_members(new TestMainPrivate())
+{
+
+}
+
+TestMain::~TestMain()
+{
+	delete _members;
+	_members = nullptr;
+}
+
+void TestMain::setStartState(std::unique_ptr<engine::StateBase> &&state)
+{
+	ASSERT(_members->stateStack->isEmpty());
+	_members->stateStack->pushState(std::move(state));
+}
 
 void TestMain::load()
 {
 	using engine::Context;
 	//engine::view::Window *mainWindow = Context::getInstance()->getWindowManager()->createFullScreenMainWindow(640, 480, "TestWindow", 0);
-	_mainWindow = Context::getInstance()->getApplication()->getWindowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
+	_members->mainWindow = Context::getInstance()->getApplication()->getWindowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
 	//	engine::view::Window *second = Context::getInstance()->getWindowManager()->createSecondaryWindow(engine::WindowParameter(180, 200, 640, 480), "TestWindow", mainWindow);
-	ASSERT(_mainWindow != nullptr);
-
-	auto mouses = _mainWindow->getEventManager()->findEventSource<engine::Mouse>();
-	auto mouse = mouses.front();
-	CONNECT_SIGNAL(mouse, leftButtonPressed,
-				   this, onMouseLeftDown);
-	CONNECT_SIGNAL(mouse, leftButtonReleased,
-				   this, onMouseLeftUp);
-	CONNECT_SIGNAL(mouse, rightButtonPressed,
-				   this, onMouseRightDown);
-	CONNECT_SIGNAL(mouse, rightButtonReleased,
-				   this, onMouseRightUp);
-	CONNECT_SIGNAL(mouse, middleButtonPressed,
-				   this, onMouseMiddleDown);
-	CONNECT_SIGNAL(mouse, middleButtonReleased,
-				   this, onMouseMiddleUp);
-	CONNECT_SIGNAL(mouse, moved,
-				   this, onMouseMoved);
-	CONNECT_SIGNAL(mouse, scrolled,
-				   this, onMouseWheel);
-	auto keyboards = _mainWindow->getEventManager()->findEventSource<engine::Keyboard>();
-	auto keyboard = keyboards.front();
-	CONNECT_SIGNAL(keyboard, keyPressed,
-				   this, onKeyPressed);
-	CONNECT_SIGNAL(keyboard, keyReleased,
-				   this, onKeyReleased);
-
+	ASSERT(_members->mainWindow != nullptr);
+	_members->stateStack = std::make_unique<engine::StateStack>();
+	std::unique_ptr<states::TutorialStep01> firstStep(new states::TutorialStep01(_members->mainWindow));
+	_members->stateStack->pushState(std::move(firstStep));
 }
 
 void TestMain::update()
 {
 	ASSERT(_CrtCheckMemory());
+	_members->stateStack->update();
 }
 
 void TestMain::render()
 {
-
-}
-
-void TestMain::onMouseMoved(int x, int y)
-{
-	Log("onMouseMoved % %", x, y);
-}
-
-void TestMain::onMouseWheel(int x, int y, int w)
-{
-	Log("onMouseWheel % % %", x, y, w);
-}
-
-void TestMain::onMouseLeftDown(int x, int y)
-{
-	Log("onMouseLeftDown % %", x, y);
-}
-void TestMain::onMouseRightDown(int x, int y)
-{
-	Log("onMouseRightDown % %", x, y);
-}
-void TestMain::onMouseMiddleDown(int x, int y)
-{
-	Log("onMouseMiddleDown % %", x, y);
-}
-void TestMain::onMouseLeftUp(int x, int y)
-{
-	Log("onMouseLeftUp % %", x, y);
-}
-void TestMain::onMouseRightUp(int x, int y)
-{
-	Log("onMouseRightUp % %", x, y);
-}
-void TestMain::onMouseMiddleUp(int x, int y)
-{
-	Log("onMouseMiddleUp % %", x, y);
-}
-void TestMain::onKeyPressed(engine::KeyboardButton button)
-{
-	Log("onKeyPressed %", engine::Keyboard::KeyboardButtonToString(button));
-}
-void TestMain::onKeyReleased(engine::KeyboardButton button)
-{
-	Log("onKeyReleased %", engine::Keyboard::KeyboardButtonToString(button));
+	_members->stateStack->render();
 }
 
 engine::ISignalManager* TestMain::getSignalManager() const
 {
-	return _mainWindow->getEventManager()->getEventsSignalManager();
+	return _members->mainWindow->getEventManager()->getEventsSignalManager();
 }

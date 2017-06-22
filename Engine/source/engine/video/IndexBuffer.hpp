@@ -15,7 +15,7 @@ namespace engine
 		///////////////////////////////////////////////////////////////////////
 
 		template<typename SIZE_TYPE>
-		size_t getByteSize() const
+		size_t getByteSize()
 		{
 			static_assert(false, "Unsupported size type");
 		}
@@ -23,6 +23,7 @@ namespace engine
 		template<typename SIZE_TYPE>
 		bool isSupportedSizeType() 
 		{
+			static_assert(false, "Unsupported size type");
 			return false;
 		}
 
@@ -57,11 +58,11 @@ namespace engine
 	}
 
 	template<typename SIZE_TYPE>
-	IndexBuffer<SIZE_TYPE>::IndexBuffer(PrimitiveType type, std::vector<SIZE_TYPE> data)
+	IndexBuffer<SIZE_TYPE>::IndexBuffer(PrimitiveType type, const std::vector<SIZE_TYPE>& data)
 		: IndexBufferBase(type)
 		, _data(data)
 	{
-		static_assert(IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>);
+		IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
 	}
 
 	template<typename SIZE_TYPE>
@@ -69,7 +70,7 @@ namespace engine
 		: IndexBufferBase(std::move(o))
 		, _data(std::move(o._data))
 	{
-		static_assert(IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>);
+		IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
 	}
 
 	template<typename SIZE_TYPE>
@@ -125,7 +126,7 @@ namespace engine
 	template<typename SIZE_TYPE>
 	void IndexBuffer<SIZE_TYPE>::unmap()
 	{
-		releaseBufferObject()
+		releaseBufferObject();
 	}
 
 	template<typename SIZE_TYPE>
@@ -138,6 +139,6 @@ namespace engine
 	template<typename SIZE_TYPE>
 	const char* IndexBuffer<SIZE_TYPE>::getDataPtr() const
 	{
-		return static_cast<char*>(_data.data());
+		return reinterpret_cast<const char*>(_data.data());
 	}
 }

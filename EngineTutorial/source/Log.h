@@ -1,12 +1,9 @@
 #pragma once
 
-void LogToStream(std::ostringstream &os, const std::string &format)
-{
-	os << format << std::endl;
-}
+void LogToStream(std::ostringstream &os, const std::string &format);
 
 template<class T, class ...Args>
-void LogToStream(std::ostringstream &os, const std::string &format,  T value, Args... args)
+void LogToStream(std::ostringstream &os, const std::string &format, T value, Args... args)
 {
 	size_t pos = format.find('%');
 	if(pos != std::string::npos)

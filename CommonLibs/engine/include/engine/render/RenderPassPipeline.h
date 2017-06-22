@@ -16,12 +16,13 @@ namespace engine
 			Iterator(RenderPassPipeline &pipeline, size_t index);
 		public:
 			Iterator(Iterator&);
-			RenderPass& operator->() const;
+			RenderPass* operator->() const;
 			Iterator& operator++();
 			bool operator==(const Iterator& o) const;
+			bool operator!=(const Iterator& o) const;
 		private:
 			size_t _currentIndex = 0;
-			RenderPassPipeline &pipeline;
+			RenderPassPipeline &_pipeline;
 		};
 
 	public:

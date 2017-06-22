@@ -13,7 +13,7 @@ namespace engine
 		: private NonCopyable
 	{
 	public:
-		Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description);
+		Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler);
 		~Material();
 		Material(Material&&);
 		Material& operator=(Material&&);

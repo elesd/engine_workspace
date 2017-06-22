@@ -18,9 +18,9 @@ namespace engine
 	}
 
 	template<typename PIPELINE, size_t pipelineSize>
-	RenderPass& RenderPassPipeline<PIPELINE, pipelineSize>::Iterator::operator->() const
+	RenderPass* RenderPassPipeline<PIPELINE, pipelineSize>::Iterator::operator->() const
 	{
-		return *renderPass._pipeline[_currentIndex].get();
+		return _pipeline._pipeline[_currentIndex].get();
 	}
 
 	template<typename PIPELINE, size_t pipelineSize>
@@ -33,14 +33,22 @@ namespace engine
 	template<typename PIPELINE, size_t pipelineSize>
 	bool RenderPassPipeline<PIPELINE, pipelineSize>::Iterator::operator==(const typename RenderPassPipeline<PIPELINE, pipelineSize>::Iterator& o) const
 	{
-		ASSERT(_pipeline == o._pipeline);
+		ASSERT(_pipeline._pipeline == o._pipeline._pipeline);
 		return _currentIndex == o._currentIndex;
 	}
+
+	template<typename PIPELINE, size_t pipelineSize>
+	bool RenderPassPipeline<PIPELINE, pipelineSize>::Iterator::operator!=(const typename RenderPassPipeline<PIPELINE, pipelineSize>::Iterator& o) const
+	{
+		return !((*this) == o);
+	}
+
 
 	///////////////////////////////////////////////////////////////////////////
 
 	template<typename PIPELINE, size_t pipelineSize>
 	RenderPassPipeline<PIPELINE, pipelineSize>::RenderPassPipeline(std::array<std::unique_ptr<RenderPass>, pipelineSize> &&pipeline)
+		: _pipeline(std::move(pipeline))
 	{
 
 	}

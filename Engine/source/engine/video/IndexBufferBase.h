@@ -6,16 +6,18 @@ namespace engine
 {
 	class RenderContext;
 	class BufferObject;
+	enum class PrimitiveType;
 
 	class IndexBufferBase
 		: private NonCopyable
 	{
 	protected:
 		IndexBufferBase(PrimitiveType primitiveType);
+	public:
 		IndexBufferBase(IndexBufferBase&&);
 		virtual IndexBufferBase& operator=(IndexBufferBase&&);
-	public:
 		virtual ~IndexBufferBase();
+
 		virtual size_t count() const = 0;
 		virtual size_t getSize() const = 0;
 		virtual size_t getStride() const = 0;

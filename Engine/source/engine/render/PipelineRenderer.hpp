@@ -3,7 +3,7 @@ namespace engine
 {
 	template<typename PIPELINE, size_t pipelineSize>
 	PipelineRenderer<PIPELINE, pipelineSize>::PipelineRenderer(RenderPassPipeline<PIPELINE, pipelineSize> &&pipeline)
-		: pipeline(std::move(pipeline))
+		: _pipeline(std::move(pipeline))
 	{
 
 	}
@@ -22,5 +22,12 @@ namespace engine
 			it->render();
 		}
 	}
+
+	template<typename PIPELINE, size_t pipelineSize>
+	RenderPass* PipelineRenderer<PIPELINE, pipelineSize>::getRenderPass(PIPELINE pass)
+	{
+		return _pipeline.getRenderPass(pass);
+	}
+
 }
 

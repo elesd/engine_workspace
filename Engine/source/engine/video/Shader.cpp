@@ -19,12 +19,18 @@ namespace engine
 		bool initialized = false;
 		ShaderType shaderType;
 		std::map<std::string, std::unique_ptr<ShaderCompilationData>> techniquesCompilationData;
-		ShaderPrivate(ShaderType type) : shaderType(shaderType) {}
+		ShaderPrivate(ShaderType type) : shaderType(type) {}
 	};
 
 	Shader::Shader(ShaderType type)
 		: _members(new ShaderPrivate(type))
 	{
+	}
+
+	Shader::~Shader()
+	{
+		delete _members;
+		_members = nullptr;
 	}
 
 	bool Shader::init(const FilePath& filePath, const std::string& mainFunctionName)

@@ -14,7 +14,8 @@ namespace engine
 		RenderPrivate(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 			: pipelineRender(std::move(pipelineRenderer))
 			, renderContext(renderContext)
-		{ }
+		{
+		}
 	};
 
 	Render::Render(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -32,5 +33,10 @@ namespace engine
 	void Render::render()
 	{
 		_members->pipelineRender->render();
+	}
+
+	PipelineRendererBase* Render::getPipelineImpl() const
+	{
+		return _members->pipelineRender.get();
 	}
 }

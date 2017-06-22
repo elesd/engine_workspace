@@ -26,7 +26,7 @@ namespace engine
 			ID3D11Buffer* getBufferInterface() const;
 			D3D11_MAPPED_SUBRESOURCE* getBindResource() const;
 			bool isBind() const;
-			void setBindResource(std::unique_ptr<D3D11_MAPPED_SUBRESOURCE>&& mapData);
+			void setBindResource(const D3D11_MAPPED_SUBRESOURCE& mapData);
 		private:
 			struct VertexBufferObjectPrivate* _members = nullptr;
 		};

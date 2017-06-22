@@ -11,7 +11,7 @@ namespace engine
 		: private NonCopyable
 	{
 	public:
-		RenderPass(const std::string& name, RenderContext* driver);
+		RenderPass(const std::string& name, RenderContext* renderContext);
 		RenderPass(RenderPass&&);
 		RenderPass& operator=(RenderPass&&);
 
@@ -23,7 +23,8 @@ namespace engine
 		const Color4 &getClearColor() const;
 
 		const std::vector<IRenderable*>& getObjects() const;
-		std::vector<IRenderable*>& getObjects();
+
+		void addObject(IRenderable*);
 	private:
 		struct RenderPassPrivate* _members = nullptr;
 	};

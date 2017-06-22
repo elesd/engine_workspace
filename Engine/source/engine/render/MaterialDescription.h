@@ -11,7 +11,7 @@ namespace engine
 	class MaterialDescription
 	{
 	public:
-		MaterialDescription();
+		explicit MaterialDescription(ShaderVersion);
 		~MaterialDescription();
 		MaterialDescription(const MaterialDescription&);
 		MaterialDescription(MaterialDescription&&);
@@ -19,10 +19,11 @@ namespace engine
 		MaterialDescription& operator=(const MaterialDescription&);
 		MaterialDescription& operator=(MaterialDescription&&);
 
-		void setShaderVersion(ShaderVersion);
 		void addTechnique(const std::string& name, const ShaderCompileOptions& compileOptions);
 		void setVertexShader(Shader* vertexShader);
 		void setFragmentShader(Shader* fragmentShader);
+
+		ShaderCompileOptions createEmptyOptions() const;
 
 		ShaderVersion getShaderVersion() const;
 		Shader* getVertexShader() const;

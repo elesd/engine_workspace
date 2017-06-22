@@ -18,10 +18,21 @@ namespace engine
 		virtual ~Render();
 
 		void render();
+
+		template<class PIPELINE_RENDERER>
+		PIPELINE_RENDERER* getPipeline() const;
 		// TODO:
 		// SetViewPort
 		// SetRenderTarget
 	private:
+		PipelineRendererBase* getPipelineImpl() const;
+	private:
 		struct RenderPrivate* _members = nullptr;
 	};
+
+	template<class PIPELINE_RENDERER>
+	PIPELINE_RENDERER* Render::getPipeline() const
+	{
+		return static_cast<PIPELINE_RENDERER*>(getPipelineImpl());
+	}
 }

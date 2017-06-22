@@ -20,21 +20,19 @@ namespace engine
 	
 	struct MaterialPrivate
 	{
-		MaterialDescription description;
 		std::unique_ptr<EffectCompiler> effectCompiler;
 		std::map<std::string, std::unique_ptr<Effect>> effectCache;
 		std::string name;
 		std::string currentEffect;
-		MaterialPrivate(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description)
+		MaterialPrivate(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler)
 			: name(name) 
 			, effectCompiler(std::move(effectCompiler))
-			, description(description)
 			, currentEffect(defaultEffectName)
 		{}
 	};
 
-	Material::Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler, const MaterialDescription& description)
-		: _members(new MaterialPrivate(name, std::move(effectCompiler), description))
+	Material::Material(const std::string& name, std::unique_ptr<EffectCompiler>&& effectCompiler)
+		: _members(new MaterialPrivate(name, std::move(effectCompiler)))
 	{
 		setCurrentEffect(_members->currentEffect);
 	}

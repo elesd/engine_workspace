@@ -1,36 +1,33 @@
 #pragma once
 #include <engine/app/IMain.h>
+#include <engine/constraints/NonMoveable.h>
 #include <engine/signalSlot/SlotHolder.h>
 
 namespace engine
 {
+	class StateBase;
 	enum class KeyboardButton;
-    class Window;
 }
 
-class TestMain : public engine::IMain,
-	public engine::SlotHolder
+class TestMain 
+	: public engine::IMain
+	, public engine::SlotHolder
+	, private engine::NonMoveable
+
 {
 public:
+	TestMain();
+	~TestMain() override;
+
 	void load();
 
 	void update();
 
 	void render();
 
-	void onMouseMoved(int x, int y);
-	void onMouseWheel(int x, int y, int w);
-
-	void onMouseLeftDown(int x, int y);
-	void onMouseRightDown(int x, int y);
-	void onMouseMiddleDown(int x, int y);
-	void onMouseLeftUp(int x, int y);
-	void onMouseRightUp(int x, int y);
-	void onMouseMiddleUp(int x, int y);
-	void onKeyPressed(engine::KeyboardButton button);
-	void onKeyReleased(engine::KeyboardButton button);
-
 	engine::ISignalManager* getSignalManager() const override;
+
+	void setStartState(std::unique_ptr<engine::StateBase> &&);
 private:
-    engine::Window* _mainWindow = nullptr;
+	struct TestMainPrivate* _members = nullptr;
 };

@@ -7,6 +7,7 @@ namespace engine
 {
 	
 	class MaterialDescription;
+	class ShaderCompileOptions;
 	class ShaderCompiler;
 	class Effect;
 	class Driver;

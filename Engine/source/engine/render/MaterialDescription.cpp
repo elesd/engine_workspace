@@ -13,10 +13,13 @@ namespace engine
 		ShaderVersion version;
 		Shader* vertexShader = nullptr;
 		Shader* fragmentShader = nullptr;
+		explicit MaterialDescriptionPrivate(ShaderVersion version)
+			: version(version)
+		{ }
 	};
 
-	MaterialDescription::MaterialDescription()
-		: _members(new MaterialDescriptionPrivate())
+	MaterialDescription::MaterialDescription(ShaderVersion version)
+		: _members(new MaterialDescriptionPrivate(version))
 	{
 
 	}
@@ -54,12 +57,6 @@ namespace engine
 		return *this;
 	}
 
-
-	void MaterialDescription::setShaderVersion(ShaderVersion version)
-	{
-		_members->version = version;
-	}
-
 	void MaterialDescription::addTechnique(const std::string& name, const ShaderCompileOptions& compileOptions)
 	{
 		ASSERT(_members->techniqueMap.find(name) == _members->techniqueMap.end());
@@ -74,6 +71,11 @@ namespace engine
 	void MaterialDescription::setFragmentShader(Shader* fragmentShader)
 	{
 		_members->fragmentShader = fragmentShader;
+	}
+
+	ShaderCompileOptions MaterialDescription::createEmptyOptions() const
+	{
+		return ShaderCompileOptions(_members->version);
 	}
 
 	ShaderVersion MaterialDescription::getShaderVersion() const

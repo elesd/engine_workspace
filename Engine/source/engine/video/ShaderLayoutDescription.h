@@ -26,7 +26,7 @@ namespace engine
 		void insertAttribute(GPUMemberType type, uint32_t layout, const std::string& name);
 		size_t getNumOfAttributes() const;
 		void removeAttirbute(uint32_t layout);
-		ShaderLayout getAttribute(uint32_t layout) const;
+		const ShaderLayout& getAttribute(uint32_t layout) const;
 	private:
 		struct ShaderLayoutDescriptionPrivate* _members = nullptr;
 	};

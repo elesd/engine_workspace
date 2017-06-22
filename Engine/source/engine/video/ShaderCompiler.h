@@ -22,7 +22,6 @@ namespace engine
 		ShaderCompiler& operator=(const ShaderCompiler&);
 		ShaderCompiler& operator=(ShaderCompiler&&);
 
-		ShaderCompileOptions createEmptyOptions() const;
 
 		void init(const std::map<std::string, ShaderCompileOptions>& techniqueMap);
 

@@ -81,11 +81,6 @@ namespace engine
 		_members->techniqueMap = techniqueMap;
 	}
 
-	ShaderCompileOptions ShaderCompiler::createEmptyOptions() const
-	{
-		return ShaderCompileOptions(_members->version);
-	}
-
 	bool ShaderCompiler::compileShader(Shader* shader, const std::string& techniqueName)
 	{
 		auto it = _members->techniqueMap.find(techniqueName);

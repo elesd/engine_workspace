@@ -8,7 +8,13 @@ struct ID3D11Buffer;
 struct D3D11_BUFFER_DESC;
 namespace engine
 {
+	class IndexBufferBase;
+	class RenderTarget;
 	class ShaderCompilationData;
+	class ShaderCompileOptions;
+	class Shader;
+	class VertexBuffer;
+	class Window;
 	namespace winapi
 	{
 		class TextureImpl;

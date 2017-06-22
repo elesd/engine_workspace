@@ -25,8 +25,8 @@
 
 #include <engine/utils/ScopeExit.h>
 
-#include <d3d11.h>
 #include <D3Dcompiler.h>
+#include <d3d11.h>
 
 namespace
 {
@@ -56,7 +56,7 @@ namespace
 		{engine::ShaderVersion::HLSL_4_0_level_9_3, "vs_4_0_level_9_3"},
 		{engine::ShaderVersion::HLSL_4_0, "vs_4_0"},
 		{engine::ShaderVersion::HLSL_4_1, "vs_4_1"},
-		{engine::ShaderVersion::HLSL_4_1, "vs_5_0"},
+		{engine::ShaderVersion::HLSL_5_0, "vs_5_0"},
 	};
 
 	const std::map<engine::ShaderVersion, std::string> fragmentShaderVersionMap = {
@@ -64,7 +64,7 @@ namespace
 		{engine::ShaderVersion::HLSL_4_0_level_9_3, "ps_4_0_level_9_3"},
 		{engine::ShaderVersion::HLSL_4_0, "ps_4_0"},
 		{engine::ShaderVersion::HLSL_4_1, "ps_4_1"},
-		{engine::ShaderVersion::HLSL_4_1, "ps_5_0"},
+		{engine::ShaderVersion::HLSL_5_0, "ps_5_0"},
 	};
 
 	std::string getTargetFromData(const engine::Shader* shader, const engine::ShaderCompileOptions& options)
@@ -200,7 +200,7 @@ namespace
 		uint32_t offset = 0;
 		for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
 		{
-			engine::ShaderLayout layout = layoutDesc.getAttribute(i);
+			const engine::ShaderLayout& layout = layoutDesc.getAttribute(i);
 			if(layout.type == engine::GPUMemberType::Undef)
 			{
 				std::ostringstream os;
@@ -261,34 +261,34 @@ namespace engine
 
 		void DriverImpl::bind(IndexBufferObject* vertexBuffer)
 		{
-			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> map = std::make_unique<D3D11_MAPPED_SUBRESOURCE>();
+			D3D11_MAPPED_SUBRESOURCE map = {0};
 			_members->deviceContext->Map(vertexBuffer->getBufferInterface(),
 										 0,
 										 D3D11_MAP_WRITE_DISCARD,
-										 0, map.get());
-			vertexBuffer->setBindResource(std::move(map));
+										 0, &map);
+			vertexBuffer->setBindResource(map);
 		}
 
 		void DriverImpl::unbind(IndexBufferObject* vertexBuffer)
 		{
 			_members->deviceContext->Unmap(vertexBuffer->getBufferInterface(), NULL);
-			vertexBuffer->setBindResource(nullptr);
+			vertexBuffer->setBindResource(D3D11_MAPPED_SUBRESOURCE());
 		}
 
 		void DriverImpl::bind(VertexBufferObject* vertexBuffer)
 		{
-			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> map = std::make_unique<D3D11_MAPPED_SUBRESOURCE>();
+			D3D11_MAPPED_SUBRESOURCE map = {0};
 			_members->deviceContext->Map(vertexBuffer->getBufferInterface(), 
 										 0, 
 										 D3D11_MAP_WRITE_DISCARD,
-										 0, map.get());
-			vertexBuffer->setBindResource(std::move(map));
+										 0, &map);
+			vertexBuffer->setBindResource(map);
 		}
 
 		void DriverImpl::unbind(VertexBufferObject* vertexBuffer)
 		{
 			_members->deviceContext->Unmap(vertexBuffer->getBufferInterface(), NULL);
-			vertexBuffer->setBindResource(nullptr);
+			vertexBuffer->setBindResource(D3D11_MAPPED_SUBRESOURCE());
 		}
 
 		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description)
@@ -496,7 +496,6 @@ namespace engine
 					const HLSLFSCompilationData* data = static_cast<const HLSLFSCompilationData*>(shader->getCompilationData(techniqueName));
 					ASSERT(data->compilationWasSuccessfull());
 					_members->deviceContext->PSSetShader(data->getShaderInterface(), nullptr, 0);
-					_members->deviceContext->IASetInputLayout(data->getLayoutInterface());
 				}
 				break;
 				default:
@@ -569,7 +568,7 @@ namespace engine
 		ID3D11PixelShader* DriverImpl::createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
 		{
 			ID3D11PixelShader* d3dShader = nullptr;
-			HRESULT result = _members->device->CreatePixelShader(compiledCode, compiledCode->GetBufferSize(), nullptr, &d3dShader);
+			HRESULT result = _members->device->CreatePixelShader(compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), nullptr, &d3dShader);
 			if(FAILED(result))
 			{
 				resultData->setError("Shader creation error");
@@ -577,23 +576,14 @@ namespace engine
 				compiledCode->Release();
 				return nullptr;
 			}
-			else
-			{
-				ID3D11InputLayout* d3dlayout = nullptr;
-				const ShaderLayoutDescription& layoutDesc = resultData->getOptions().getLayout();
-				D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
-				ScopeExit([desc]() { delete[] desc; });
-				_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
-
-				static_cast<HLSLFSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
-				return d3dShader;
-			}
+			static_cast<HLSLFSCompilationData*>(resultData)->setOk(compiledCode, d3dShader);
+			return d3dShader;
 		}
 
 		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
 		{
 			ID3D11VertexShader* d3dShader = nullptr;
-			HRESULT result = _members->device->CreateVertexShader(compiledCode, compiledCode->GetBufferSize(), nullptr, &d3dShader);
+			HRESULT result = _members->device->CreateVertexShader(compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), nullptr, &d3dShader);
 			if(FAILED(result))
 			{
 				resultData->setError("Shader creation error");
@@ -605,11 +595,13 @@ namespace engine
 			{
 				ID3D11InputLayout* d3dlayout = nullptr;
 				const ShaderLayoutDescription& layoutDesc = resultData->getOptions().getLayout();
-				D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
-				ScopeExit([desc]() { delete[] desc; });
-				_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
-				static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
-				return d3dShader;
+				{
+					D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
+					ScopeExit onExit([desc]() { delete[] desc; });
+					_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
+					static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
+					return d3dShader;
+				}
 			}
 		}
 

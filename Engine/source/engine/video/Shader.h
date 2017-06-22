@@ -19,9 +19,8 @@ namespace engine
 		: private NonCopyable
 		, private NonMoveable
 	{
-	protected:
-		Shader(ShaderType);
 	public:
+		Shader(ShaderType);
 		virtual ~Shader();
 
 		bool init(const FilePath& filePath, const std::string& mainFunctionName);

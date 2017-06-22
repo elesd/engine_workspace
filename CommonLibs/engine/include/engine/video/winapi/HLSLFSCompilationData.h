@@ -16,9 +16,8 @@ namespace engine
 			HLSLFSCompilationData(const ShaderCompileOptions& options);
 			~HLSLFSCompilationData() override;
 
-			void setOk(ID3D10Blob* compiledCode, ID3D11PixelShader* shader, ID3D11InputLayout* layout);
+			void setOk(ID3D10Blob* compiledCode, ID3D11PixelShader* shader);
 			ID3D11PixelShader* getShaderInterface() const;
-			ID3D11InputLayout* getLayoutInterface() const;
 		private:
 			struct HLSLFSCompilationDataPrivate* _members = nullptr;
 		};

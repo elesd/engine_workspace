@@ -6,6 +6,7 @@
 #include <engine/render/MaterialDescription.h>
 
 #include <engine/video/ShaderCompiler.h>
+#include <engine/video/ShaderCompileOptions.h>
 
 namespace engine
 {
@@ -24,7 +25,7 @@ namespace engine
 	EffectCompiler::EffectCompiler(Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler, const MaterialDescription& descriptor)
 		: _members(new EffectCompilerPrivate(driver, std::move(compiler), descriptor))
 	{
-		compiler->init(_members->description.getTechniqueMap());
+		_members->compiler->init(_members->description.getTechniqueMap());
 	}
 
 	EffectCompiler::~EffectCompiler()
@@ -41,4 +42,5 @@ namespace engine
 		std::unique_ptr<Effect> effect = std::make_unique<Effect>(techniqueName, _members->description.getVertexShader(), _members->description.getFragmentShader());
 		return effect;
 	}
+
 }

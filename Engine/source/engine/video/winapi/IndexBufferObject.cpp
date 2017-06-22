@@ -13,7 +13,7 @@ namespace
 		D3D11_BUFFER_DESC res = {0};
 		res.Usage = D3D11_USAGE_DYNAMIC;
 		res.ByteWidth = size;
-		res.CPUAccessFlags = 0;
+		res.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		res.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		return res;
 	}
@@ -26,15 +26,17 @@ namespace engine
 		struct IndexBufferObjectPrivate
 		{
 			ID3D11Buffer* buffer = nullptr;
-			std::unique_ptr<D3D11_MAPPED_SUBRESOURCE> bindResource;
+			D3D11_MAPPED_SUBRESOURCE bindResource;
 			D3D11_BUFFER_DESC description;
 			DriverImpl* driver = nullptr;
 		};
 
 		IndexBufferObject::IndexBufferObject(size_t size, Driver* driver)
+			:_members(new IndexBufferObjectPrivate())
 		{
 			_members->driver = static_cast<DriverImpl*>(driver);
 			_members->description = createVertexBufferDescription(size);
+			_members->buffer = _members->driver->createBuffer(_members->description);
 		}
 
 		IndexBufferObject::~IndexBufferObject()
@@ -67,7 +69,7 @@ namespace engine
 		void IndexBufferObject::setData(const char* data, size_t size)
 		{
 			ASSERT(isBind());
-			memcpy(_members->bindResource.get(), data, size);
+			memcpy(_members->bindResource.pData, data, size);
 		}
 
 		const D3D11_BUFFER_DESC& IndexBufferObject::getDescription() const
@@ -82,7 +84,7 @@ namespace engine
 
 		D3D11_MAPPED_SUBRESOURCE* IndexBufferObject::getBindResource() const
 		{
-			return _members->bindResource.get();
+			return &_members->bindResource;
 		}
 		
 		bool IndexBufferObject::isBind() const
@@ -90,9 +92,9 @@ namespace engine
 			return getBindResource() != nullptr;
 		}
 
-		void IndexBufferObject::setBindResource(std::unique_ptr<D3D11_MAPPED_SUBRESOURCE>&& mapData)
+		void IndexBufferObject::setBindResource(const D3D11_MAPPED_SUBRESOURCE& mapData)
 		{
-			_members->bindResource = std::move(mapData);
+			_members->bindResource = mapData;
 		}
 	}
 }

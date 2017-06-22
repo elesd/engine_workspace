@@ -77,9 +77,10 @@ namespace engine
 		_members->layouts.erase(layout);
 	}
 
-	ShaderLayout ShaderLayoutDescription::getAttribute(uint32_t layout) const
+	const ShaderLayout& ShaderLayoutDescription::getAttribute(uint32_t layout) const
 	{
+		static ShaderLayout errorValue({GPUMemberType::Undef, "Undef"});
 		auto it = _members->layouts.find(layout);
-		return it == _members->layouts.end() ? ShaderLayout({GPUMemberType::Undef, "Undef"}) : it->second;
+		return it == _members->layouts.end() ? errorValue : it->second;
 	}
 }

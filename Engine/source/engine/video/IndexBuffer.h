@@ -17,7 +17,7 @@ namespace engine
 		: public IndexBufferBase
 	{
 	public:
-		IndexBuffer(PrimitiveType type, std::vector<SIZE_TYPE> data);
+		IndexBuffer(PrimitiveType type, const std::vector<SIZE_TYPE>& data);
 		IndexBuffer(IndexBuffer&&);
 		~IndexBuffer() override;
 		IndexBuffer& operator=(IndexBuffer&&);

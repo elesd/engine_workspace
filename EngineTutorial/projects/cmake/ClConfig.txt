@@ -5,6 +5,12 @@ include_directories("${EXTERNALS_DIR}/engine/include")
 include_directories("${EXTERNALS_DIR}/glm")
 
 if (DEBUG_BUILD)
+	set_target_properties(Tutorial PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}/Debug")
+else (DEBUG_BUILD)
+	set_target_properties(Tutorial PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}/Release")
+endif (DEBUG_BUILD)
+
+if (DEBUG_BUILD)
   if (USE_64_BIT)
     target_link_libraries(Tutorial "${EXTERNALS_DIR}/engine/lib/x64/Engine_d.lib")
   else (USE_64_BIT)
@@ -49,5 +55,5 @@ endif(USE_SDL)
 
 if (USE_WINAPI)
   target_link_libraries(Tutorial d3d11.lib)
-
+  target_link_libraries(Tutorial d3dcompiler.lib)
 endif (USE_WINAPI)

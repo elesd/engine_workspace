@@ -16,7 +16,7 @@ namespace engine
 		std::vector<IRenderable*> objects;
 		std::string name;
 
-		RenderPassPrivate(const std::string& name, RenderContext* driver)
+		RenderPassPrivate(const std::string& name, RenderContext* renderContext)
 			: name(name), renderContext(renderContext)
 		{
 		}
@@ -65,10 +65,10 @@ namespace engine
 	{
 		return _members->objects;
 	}
-
-	std::vector<IRenderable*>& RenderPass::getObjects()
+	
+	void RenderPass::addObject(IRenderable* o)
 	{
-		return _members->objects;
+		_members->objects.push_back(o);
 	}
 
 	void RenderPass::setClearColor(Color4 color)
