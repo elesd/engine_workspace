@@ -20,6 +20,8 @@ namespace engine
 		VertexBuffer& operator=(VertexBuffer&&);
 		void setFormat(const std::vector<GPUMemberType>& format);
 		void fill(const std::vector<char>& data);
+		template<class T>
+		void fill(const std::vector<T>& data);
 		size_t getVertexCount() const;
 		size_t getStride() const;
 		size_t getSize() const;
@@ -36,4 +38,13 @@ namespace engine
 
 		struct VertexBufferPrivate* _members = nullptr;
 	};
+	template<class T>
+	void VertexBuffer::fill(const std::vector<T>& data)
+	{
+		std::vector<char> rawData;
+		rawData.resize(data.size() * sizeof(T));
+		memcpy(rawData.data(), data.data(), rawData.size());
+		fill(rawData);
+	}
+
 }

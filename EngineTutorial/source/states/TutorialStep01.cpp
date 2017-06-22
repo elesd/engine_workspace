@@ -126,12 +126,11 @@ namespace states
 	{
 		ASSERT(_members->fs);
 		ASSERT(_members->vs);
-		engine::MaterialDescription description(engine::ShaderVersion::HLSL_5_0);
-	
 		engine::ShaderLayoutDescription layout;
 		layout.insertAttribute(engine::GPUMemberType::Vec3, 0, "position");
 		layout.insertAttribute(engine::GPUMemberType::Vec4, 1, "color");
 
+		engine::MaterialDescription description(engine::ShaderVersion::HLSL_5_0);
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
 		engine::ShaderCompileOptions options = description.createEmptyOptions();
@@ -150,12 +149,9 @@ namespace states
 			0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		});
-		std::vector<char> rawData;
-		rawData.resize(data.size() * sizeof(float));
-		memcpy(rawData.data(), data.data(), rawData.size());
 
 		std::unique_ptr<engine::VertexBuffer> buffer = material->createVertexBufferFor(engine::Material::defaultEffectName);
-		buffer->fill(rawData);
+		buffer->fill(data);
 		buffer->map(_members->renderContext);
 		return buffer;
 	}
