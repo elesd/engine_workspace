@@ -31,7 +31,6 @@ namespace states
 		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
 		engine::Render* render = nullptr;
-		std::unique_ptr<engine::Effect> defaultEffect;
 		renderPasses::TutorialStep01::PipelineRenderer* renderPipeline = nullptr;
 		std::unique_ptr<engine::Shader> vs;
 		std::unique_ptr<engine::Shader> fs;
