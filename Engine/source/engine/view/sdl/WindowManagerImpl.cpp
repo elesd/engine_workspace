@@ -9,6 +9,8 @@
 #include <engine/video/Driver.h>
 #include <engine/video/sdl/DriverImpl.h>
 
+#include <engine/video/glew/BufferObjectFactoryImpl.h>
+
 #include <SDL2/SDL.h>
 namespace engine
 {
@@ -89,7 +91,8 @@ namespace engine
 		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
 			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
-			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
+			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
 			context->init(params, window);
 			return context;
 		}

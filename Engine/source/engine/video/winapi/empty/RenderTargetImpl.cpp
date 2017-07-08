@@ -9,7 +9,8 @@ namespace engine
 	{
 	
 
-		RenderTargetImpl::RenderTargetImpl(ID3D11RenderTargetView* renderTarget)
+		RenderTargetImpl::RenderTargetImpl(std::unique_ptr<Texture>&& texture, ID3D11RenderTargetView* renderTarget)
+			: RenderTarget(std::move(texture))
 		{
 			INACTIVE_MODULE_ERROR();
 		}
@@ -17,17 +18,6 @@ namespace engine
 		RenderTargetImpl::~RenderTargetImpl() 
 		{
 			INACTIVE_MODULE_ERROR();
-		}
-
-		RenderTargetImpl::RenderTargetImpl(RenderTargetImpl&& o)
-		{
-			INACTIVE_MODULE_ERROR();
-		}
-
-		RenderTargetImpl& RenderTargetImpl::operator=(RenderTargetImpl&& o)
-		{
-			INACTIVE_MODULE_ERROR();
-			return *this;
 		}
 
 		ID3D11RenderTargetView* RenderTargetImpl::getRenderTargetView() const

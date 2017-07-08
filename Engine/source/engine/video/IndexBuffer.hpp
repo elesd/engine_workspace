@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	namespace IndeBufferPrivate
+	namespace IndexBufferPrivate
 	{
 		template<typename SIZE_TYPE>
 		bool isSupportedSizeType();
@@ -27,34 +27,11 @@ namespace engine
 			return false;
 		}
 
-		///////////////////////////////////////////////////////////////////////
+		extern template	size_t getByteSize<int32_t>();
+		extern template	size_t getByteSize<int16_t>();
 
-		template<>
-		size_t getByteSize<int32_t>()
-		{
-			return 4;
-		}
-
-		template<>
-		bool isSupportedSizeType<int32_t>()
-		{
-			return true;
-		}
-
-		///////////////////////////////////////////////////////////////////////
-
-		template<>
-		size_t getByteSize<int16_t>()
-		{
-			return 2;
-		}
-
-		template<>
-		bool isSupportedSizeType<int16_t>()
-		{
-			return true;
-		}
-
+		extern template	bool isSupportedSizeType<int32_t>();
+		extern template	bool isSupportedSizeType<int16_t>();
 	}
 
 	template<typename SIZE_TYPE>
@@ -62,7 +39,7 @@ namespace engine
 		: IndexBufferBase(type)
 		, _data(data)
 	{
-		IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
+		IndexBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
 	}
 
 	template<typename SIZE_TYPE>
@@ -70,7 +47,7 @@ namespace engine
 		: IndexBufferBase(std::move(o))
 		, _data(std::move(o._data))
 	{
-		IndeBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
+		IndexBufferPrivate::isSupportedSizeType<SIZE_TYPE>();
 	}
 
 	template<typename SIZE_TYPE>
@@ -101,7 +78,7 @@ namespace engine
 	template<typename SIZE_TYPE>
 	size_t IndexBuffer<SIZE_TYPE>::getStride() const
 	{
-		return IndeBufferPrivate::getByteSize<SIZE_TYPE>();
+		return IndexBufferPrivate::getByteSize<SIZE_TYPE>();
 	}
 
 	template<typename SIZE_TYPE>

@@ -53,6 +53,22 @@ if (USE_SDL)
   target_link_libraries(Tutorial sdl_lib)
 endif(USE_SDL)
 
+if (USE_OPENGL)
+	target_link_libraries(Tutorial OpenGL32)
+endif (USE_OPENGL)
+
+if (USE_GLEW)
+	
+	if (USE_64_BIT)
+		find_library(glew_lib glew32.lib "${EXTERNALS_DIR}/glew-1.12.0/lib/Release/x64")
+	else (USE_64_BIT)
+		find_library(glew_lib glew32.lib "${EXTERNALS_DIR}/glew-1.12.0/lib/Release/Win32")
+	endif (USE_64_BIT)
+	include_directories("${EXTERNALS_DIR}/glew-1.12.0/include")
+	target_link_libraries(Tutorial ${glew_lib})
+	
+endif (USE_GLEW)
+
 if (USE_WINAPI)
   target_link_libraries(Tutorial d3d11.lib)
   target_link_libraries(Tutorial d3dcompiler.lib)

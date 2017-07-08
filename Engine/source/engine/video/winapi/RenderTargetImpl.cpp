@@ -29,22 +29,6 @@ namespace engine
 			destroy();
 		}
 
-		RenderTargetImpl::RenderTargetImpl(RenderTargetImpl&& o)
-			: RenderTarget(std::move(o))
-			, _members(o._members)
-		{
-			o._members = nullptr;
-		}
-
-		RenderTargetImpl& RenderTargetImpl::operator=(RenderTargetImpl&& o)
-		{
-			RenderTarget::operator=(std::move(o));
-			destroy();
-			_members = o._members;
-			o._members = nullptr;
-			return *this;
-		}
-
 		ID3D11RenderTargetView* RenderTargetImpl::getRenderTargetView() const
 		{
 			return _members->renderTarget;

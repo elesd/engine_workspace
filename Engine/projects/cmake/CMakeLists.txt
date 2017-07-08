@@ -56,6 +56,8 @@ file (GLOB src_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.cpp")
 file (GLOB src_moduls_sdl_empty "${SOURCE_DIR}/engine/modules/sdl/empty/*.cpp")
 file (GLOB src_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.cpp")
 file (GLOB src_moduls_glfw_empty "${SOURCE_DIR}/engine/modules/glfw/empty/*.cpp")
+file (GLOB src_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.cpp")
+file (GLOB src_moduls_glew_empty "${SOURCE_DIR}/engine/modules/glew/empty/*.cpp")
 file (GLOB src_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.cpp")
 file (GLOB src_moduls_winapi_empty "${SOURCE_DIR}/engine/modules/winapi/empty/*.cpp")
 file (GLOB src_render "${SOURCE_DIR}/engine/render/*.cpp")
@@ -67,6 +69,8 @@ file (GLOB src_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.cpp")
 file (GLOB src_video_winapi_empty "${SOURCE_DIR}/engine/video/winapi/empty/*.cpp")
 file (GLOB src_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.cpp")
 file (GLOB src_video_glfw_empty "${SOURCE_DIR}/engine/video/glfw/empty/*.cpp")
+file (GLOB src_video_glew "${SOURCE_DIR}/engine/video/glew/*.cpp")
+file (GLOB src_video_glew_empty "${SOURCE_DIR}/engine/video/glew/empty/*.cpp")
 file (GLOB src_video_sdl "${SOURCE_DIR}/engine/video/sdl/*.cpp")
 file (GLOB src_video_sdl_empty "${SOURCE_DIR}/engine/video/sdl/empty/*.cpp")
 file (GLOB src_utils "${SOURCE_DIR}/engine/utils/*.cpp")
@@ -97,6 +101,7 @@ file (GLOB header_events_winapi_empty "${SOURCE_DIR}/engine/events/winapi/empty/
 file (GLOB header_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.h*")
 file (GLOB header_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.h*")
 file (GLOB header_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.h*")
+file (GLOB header_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.h*")
 file (GLOB header_render "${SOURCE_DIR}/engine/render/*.h*")
 file (GLOB header_signalSlot "${SOURCE_DIR}/engine/signalSlot/*.h*")
 file (GLOB header_stateStack "${SOURCE_DIR}/engine/stateStack/*.h*")
@@ -104,6 +109,7 @@ file (GLOB header_test "${SOURCE_DIR}/engine/test/*.h*")
 file (GLOB header_video "${SOURCE_DIR}/engine/video/*.h*")
 file (GLOB header_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.h*")
 file (GLOB header_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.h")
+file (GLOB header_video_glew "${SOURCE_DIR}/engine/video/glew/*.h")
 file (GLOB header_video_sdl "${SOURCE_DIR}/engine/video/sdl/*.h")
 file (GLOB header_utils "${SOURCE_DIR}/engine/utils/*.h*")
 file (GLOB header_view "${SOURCE_DIR}/engine/view/*.h*")
@@ -136,6 +142,8 @@ SOURCE_GROUP (engine\\modules\\sdl FILES ${src_moduls_sdl} ${header_moduls_sdl})
 SOURCE_GROUP (engine\\modules\\sdl\\empty FILES ${src_moduls_sdl_empty})
 SOURCE_GROUP (engine\\modules\\glwf FILES ${src_moduls_glfw} ${header_moduls_glfw})
 SOURCE_GROUP (engine\\modules\\glwf\\empty FILES ${src_moduls_glfw_empty})
+SOURCE_GROUP (engine\\modules\\glew FILES "${SOURCE_DIR}/engine/modules/glew/Core.h" ${header_moduls_glew} ${src_moduls_glew} )
+SOURCE_GROUP (engine\\modules\\glew\\empty FILES ${src_moduls_glew_empty})
 SOURCE_GROUP (engine\\modules\\winapi FILES ${src_moduls_winapi} ${header_moduls_winapi})
 SOURCE_GROUP (engine\\modules\\winapi\\empty FILES ${src_moduls_winapi_empty})
 SOURCE_GROUP (engine\\render FILES ${src_render} ${header_render})
@@ -147,6 +155,8 @@ SOURCE_GROUP (engine\\video\\winapi FILES ${src_video_winapi} ${header_video_win
 SOURCE_GROUP (engine\\video\\winapi\\empty FILES ${src_video_winapi_empty})
 SOURCE_GROUP (engine\\video\\glfw FILES ${src_video_glfw} ${header_video_glfw})
 SOURCE_GROUP (engine\\video\\glfw\\empty FILES ${src_video_glfw_empty})
+SOURCE_GROUP (engine\\video\\glew FILES ${src_video_glew} ${header_video_glew})
+SOURCE_GROUP (engine\\video\\glew\\empty FILES ${src_video_glew_empty})
 SOURCE_GROUP (engine\\video\\sdl FILES ${src_video_sdl} ${header_video_sdl})
 SOURCE_GROUP (engine\\video\\sdl\\empty FILES ${src_video_sdl_empty})
 SOURCE_GROUP (engine\\utils FILES ${src_utils} ${header_utils})
@@ -183,6 +193,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_events_winapi}
                            ${src_moduls_sdl}
                            ${src_moduls_glfw}
+						   ${src_moduls_glew}
                            ${src_moduls_winapi}
                            ${src_render}
                            ${src_signalSlot}
@@ -196,6 +207,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_video}
 						   ${src_video_winapi}
 						   ${src_video_glfw}
+						   ${src_video_glew}
 						   ${src_video_sdl}
                            ${src_pch}
                            ${header_} 
@@ -213,6 +225,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_events_glfw}
 						   ${header_events_winapi}
                            ${header_moduls_glfw}
+						   ${header_moduls_glew}
                            ${header_moduls_sdl}
                            ${header_moduls_winapi}
 						   ${header_render}
@@ -227,6 +240,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_video}
 						   ${header_video_winapi}
 						   ${header_video_glfw}
+						   ${header_video_glew}
 						   ${header_video_sdl}
                            ${header_pch})
 
@@ -245,6 +259,7 @@ install (FILES ${header_events_sdl} DESTINATION "${INSTALL_DIR}/include/engine/e
 install (FILES ${header_events_glfw} DESTINATION "${INSTALL_DIR}/include/engine/events/glfw")
 install (FILES ${header_events_winapi} DESTINATION "${INSTALL_DIR}/include/engine/events/winapi")
 install (FILES ${header_moduls_glfw} DESTINATION "${INSTALL_DIR}/include/engine/modules/glfw")
+install (FILES ${header_moduls_glew} DESTINATION "${INSTALL_DIR}/include/engine/modules/glew")
 install (FILES ${header_moduls_sdl} DESTINATION "${INSTALL_DIR}/include/engine/modules/sdl")
 install (FILES ${header_moduls_winapi} DESTINATION "${INSTALL_DIR}/include/engine/modules/winapi")
 install (FILES ${header_render} DESTINATION "${INSTALL_DIR}/include/engine/render")
@@ -259,6 +274,7 @@ install (FILES ${header_view_sdl} DESTINATION "${INSTALL_DIR}/include/engine/vie
 install (FILES ${header_video} DESTINATION "${INSTALL_DIR}/include/engine/video")
 install (FILES ${header_video_winapi} DESTINATION "${INSTALL_DIR}/include/engine/video/winapi")
 install (FILES ${header_video_glfw} DESTINATION "${INSTALL_DIR}/include/engine/video/glfw")
+install (FILES ${header_video_glew} DESTINATION "${INSTALL_DIR}/include/engine/video/glew")
 install (FILES ${header_video_sdl} DESTINATION "${INSTALL_DIR}/include/engine/video/sdl")
 
 

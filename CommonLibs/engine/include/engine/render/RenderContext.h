@@ -13,6 +13,7 @@ namespace engine
 	class EffectCompiler;
 	class IndexBufferBase;
 	class Material;
+	class MaterialContext;
 	class MaterialDescription;
 	class PipelineRendererBase;
 	class Render;
@@ -24,19 +25,16 @@ namespace engine
 	struct DriverInitParameters;
 
 	enum class ShaderVersion;
-	enum class BufferObjectTypes;
 
 	struct RenderContextParameters
 	{
 		friend class RenderContext;
 		RenderContextParameters() = default;
-		RenderContextParameters(DriverInitParameters driverParams, BufferObjectTypes bufferObjectTypes)
+		RenderContextParameters(DriverInitParameters driverParams)
 			: driverParameters(driverParams)
-			, bufferObjectsType(bufferObjectTypes)
 		{ }
 	private:
 		DriverInitParameters driverParameters;
-		BufferObjectTypes bufferObjectsType;
 	};
 
 	class RenderContext final
@@ -59,13 +57,14 @@ namespace engine
 
 		void draw(VertexBuffer* verticies, IndexBufferBase* indicies) const;
 
+		std::unique_ptr<MaterialContext> createMaterialContext(const Material* material) const;
 		void swapBuffer();
 		// TODO
 		// SetViewPort
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setMaterial(Material* material);
-		std::unique_ptr<RenderTarget> createRenderTarget(Texture* texture) const;
-		std::unique_ptr<EffectCompiler> createEffectCompiler(const MaterialDescription&);
+		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture) const;
+		std::unique_ptr<EffectCompiler> createEffectCompiler(const Material* material);
 	private:
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
 		struct RenderContextPrivate* _members = nullptr;

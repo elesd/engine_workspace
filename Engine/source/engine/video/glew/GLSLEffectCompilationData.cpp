@@ -1,0 +1,42 @@
+#include <stdafx.h>
+#include <engine/video/glew/GLSLEffectCompilationData.h>
+///////////////////////////////////////////////////////////////////////////////
+
+namespace engine
+{
+	namespace glew
+	{
+
+		struct GLSLEffectCompilationDataPrivate
+		{
+			GLuint programId;
+		};
+
+		GLSLEffectCompilationData::GLSLEffectCompilationData()
+			: EffectCompilationData(false)
+		{
+
+		}
+
+		GLSLEffectCompilationData::~GLSLEffectCompilationData()
+		{
+			delete _members;
+			_members = nullptr;
+		}
+
+		void GLSLEffectCompilationData::setOk(GLuint programID)
+		{
+			EffectCompilationData::setOk();
+			_members->programId = programID;
+		}
+
+		GLuint GLSLEffectCompilationData::getProgramId() const
+		{
+			ASSERT(isOk());
+			return _members->programId;
+		}
+
+
+		
+	}
+}

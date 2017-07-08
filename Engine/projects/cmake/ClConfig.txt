@@ -16,3 +16,6 @@ if (USE_SDL)
   include_directories("${EXTERNALS_DIR}/sdl/include")
 endif(USE_SDL)
 
+if (USE_GLEW)
+  include_directories("${EXTERNALS_DIR}/glew-1.12.0/include")
+endif (USE_GLEW)

@@ -7,6 +7,7 @@
 #include <engine/Context.h>
 #include <engine/ModuleDefinitions.h>
 #include <engine/modules/glfw/Core.h>
+#include <engine/modules/glew/Core.h>
 #include <engine/modules/sdl/Core.h>
 #include <engine/modules/winapi/Core.h>
 #include <engine/exceptions/LogicalErrors.h>
@@ -27,9 +28,17 @@ namespace engine
 		{
 			switch(type)
 			{
-				case ContextModuleType::Glfw: _members->modules[ContextModule_traits<ContextModuleType::Glfw>::classification].push_back(type); break;
-				case ContextModuleType::Sdl: _members->modules[ContextModule_traits<ContextModuleType::Sdl>::classification].push_back(type); break;
-				case ContextModuleType::WinApi: _members->modules[ContextModule_traits<ContextModuleType::WinApi>::classification].push_back(type); break;
+				case ContextModuleType::Glfw:
+				_members->modules[ContextModule_traits<ContextModuleType::Glfw>::classification].push_back(type);
+				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(type);
+				break;
+				case ContextModuleType::Sdl:
+				_members->modules[ContextModule_traits<ContextModuleType::Sdl>::classification].push_back(type);
+				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(type);
+				break;
+				case ContextModuleType::WinApi:
+				_members->modules[ContextModule_traits<ContextModuleType::WinApi>::classification].push_back(type);
+				break;
 				default: FAIL("Unknown module type"); break;
 			}
 		}
@@ -60,12 +69,13 @@ namespace engine
 	void ContextBuilder::initContext()
 	{
 		Context::createInstance();
-		for(const auto &pair : _members->modules)
+		for(const ContextModuleType &type : _members->modules[ContextModuleClassification::Window])
 		{
-			for(const ContextModuleType &type : pair.second)
-			{
-				initModule(type);
-			}
+			initModule(type);
+		}
+		for(const ContextModuleType &type : _members->modules[ContextModuleClassification::Utils])
+		{
+			initModule(type);
 		}
 	}
 
@@ -76,17 +86,24 @@ namespace engine
 		switch(type)
 		{
 			case ContextModuleType::Glfw:
-				res = glfw::Core::init();
-				moduleName = ContextModule_traits<ContextModuleType::Glfw>::name;
-				break;
+			res = glfw::Core::init();
+			moduleName = ContextModule_traits<ContextModuleType::Glfw>::name;
+			break;
 			case ContextModuleType::Sdl:
-				res = sdl::Core::init();
-				moduleName = ContextModule_traits<ContextModuleType::Sdl>::name;
-				break;
+			res = sdl::Core::init();
+			moduleName = ContextModule_traits<ContextModuleType::Sdl>::name;
+			break;
 			case ContextModuleType::WinApi:
-				res = winapi::Core::init();
-				moduleName = ContextModule_traits<ContextModuleType::WinApi>::name;
-				break;
+			res = winapi::Core::init();
+			moduleName = ContextModule_traits<ContextModuleType::WinApi>::name;
+			break;
+			case ContextModuleType::Glew:
+			res = glew::Core::init();
+			moduleName = ContextModule_traits<ContextModuleType::WinApi>::name;
+			break;
+			default:
+			FAIL("Unknown module");
+			res = -1;
 		}
 		if(!res)
 			throw InitializationError("Module cannot be initialized: " + moduleName);

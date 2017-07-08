@@ -102,5 +102,9 @@ namespace engine
 		return result;
 	}
 
-
+	void Shader::releaseCompilationData(const std::string& technique)
+	{
+		ASSERT(isCompiled(technique));
+		_members->techniquesCompilationData[technique]->release();
+	}
 }

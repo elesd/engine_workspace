@@ -21,12 +21,17 @@ namespace engine
 		void setError(const std::string& error);
 
 		bool compilationWasSuccessfull() const;
+
 		const std::string& getError() const;
-		// TODO Add ShaderLayoutDescription
+
+		void release();
+		// TODO Add AttributeFormat
 	protected:
 		void setOk();
 	private:
+		virtual void releaseImpl() = 0;
 
+	private:
 		struct ShaderCompilationDataPrivate* _members = nullptr;
 	};
 }

@@ -34,6 +34,7 @@ namespace engine
 		const std::string& getMainFunctionName();
 		void setCompiled(const std::string& techniqueName, std::unique_ptr<ShaderCompilationData>&& compilationData);
 		const ShaderCompilationData* getCompilationData(const std::string& techniqueName) const;
+		void releaseCompilationData(const std::string& technique);
 	private:
 		struct ShaderPrivate* _members = nullptr;
 	};

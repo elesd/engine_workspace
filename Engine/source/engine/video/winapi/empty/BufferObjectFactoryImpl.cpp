@@ -25,18 +25,13 @@ namespace engine
 			INACTIVE_MODULE_ERROR();
 		}
 
-		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferObject(size_t size) const
+		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferObjectImpl(size_t size) const
 		{
 			INACTIVE_MODULE_ERROR();
 			return std::unique_ptr<BufferObject>();
 		}
 
-		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferArray(size_t size) const
-		{
-			INACTIVE_MODULE_ERROR();
-			return std::unique_ptr<BufferObject>();
-		}
-		
+
 		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createIndexBufferObjectImpl(size_t size) const
 		{
 			INACTIVE_MODULE_ERROR();

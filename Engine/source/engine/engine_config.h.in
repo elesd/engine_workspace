@@ -34,3 +34,4 @@ namespace engine
 #define ENGINE_USE_SDL @USE_SDL@
 #define ENGINE_USE_GLFW @USE_GLFW@
 #define ENGINE_USE_WINAPI @USE_WINAPI@
+#define ENGINE_USE_GLEW @USE_GLEW@

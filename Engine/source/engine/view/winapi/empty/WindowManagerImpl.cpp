@@ -4,6 +4,7 @@
 #include <engine/view/winapi/WindowManagerImpl.h>
 ///////////////////////////////////////////////////
 
+#include <engine/render/RenderContext.h>
 #include <engine/video/Driver.h>
 
 namespace engine
@@ -64,11 +65,12 @@ namespace engine
 			HARD_FAIL("Inactive module");
 		}
 
-		std::unique_ptr<Driver> WindowManagerImpl::createDriverForWindow(const DriverInitParameters &, Window *) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;
 		}
+
 	}
 }
 #endif

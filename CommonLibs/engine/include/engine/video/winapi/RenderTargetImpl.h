@@ -14,14 +14,10 @@ namespace engine
 		class DriverImpl;
 		class RenderTargetImpl 
 			: public RenderTarget
-			, private NonCopyable 
 		{
 		public:
-			RenderTargetImpl(ID3D11RenderTargetView* renderTarget);
+			RenderTargetImpl(std::unique_ptr<Texture>&& texture, ID3D11RenderTargetView* renderTarget);
 			~RenderTargetImpl() override;
-
-			RenderTargetImpl(RenderTargetImpl&&);
-			RenderTargetImpl& operator=(RenderTargetImpl&&);
 
 			ID3D11RenderTargetView* getRenderTargetView() const;
 		private:

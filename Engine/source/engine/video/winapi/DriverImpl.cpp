@@ -13,7 +13,7 @@
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderCompiler.h>
-#include <engine/video/ShaderLayoutDescription.h>
+#include <engine/video/AttributeFormat.h>
 #include <engine/video/VertexBuffer.h>
 #include <engine/video/winapi/BufferDescUtils.h>
 #include <engine/video/winapi/HLSLVSCompilationData.h>
@@ -194,7 +194,7 @@ namespace
 		}
 	}
 
-	D3D11_INPUT_ELEMENT_DESC* convertLayout(const engine::ShaderLayoutDescription& layoutDesc)
+	D3D11_INPUT_ELEMENT_DESC* convertLayout(const engine::AttributeFormat& layoutDesc)
 	{
 		D3D11_INPUT_ELEMENT_DESC* result = new D3D11_INPUT_ELEMENT_DESC[layoutDesc.getNumOfAttributes()];
 		uint32_t offset = 0;
@@ -306,12 +306,12 @@ namespace engine
 			initRenderTarget();
 		}
 
-		void DriverImpl::setViewPortImpl(int32_t topX, int32_t topY, int32_t width, int32_t height)
+		void DriverImpl::setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height)
 		{
 			D3D11_VIEWPORT viewport = {0};
 
-			viewport.TopLeftX = float(topX);
-			viewport.TopLeftY = float(topY);
+			viewport.TopLeftX = float(x);
+			viewport.TopLeftY = float(y);
 			viewport.Width = float(width);
 			viewport.Height = float(height);
 
@@ -594,7 +594,7 @@ namespace engine
 			else
 			{
 				ID3D11InputLayout* d3dlayout = nullptr;
-				const ShaderLayoutDescription& layoutDesc = resultData->getOptions().getLayout();
+				const AttributeFormat& layoutDesc = resultData->getOptions().getLayout();
 				{
 					D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
 					ScopeExit onExit([desc]() { delete[] desc; });

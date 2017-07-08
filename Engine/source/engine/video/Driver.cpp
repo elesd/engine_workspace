@@ -5,8 +5,11 @@
 #include <engine/exceptions/LogicalErrors.h>
 
 #include <engine/render/RenderContext.h>
-#include <engine/render/Effect.h>
 
+#include <engine/video/Effect.h>
+#include <engine/video/EffectComperator.h>
+#include <engine/video/EffectCompilationData.h>
+#include <engine/video/MaterialContext.h>
 #include <engine/video/RenderTarget.h>
 namespace
 {
@@ -38,20 +41,26 @@ namespace
 
 namespace engine
 {
-
+	struct DriverPrivate
+	{
+		Window* window = nullptr;
+	};
 
 	Driver::Driver()
+		: _members(new DriverPrivate())
 	{
 
 	}
 
 	Driver::~Driver()
 	{
+		delete _members;
+		_members = nullptr;
 	}
 
 	void Driver::init(const DriverInitParameters &params, Window *window)
 	{
-
+		_members->window = window;
 		InitDriverParameterError checkResult = checkDriverInitParameters(params);
 		if(checkResult != InitDriverParameterError::Ok)
 		{
@@ -66,14 +75,14 @@ namespace engine
 		drawImpl(verticies, indicies);
 	}
 
-	void Driver::setViewPort(int32_t topX, int32_t topY, int32_t width, int32_t height)
+	void Driver::setViewPort(int32_t x, int32_t y, int32_t width, int32_t height)
 	{
-		setViewPortImpl(topX, topY, width, height);
+		setViewPortImpl(x, y, width, height);
 	 }
 
-	std::unique_ptr<RenderTarget> Driver::createRenderTarget(Texture* texture)
+	std::unique_ptr<RenderTarget> Driver::createRenderTarget(std::unique_ptr<Texture>&&  texture)
 	{
-		return createRenderTargetImpl(texture);
+		return createRenderTargetImpl(std::move(texture));
 	}
 
 	void Driver::compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
@@ -81,9 +90,19 @@ namespace engine
 		compileShaderImpl(shader, techniqueName, options);
 	}
 
+	void Driver::compileEffect(Effect* effect)
+	{
+		compileEffectImpl(effect);
+	}
+
 	void Driver::setRenderTarget(RenderTarget* renderTarget)
 	{
 		setRenderTargetImpl(renderTarget);
+	}
+
+	void Driver::resetRenderTarget()
+	{
+		resetRenderTargetImpl();
 	}
 
 	void Driver::setShader(Shader* shader, const std::string& techniqueName)
@@ -91,8 +110,43 @@ namespace engine
 		setShaderImpl(shader, techniqueName);
 	}
 
+	std::unique_ptr<MaterialContext> Driver::createMaterialContext(const Material* material)
+	{
+		return createMaterialContextImpl(material);
+	}
+
+	void Driver::setMaterialContext(const MaterialContext* material)
+	{
+		setMaterialContextImpl(material);
+	}
+
+	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)
+	{
+		if(effect->getCompilationData()->isSupportSeparatePrograms())
+		{
+			if(effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
+			{
+				setShader(effect->getVertexShader(), effect->getName());
+			}
+			if(effectComperator.isChanged(EffectComperator::DifferenceType::FragmentShader))
+			{
+				setShader(effect->getFragmentShader(), effect->getName());
+			}
+		}
+		else
+		{
+			setEffectImpl(effect);
+		}
+	}
+
 	void Driver::swapBuffer()
 	{
 		swapBufferImpl();
 	}
+
+	Window* Driver::getWindow() const
+	{
+		return _members->window;
+	}
+
 }

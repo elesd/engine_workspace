@@ -4,19 +4,19 @@
 
 #include <engine/fileSystem/FilePath.h>
 
-#include <engine/render/Effect.h>
 #include <engine/render/RenderContext.h>
 #include <engine/render/Render.h>
-#include <engine/render/Material.h>
-#include <engine/render/MaterialDescription.h>
 #include <engine/render/Mesh.h>
-#include <engine/render/EffectCompiler.h>
 
+#include <engine/video/AttributeFormat.h>
+#include <engine/video/Effect.h>
+#include <engine/video/EffectCompiler.h>
 #include <engine/video/GPUTypes.h>
 #include <engine/video/IndexBuffer.h>
+#include <engine/video/Material.h>
+#include <engine/video/MaterialDescription.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
-#include <engine/video/ShaderLayoutDescription.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/view/Window.h>
@@ -108,14 +108,32 @@ namespace states
 
 	void TutorialStep01::initShaders()
 	{
+		std::string vsPath;
+		std::string fsPath;
+		std::string vsMain;
+		std::string fsMain;
+		if(0)
+		{
+			vsPath = "shaders/hlsl/Tutorial01.hlsl";
+			vsMain = "VShader";
+			fsPath = "shaders/hlsl/Tutorial01.hlsl";
+			fsMain = "PShader";
+		}
+		else
+		{
+			vsPath = "shaders/glsl/Tutorial01_vs.glsl";
+			vsMain = "main";
+			fsPath = "shaders/glsl/Tutorial01_fs.glsl";
+			fsMain = "main";
+		}
 		_members->vs.reset(new engine::Shader(engine::ShaderType::VertexShader));
-		if(_members->vs->init(engine::FilePath("shaders/hlsl/Tutorial01.hlsl"), "VShader") == false)
+		if(_members->vs->init(engine::FilePath(vsPath), vsMain) == false)
 		{
 			Log("Vertex shader creation failed");
 		}
 
 		_members->fs.reset(new engine::Shader(engine::ShaderType::FragmentShader));
-		if(_members->fs->init(engine::FilePath("shaders/hlsl/Tutorial01.hlsl"), "PShader") == false)
+		if(_members->fs->init(engine::FilePath(fsPath), fsMain) == false)
 		{
 			Log("Fragment shader creation failed");
 		}
@@ -125,7 +143,7 @@ namespace states
 	{
 		ASSERT(_members->fs);
 		ASSERT(_members->vs);
-		engine::ShaderLayoutDescription layout;
+		engine::AttributeFormat layout;
 		layout.insertAttribute(engine::GPUMemberType::Vec3, 0, "position");
 		layout.insertAttribute(engine::GPUMemberType::Vec4, 1, "color");
 
@@ -134,7 +152,7 @@ namespace states
 		description.setVertexShader(_members->vs.get());
 		engine::ShaderCompileOptions options = description.createEmptyOptions();
 		options.addFlag(engine::ShaderCompileFlag::Debug);
-		options.setLayout(layout);
+		description.setAttributeFormat(layout);
 		description.setDefaultTechnique(options);
 		
 		return std::make_unique<engine::Material>("Simple", description, _members->renderContext);

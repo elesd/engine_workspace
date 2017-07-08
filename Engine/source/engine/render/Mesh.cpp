@@ -1,7 +1,7 @@
 #include <stdafx.h>
 #include <engine/render/Mesh.h>
 
-#include <engine/render/Material.h>
+#include <engine/video/Material.h>
 #include <engine/render/RenderContext.h>
 
 

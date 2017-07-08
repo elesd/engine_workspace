@@ -3,6 +3,9 @@
 #include <engine/video/winapi/DriverImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 #if ENGINE_USE_WINAPI == 0
+#include <engine/video/RenderTarget.h>
+
+#include <engine/video/winapi/TextureImpl.h>
 
 namespace engine
 {
@@ -106,7 +109,7 @@ namespace engine
 			INACTIVE_MODULE_ERROR();
 		}
 
-		std::unique_ptr<RenderTarget> DriverImpl::createRenderTargetImpl(Texture* texture)
+		std::unique_ptr<RenderTarget> DriverImpl::createRenderTargetImpl(std::unique_ptr<Texture>&& texture)
 		{
 			INACTIVE_MODULE_ERROR();
 			return std::unique_ptr<RenderTarget>();

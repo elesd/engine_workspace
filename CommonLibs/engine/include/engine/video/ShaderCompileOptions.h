@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	class ShaderLayoutDescription;
+	class AttributeFormat;
 
 	enum class ShaderVersion
 	{
@@ -50,9 +50,7 @@ namespace engine
 		bool hasFlag(ShaderCompileFlag flag) const;
 		void removeFlag(ShaderCompileFlag);
 		const std::vector<ShaderCompileFlag>& getFlags() const;
-
-		void setLayout(const ShaderLayoutDescription& attributeLayout);
-		const ShaderLayoutDescription &getLayout() const;
+		
 	private:
 		struct ShaderCompileOptionsPrivate* _members = nullptr;
 		

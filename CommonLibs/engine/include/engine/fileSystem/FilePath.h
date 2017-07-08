@@ -6,7 +6,12 @@ namespace engine
 	{
 	public:
 		explicit FilePath(const std::string &path);
+		FilePath(const FilePath &o);
+		FilePath(FilePath &&o);
 		~FilePath();
+		FilePath &operator=(const FilePath &o);
+		FilePath &operator=(FilePath &&o);
+
 		void normalize();
 
 		const std::string &str() const;

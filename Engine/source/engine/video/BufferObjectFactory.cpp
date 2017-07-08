@@ -6,14 +6,9 @@
 
 namespace engine
 {
-	std::unique_ptr<BufferObject> BufferObjectFactory::createVertexBufferObject(BufferObjectTypes type, size_t size) const
+	std::unique_ptr<BufferObject> BufferObjectFactory::createVertexBufferObject(size_t size) const
 	{
-		switch(type)
-		{
-			case BufferObjectTypes::VertexBufferObject: return createVertexBufferObject(size);
-			case BufferObjectTypes::VertexBufferArray: return createVertexBufferArray(size);
-			default: ASSERT("Unknown vertex buffer object type"); return nullptr;
-		}
+		return createVertexBufferObject(size);
 	}
 
 	std::unique_ptr<BufferObject> BufferObjectFactory::createIndexBufferObject(size_t size) const

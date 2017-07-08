@@ -58,4 +58,9 @@ namespace engine
 	{
 		return _members->errorStr;
 	}
+
+	void ShaderCompilationData::release()
+	{
+		releaseImpl();
+	}
 }

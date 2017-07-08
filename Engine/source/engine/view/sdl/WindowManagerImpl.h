@@ -6,6 +6,9 @@ struct SDL_WindowEvent;
 
 namespace engine
 {
+	struct RenderContextParameters;
+	class RenderContext;
+	class Window;
 	namespace sdl
 	{
 		class WindowImpl;

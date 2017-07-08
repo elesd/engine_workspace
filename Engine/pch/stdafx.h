@@ -54,3 +54,4 @@
 
 // Platform specific codes
 #include <stdafx_win.h>
+#include <stdafx_glew.h>

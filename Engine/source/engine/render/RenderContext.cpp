@@ -2,20 +2,20 @@
 #include <engine/render/RenderContext.h>
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <engine/render/Effect.h>
-#include <engine/render/EffectComperator.h>
+#include <engine/video/Effect.h>
+#include <engine/video/EffectComperator.h>
 #include <engine/render/Render.h>
-#include <engine/render/Material.h>
-#include <engine/render/MaterialDescription.h>
-#include <engine/render/EffectCompiler.h>
+#include <engine/video/Material.h>
+#include <engine/video/MaterialDescription.h>
+#include <engine/video/EffectCompiler.h>
 
 #include <engine/video/BufferObject.h>
 #include <engine/video/BufferObjectFactory.h>
 #include <engine/video/Driver.h>
+#include <engine/video/MaterialContext.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/Shader.h>
-#include <engine/video/BufferObjectFactory.h>
 
 
 
@@ -29,8 +29,6 @@ namespace engine
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
-
-		BufferObjectTypes currentBufferObjectType;
 
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 			: driver(std::move(driver))
@@ -53,7 +51,6 @@ namespace engine
 	void RenderContext::init(const RenderContextParameters& params, Window *window)
 	{
 		_members->driver->init(params.driverParameters, window);
-		_members->currentBufferObjectType = params.bufferObjectsType;
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -78,7 +75,7 @@ namespace engine
 
 	std::unique_ptr<BufferObject> RenderContext::createVertexBufferObject(size_t size) const
 	{
-		return _members->bufferObjectFactory->createVertexBufferObject(_members->currentBufferObjectType, size);
+		return _members->bufferObjectFactory->createVertexBufferObject(size);
 	}
 
 	std::unique_ptr<BufferObject> RenderContext::createIndexBufferObject(size_t size) const
@@ -89,6 +86,11 @@ namespace engine
 	void RenderContext::draw(VertexBuffer* verticies, IndexBufferBase* indicies) const
 	{
 		_members->driver->draw(verticies, indicies);
+	}
+
+	std::unique_ptr<MaterialContext> RenderContext::createMaterialContext(const Material* material) const
+	{
+		return _members->driver->createMaterialContext(material);
 	}
 
 	void RenderContext::swapBuffer()
@@ -102,16 +104,16 @@ namespace engine
 		return deletedItems > 0;
 	}
 
-	std::unique_ptr<RenderTarget> RenderContext::createRenderTarget(Texture* texture) const
+	std::unique_ptr<RenderTarget> RenderContext::createRenderTarget(std::unique_ptr<Texture>&& texture) const
 	{
-		std::unique_ptr<RenderTarget> result = _members->driver->createRenderTarget(texture);
+		std::unique_ptr<RenderTarget> result = _members->driver->createRenderTarget(std::move(texture));
 		return result;
 	}
 
-	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(const MaterialDescription& description)
+	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(const Material* material)
 	{
-		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(description.getShaderVersion());
-		std::unique_ptr<EffectCompiler> effectCompiler(new EffectCompiler(_members->driver.get(), std::move(shaderCompiler), description));
+		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(material->getDescription().getShaderVersion());
+		std::unique_ptr<EffectCompiler> effectCompiler(new EffectCompiler(material, _members->driver.get(), std::move(shaderCompiler)));
 		return effectCompiler;
 	}
 
@@ -132,20 +134,10 @@ namespace engine
 	void RenderContext::setMaterial(Material* material)
 	{
 		_members->effectComperator.compare(_members->currentEffect, material->getEffect());
-		bool hasAnyChanges = false;
+		_members->driver->setMaterialContext(material->getMaterialContext());
+		_members->driver->setEffect(material->getEffect(), _members->effectComperator);
 
-		if(_members->effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
-		{
-			_members->driver->setShader(material->getEffect()->getVertexShader(), material->getEffect()->getName());
-			hasAnyChanges = true;
-		}
-		if(_members->effectComperator.isChanged(EffectComperator::DifferenceType::FragmentShader))
-		{
-			_members->driver->setShader(material->getEffect()->getFragmentShader(), material->getEffect()->getName());
-			hasAnyChanges = true;
-		}
-
-		if(hasAnyChanges)
+		if(_members->effectComperator.hasAnyChange())
 		{
 			_members->currentEffect = material->getEffect();
 		}

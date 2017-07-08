@@ -15,9 +15,12 @@
 int main(int argc, char* argv[])
 {
 	std::unique_ptr<engine::IMain> main(new TestMain());
-	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Glfw);
+	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::Sdl);
 	builder.AddInput(engine::BasicInputType::Keyboard)
 		   .AddInput(engine::BasicInputType::Mouse);
+	engine::FileSystemSettings settings;
+	settings.workingDirectory = "..\\data\\";
+	builder.setFileSystemSetting(settings);
 	engine::Application *app = builder.buildEngine(argc, argv);
 	app->run();
 	return 0;

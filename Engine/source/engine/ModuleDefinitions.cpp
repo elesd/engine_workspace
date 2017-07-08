@@ -22,4 +22,8 @@ namespace engine
 
     ////////////////////////////////////////////////////////
 
+	const ContextModuleClassification ContextModule_traits<ContextModuleType::Glew>::classification = ContextModuleClassification::Utils;
+	const std::string ContextModule_traits<ContextModuleType::Glew>::name = "glew";
+
+	////////////////////////////////////////////////////////
 }
