@@ -19,6 +19,7 @@ namespace engine
 		Driver* driver = nullptr;
 		EffectCompilerPrivate(const Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler)
 			: compiler(std::move(compiler))
+			, material(material)
 			, driver(driver)
 		{ }
 	};

@@ -30,11 +30,11 @@ namespace engine
 			{
 				case ContextModuleType::Glfw:
 				_members->modules[ContextModule_traits<ContextModuleType::Glfw>::classification].push_back(type);
-				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(type);
+				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(ContextModuleType::Glew);
 				break;
 				case ContextModuleType::Sdl:
 				_members->modules[ContextModule_traits<ContextModuleType::Sdl>::classification].push_back(type);
-				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(type);
+				_members->modules[ContextModule_traits<ContextModuleType::Glew>::classification].push_back(ContextModuleType::Glew);
 				break;
 				case ContextModuleType::WinApi:
 				_members->modules[ContextModule_traits<ContextModuleType::WinApi>::classification].push_back(type);
@@ -99,11 +99,11 @@ namespace engine
 			break;
 			case ContextModuleType::Glew:
 			res = glew::Core::init();
-			moduleName = ContextModule_traits<ContextModuleType::WinApi>::name;
+			moduleName = ContextModule_traits<ContextModuleType::Glew>::name;
 			break;
 			default:
 			FAIL("Unknown module");
-			res = -1;
+			res = false;
 		}
 		if(!res)
 			throw InitializationError("Module cannot be initialized: " + moduleName);

@@ -6,6 +6,8 @@
 
 #include <engine/render/RenderContext.h>
 
+#include <engine/modules/glew/Core.h>
+
 #include <engine/video/Driver.h>
 #include <engine/video/sdl/DriverImpl.h>
 
@@ -37,8 +39,6 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				SDL_GLContext context = SDL_GL_CreateContext(window);
-				SDL_GL_MakeCurrent(window, context);
 				result.reset(new WindowImpl(this, std::move(window), title));
 			}
 			return result.release();
@@ -52,9 +52,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				WindowImpl *sdlMainWindow = static_cast<WindowImpl*>(mainWindow);
-				SDL_GLContext context = SDL_GL_CreateContext(sdlMainWindow->getSDLWindow());
-				SDL_GL_MakeCurrent(window, context);
+				result.reset(new WindowImpl(this, std::move(window), title));
 			}
 			return result.release();
 		}
@@ -68,9 +66,7 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				WindowImpl *sdlMainWindow = static_cast<WindowImpl*>(mainWindow);
-				SDL_GLContext context = SDL_GL_CreateContext(sdlMainWindow->getSDLWindow());
-				SDL_GL_MakeCurrent(window, context);
+				result.reset(new WindowImpl(this, std::move(window), title));
 			}
 			return result.release();
 		}
@@ -90,6 +86,11 @@ namespace engine
 
 		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
+			WindowImpl *sdlWindow = static_cast<WindowImpl*>(window);
+			SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow->getSDLWindow());
+			SDL_GL_MakeCurrent(sdlWindow->getSDLWindow(), sdlContext);
+			glew::Core::initOpenglContext();
+
 			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
 			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
 			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));

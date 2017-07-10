@@ -11,6 +11,11 @@ namespace engine
 	{
 		bool Core::init()
 		{
+			return true;
+		}
+
+		bool Core::initOpenglContext()
+		{
 			GLenum err = glewInit();
 			if(GLEW_OK != err)
 			{
@@ -18,6 +23,7 @@ namespace engine
 			}
 			return err == GLEW_OK;
 		}
+
 	}
 }
 #else 

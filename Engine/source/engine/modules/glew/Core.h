@@ -15,6 +15,8 @@ namespace engine
 			* @return True if the init was successfull.
 			*/
 			static bool init();
+
+			static bool initOpenglContext();
 		};
 	}
 }

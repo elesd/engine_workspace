@@ -74,8 +74,16 @@ namespace engine
 
 	void Effect::checkShaders() const
 	{
-		ASSERT(getVertexShaderData()->compilationWasSuccessfull());
-		ASSERT(getFragmentShaderData()->compilationWasSuccessfull());
+		if(getVertexShaderData()->compilationWasSuccessfull() == false)
+		{
+			std::cerr << "Vertex shader error: " << getVertexShaderData()->getError() << std::endl;
+			FAIL("Shader compilation error");
+		}
+		if(getFragmentShaderData()->compilationWasSuccessfull() == false)
+		{
+			std::cerr << "Vertex shader error: " << getFragmentShaderData()->getError() << std::endl;
+			FAIL("Shader compilation error");
+		}
 	}
 
 	const ShaderCompilationData* Effect::getCorrespondingData(Shader* shader) const
