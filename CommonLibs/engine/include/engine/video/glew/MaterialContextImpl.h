@@ -10,7 +10,7 @@ namespace engine
 			: public MaterialContext
 		{
 		public:
-			MaterialContextImpl(const Material* material, GLuint vao);
+			MaterialContextImpl(const Material* material, Driver* driver, GLuint vao);
 			~MaterialContextImpl() override;
 
 			GLuint getVAO() const;

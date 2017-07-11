@@ -94,7 +94,6 @@ namespace engine
 			ASSERT(verticies->isMapped());
 			ASSERT(indicies->isMapped());
 
-			// TODO Add Buffer Array implementation
 			verticies->getBufferObject()->bind();
 			indicies->getBufferObject()->bind();
 
@@ -112,6 +111,18 @@ namespace engine
 				case 2: type = GL_UNSIGNED_SHORT; break;
 				case 4: type = GL_UNSIGNED_INT; break;
 				default: FAIL("Type deduction is faild based on stride."); type = GL_UNSIGNED_INT; break;
+			}
+			{
+				std::cout << "At render" << std::endl;
+				GLint param;
+				glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &param);
+				std::cout << "current vao: " << param << std::endl;
+				glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &param);
+				std::cout << "Index buffer: " << param << std::endl;
+				glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &param);
+				std::cout << "Vertex buffer: " << param << std::endl;
+				glGetIntegerv(GL_CURRENT_PROGRAM, &param);
+				std::cout << "program: " << param << std::endl;
 			}
 
 			glDrawElements(
@@ -139,6 +150,11 @@ namespace engine
 		{
 			const MaterialContextImpl* glslMaterialContext = static_cast<const MaterialContextImpl*>(materialContext);
 			glBindVertexArray(glslMaterialContext->getVAO());
+		}
+
+		void DriverImpl::resetMaterialContextImpl()
+		{
+			glBindVertexArray(0);
 		}
 
 		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
@@ -259,6 +275,8 @@ namespace engine
 			GLuint vao = 0;
 			glGenVertexArrays(1, &vao);
 			glBindVertexArray(vao);
+			
+
 
 			const AttributeFormat& layoutDesc = material->getAttributeFormat();
 			size_t layoutSize = 0;
@@ -266,7 +284,10 @@ namespace engine
 			{
 				layoutSize += getTypeSize(layoutDesc.getAttribute(i).type);
 			}
-
+			std::vector<char> tempData(layoutSize, 0);
+			VertexBufferObject tempVBO(layoutSize, this);
+			tempVBO.bind();
+			tempVBO.setData(tempData.data(), layoutSize);
 			size_t offset = 0;
 			for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
 			{
@@ -282,9 +303,10 @@ namespace engine
 				);
 				offset += getTypeSize(layout.type);
 			}
+			tempVBO.unbind();
 			glBindVertexArray(0);
 
-			return std::make_unique<MaterialContextImpl>(material, vao);
+			return std::make_unique<MaterialContextImpl>(material, this, vao);
 		}
 
 

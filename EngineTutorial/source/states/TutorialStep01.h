@@ -34,7 +34,7 @@ namespace states
 
 		std::unique_ptr<engine::Material> loadMaterial();
 		std::unique_ptr<engine::VertexBuffer> loadTriangleVerticies(const engine::Material* material);
-		std::unique_ptr<engine::IndexBufferBase> loadTriangleIndicies();
+		std::unique_ptr<engine::IndexBufferBase> loadTriangleIndicies(const engine::Material* material);
 
 		struct TutorialStep01Private* _members = nullptr;
 

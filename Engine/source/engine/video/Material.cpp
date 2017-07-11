@@ -86,6 +86,7 @@ namespace engine
 
 	std::unique_ptr<VertexBuffer> Material::createVertexBufferFor(const std::string& techniqueName) const
 	{
+		_members->materialContext->bind();
 		const AttributeFormat& layout = getAttributeFormat();
 		std::vector<GPUMemberType> format;
 		format.reserve(layout.getNumOfAttributes());
@@ -94,6 +95,7 @@ namespace engine
 			format.push_back(layout.getAttribute(i).type);
 		}
 		std::unique_ptr<engine::VertexBuffer> buffer(new engine::VertexBuffer(format));
+		_members->materialContext->unbind();
 		return buffer;
 	}
 

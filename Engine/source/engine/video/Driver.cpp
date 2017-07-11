@@ -120,6 +120,11 @@ namespace engine
 		setMaterialContextImpl(material);
 	}
 
+	void Driver::resetMaterialContext()
+	{
+		resetMaterialContextImpl();
+	}
+
 	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)
 	{
 		if(effect->getCompilationData()->isSupportSeparatePrograms())

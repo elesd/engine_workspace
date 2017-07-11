@@ -15,8 +15,8 @@ namespace engine
 			{ }
 		};
 
-		MaterialContextImpl::MaterialContextImpl(const Material* material, GLuint vao)
-			: MaterialContext(material)
+		MaterialContextImpl::MaterialContextImpl(const Material* material, Driver* driver, GLuint vao)
+			: MaterialContext(material, driver)
 			, _members(new MaterialContextImplPrivate(vao))
 		{
 

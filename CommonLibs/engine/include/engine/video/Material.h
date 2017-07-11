@@ -1,6 +1,9 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
+#include <engine/video/IndexBuffer.h>
+#include <engine/video/IndexBufferBase.h>
+#include <engine/video/MaterialContext.h>
 
 namespace engine
 {
@@ -31,6 +34,8 @@ namespace engine
 		Effect* getEffect() const;
 
 		std::unique_ptr<VertexBuffer> createVertexBufferFor(const std::string& techniqueName) const;
+		template<typename T>
+		std::unique_ptr<IndexBufferBase> createIndexBuffer(PrimitiveType type, const std::vector<T>& data) const;
 
 		const MaterialContext* getMaterialContext() const;
 		const AttributeFormat& getAttributeFormat() const;
@@ -38,4 +43,14 @@ namespace engine
 	private:
 		struct MaterialPrivate* _members = nullptr;
 	};
+
+	template<typename T>
+	std::unique_ptr<IndexBufferBase> Material::createIndexBuffer(PrimitiveType type, const std::vector<T>& data) const
+	{
+		getMaterialContext()->bind();
+		std::unique_ptr<engine::IndexBufferBase> buffer(new typename engine::IndexBuffer<T>(type, data));
+		getMaterialContext()->unbind();
+		return buffer;
+	}
+
 }

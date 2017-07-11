@@ -59,6 +59,7 @@ namespace engine
 		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options);
 		void compileEffect(Effect* effect);
 		void setMaterialContext(const MaterialContext* material);
+		void resetMaterialContext();
 		void setEffect(Effect *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
 		std::unique_ptr<MaterialContext> createMaterialContext(const Material* material);
@@ -74,6 +75,7 @@ namespace engine
 		virtual void compileEffectImpl(Effect* effect) = 0;
 		virtual void drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) = 0;
 		virtual void setMaterialContextImpl(const MaterialContext* material) = 0;
+		virtual void resetMaterialContextImpl() = 0;
 		virtual void setEffectImpl(Effect* effect) = 0;
 		virtual void setShaderImpl(Shader* shader, const std::string& techniqueName) = 0;
 		virtual std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) = 0;

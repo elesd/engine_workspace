@@ -19,6 +19,7 @@ namespace engine
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
 			void resetRenderTargetImpl() override;
 			void setMaterialContextImpl(const MaterialContext* material) override;
+			void resetMaterialContextImpl() override;
 			void setEffectImpl(Effect* effect) override;
 			void setShaderImpl(Shader* shader, const std::string& techniqueName) override;
 

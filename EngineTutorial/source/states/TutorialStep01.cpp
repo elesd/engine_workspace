@@ -102,7 +102,7 @@ namespace states
 		_members->triangle = std::make_unique<engine::Mesh>("triangle");
 		std::unique_ptr<engine::Material> material = loadMaterial();
 		std::unique_ptr<engine::VertexBuffer> verticies = loadTriangleVerticies(material.get());
-		std::unique_ptr<engine::IndexBufferBase> indicies = loadTriangleIndicies();
+		std::unique_ptr<engine::IndexBufferBase> indicies = loadTriangleIndicies(material.get());
 		_members->triangle->load(std::move(verticies), std::move(indicies), std::move(material));
 	}
 
@@ -166,21 +166,31 @@ namespace states
 			0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		});
-
+		//std::vector<float> data(
+		//{
+		//	-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		//	1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		//	0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		//});
 		std::unique_ptr<engine::VertexBuffer> buffer = material->createVertexBufferFor(engine::Material::defaultEffectName);
 		buffer->fill(data);
+		material->getMaterialContext()->bind();
 		buffer->map(_members->renderContext);
+		material->getMaterialContext()->unbind();
+
 		return buffer;
 	}
 
-	std::unique_ptr<engine::IndexBufferBase> TutorialStep01::loadTriangleIndicies()
+	std::unique_ptr<engine::IndexBufferBase> TutorialStep01::loadTriangleIndicies(const engine::Material* material)
 	{
 		std::vector<int32_t> data = 
 		{
 			0, 1, 2
 		};
-		std::unique_ptr<engine::IndexBufferBase> buffer(new engine::IndexBuffer<int32_t>(engine::PrimitiveType::Triangle, data));
+		std::unique_ptr<engine::IndexBufferBase> buffer = material->createIndexBuffer<int32_t>(engine::PrimitiveType::Triangle, data);
+		material->getMaterialContext()->bind();
 		buffer->map(_members->renderContext);
+		material->getMaterialContext()->unbind();
 		return buffer;
 	}
 }

@@ -17,6 +17,9 @@
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/Shader.h>
 
+#include <engine/video/IndexBufferBase.h>
+#include <engine/video/VertexBuffer.h>
+
 
 
 namespace engine

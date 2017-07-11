@@ -20,6 +20,7 @@ namespace engine
 			: techniqueName(techniqueName)
 			, vertexShader(vertexShader)
 			, fragmentShader(fragmentShader)
+			, material(material)
 		{ }
 	};
 
