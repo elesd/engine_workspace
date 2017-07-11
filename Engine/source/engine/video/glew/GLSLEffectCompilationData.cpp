@@ -14,6 +14,7 @@ namespace engine
 
 		GLSLEffectCompilationData::GLSLEffectCompilationData()
 			: EffectCompilationData(false)
+			, _members(new GLSLEffectCompilationDataPrivate())
 		{
 
 		}

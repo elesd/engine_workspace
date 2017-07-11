@@ -6,6 +6,7 @@
 
 #include <engine/video/Effect.h>
 #include <engine/video/EffectCompilationData.h>
+#include <engine/video/Driver.h>
 #include <engine/video/Material.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderCompileOptions.h>
@@ -45,6 +46,7 @@ namespace engine
 																  techniqueName, 
 																  _members->material->getDescription().getVertexShader(), 
 																  _members->material->getDescription().getFragmentShader());
+		_members->driver->compileEffect(effect.get());
 		return effect;
 	}
 
