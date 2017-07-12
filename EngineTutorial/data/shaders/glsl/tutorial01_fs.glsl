@@ -1,6 +1,9 @@
-varying vec4 in_color;
+#version 330 core
+
+in vec4 outColor;
+out vec4 fragColor;
 
 void main()
 {
-    gl_Color = vec4(1.0);
+    fragColor = outColor;
 }

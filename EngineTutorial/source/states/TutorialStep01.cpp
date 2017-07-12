@@ -80,13 +80,11 @@ namespace states
 
 	void TutorialStep01::updateState()
 	{
-		
 	}
 
 	void TutorialStep01::renderState()
 	{
 		_members->render->render();
-		_members->renderContext->swapBuffer();
 	}
 
 	void TutorialStep01::initRender()
@@ -160,18 +158,18 @@ namespace states
 
 	std::unique_ptr<engine::VertexBuffer> TutorialStep01::loadTriangleVerticies(const engine::Material* material)
 	{
-		std::vector<float> data(
-		{
-			0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-		});
 		//std::vector<float> data(
 		//{
-		//	-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		//	1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		//	0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		//	0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		//	0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		//	-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		//});
+		std::vector<float> data(
+		{
+			-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		});
 		std::unique_ptr<engine::VertexBuffer> buffer = material->createVertexBufferFor(engine::Material::defaultEffectName);
 		buffer->fill(data);
 		material->getMaterialContext()->bind();

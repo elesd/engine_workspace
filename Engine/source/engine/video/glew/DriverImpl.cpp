@@ -91,6 +91,8 @@ namespace engine
 
 		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) 
 		{
+			glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 			ASSERT(verticies->isMapped());
 			ASSERT(indicies->isMapped());
 
@@ -112,19 +114,8 @@ namespace engine
 				case 4: type = GL_UNSIGNED_INT; break;
 				default: FAIL("Type deduction is faild based on stride."); type = GL_UNSIGNED_INT; break;
 			}
-			{
-				std::cout << "At render" << std::endl;
-				GLint param;
-				glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &param);
-				std::cout << "current vao: " << param << std::endl;
-				glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &param);
-				std::cout << "Index buffer: " << param << std::endl;
-				glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &param);
-				std::cout << "Vertex buffer: " << param << std::endl;
-				glGetIntegerv(GL_CURRENT_PROGRAM, &param);
-				std::cout << "program: " << param << std::endl;
-			}
 
+			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(
 				mode,
 				indicies->count(),    // count
@@ -135,6 +126,12 @@ namespace engine
 			indicies->getBufferObject()->unbind();
 			verticies->getBufferObject()->unbind();
 		}
+
+		void DriverImpl::setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) 
+		{
+			glViewport(x, y, width, height);
+		}
+
 
 		void DriverImpl::setRenderTargetImpl(RenderTarget* renderTarget)
 		{
@@ -257,6 +254,7 @@ namespace engine
 		void DriverImpl::setEffectImpl(Effect* effect)
 		{
 			const GLSLEffectCompilationData* compilationData = static_cast<const GLSLEffectCompilationData*>(effect->getCompilationData());
+			// TODO check calling it in each frame
 			glUseProgram(compilationData->getProgramId());
 		}
 
@@ -275,8 +273,6 @@ namespace engine
 			GLuint vao = 0;
 			glGenVertexArrays(1, &vao);
 			glBindVertexArray(vao);
-			
-
 
 			const AttributeFormat& layoutDesc = material->getAttributeFormat();
 			size_t layoutSize = 0;

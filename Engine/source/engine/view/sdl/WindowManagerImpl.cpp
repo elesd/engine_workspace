@@ -87,8 +87,19 @@ namespace engine
 		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
 		{
 			WindowImpl *sdlWindow = static_cast<WindowImpl*>(window);
+			// TODO store sdl context
+			
+			SDL_GL_SetSwapInterval(1);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 			SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow->getSDLWindow());
-			SDL_GL_MakeCurrent(sdlWindow->getSDLWindow(), sdlContext);
+			if(SDL_GL_MakeCurrent(sdlWindow->getSDLWindow(), sdlContext) != 0)
+			{
+				std::cerr << SDL_GetError() << std::endl;
+				FAIL("Opengl render context initialization error");
+			}
 			glew::Core::initOpenglContext();
 
 			std::unique_ptr<Driver> driver(new sdl::DriverImpl());

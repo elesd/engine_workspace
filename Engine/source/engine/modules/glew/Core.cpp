@@ -16,6 +16,7 @@ namespace engine
 
 		bool Core::initOpenglContext()
 		{
+			glewExperimental = GL_TRUE;
 			GLenum err = glewInit();
 			if(GLEW_OK != err)
 			{

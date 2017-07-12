@@ -31,18 +31,6 @@ namespace engine
 	void MaterialContext::bind() const
 	{
 		_members->driver->setMaterialContext(this);
-		{
-			std::cout << "MaterialContext::bind()" << std::endl;
-			GLint param;
-			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &param);
-			std::cout << "current vao: " << param << std::endl;
-			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &param);
-			std::cout << "Index buffer: " << param << std::endl;
-			glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &param);
-			std::cout << "Vertex buffer: " << param << std::endl;
-			glGetIntegerv(GL_CURRENT_PROGRAM, &param);
-			std::cout << "program: " << param << std::endl;
-		}
 	}
 
 	void MaterialContext::unbind() const
