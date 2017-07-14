@@ -20,13 +20,13 @@ namespace engine
 	struct VertexBufferPrivate
 	{
 		std::vector<char> data;
-		std::vector<GPUMemberType> format;
+		std::vector<GPUMemberType> attributeTypes;
 		size_t stride = 0;
 		VertexBufferMappingData mappingData;
 
 		VertexBufferPrivate() = default;
-		VertexBufferPrivate(const std::vector<GPUMemberType>& format, const std::vector<char>& data = {})
-			: format(format)
+		VertexBufferPrivate(const std::vector<GPUMemberType>& attributeTypes, const std::vector<char>& data = {})
+			: attributeTypes(attributeTypes)
 			, data(data)
 		{	}
 	};
@@ -57,10 +57,15 @@ namespace engine
 		return *this;
 	}
 
-	void VertexBuffer::setFormat(const std::vector<GPUMemberType>& format)
+	void VertexBuffer::setFormat(const std::vector<GPUMemberType>& attributeTypes)
 	{
-		_members->format = format;
+		_members->attributeTypes = attributeTypes;
 		recalcStride();
+	}
+
+	const std::vector<GPUMemberType>& VertexBuffer::getAttributeTypes() const
+	{
+		return _members->attributeTypes;
 	}
 
 	void VertexBuffer::fill(const std::vector<char>& data)
@@ -77,7 +82,7 @@ namespace engine
 	void VertexBuffer::recalcStride() 
 	{
 		_members->stride = 0;
-		for(GPUMemberType type : _members->format)
+		for(GPUMemberType type : _members->attributeTypes)
 		{
 			_members->stride += GPUMemberTypeTraits::getSize(type);
 		}
@@ -123,7 +128,7 @@ namespace engine
 
 	VertexBuffer VertexBuffer::cloneClientData() const
 	{
-		VertexBuffer result(_members->format, _members->data);
+		VertexBuffer result(_members->attributeTypes, _members->data);
 		return result;
 	}
 

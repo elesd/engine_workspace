@@ -6,8 +6,7 @@
 
 namespace engine
 {
-	class VertexBuffer;
-	class IndexBufferBase;
+	class BufferContext;
 	class Material;
 
 	class Mesh 
@@ -22,14 +21,12 @@ namespace engine
 
 		Mesh &operator=(Mesh&&);
 
-		void load(std::unique_ptr<VertexBuffer>&& verticies, // TODO create Mesh library
-				  std::unique_ptr<IndexBufferBase>&& indexBuffer,
+		void load(std::unique_ptr<BufferContext>&& bufferContext,
 				  std::unique_ptr<Material>&& material); // TODO Move material to material library
 
 		void render(RenderContext*) override;
 
-		const VertexBuffer* getVerticies() const;
-		const IndexBufferBase* getIndicies() const;
+		const BufferContext* getBufferContext() const;
 		const Material* getMaterial() const;
 	private:
 		struct MeshPrivate* _members = nullptr;

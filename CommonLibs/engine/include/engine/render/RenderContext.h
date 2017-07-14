@@ -7,13 +7,13 @@
 
 namespace engine
 {
+	class BufferContext;
 	class BufferObject;
 	class BufferObjectFactory;
 	class Driver;
 	class EffectCompiler;
 	class IndexBufferBase;
 	class Material;
-	class MaterialContext;
 	class MaterialDescription;
 	class PipelineRendererBase;
 	class Render;
@@ -52,12 +52,12 @@ namespace engine
 		Render* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
 		
+		std::unique_ptr<BufferContext> createBufferContext() const;
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
-		void draw(VertexBuffer* verticies, IndexBufferBase* indicies) const;
+		void draw(BufferContext *bufferContext) const;
 
-		std::unique_ptr<MaterialContext> createMaterialContext(const Material* material) const;
 		void swapBuffer();
 		// TODO
 		// SetViewPort

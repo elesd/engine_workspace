@@ -1,6 +1,7 @@
 #include <stdafx.h>
 #include <engine/video/glew/DriverImpl.h>
 
+#include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
 #include <engine/video/IndexBuffer.h>
 #include <engine/video/Material.h>
@@ -14,7 +15,6 @@
 #include <engine/video/glew/GLSLVSCompilationData.h>
 #include <engine/video/glew/GLSLFSCompilationData.h>
 #include <engine/video/glew/IndexBufferObject.h>
-#include <engine/video/glew/MaterialContextImpl.h>
 #include <engine/video/glew/VertexBufferObject.h>
 
 #include <engine/video/GPUTypes.h>
@@ -44,37 +44,6 @@ namespace
 		return std::make_pair(ok, errorStr);
 	}
 
-	size_t getTypeSize(engine::GPUMemberType type)
-	{
-		switch(type)
-		{
-			case engine::GPUMemberType::Float: return 4; break;
-			case engine::GPUMemberType::Vec2: return 8; break;
-			case engine::GPUMemberType::Vec3: return 12; break;
-			case engine::GPUMemberType::Vec4: return 16; break;
-			case engine::GPUMemberType::Mat3: return 36; break;
-			case engine::GPUMemberType::Mat4: return 64; break;
-			case engine::GPUMemberType::Undef:
-			default: FAIL("Unknown gpu member type"); return 0;
-			break;
-		}
-	}
-
-	size_t getAttirbuteMemberCount(engine::GPUMemberType type)
-	{
-		switch(type)
-		{
-			case engine::GPUMemberType::Float: return 1; break;
-			case engine::GPUMemberType::Vec2: return 2; break;
-			case engine::GPUMemberType::Vec3: return 3; break;
-			case engine::GPUMemberType::Vec4: return 4; break;
-			case engine::GPUMemberType::Mat3: return 9; break;
-			case engine::GPUMemberType::Mat4: return 16; break;
-			case engine::GPUMemberType::Undef:
-			default: FAIL("Unknown gpu member type"); return 0;
-			break;
-		}
-	}
 
 }
 
@@ -82,32 +51,45 @@ namespace engine
 {
 	namespace glew
 	{
-		GLuint DriverImpl::createBuffer()
+		DriverImpl::DriverImpl()
 		{
-			GLuint buffer;
-			glGenBuffers(1, &buffer);
-			return buffer;
+			checkErrors();
 		}
 
-		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) 
+		void DriverImpl::checkErrors()
+		{
+			GLenum err = GL_NO_ERROR;
+			while((err = glGetError()) != GL_NO_ERROR)
+			{
+				std::cerr << "ERROR " << err << std::endl;
+			}
+		}
+
+		void DriverImpl::drawImpl(BufferContext* bufferContext)
 		{
 			glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
+			checkErrors();
 			glClear(GL_COLOR_BUFFER_BIT);
-			ASSERT(verticies->isMapped());
+			checkErrors();
+			if(bufferContext->allBuffersBound() == false)
+			{
+				bufferContext->bindBuffers();
+			}
+			/*ASSERT(verticies->isMapped());
 			ASSERT(indicies->isMapped());
 
 			verticies->getBufferObject()->bind();
-			indicies->getBufferObject()->bind();
+			indicies->getBufferObject()->bind();*/
 
 			GLenum mode = 0;
-			switch(indicies->getPrimitiveType())
+			switch(bufferContext->getIndexBuffer()->getPrimitiveType())
 			{
 				case PrimitiveType::Triangle: mode = GL_TRIANGLES; break;
 				default: FAIL("Unknown primitive type"); mode = GL_TRIANGLES; break;
 			}
 
 			GLsizei type = GL_UNSIGNED_INT;
-			size_t stride = indicies->getStride();
+			size_t stride = bufferContext->getIndexBuffer()->getStride();
 			switch(stride)
 			{
 				case 2: type = GL_UNSIGNED_SHORT; break;
@@ -118,18 +100,18 @@ namespace engine
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(
 				mode,
-				indicies->count(),    // count
+				bufferContext->getIndexBuffer()->count(),    // count
 				type,   // type
 				(void*)0           // element array buffer offset
 			);
-
-			indicies->getBufferObject()->unbind();
-			verticies->getBufferObject()->unbind();
+			checkErrors();
+			bufferContext->unbindBuffers();
 		}
 
 		void DriverImpl::setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) 
 		{
 			glViewport(x, y, width, height);
+			checkErrors();
 		}
 
 
@@ -141,17 +123,6 @@ namespace engine
 		void DriverImpl::resetRenderTargetImpl()
 		{
 			HARD_FAIL("Unimplemented");
-		}
-
-		void DriverImpl::setMaterialContextImpl(const MaterialContext* materialContext)
-		{
-			const MaterialContextImpl* glslMaterialContext = static_cast<const MaterialContextImpl*>(materialContext);
-			glBindVertexArray(glslMaterialContext->getVAO());
-		}
-
-		void DriverImpl::resetMaterialContextImpl()
-		{
-			glBindVertexArray(0);
 		}
 
 		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
@@ -167,7 +138,7 @@ namespace engine
 			const std::string& shaderCode = shader->getCode();
 			const char* shaderCodePtr = shaderCode.c_str();
 			glShaderSource(shaderId, 1, &shaderCodePtr, 0);
-
+			checkErrors();
 			bool ok = false;
 			std::string errorStr;
 
@@ -215,14 +186,19 @@ namespace engine
 			const GLSLFSCompilationData* compilationDataFS = static_cast<const GLSLFSCompilationData*>(effect->getFragmentShaderData());
 			const GLSLVSCompilationData* compilationDataVS = static_cast<const GLSLVSCompilationData*>(effect->getVertexShaderData());
 			glAttachShader(programID, compilationDataVS->getShaderId());
+			checkErrors();
 			glAttachShader(programID, compilationDataFS->getShaderId());
+			checkErrors();
 			glLinkProgram(programID);
+			checkErrors();
 
 			// Check the program
 			GLint result = GL_FALSE;
 			int32_t infoLogLength = 0;
 			glGetProgramiv(programID, GL_LINK_STATUS, &result);
+			checkErrors();
 			glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
+			checkErrors();
 			std::unique_ptr<GLSLEffectCompilationData> compilationResult = std::make_unique<GLSLEffectCompilationData>();
 			if(result == GL_TRUE)
 			{
@@ -234,6 +210,7 @@ namespace engine
 				{
 					std::vector<char> errorData(infoLogLength + 1);
 					glGetProgramInfoLog(programID, infoLogLength, NULL, errorData.data());
+					checkErrors();
 					compilationResult->setError(errorData.data());
 				}
 				else
@@ -244,7 +221,9 @@ namespace engine
 
 
 			glDetachShader(programID, compilationDataVS->getShaderId());
+			checkErrors();
 			glDetachShader(programID, compilationDataFS->getShaderId());
+			checkErrors();
 
 			effect->getFragmentShader()->releaseCompilationData(effect->getName());
 			effect->getVertexShader()->releaseCompilationData(effect->getName());
@@ -256,6 +235,7 @@ namespace engine
 			const GLSLEffectCompilationData* compilationData = static_cast<const GLSLEffectCompilationData*>(effect->getCompilationData());
 			// TODO check calling it in each frame
 			glUseProgram(compilationData->getProgramId());
+			checkErrors();
 		}
 
 		void DriverImpl::setShaderImpl(Shader* shader, const std::string& techniqueName)
@@ -268,42 +248,52 @@ namespace engine
 			return std::unique_ptr<RenderTarget>(new RenderTarget(std::move(texture)));
 		}
 
-		std::unique_ptr<MaterialContext> DriverImpl::createMaterialContextImpl(const Material* material)
-		{
-			GLuint vao = 0;
-			glGenVertexArrays(1, &vao);
-			glBindVertexArray(vao);
-
-			const AttributeFormat& layoutDesc = material->getAttributeFormat();
-			size_t layoutSize = 0;
-			for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
-			{
-				layoutSize += getTypeSize(layoutDesc.getAttribute(i).type);
-			}
-			std::vector<char> tempData(layoutSize, 0);
-			VertexBufferObject tempVBO(layoutSize, this);
-			tempVBO.bind();
-			tempVBO.setData(tempData.data(), layoutSize);
-			size_t offset = 0;
-			for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
-			{
-				glEnableVertexAttribArray(i);
-				ShaderLayout layout = layoutDesc.getAttribute(i);
-				glVertexAttribPointer(
-					i,
-					getAttirbuteMemberCount(layout.type),
-					GL_FLOAT, // TODO
-					false, // TODO
-					layoutSize,
-					(void*)offset
-				);
-				offset += getTypeSize(layout.type);
-			}
-			tempVBO.unbind();
-			glBindVertexArray(0);
-
-			return std::make_unique<MaterialContextImpl>(material, this, vao);
-		}
+		//std::unique_ptr<MaterialContext> DriverImpl::createMaterialContextImpl(const Material* material)
+		//{
+		//	GLuint vao = 0;
+		//	glGenVertexArrays(1, &vao);
+		//	checkErrors();
+		//	glBindVertexArray(vao);
+		//	checkErrors();
+		//	const AttributeFormat& layoutDesc = material->getAttributeFormat();
+		//	size_t layoutSize = 0;
+		//	for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
+		//	{
+		//		layoutSize += getTypeSize(layoutDesc.getAttribute(i).type);
+		//	}
+		//	std::vector<float> data(
+		//	{
+		//		-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		//		1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		//		0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		//	});
+		//	std::vector<char> tempData(data.size() * sizeof(float), 0);
+		//	memcpy(tempData.data(), data.data(), data.size());
+		//	VertexBufferObject tempVBO(layoutSize, this);
+		//	tempVBO.bind();
+		//	tempVBO.setData(tempData.data(), layoutSize);
+		//	size_t offset = 0;
+		//	for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
+		//	{
+		//		glEnableVertexAttribArray(i);
+		//		checkErrors();
+		//		ShaderLayout layout = layoutDesc.getAttribute(i);
+		//		glVertexAttribPointer(
+		//			i,
+		//			getAttirbuteMemberCount(layout.type),
+		//			GL_FLOAT, // TODO
+		//			false, // TODO
+		//			layoutSize,
+		//			(void*)offset
+		//		);
+		//		checkErrors();
+		//		offset += getTypeSize(layout.type);
+		//	}
+		//	tempVBO.unbind();
+		//	glBindVertexArray(0);
+		//	checkErrors();
+		//	return std::make_unique<MaterialContextImpl>(material, this, vao);
+		//}
 
 
 

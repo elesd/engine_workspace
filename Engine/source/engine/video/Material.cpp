@@ -8,7 +8,6 @@
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/AttributeFormat.h>
-#include <engine/video/MaterialContext.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
@@ -22,7 +21,6 @@ namespace engine
 		std::unique_ptr<EffectCompiler> effectCompiler;
 		std::map<std::string, std::unique_ptr<Effect>> effectCache;
 		MaterialDescription description;
-		std::unique_ptr<MaterialContext> materialContext;
 		std::string name;
 		std::string currentEffect;
 		MaterialPrivate(const std::string& name, const MaterialDescription& description)
@@ -37,7 +35,6 @@ namespace engine
 	Material::Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
 		: _members(new MaterialPrivate(name, description))
 	{
-		_members->materialContext = renderContext->createMaterialContext(this);
 		_members->effectCompiler = renderContext->createEffectCompiler(this);
 		setCurrentEffect(_members->currentEffect);
 	}
@@ -84,26 +81,6 @@ namespace engine
 		return it->second.get();
 	}
 
-	std::unique_ptr<VertexBuffer> Material::createVertexBufferFor(const std::string& techniqueName) const
-	{
-		_members->materialContext->bind();
-		const AttributeFormat& layout = getAttributeFormat();
-		std::vector<GPUMemberType> format;
-		format.reserve(layout.getNumOfAttributes());
-		for(uint32_t i = 0; i < layout.getNumOfAttributes(); ++i)
-		{
-			format.push_back(layout.getAttribute(i).type);
-		}
-		std::unique_ptr<engine::VertexBuffer> buffer(new engine::VertexBuffer(format));
-		_members->materialContext->unbind();
-		return buffer;
-	}
-
-	const MaterialContext* Material::getMaterialContext() const
-	{
-		return _members->materialContext.get();
-	}
-
 	const AttributeFormat& Material::getAttributeFormat() const
 	{
 		return _members->description.getAttributeFormat();
@@ -118,7 +95,6 @@ namespace engine
 	{
 		return _members->name;
 	}
-
 
 
 	

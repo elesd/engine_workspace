@@ -22,6 +22,7 @@ namespace engine
 
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
+		virtual bool isBound() const = 0;
 		virtual void setData(const char* data, size_t size) = 0;
 	};
 }

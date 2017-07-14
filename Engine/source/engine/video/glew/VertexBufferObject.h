@@ -16,7 +16,7 @@ namespace engine
 			void unbind() override;
 			void setData(const char* data, size_t size) override;
 
-			bool isBind() const;
+			bool isBound() const override;
 		private:
 			struct VertexBufferObjectPrivate* _members = nullptr;
 		};

@@ -12,11 +12,11 @@
 #include <engine/video/BufferObject.h>
 #include <engine/video/BufferObjectFactory.h>
 #include <engine/video/Driver.h>
-#include <engine/video/MaterialContext.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/Shader.h>
 
+#include <engine/video/BufferContext.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -43,6 +43,7 @@ namespace engine
 	RenderContext::RenderContext(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 		: _members(new RenderContextPrivate(std::move(driver), std::move(bufferObjectFactory)))
 	{
+		_members->bufferObjectFactory->setup(this);
 	}
 
 	RenderContext::~RenderContext()
@@ -76,6 +77,11 @@ namespace engine
 		return findRender(id) != nullptr;
 	}
 
+	std::unique_ptr<BufferContext> RenderContext::createBufferContext() const
+	{
+		return _members->bufferObjectFactory->createBufferContext();
+	}
+
 	std::unique_ptr<BufferObject> RenderContext::createVertexBufferObject(size_t size) const
 	{
 		return _members->bufferObjectFactory->createVertexBufferObject(size);
@@ -86,14 +92,9 @@ namespace engine
 		return _members->bufferObjectFactory->createIndexBufferObject(size);
 	}
 
-	void RenderContext::draw(VertexBuffer* verticies, IndexBufferBase* indicies) const
+	void RenderContext::draw(BufferContext *bufferContext) const
 	{
-		_members->driver->draw(verticies, indicies);
-	}
-
-	std::unique_ptr<MaterialContext> RenderContext::createMaterialContext(const Material* material) const
-	{
-		return _members->driver->createMaterialContext(material);
+		_members->driver->draw(bufferContext);
 	}
 
 	void RenderContext::swapBuffer()
@@ -137,7 +138,6 @@ namespace engine
 	void RenderContext::setMaterial(Material* material)
 	{
 		_members->effectComperator.compare(_members->currentEffect, material->getEffect());
-		_members->driver->setMaterialContext(material->getMaterialContext());
 		_members->driver->setEffect(material->getEffect(), _members->effectComperator);
 
 		if(_members->effectComperator.hasAnyChange())

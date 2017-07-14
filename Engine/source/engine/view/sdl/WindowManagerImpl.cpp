@@ -105,6 +105,7 @@ namespace engine
 			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
 			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
 			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
+
 			context->init(params, window);
 			return context;
 		}

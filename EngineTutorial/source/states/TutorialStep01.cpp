@@ -9,6 +9,7 @@
 #include <engine/render/Mesh.h>
 
 #include <engine/video/AttributeFormat.h>
+#include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
 #include <engine/video/EffectCompiler.h>
 #include <engine/video/GPUTypes.h>
@@ -98,10 +99,11 @@ namespace states
 	void TutorialStep01::initTriangle()
 	{
 		_members->triangle = std::make_unique<engine::Mesh>("triangle");
+		std::unique_ptr<engine::BufferContext> bufferContext = _members->renderContext->createBufferContext();
 		std::unique_ptr<engine::Material> material = loadMaterial();
-		std::unique_ptr<engine::VertexBuffer> verticies = loadTriangleVerticies(material.get());
-		std::unique_ptr<engine::IndexBufferBase> indicies = loadTriangleIndicies(material.get());
-		_members->triangle->load(std::move(verticies), std::move(indicies), std::move(material));
+		loadTriangleVerticies(material.get(), bufferContext.get());
+		loadTriangleIndicies(bufferContext.get());
+		_members->triangle->load(std::move(bufferContext), std::move(material));
 	}
 
 	void TutorialStep01::initShaders()
@@ -156,7 +158,7 @@ namespace states
 		return std::make_unique<engine::Material>("Simple", description, _members->renderContext);
 	}
 
-	std::unique_ptr<engine::VertexBuffer> TutorialStep01::loadTriangleVerticies(const engine::Material* material)
+	void TutorialStep01::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)
 	{
 		//std::vector<float> data(
 		//{
@@ -170,25 +172,16 @@ namespace states
 			1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		});
-		std::unique_ptr<engine::VertexBuffer> buffer = material->createVertexBufferFor(engine::Material::defaultEffectName);
-		buffer->fill(data);
-		material->getMaterialContext()->bind();
-		buffer->map(_members->renderContext);
-		material->getMaterialContext()->unbind();
-
-		return buffer;
+		
+		bufferContext->setupVertexBuffer(material->getAttributeFormat(), data);
 	}
 
-	std::unique_ptr<engine::IndexBufferBase> TutorialStep01::loadTriangleIndicies(const engine::Material* material)
+	void TutorialStep01::loadTriangleIndicies(engine::BufferContext* bufferContext)
 	{
 		std::vector<int32_t> data = 
 		{
 			0, 1, 2
 		};
-		std::unique_ptr<engine::IndexBufferBase> buffer = material->createIndexBuffer<int32_t>(engine::PrimitiveType::Triangle, data);
-		material->getMaterialContext()->bind();
-		buffer->map(_members->renderContext);
-		material->getMaterialContext()->unbind();
-		return buffer;
+		bufferContext->setupIndexBuffer(engine::PrimitiveType::Triangle, data);
 	}
 }

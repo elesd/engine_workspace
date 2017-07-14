@@ -3,10 +3,11 @@
 #include <engine/stateStack/StateBase.h>
 namespace engine
 {
-	class Window;
+	class BufferContext;
 	class Material;
-	class VertexBuffer;
 	class IndexBufferBase;
+	class VertexBuffer;
+	class Window;
 }
 
 namespace states
@@ -33,8 +34,8 @@ namespace states
 		void initShaders();
 
 		std::unique_ptr<engine::Material> loadMaterial();
-		std::unique_ptr<engine::VertexBuffer> loadTriangleVerticies(const engine::Material* material);
-		std::unique_ptr<engine::IndexBufferBase> loadTriangleIndicies(const engine::Material* material);
+		void loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext);
+		void loadTriangleIndicies(engine::BufferContext*);
 
 		struct TutorialStep01Private* _members = nullptr;
 

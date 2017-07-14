@@ -48,7 +48,7 @@ namespace engine
 			return nullptr;
 		}
 
-		bool VertexBufferObject::isBind() const
+		bool VertexBufferObject::isBound() const
 		{
 			INACTIVE_MODULE_ERROR();
 			return false;

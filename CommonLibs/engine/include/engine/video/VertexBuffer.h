@@ -19,6 +19,7 @@ namespace engine
 
 		VertexBuffer& operator=(VertexBuffer&&);
 		void setFormat(const std::vector<GPUMemberType>& format);
+		const std::vector<GPUMemberType>& getAttributeTypes() const;
 		void fill(const std::vector<char>& data);
 		template<class T>
 		void fill(const std::vector<T>& data);
@@ -29,6 +30,7 @@ namespace engine
 		void map(RenderContext* renderContext);
 		bool isMapped() const;
 		void unmap();
+		
 
 		BufferObject* getBufferObject() const;
 		VertexBuffer cloneClientData() const;

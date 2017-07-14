@@ -49,7 +49,7 @@ namespace engine
 				{
 					_members->buffer->Release();
 				}
-				if(isBind())
+				if(isBound())
 				{
 					unbind();
 				}
@@ -70,7 +70,7 @@ namespace engine
 
 		void IndexBufferObject::setData(const char* data, size_t size)
 		{
-			ASSERT(isBind());
+			ASSERT(isBound());
 			memcpy(_members->bindResource.pData, data, size);
 		}
 
@@ -89,7 +89,7 @@ namespace engine
 			return &_members->bindResource;
 		}
 		
-		bool IndexBufferObject::isBind() const
+		bool IndexBufferObject::isBound() const
 		{
 			return getBindResource() != nullptr;
 		}

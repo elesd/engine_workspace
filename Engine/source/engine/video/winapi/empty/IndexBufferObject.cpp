@@ -54,7 +54,7 @@ namespace engine
 			return nullptr;
 		}
 		
-		bool IndexBufferObject::isBind() const
+		bool IndexBufferObject::isBound() const
 		{
 			INACTIVE_MODULE_ERROR();
 			return false;

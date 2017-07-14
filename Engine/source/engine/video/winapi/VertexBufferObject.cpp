@@ -49,7 +49,7 @@ namespace engine
 				{
 					_members->buffer->Release();
 				}
-				if(isBind())
+				if(isBound())
 				{
 					unbind();
 				}
@@ -65,7 +65,7 @@ namespace engine
 
 		void VertexBufferObject::setData(const char* data, size_t size)
 		{
-			ASSERT(isBind());
+			ASSERT(isBound());
 			memcpy(_members->bindResource.pData, data, size);
 		}
 
@@ -84,7 +84,7 @@ namespace engine
 			return _members->buffer;
 		}
 
-		bool VertexBufferObject::isBind() const
+		bool VertexBufferObject::isBound() const
 		{
 			return getBindResource() != nullptr;
 		}

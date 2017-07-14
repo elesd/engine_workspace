@@ -25,7 +25,7 @@ namespace engine
 
 			ID3D11Buffer* getBufferInterface() const;
 			D3D11_MAPPED_SUBRESOURCE* getBindResource() const;
-			bool isBind() const;
+			bool isBound() const;
 			void setBindResource(const D3D11_MAPPED_SUBRESOURCE& mapData);
 		private:
 			struct IndexBufferObjectPrivate* _members = nullptr;

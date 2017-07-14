@@ -6,20 +6,31 @@
 namespace engine
 {
 	class BufferObject;
+	class BufferContext;
+	class RenderContext;
 
 	class BufferObjectFactory
 		: private NonCopyable
 		, private NonMoveable
 	{
 	protected:
-		BufferObjectFactory() = default;
+		BufferObjectFactory();
 	public:
-		virtual ~BufferObjectFactory() {}
+		virtual ~BufferObjectFactory();
+		std::unique_ptr<BufferContext> createBufferContext() const;
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
+		void setup(RenderContext* renderContext);
+		bool isReady() const;
+	protected:
+		RenderContext* getRenderContext() const;
 	private:
+		virtual std::unique_ptr<BufferContext> createBufferContextImpl() const = 0;
 		virtual std::unique_ptr<BufferObject> createVertexBufferObjectImpl(size_t size) const = 0;
 		virtual std::unique_ptr<BufferObject> createIndexBufferObjectImpl(size_t size) const = 0;
+
+	private:
+		struct BufferObjectFactoryPrivate* _members = nullptr;
 	};
 }

@@ -83,7 +83,7 @@ namespace engine
 			INACTIVE_MODULE_ERROR();
 		}
 
-		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies)
+		void DriverImpl::drawImpl(BufferContext*)
 		{
 			INACTIVE_MODULE_ERROR();
 		}

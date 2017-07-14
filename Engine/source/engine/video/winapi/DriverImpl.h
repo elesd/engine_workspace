@@ -43,7 +43,7 @@ namespace engine
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) override;
-			void drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies) override;
+			void drawImpl(BufferContext*) override;
 			void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) override;
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
 			void setShaderImpl(Shader* shader, const std::string& techniqueName) override;

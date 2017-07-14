@@ -9,7 +9,6 @@
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
 #include <engine/video/EffectCompilationData.h>
-#include <engine/video/MaterialContext.h>
 #include <engine/video/RenderTarget.h>
 namespace
 {
@@ -70,9 +69,9 @@ namespace engine
 		initImpl(params, window);
 	}
 
-	void Driver::draw(const VertexBuffer* verticies, const IndexBufferBase* indicies)
+	void Driver::draw(BufferContext *bufferContext)
 	{
-		drawImpl(verticies, indicies);
+		drawImpl(bufferContext);
 	}
 
 	void Driver::setViewPort(int32_t x, int32_t y, int32_t width, int32_t height)
@@ -108,21 +107,6 @@ namespace engine
 	void Driver::setShader(Shader* shader, const std::string& techniqueName)
 	{
 		setShaderImpl(shader, techniqueName);
-	}
-
-	std::unique_ptr<MaterialContext> Driver::createMaterialContext(const Material* material)
-	{
-		return createMaterialContextImpl(material);
-	}
-
-	void Driver::setMaterialContext(const MaterialContext* material)
-	{
-		setMaterialContextImpl(material);
-	}
-
-	void Driver::resetMaterialContext()
-	{
-		resetMaterialContextImpl();
 	}
 
 	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)

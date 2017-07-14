@@ -22,6 +22,11 @@ namespace engine
 			{
 				std::cerr << "GLEW initialization error: " << glewGetErrorString(err) << std::endl;
 			}
+			GLenum glErr = GL_NO_ERROR;
+			while((glErr = glGetError()) != GL_NO_ERROR)
+			{
+				std::cerr << "Warning: glew init error with code: " << glErr << std::endl;
+			}
 			return err == GLEW_OK;
 		}
 

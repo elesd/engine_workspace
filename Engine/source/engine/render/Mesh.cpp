@@ -4,7 +4,7 @@
 #include <engine/video/Material.h>
 #include <engine/render/RenderContext.h>
 
-
+#include <engine/video/BufferContext.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -12,8 +12,7 @@ namespace engine
 {
 	struct MeshPrivate
 	{
-		std::unique_ptr<VertexBuffer> verticies;
-		std::unique_ptr<IndexBufferBase> indicies;
+		std::unique_ptr<BufferContext> bufferContext;
 		std::unique_ptr<Material> material;
 		std::string name;
 		explicit MeshPrivate(const std::string& name)
@@ -46,29 +45,23 @@ namespace engine
 		return *this;
 	}
 
-	void Mesh::load(std::unique_ptr<VertexBuffer>&& verticies, // TODO create Mesh library
-					std::unique_ptr<IndexBufferBase>&& indexBuffer,
+	void Mesh::load(std::unique_ptr<BufferContext>&& bufferContext,
 					std::unique_ptr<Material>&& material)
 	{
-		_members->verticies = std::move(verticies);
-		_members->indicies = std::move(indexBuffer);
+		_members->bufferContext = std::move(bufferContext);
 		_members->material = std::move(material);
 	}
 
 	void Mesh::render(RenderContext* renderContext) 
 	{
+		_members->bufferContext->bindBuffers();
 		renderContext->setMaterial(_members->material.get());
-		renderContext->draw(_members->verticies.get(), _members->indicies.get());
+		renderContext->draw(_members->bufferContext.get());
 	}
 
-	const VertexBuffer* Mesh::getVerticies() const
+	const BufferContext* Mesh::getBufferContext() const
 	{
-		return _members->verticies.get();
-	}
-
-	const IndexBufferBase* Mesh::getIndicies() const
-	{
-		return _members->indicies.get();
+		return _members->bufferContext.get();
 	}
 
 	const Material* Mesh::getMaterial() const
