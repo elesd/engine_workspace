@@ -20,5 +20,5 @@ namespace version
 
 
 #define TUTORIAL_USE_SDL 0
-#define TUTORIAL_USE_GLFW 0
-#define TUTORIAL_USE_WINAPI 1
+#define TUTORIAL_USE_GLFW 1
+#define TUTORIAL_USE_WINAPI 0

@@ -88,12 +88,12 @@ namespace engine
 			INACTIVE_MODULE_ERROR();
 		}
 
-		void DriverImpl::setVertexBuffer(const VertexBuffer* verticies)
+		void DriverImpl::setCurrentVertexBuffer(const VertexBuffer* verticies)
 		{
 			INACTIVE_MODULE_ERROR();
 		}
 
-		void DriverImpl::setIndexBuffer(const IndexBufferBase* indicies)
+		void DriverImpl::setCurrentIndexBuffer(const IndexBufferBase* indicies)
 		{
 
 			INACTIVE_MODULE_ERROR();
@@ -115,7 +115,7 @@ namespace engine
 			return std::unique_ptr<RenderTarget>();
 		}
 
-		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
+		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&)
 		{
 			INACTIVE_MODULE_ERROR();
 		}
@@ -126,7 +126,7 @@ namespace engine
 			return nullptr;
 		}
 
-		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
+		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData, const AttributeFormat&) const
 		{
 			INACTIVE_MODULE_ERROR();
 			return nullptr;
