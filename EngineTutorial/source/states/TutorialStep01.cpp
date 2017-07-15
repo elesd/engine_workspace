@@ -113,20 +113,19 @@ namespace states
 		std::string fsPath;
 		std::string vsMain;
 		std::string fsMain;
-		if(0)
-		{
-			vsPath = "shaders/hlsl/Tutorial01.hlsl";
-			vsMain = "VShader";
-			fsPath = "shaders/hlsl/Tutorial01.hlsl";
-			fsMain = "PShader";
-		}
-		else
-		{
-			vsPath = "shaders/glsl/Tutorial01_vs.glsl";
-			vsMain = "main";
-			fsPath = "shaders/glsl/Tutorial01_fs.glsl";
-			fsMain = "main";
-		}
+#if TUTORIAL_USE_WINAPI
+	
+		vsPath = "shaders/hlsl/Tutorial01.hlsl";
+		vsMain = "VShader";
+		fsPath = "shaders/hlsl/Tutorial01.hlsl";
+		fsMain = "PShader";
+	
+#else
+		vsPath = "shaders/glsl/Tutorial01_vs.glsl";
+		vsMain = "main";
+		fsPath = "shaders/glsl/Tutorial01_fs.glsl";
+		fsMain = "main";
+#endif
 		_members->vs.reset(new engine::Shader(engine::ShaderType::VertexShader));
 		if(_members->vs->init(engine::FilePath(vsPath), vsMain) == false)
 		{
@@ -161,18 +160,21 @@ namespace states
 
 	void TutorialStep01::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)
 	{
-		//std::vector<float> data(
-		//{
-		//	0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		//	0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		//	-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-		//});
+#if TUTORIAL_USE_WINAPI
+		std::vector<float> data(
+		{
+			0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.45f, -0.5, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			-0.45f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		});
+#else
 		std::vector<float> data(
 		{
 			-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 			1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		});
+#endif
 		
 		bufferContext->setupVertexBuffer(material->getAttributeFormat(), data);
 	}

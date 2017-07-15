@@ -20,6 +20,8 @@ namespace engine
 			ID3D11VertexShader* getShaderInterface() const;
 			ID3D11InputLayout* getLayoutInterface() const;
 		private:
+			void releaseImpl() override;
+		private:
 			struct HLSLVSCompilationDataPrivate* _members = nullptr;
 		};
 	}

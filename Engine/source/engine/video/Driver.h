@@ -7,6 +7,7 @@
 
 namespace engine
 {
+	class AttributeFormat;
 	class BufferContext;
 	class Effect;
 	class EffectComperator;
@@ -53,10 +54,9 @@ namespace engine
 
 		void draw(BufferContext *bufferContext);
 		void setRenderTarget(RenderTarget* renderTarget);
-		void resetRenderTarget();
 		void setViewPort(int32_t x, int32_t y, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture);
-		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options);
+		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
 		void compileEffect(Effect* effect);
 		void setEffect(Effect *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
@@ -68,7 +68,7 @@ namespace engine
 	private:
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
-		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) = 0;
+		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;
 		virtual void compileEffectImpl(Effect* effect) = 0;
 		virtual void drawImpl(BufferContext *bufferContext) = 0;
 		virtual void setEffectImpl(Effect* effect) = 0;
@@ -77,7 +77,6 @@ namespace engine
 
 		virtual void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) = 0;
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
-		virtual void resetRenderTargetImpl() = 0;
 		virtual void swapBufferImpl() = 0;
 
 

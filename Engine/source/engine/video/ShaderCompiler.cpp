@@ -2,6 +2,7 @@
 #include <engine/video/ShaderCompiler.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/AttributeFormat.h>
 #include <engine/video/Driver.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
@@ -14,10 +15,12 @@ namespace engine
 		Driver* driver = nullptr;
 		ShaderVersion version;
 		std::map<std::string, ShaderCompileOptions> techniqueMap;
+		AttributeFormat attributeFormat;
 
-		ShaderCompilerPrivate(Driver* driver, ShaderVersion version)
+		ShaderCompilerPrivate(Driver* driver, ShaderVersion version, const AttributeFormat& format)
 			: driver(driver)
 			, version(version)
+			, attributeFormat(format)
 		{
 		}
 
@@ -40,8 +43,8 @@ namespace engine
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	ShaderCompiler::ShaderCompiler(Driver* driver, ShaderVersion version)
-		: _members(new ShaderCompilerPrivate(driver, version))
+	ShaderCompiler::ShaderCompiler(Driver* driver, ShaderVersion version, const AttributeFormat& format)
+		: _members(new ShaderCompilerPrivate(driver, version, format))
 	{
 
 	}
@@ -85,7 +88,7 @@ namespace engine
 	{
 		auto it = _members->techniqueMap.find(techniqueName);
 		ASSERT(it != _members->techniqueMap.end());
-		_members->driver->compileShader(shader, techniqueName, it->second);
+		_members->driver->compileShader(shader, techniqueName, it->second, _members->attributeFormat);
 
 		return shader->getCompilationData(techniqueName)->compilationWasSuccessfull();
 	}

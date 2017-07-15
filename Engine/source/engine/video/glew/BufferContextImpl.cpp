@@ -2,6 +2,8 @@
 #include <engine/video/glew/BufferContextImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLEW 
+
 #include <engine/utils/ScopeExit.h>
 
 #include <engine/video/GPUTypes.h>
@@ -152,3 +154,8 @@ namespace engine
 		}
 	}
 }
+#else
+
+#include <engine/video/glew/empty/BufferContextImpl.cpp>
+
+#endif

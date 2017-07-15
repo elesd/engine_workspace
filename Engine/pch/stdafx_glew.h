@@ -6,5 +6,6 @@
 #define NULL_DEF(Type) using Type = void*;
 #define NULL_VALUE_DEF(Type) struct Type {};
 
-NULL_DEF(GLUint)
+NULL_DEF(GLuint)
+
 #endif

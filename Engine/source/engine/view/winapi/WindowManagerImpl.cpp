@@ -278,6 +278,16 @@ namespace engine
 			context->init(params, window);
 			return context;
 		}
+
+		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
+		{
+			UNSUPPORTED_ERROR();
+			return nullptr;
+		}
+		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		{
+			UNSUPPORTED_ERROR();
+		}
 	}
 }
 #else 

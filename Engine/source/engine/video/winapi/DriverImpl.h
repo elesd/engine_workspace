@@ -8,6 +8,7 @@ struct ID3D11Buffer;
 struct D3D11_BUFFER_DESC;
 namespace engine
 {
+	class Effect;
 	class IndexBufferBase;
 	class RenderTarget;
 	class ShaderCompilationData;
@@ -39,13 +40,17 @@ namespace engine
 			void unbind(IndexBufferObject* vertexBuffer);
 			ID3D11Buffer* createBuffer(const D3D11_BUFFER_DESC& description);
 
+			void setCurrentVertexBuffer(const VertexBuffer* verticies);
+			void setCurrentIndexBuffer(const IndexBufferBase* indicies);
 		private:
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
-			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) override;
+			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& attributeFormat) override;
+			void compileEffectImpl(Effect* effect) override;
 			void drawImpl(BufferContext*) override;
 			void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) override;
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
+			void setEffectImpl(Effect* effect);
 			void setShaderImpl(Shader* shader, const std::string& techniqueName) override;
 			std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) override;
 			void swapBufferImpl() override;
@@ -57,11 +62,9 @@ namespace engine
 			void createBackBufferRenderTarget();
 			std::unique_ptr<TextureImpl> createBackBufferTexture();
 			void initViewPort(Window *window);
-			void setVertexBuffer(const VertexBuffer* verticies);
-			void setIndexBuffer(const IndexBufferBase* indicies);
 
 			ID3D11PixelShader* createD3DFragmentShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
-			ID3D11VertexShader* createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const;
+			ID3D11VertexShader* createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData, const AttributeFormat& attributeFormat) const;
 
 		private:
 			/**PIMPL*/

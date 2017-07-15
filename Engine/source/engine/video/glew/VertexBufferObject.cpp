@@ -2,6 +2,8 @@
 #include <engine/video/glew/VertexBufferObject.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLEW 
+
 #include <engine/video/glew/DriverImpl.h>
 
 namespace engine
@@ -73,3 +75,7 @@ namespace engine
 		}
 	}
 }
+#else
+#include <engine/video/glew/empty/VertexBufferObject.cpp>
+
+#endif

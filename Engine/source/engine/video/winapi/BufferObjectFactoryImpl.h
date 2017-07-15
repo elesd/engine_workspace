@@ -4,6 +4,7 @@
 
 namespace engine
 {
+	class BufferContext;
 	class Driver;
 	namespace winapi
 	{
@@ -17,6 +18,7 @@ namespace engine
 		public:
 			~BufferObjectFactoryImpl() override;
 		private:
+			std::unique_ptr<BufferContext> createBufferContextImpl() const override;
 			std::unique_ptr<BufferObject> createVertexBufferObjectImpl(size_t size) const override;
 			std::unique_ptr<BufferObject> createIndexBufferObjectImpl(size_t size) const override;
 

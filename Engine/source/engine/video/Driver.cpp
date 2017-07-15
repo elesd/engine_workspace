@@ -84,9 +84,9 @@ namespace engine
 		return createRenderTargetImpl(std::move(texture));
 	}
 
-	void Driver::compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
+	void Driver::compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format)
 	{
-		compileShaderImpl(shader, techniqueName, options);
+		compileShaderImpl(shader, techniqueName, options, format);
 	}
 
 	void Driver::compileEffect(Effect* effect)
@@ -97,11 +97,6 @@ namespace engine
 	void Driver::setRenderTarget(RenderTarget* renderTarget)
 	{
 		setRenderTargetImpl(renderTarget);
-	}
-
-	void Driver::resetRenderTarget()
-	{
-		resetRenderTargetImpl();
 	}
 
 	void Driver::setShader(Shader* shader, const std::string& techniqueName)

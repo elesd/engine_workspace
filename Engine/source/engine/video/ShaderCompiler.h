@@ -3,6 +3,7 @@
 
 namespace engine
 {
+	class AttributeFormat;
 	class Driver;
 	class Shader;
 	class ShaderCompileOptions;
@@ -13,7 +14,7 @@ namespace engine
 	{
 		friend class RenderContext;
 	private:
-		ShaderCompiler(Driver* driver, ShaderVersion version);
+		ShaderCompiler(Driver* driver, ShaderVersion version, const AttributeFormat& format);
 	public:
 		ShaderCompiler(const ShaderCompiler&);
 		ShaderCompiler(ShaderCompiler&&);

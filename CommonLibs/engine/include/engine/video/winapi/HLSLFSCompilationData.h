@@ -19,6 +19,8 @@ namespace engine
 			void setOk(ID3D10Blob* compiledCode, ID3D11PixelShader* shader);
 			ID3D11PixelShader* getShaderInterface() const;
 		private:
+			void releaseImpl() override;
+		private:
 			struct HLSLFSCompilationDataPrivate* _members = nullptr;
 		};
 	}

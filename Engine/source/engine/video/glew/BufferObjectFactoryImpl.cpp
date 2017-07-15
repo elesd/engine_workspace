@@ -1,5 +1,9 @@
 #include <stdafx.h>
 #include <engine/video/glew/BufferObjectFactoryImpl.h>
+///////////////////////////////////////////////////////////////////////////////
+
+#if ENGINE_USE_GLEW 
+
 
 #include <engine/video/glew/BufferContextImpl.h>
 #include <engine/video/glew/VertexBufferObject.h>
@@ -46,3 +50,9 @@ namespace engine
 		}
 	}
 }
+
+#else
+
+#include <engine/video/glew/empty/BufferObjectFactoryImpl.cpp>
+
+#endif

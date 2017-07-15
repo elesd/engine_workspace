@@ -8,6 +8,9 @@
 #include <engine/view/Window.h>
 #include <engine/view/winapi/WindowImpl.h>
 
+#include <engine/video/BufferContext.h>
+#include <engine/video/Effect.h>
+#include <engine/video/EffectCompilationData.h>
 #include <engine/video/GPUTypes.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/Shader.h>
@@ -418,7 +421,7 @@ namespace engine
 		{
 			std::unique_ptr<TextureImpl> texture = createBackBufferTexture();
 
-			_members->backBuffer = createRenderTarget(texture.get());
+			_members->backBuffer = createRenderTarget(std::move(texture));
 			if(_members->backBuffer == nullptr)
 			{
 				std::ostringstream os;
@@ -432,11 +435,17 @@ namespace engine
 			setViewPort(0, 0, window->getWidth(), window->getHeight());
 		}
 
-		void DriverImpl::drawImpl(const VertexBuffer* verticies, const IndexBufferBase* indicies)
+		void DriverImpl::compileEffectImpl(Effect* effect)
 		{
-			setVertexBuffer(verticies);
-			setIndexBuffer(indicies);
-			switch(indicies->getPrimitiveType())
+			std::unique_ptr<EffectCompilationData> compilationResult = std::make_unique<EffectCompilationData>(true);
+			compilationResult->setOk();
+			effect->setCompiled(std::move(compilationResult));
+		}
+
+		void DriverImpl::drawImpl(BufferContext* bufferContext)
+		{
+			bufferContext->bindBuffers();
+			switch(bufferContext->getIndexBuffer()->getPrimitiveType())
 			{
 				case PrimitiveType::Triangle:
 				// TODO Check overhead
@@ -447,10 +456,10 @@ namespace engine
 				break;
 				
 			}
-			_members->deviceContext->DrawIndexed(indicies->count(), 0, 0);
+			_members->deviceContext->DrawIndexed(bufferContext->getIndexBuffer()->count(), 0, 0);
 		}
 
-		void DriverImpl::setVertexBuffer(const VertexBuffer* verticies)
+		void DriverImpl::setCurrentVertexBuffer(const VertexBuffer* verticies)
 		{
 			BufferObject* mappedObject = verticies->getBufferObject();
 			size_t stride = verticies->getStride();
@@ -460,7 +469,7 @@ namespace engine
 			_members->deviceContext->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
 		}
 
-		void DriverImpl::setIndexBuffer(const IndexBufferBase* indicies)
+		void DriverImpl::setCurrentIndexBuffer(const IndexBufferBase* indicies)
 		{
 
 			BufferObject* mappedObject = indicies->getBufferObject();
@@ -477,6 +486,11 @@ namespace engine
 			RenderTargetImpl* rt = static_cast<RenderTargetImpl*>(renderTarget);
 			ID3D11RenderTargetView *target = rt->getRenderTargetView();
 			_members->deviceContext->OMSetRenderTargets(1, &target, nullptr);
+		}
+
+		void DriverImpl::setEffectImpl(Effect* effect)
+		{
+			UNSUPPORTED_ERROR();
 		}
 
 		void DriverImpl::setShaderImpl(Shader* shader, const std::string& techniqueName)
@@ -504,20 +518,20 @@ namespace engine
 			}
 		}
 
-		std::unique_ptr<RenderTarget> DriverImpl::createRenderTargetImpl(Texture* texture)
+		std::unique_ptr<RenderTarget> DriverImpl::createRenderTargetImpl(std::unique_ptr<Texture>&& texture)
 		{
 			std::unique_ptr<RenderTarget> result;
 			ID3D11RenderTargetView *winapiRenderTarget = nullptr;
-			TextureImpl* concrateTexture = static_cast<TextureImpl*>(texture);
+			TextureImpl* concrateTexture = static_cast<TextureImpl*>(texture.get());
 			HRESULT hr = _members->device->CreateRenderTargetView(concrateTexture->getTextureInterface(), nullptr, &winapiRenderTarget);
 			if(SUCCEEDED(hr))
 			{
-				result.reset(new RenderTargetImpl(winapiRenderTarget));
+				result.reset(new RenderTargetImpl(std::move(texture), winapiRenderTarget));
 			}
 			return result;
 		}
 
-		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
+		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& attributeFormat)
 		{
 			CompileDataWrapper compileData;
 			fillSourceCodeData(shader, options, compileData);
@@ -554,7 +568,7 @@ namespace engine
 					break;
 					case ShaderType::VertexShader:
 					{
-						createD3DVertexShaderInto(compiledCode, resultData.get());				
+						createD3DVertexShaderInto(compiledCode, resultData.get(), attributeFormat);				
 					}
 					break;
 					default: FAIL("Unimplemented shader type"); break;
@@ -580,7 +594,7 @@ namespace engine
 			return d3dShader;
 		}
 
-		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData) const
+		ID3D11VertexShader* DriverImpl::createD3DVertexShaderInto(ID3DBlob* compiledCode, ShaderCompilationData* resultData, const AttributeFormat& attributeFormat) const
 		{
 			ID3D11VertexShader* d3dShader = nullptr;
 			HRESULT result = _members->device->CreateVertexShader(compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), nullptr, &d3dShader);
@@ -594,11 +608,10 @@ namespace engine
 			else
 			{
 				ID3D11InputLayout* d3dlayout = nullptr;
-				const AttributeFormat& layoutDesc = resultData->getOptions().getLayout();
 				{
-					D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(layoutDesc);
+					D3D11_INPUT_ELEMENT_DESC* desc = convertLayout(attributeFormat);
 					ScopeExit onExit([desc]() { delete[] desc; });
-					_members->device->CreateInputLayout(desc, layoutDesc.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
+					_members->device->CreateInputLayout(desc, attributeFormat.getNumOfAttributes(), compiledCode->GetBufferPointer(), compiledCode->GetBufferSize(), &d3dlayout);
 					static_cast<HLSLVSCompilationData*>(resultData)->setOk(compiledCode, d3dShader, d3dlayout);
 					return d3dShader;
 				}

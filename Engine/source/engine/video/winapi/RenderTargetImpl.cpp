@@ -18,8 +18,9 @@ namespace engine
 			{ }
 		};
 
-		RenderTargetImpl::RenderTargetImpl(ID3D11RenderTargetView* renderTarget)
-			: _members(new RenderTargetImplPrivate(renderTarget))
+		RenderTargetImpl::RenderTargetImpl(std::unique_ptr<Texture>&& texture, ID3D11RenderTargetView* renderTarget)
+			: RenderTarget(std::move(texture))
+			, _members(new RenderTargetImplPrivate(renderTarget))
 		{
 
 		}

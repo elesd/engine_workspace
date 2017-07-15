@@ -116,14 +116,14 @@ namespace engine
 
 	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(const Material* material)
 	{
-		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(material->getDescription().getShaderVersion());
+		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(material->getDescription().getShaderVersion(), material->getDescription().getAttributeFormat());
 		std::unique_ptr<EffectCompiler> effectCompiler(new EffectCompiler(material, _members->driver.get(), std::move(shaderCompiler)));
 		return effectCompiler;
 	}
 
-	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version) const
+	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version, const AttributeFormat& attributeFormat) const
 	{
-		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version));
+		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version, attributeFormat));
 	}
 
 	void RenderContext::setRenderTarget(RenderTarget* renderTarget)

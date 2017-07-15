@@ -2,6 +2,8 @@
 #include <engine/video/glew/GLSLEffectCompilationData.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLEW 
+
 namespace engine
 {
 	namespace glew
@@ -41,3 +43,9 @@ namespace engine
 		
 	}
 }
+
+#else
+
+#include <engine/video/glew/empty/GLSLEffectCompilationData.cpp>
+
+#endif

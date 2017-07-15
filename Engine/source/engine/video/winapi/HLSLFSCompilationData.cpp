@@ -36,7 +36,6 @@ namespace engine
 				{
 					_members->shader->Release();
 				}
-
 			}
 			delete _members;
 		}
@@ -51,6 +50,21 @@ namespace engine
 		ID3D11PixelShader* HLSLFSCompilationData::getShaderInterface() const
 		{
 			return _members->shader;
+		}
+
+		void HLSLFSCompilationData::releaseImpl()
+		{
+			if(_members)
+			{
+				if(_members->compiledCode)
+				{
+					_members->compiledCode->Release();
+				}
+				if(_members->shader)
+				{
+					_members->shader->Release();
+				}
+			}
 		}
 	}
 }

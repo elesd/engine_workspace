@@ -2,6 +2,7 @@
 #include <engine/video/glew/GLSLFSCompilationData.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLEW 
 
 namespace engine
 {
@@ -51,3 +52,9 @@ namespace engine
 
 	}
 }
+
+#else
+
+#include <engine/video/glew/empty/GLSLFSCompilationData.cpp>
+
+#endif

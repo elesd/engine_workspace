@@ -66,7 +66,7 @@ namespace engine
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture) const;
 		std::unique_ptr<EffectCompiler> createEffectCompiler(const Material* material);
 	private:
-		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion) const;
+		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion, const AttributeFormat& attributeFormat) const;
 		struct RenderContextPrivate* _members = nullptr;
 	};
 }

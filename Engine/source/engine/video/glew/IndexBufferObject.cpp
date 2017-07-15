@@ -2,6 +2,8 @@
 #include <engine/video/glew/IndexBufferObject.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#if ENGINE_USE_GLEW 
+
 #include <engine/video/glew/DriverImpl.h>
 
 namespace engine
@@ -76,3 +78,6 @@ namespace engine
 		}
 	}
 }
+#else
+#include <engine/video/glew/empty/IndexBufferObject.cpp>
+#endif

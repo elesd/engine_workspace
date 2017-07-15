@@ -1,5 +1,8 @@
 #include <stdafx.h>
 #include <engine/video/glew/DriverImpl.h>
+///////////////////////////////////////////////////////////////////////////////
+
+#if ENGINE_USE_GLEW 
 
 #include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
@@ -128,12 +131,7 @@ namespace engine
 			HARD_FAIL("Unimplemented");
 		}
 
-		void DriverImpl::resetRenderTargetImpl()
-		{
-			HARD_FAIL("Unimplemented");
-		}
-
-		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options)
+		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&)
 		{
 			GLenum shaderType = 0;
 			switch(shader->getShaderType())
@@ -254,56 +252,11 @@ namespace engine
 		{
 			return std::unique_ptr<RenderTarget>(new RenderTarget(std::move(texture)));
 		}
-
-		//std::unique_ptr<MaterialContext> DriverImpl::createMaterialContextImpl(const Material* material)
-		//{
-		//	GLuint vao = 0;
-		//	glGenVertexArrays(1, &vao);
-		//	checkErrors();
-		//	glBindVertexArray(vao);
-		//	checkErrors();
-		//	const AttributeFormat& layoutDesc = material->getAttributeFormat();
-		//	size_t layoutSize = 0;
-		//	for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
-		//	{
-		//		layoutSize += getTypeSize(layoutDesc.getAttribute(i).type);
-		//	}
-		//	std::vector<float> data(
-		//	{
-		//		-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		//		1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		//		0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-		//	});
-		//	std::vector<char> tempData(data.size() * sizeof(float), 0);
-		//	memcpy(tempData.data(), data.data(), data.size());
-		//	VertexBufferObject tempVBO(layoutSize, this);
-		//	tempVBO.bind();
-		//	tempVBO.setData(tempData.data(), layoutSize);
-		//	size_t offset = 0;
-		//	for(size_t i = 0; i < layoutDesc.getNumOfAttributes(); ++i)
-		//	{
-		//		glEnableVertexAttribArray(i);
-		//		checkErrors();
-		//		ShaderLayout layout = layoutDesc.getAttribute(i);
-		//		glVertexAttribPointer(
-		//			i,
-		//			getAttirbuteMemberCount(layout.type),
-		//			GL_FLOAT, // TODO
-		//			false, // TODO
-		//			layoutSize,
-		//			(void*)offset
-		//		);
-		//		checkErrors();
-		//		offset += getTypeSize(layout.type);
-		//	}
-		//	tempVBO.unbind();
-		//	glBindVertexArray(0);
-		//	checkErrors();
-		//	return std::make_unique<MaterialContextImpl>(material, this, vao);
-		//}
-
-
-
-	
 	}
 }
+
+#else
+
+#include <engine/video/glew/empty/DriverImpl.cpp>
+
+#endif

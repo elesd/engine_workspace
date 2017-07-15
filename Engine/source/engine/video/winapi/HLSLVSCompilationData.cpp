@@ -63,7 +63,24 @@ namespace engine
 			return _members->layout;
 		}
 
-
+		void HLSLVSCompilationData::releaseImpl()
+		{
+			if(_members)
+			{
+				if(_members->compiledCode)
+				{
+					_members->compiledCode->Release();
+				}
+				if(_members->shader)
+				{
+					_members->shader->Release();
+				}
+				if(_members->layout)
+				{
+					_members->layout->Release();
+				}
+			}
+		}
 	}
 }
 

@@ -40,7 +40,7 @@ def main():
     global g_moduleName
     parser = argparse.ArgumentParser(description='Create empty implementation based on the source file.')
     parser.add_argument('filePath', type=str)
-    parser.add_argument('module', choices=['winapi', 'glfw', 'sdl'])
+    parser.add_argument('module', choices=['winapi', 'glfw', 'sdl', 'glew'])
     args = parser.parse_args()
     g_sourceFilePath = args.filePath
     g_moduleName = args.module.upper()

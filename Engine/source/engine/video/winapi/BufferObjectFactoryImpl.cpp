@@ -4,6 +4,7 @@
 
 #if ENGINE_USE_WINAPI
 
+#include <engine/video/winapi/BufferContextImpl.h>
 #include <engine/video/winapi/IndexBufferObject.h>
 #include <engine/video/winapi/VertexBufferObject.h>
 
@@ -31,15 +32,14 @@ namespace engine
 			_members = nullptr;
 		}
 
-		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferObject(size_t size) const
+		std::unique_ptr<BufferContext> BufferObjectFactoryImpl::createBufferContextImpl() const
 		{
-			return std::make_unique<VertexBufferObject>(size, _members->driver);
+			return std::make_unique<BufferContextImpl>(getRenderContext(), _members->driver);
 		}
 
-		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferArray(size_t size) const
+		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createVertexBufferObjectImpl(size_t size) const
 		{
-			UNSUPPORTED_ERROR();
-			return std::unique_ptr<BufferObject>();
+			return std::make_unique<VertexBufferObject>(size, _members->driver);
 		}
 		
 		std::unique_ptr<BufferObject> BufferObjectFactoryImpl::createIndexBufferObjectImpl(size_t size) const
