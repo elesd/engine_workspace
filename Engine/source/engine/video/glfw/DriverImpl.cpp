@@ -5,6 +5,7 @@
 #if ENGINE_USE_GLFW
 #include <engine/view/Window.h>
 #include <engine/video/glfw/BufferDescUtils.h>
+#include <engine/view/glfw/WindowImpl.h>
 
 #include <GLFW/glfw3.h>
 
@@ -53,6 +54,12 @@ namespace engine
 			}
 
 			glfwWindowHint(GLFW_REFRESH_RATE, params.sampleCount);
+		}
+
+		void DriverImpl::swapBufferImpl()
+		{
+			WindowImpl* window = static_cast<WindowImpl*>(getWindow());
+			glfwSwapBuffers(window->getGlfwWindow());
 		}
 	}
 }

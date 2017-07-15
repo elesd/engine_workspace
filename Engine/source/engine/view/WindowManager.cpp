@@ -69,11 +69,13 @@ namespace engine
 		}
 		else
 		{
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, nullptr);
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
+
 			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		initWindow(_members->mainWindow.get());
+
 		return _members->mainWindow.get();
 	}
 

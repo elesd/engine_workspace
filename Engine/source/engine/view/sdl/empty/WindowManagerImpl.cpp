@@ -54,6 +54,17 @@ namespace engine
 			HARD_FAIL("Inactive module");
 			return nullptr;
 		}
+
+		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
+		{
+			HARD_FAIL("Inactive module");
+			return nullptr;
+		}
+
+		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		{
+			HARD_FAIL("Inactive module");
+		}
 	}
 }
 #endif

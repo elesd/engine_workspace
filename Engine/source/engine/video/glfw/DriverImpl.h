@@ -1,6 +1,6 @@
 #pragma once
 
-#include <engine/video/Driver.h>
+#include <engine/video/glew/DriverImpl.h>
 
 namespace engine
 {
@@ -9,7 +9,7 @@ namespace engine
 		/**
 		* Video driver implementation for winapi
 		*/
-		class DriverImpl : public Driver
+		class DriverImpl : public glew::DriverImpl
 		{
 		public:
 			/**Simple constructor*/
@@ -17,9 +17,10 @@ namespace engine
 			/**For PIMPL*/
 			~DriverImpl() override;
 
+		private:
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
-		private:
+			void swapBufferImpl() override;
 		};
 	}
 }

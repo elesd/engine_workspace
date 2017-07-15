@@ -138,6 +138,8 @@ namespace engine
 
 		
 		virtual std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &, Window *) const = 0;
+		virtual std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const = 0;
+		virtual void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const = 0;
 
 	private:
 		/**

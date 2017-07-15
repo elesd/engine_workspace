@@ -241,7 +241,6 @@ namespace engine
 		void DriverImpl::setEffectImpl(Effect* effect)
 		{
 			const GLSLEffectCompilationData* compilationData = static_cast<const GLSLEffectCompilationData*>(effect->getCompilationData());
-			// TODO check calling it in each frame
 			glUseProgram(compilationData->getProgramId());
 			checkErrors();
 		}

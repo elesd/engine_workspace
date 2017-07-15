@@ -73,7 +73,8 @@ namespace engine
 			* @return Returns the driver which was created for the given window.
 			*/
 			std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &params, Window *window) const override;
-
+			std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const override;
+			void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const override;
 		private:
 			/** @copydoc */
 			bool driverNeedsWindow() const override { return true; }

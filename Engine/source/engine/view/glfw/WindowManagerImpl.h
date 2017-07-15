@@ -39,6 +39,8 @@ namespace engine
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
 			/** @copydoc */
 			std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &params, Window *) const override;
+			std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const override;
+			void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const override;
 		private:
 			/** @copydoc */
 			bool driverNeedsWindow() const override { return false; }

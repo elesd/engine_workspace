@@ -4,13 +4,18 @@
 #if ENGINE_USE_GLFW
 
 #include <engine/events/glfw/EventManagerImpl.h>
+
+#include <engine/modules/glew/Core.h>
+
+#include <engine/render/RenderContext.h>
+
 #include <engine/view/glfw/WindowImpl.h>
+
+#include <engine/video/glew/BufferObjectFactoryImpl.h>
 #include <engine/video/glfw/DriverImpl.h>
-
-#include <GLFW/glfw3.h>
-
 #include <engine/video/Driver.h>
 
+#include <GLFW/glfw3.h>
 namespace
 {
 	void registerInputCallbacks(GLFWwindow *window)
@@ -53,6 +58,8 @@ namespace engine
 				registerInputCallbacks(window);
 				result.reset(new WindowImpl(this, std::move(window), parameters, title));
 				glfwMakeContextCurrent(result->getGlfwWindow());
+				glew::Core::initOpenglContext();
+
 			}
 			return result.release();
 		}
@@ -125,14 +132,25 @@ namespace engine
 
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
+		{
+			UNSUPPORTED_ERROR();
+			return nullptr;
+		}
+
+		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &params) const
 		{
 			std::unique_ptr<Driver> driver(new glfw::DriverImpl());
-			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver)));
-			context->init(params, window);
+			std::unique_ptr<BufferObjectFactory> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
+			context->init(params, nullptr);
 			return context;
 		}
 
+		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		{
+			renderContext->init(params, window);
+		}
 	}
 }
 #else 

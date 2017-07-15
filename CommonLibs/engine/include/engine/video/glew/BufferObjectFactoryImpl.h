@@ -6,20 +6,15 @@ namespace engine
 {
 	class Driver;
 	class RenderContext;
-	namespace sdl
-	{
-		class WindowManagerImpl;
-	}
+	
 
 	namespace glew
 	{
 		class BufferObjectFactoryImpl
 			: public BufferObjectFactory
 		{
-			friend class sdl::WindowManagerImpl;
-		private:
-			explicit BufferObjectFactoryImpl(Driver* driver);
 		public:
+			explicit BufferObjectFactoryImpl(Driver* driver);
 			~BufferObjectFactoryImpl() override;
 
 		private:

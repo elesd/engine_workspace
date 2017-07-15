@@ -15,7 +15,6 @@ namespace engine
 		*/
 		class WindowImpl : public engine::Window
 		{
-			friend class engine::glfw::WindowManagerImpl;
 		public:
 			static void windowClosedCallback(GLFWwindow *);
 			static void windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height);
@@ -57,7 +56,6 @@ namespace engine
 			*/
 			void setSizeImpl(uint32_t width, uint32_t height) override;
 
-		private:
 			/**
 			* @return Returns the glfw window.
 			*/
