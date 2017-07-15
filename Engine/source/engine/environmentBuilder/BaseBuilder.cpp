@@ -33,6 +33,11 @@ namespace engine
 		app->setEventManagerFactory(std::move(factory));
 	}
 
+	void BaseBuilder::setConsole(std::unique_ptr<Console>&& console)
+	{
+		Context::getInstance()->setConsole(std::move(console));
+	}
+
 	void BaseBuilder::setFileSystem(Application *app, std::unique_ptr<FileSystem> &&fileSystem)
 	{
 		app->setFileSystem(std::move(fileSystem));

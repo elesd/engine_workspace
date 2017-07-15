@@ -32,6 +32,8 @@ namespace engine
 		operator bool() const { return isOk(); }
 
 		std::string readLine();
+		void writeLine(const std::string& line);
+		void flush();
 		std::vector<std::string> readLines();
 		std::vector<char> readAll();
 

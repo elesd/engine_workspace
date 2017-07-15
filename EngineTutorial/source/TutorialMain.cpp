@@ -6,6 +6,8 @@
 #include <engine/fileSystem/FileSystem.h>
 #include <engine/ModuleDefinitions.h>
 
+#include <engine/view/Console.h>
+
 #include <TestMain.h>
 
 namespace
@@ -35,6 +37,7 @@ int main(int argc, char* argv[])
 	engine::EasyBuilder builder(std::move(main), windowModule);
 	setupCommonSetting(builder);
 	engine::Application *app = builder.buildEngine(argc, argv);
+	engine::Context::getInstance()->getConsole()->print("Application starts");
 	app->run();
 	return 0;
 }
@@ -49,6 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	engine::EasyBuilder builder(std::move(main), engine::ContextModuleType::WinApi);
 	setupCommonSetting(builder);
 	engine::Application *app = builder.buildEngine(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+	engine::Context::getInstance()->getConsole()->print("Application starts");
 	app->run();
 
 	return 0;

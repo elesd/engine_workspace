@@ -186,6 +186,15 @@ namespace engine
 		return line;
 	}
 
+	void SimpleFile::writeLine(const std::string& line)
+	{
+		if(isOk() == false)
+		{
+			throw IOError("write line failed with file because of previous errors", _members->path.str());
+		}
+		(*_members->fstream) << line << std::endl;
+	}
+
 	std::vector<std::string> SimpleFile::readLines()
 	{
 		if(isOk() == false)

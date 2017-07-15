@@ -18,7 +18,6 @@
 #include <engine/view/WindowManager.h>
 
 #include <states/TutorialStep01.h>
-#include <Log.h>
 #include <RenderDefinitions.h>
 
 struct TestMainPrivate

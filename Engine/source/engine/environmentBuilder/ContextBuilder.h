@@ -36,6 +36,8 @@ namespace engine
 		ApplicationBuilder buildForApplication();
 
 	private:
+
+		void initConsole();
 		/**
 		* Initializes the given module.
 		* @param type: The module.

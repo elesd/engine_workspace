@@ -2,6 +2,7 @@
 #include <engine/stateStack/StateBase.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+
 #include <engine/app/Application.h>
 #include <engine/view/WindowManager.h>
 
@@ -145,6 +146,8 @@ namespace engine
 		_members->stateStack->popState();
 	}
 
+	
+
 	void StateBase::trace(std::ostream &os) const
 	{
 
@@ -158,5 +161,15 @@ namespace engine
 			default:	break;
 		}
 		os << "State basic info: [" << _members->name << "]status: " << statusStr;
+	}
+
+	Context* StateBase::getContext() const
+	{
+		return Context::getInstance();
+	}
+
+	Console* StateBase::getConsole() const
+	{
+		return Context::getInstance()->getConsole();
 	}
 }

@@ -2,6 +2,8 @@
 #include <states/TutorialStep01.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/Context.h>
+
 #include <engine/fileSystem/FilePath.h>
 
 #include <engine/render/RenderContext.h>
@@ -20,10 +22,10 @@
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/VertexBuffer.h>
 
+#include <engine/view/Console.h>
 #include <engine/view/Window.h>
 
 #include <RenderDefinitions.h>
-#include <Log.h>
 
 namespace states
 {
@@ -129,13 +131,13 @@ namespace states
 		_members->vs.reset(new engine::Shader(engine::ShaderType::VertexShader));
 		if(_members->vs->init(engine::FilePath(vsPath), vsMain) == false)
 		{
-			Log("Vertex shader creation failed");
+			getConsole()->print("Vertex shader creation failed");
 		}
 
 		_members->fs.reset(new engine::Shader(engine::ShaderType::FragmentShader));
 		if(_members->fs->init(engine::FilePath(fsPath), fsMain) == false)
 		{
-			Log("Fragment shader creation failed");
+			getConsole()->print("Fragment shader creation failed");
 		}
 	}
 

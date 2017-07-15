@@ -6,18 +6,22 @@
 #include <engine/environmentBuilder/ApplicationBuilder.h>
 #include <engine/Context.h>
 #include <engine/ModuleDefinitions.h>
+
 #include <engine/modules/glfw/Core.h>
 #include <engine/modules/glew/Core.h>
 #include <engine/modules/sdl/Core.h>
 #include <engine/modules/winapi/Core.h>
+
 #include <engine/exceptions/LogicalErrors.h>
 
+#include <engine/view/Console.h>
+#include <engine/view/winapi/ConsoleImpl.h>
 
 namespace engine
 {
 	struct ContextBuilderPrivate
 	{
-		typedef std::map<ContextModuleClassification, std::vector<ContextModuleType>> ModuleContainer;
+		using ModuleContainer = std::map<ContextModuleClassification, std::vector<ContextModuleType>>;
 		ModuleContainer modules;
 	};
 
@@ -69,6 +73,7 @@ namespace engine
 	void ContextBuilder::initContext()
 	{
 		Context::createInstance();
+		initConsole();
 		for(const ContextModuleType &type : _members->modules[ContextModuleClassification::Window])
 		{
 			initModule(type);
@@ -77,6 +82,21 @@ namespace engine
 		{
 			initModule(type);
 		}
+	}
+
+	void ContextBuilder::initConsole()
+	{
+		std::unique_ptr<Console> console;
+		switch(_members->modules[ContextModuleClassification::Window].front())
+		{
+			case ContextModuleType::WinApi:
+			console = std::make_unique<winapi::ConsoleImpl>();
+			break;
+			default:
+			console = std::make_unique<Console>();
+			break;
+		}
+		setConsole(std::move(console));
 	}
 
 	void ContextBuilder::initModule(const ContextModuleType type)

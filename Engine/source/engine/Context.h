@@ -6,6 +6,7 @@ namespace engine
 {
 	class Application;
 	class BaseBuilder;
+	class Console;
 	struct IModuleExtension;
 	/**
 	* Engine's context.
@@ -29,6 +30,8 @@ namespace engine
 		* @see Application
 		*/
 		Application *getApplication();
+
+		Console* getConsole();
 	protected:
 		/**
 		* The context can be used only if it is initialized.
@@ -45,6 +48,8 @@ namespace engine
 		* Setter for builders.
 		*/
 		void setApplication(std::unique_ptr<Application>);
+
+		void setConsole(std::unique_ptr<Console>&&);
 		
 		/**
 		* There are different moduls in the engine.

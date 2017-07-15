@@ -7,6 +7,9 @@
 namespace engine
 {
 	class StateStack;
+	class Context;
+	class Console;
+	class Applicaiton;
 
 	/**
 	 * Base class for game states. This class is managed by the
@@ -86,7 +89,11 @@ namespace engine
 		 * trace informations about this state.
 		 */
 		void trace(std::ostream &) const;
+
 	protected:
+		Context* getContext() const;
+
+		Console* getConsole() const;
 
 		/**
 		 * A state is active when the resume is called on the state

@@ -7,10 +7,11 @@
 namespace engine
 {
 	class Application;
-	class WindowManager;
-	class FileSystem;
+	class Console;
 	class EventManager;
 	class EventManagerFactory;
+	class FileSystem;
+	class WindowManager;
 	enum class ContextModuleType;
 	/**
 	* Base class for builder phases.
@@ -35,6 +36,8 @@ namespace engine
 		* @param app: Application to use
 		*/
 		void setApplication(std::unique_ptr<Application> app);
+
+		void setConsole(std::unique_ptr<Console> &&console);
 
 		void setFileSystem(Application *app, std::unique_ptr<FileSystem> &&fileSystem);
 
