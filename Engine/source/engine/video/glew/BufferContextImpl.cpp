@@ -40,6 +40,7 @@ namespace engine
 	{
 		struct BufferContextImplPrivate
 		{
+			bool bound = false;
 			GLuint vao = 0;
 		};
 
@@ -113,12 +114,14 @@ namespace engine
 		void BufferContextImpl::bind()
 		{
 			glBindVertexArray(_members->vao);
+			_members->bound = true;
 			static_cast<DriverImpl*>(getDriver())->checkErrors();
 		}
 
 		void BufferContextImpl::unbind()
 		{
 			glBindVertexArray(0);
+			_members->bound = false;
 			static_cast<DriverImpl*>(getDriver())->checkErrors();
 		}
 
@@ -137,10 +140,15 @@ namespace engine
 
 		bool BufferContextImpl::isBound() const
 		{
+#if ENGINE_OPENGL_PARANOID
 			GLint currentVao = 0;
 			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVao);
 			static_cast<DriverImpl*>(getDriver())->checkErrors();
+			ASSERT(_members->bound == (currentVao == _members->vao));
 			return currentVao == _members->vao;
+#else
+			return _members->bound;
+#endif
 		}
 	}
 }

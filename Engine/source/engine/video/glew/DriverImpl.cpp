@@ -58,11 +58,13 @@ namespace engine
 
 		void DriverImpl::checkErrors()
 		{
+#if ENGINE_OPENGL_PARANOID
 			GLenum err = GL_NO_ERROR;
 			while((err = glGetError()) != GL_NO_ERROR)
 			{
 				std::cerr << "ERROR " << err << std::endl;
 			}
+#endif
 		}
 
 		void DriverImpl::printBindings()

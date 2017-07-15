@@ -11,6 +11,7 @@ namespace engine
 		struct VertexBufferObjectPrivate
 		{
 			DriverImpl *driver = nullptr;
+			bool bound = false;
 			GLuint vboId = 0;
 			explicit VertexBufferObjectPrivate(DriverImpl *driver)
 				: driver(driver)
@@ -39,6 +40,7 @@ namespace engine
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, _members->vboId);
 			_members->driver->checkErrors();
+			_members->bound = true;
 		}
 
 		void VertexBufferObject::unbind()
@@ -46,6 +48,7 @@ namespace engine
 			ASSERT(isBound());
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			_members->driver->checkErrors();
+			_members->bound = false;
 		}
 		
 		void VertexBufferObject::setData(const char* data, size_t size)
@@ -58,10 +61,15 @@ namespace engine
 
 		bool VertexBufferObject::isBound() const
 		{
+#if ENGINE_OPENGL_PARANOID
 			GLint currentId = 0;
 			glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &currentId);
-
+			_members->driver->checkErrors();
+			ASSERT(_members->bound == (currentId == _members->vboId));
 			return currentId == _members->vboId;
+#else
+			return _members->bound;
+#endif
 		}
 	}
 }

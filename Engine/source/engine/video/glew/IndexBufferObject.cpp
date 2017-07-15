@@ -12,6 +12,7 @@ namespace engine
 		{
 			DriverImpl *driver = nullptr;
 			GLuint bufferId = 0;
+			bool bound = false;
 			explicit IndexBufferObjectPrivate(DriverImpl *driver)
 				: driver(driver)
 			{
@@ -42,6 +43,7 @@ namespace engine
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _members->bufferId);
 			_members->driver->checkErrors();
+			_members->bound = true;
 		}
 
 		void IndexBufferObject::unbind()
@@ -49,6 +51,7 @@ namespace engine
 			ASSERT(isBound());
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			_members->driver->checkErrors();
+			_members->bound = false;
 		}
 
 		void IndexBufferObject::setData(const char* data, size_t size)
@@ -61,11 +64,15 @@ namespace engine
 
 		bool IndexBufferObject::isBound() const
 		{
+#if ENGINE_OPENGL_PARANOID
 			GLint currentId = 0;
 			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &currentId);
 			_members->driver->checkErrors();
-
+			ASSERT(_members->bound == (currentId == _members->bufferId));
 			return currentId == _members->bufferId;
+#else
+			return _members->bound;
+#endif
 		}
 	}
 }
