@@ -69,9 +69,9 @@ namespace engine
 		}
 		else
 		{
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, nullptr);
+			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
 			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-
+			postCreateRenderContext(context.get(), _members->renderContextParameters, _members->mainWindow.get());
 			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		initWindow(_members->mainWindow.get());
@@ -91,8 +91,9 @@ namespace engine
 		}
 		else
 		{
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
 			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
+			postCreateRenderContext(context.get(), _members->renderContextParameters, _members->mainWindow.get());
 			_members->mainWindow->initRenderContext(std::move(context));
 		}
 		initWindow(_members->mainWindow.get());
@@ -112,8 +113,9 @@ namespace engine
 		}
 		else
 		{
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
 			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
+			postCreateRenderContext(context.get(), _members->renderContextParameters, window.get());
 			window->initRenderContext(std::move(context));
 			_members->windowContainer.emplace_back(std::move(window));
 		}
@@ -133,8 +135,9 @@ namespace engine
 		}
 		else
 		{
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
+			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
 			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
+			postCreateRenderContext(context.get(), _members->renderContextParameters, window.get());
 			window->initRenderContext(std::move(context));
 			_members->windowContainer.emplace_back(std::move(window));
 
