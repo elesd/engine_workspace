@@ -21,6 +21,8 @@ namespace engine
 			void setupLayout() override;
 			void bind() override;
 			void unbind() override;
+			void finalizeImpl() override;
+
 
 		private:
 			struct BufferContextImplPrivate* _members = nullptr;

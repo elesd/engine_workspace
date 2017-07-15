@@ -103,6 +103,7 @@ namespace states
 		std::unique_ptr<engine::Material> material = loadMaterial();
 		loadTriangleVerticies(material.get(), bufferContext.get());
 		loadTriangleIndicies(bufferContext.get());
+		bufferContext->finalize();
 		_members->triangle->load(std::move(bufferContext), std::move(material));
 	}
 

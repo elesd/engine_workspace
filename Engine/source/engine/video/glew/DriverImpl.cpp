@@ -65,21 +65,28 @@ namespace engine
 			}
 		}
 
+		void DriverImpl::printBindings()
+		{
+			GLint currentVAO = 0;
+			GLint currentVBO = 0;
+			GLint currentIndexBuffer = 0;
+			GLint currentProgram = 0;
+			glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &currentVBO);
+			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVAO);
+			glGetIntegerv(GL_INDEX_ARRAY_BUFFER_BINDING, &currentIndexBuffer);
+			glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+			std::cout << "VAO: " << currentVAO << std::endl;
+			std::cout << "VBO: " << currentVBO << std::endl;
+			std::cout << "IndexBuffer: " << currentIndexBuffer << std::endl;
+			std::cout << "Program: " << currentProgram << std::endl;
+		}
+
 		void DriverImpl::drawImpl(BufferContext* bufferContext)
 		{
-			glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
-			checkErrors();
-			glClear(GL_COLOR_BUFFER_BIT);
-			checkErrors();
 			if(bufferContext->allBuffersBound() == false)
 			{
 				bufferContext->bindBuffers();
 			}
-			/*ASSERT(verticies->isMapped());
-			ASSERT(indicies->isMapped());
-
-			verticies->getBufferObject()->bind();
-			indicies->getBufferObject()->bind();*/
 
 			GLenum mode = 0;
 			switch(bufferContext->getIndexBuffer()->getPrimitiveType())
@@ -97,7 +104,6 @@ namespace engine
 				default: FAIL("Type deduction is faild based on stride."); type = GL_UNSIGNED_INT; break;
 			}
 
-			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawElements(
 				mode,
 				bufferContext->getIndexBuffer()->count(),    // count

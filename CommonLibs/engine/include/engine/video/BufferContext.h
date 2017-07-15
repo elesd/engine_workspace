@@ -22,6 +22,7 @@ namespace engine
 	public:
 		BufferContext(RenderContext* renderContext, Driver* driver);
 		virtual ~BufferContext();
+		void finalize();
 		bool hasIndexBuffer() const;
 		bool hasVertexBuffer() const;
 
@@ -54,6 +55,7 @@ namespace engine
 		virtual void setupLayout() = 0;
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
+		virtual void finalizeImpl() = 0;
 
 	private:
 		struct BufferContextPrivate* _members = nullptr;

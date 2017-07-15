@@ -82,6 +82,8 @@ namespace engine
 				accessVertexBuffer()->map(getRenderContext());
 			}
 
+			accessVertexBuffer()->getBufferObject()->bind();
+
 			size_t layoutSize = 0;
 			const std::vector<GPUMemberType> attributeTypes = getVertexBuffer()->getAttributeTypes();
 			for(GPUMemberType type : attributeTypes)
@@ -105,7 +107,7 @@ namespace engine
 				static_cast<DriverImpl*>(getDriver())->checkErrors();
 				offset += getTypeSize(attributeTypes[i]);
 			}
-
+			accessVertexBuffer()->getBufferObject()->unbind();
 		}
 
 		void BufferContextImpl::bind()
@@ -118,6 +120,19 @@ namespace engine
 		{
 			glBindVertexArray(0);
 			static_cast<DriverImpl*>(getDriver())->checkErrors();
+		}
+
+		void BufferContextImpl::finalizeImpl()
+		{
+			ScopeExit unbindOnExit([=]() { unbind(); });
+			bind();
+			ASSERT(getVertexBuffer()->isMapped() && "If it is not mapped layouts are not setup.");
+			if(accessIndexBuffer()->isMapped() == false)
+			{
+				accessIndexBuffer()->map(getRenderContext());
+			}
+			accessIndexBuffer()->getBufferObject()->bind();
+			accessVertexBuffer()->getBufferObject()->bind();
 		}
 
 		bool BufferContextImpl::isBound() const

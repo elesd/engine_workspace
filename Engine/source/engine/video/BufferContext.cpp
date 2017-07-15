@@ -15,6 +15,7 @@ namespace engine
 		Driver* driver = nullptr;
 		bool buffersBind = false;
 		bool bind = false;
+		bool finalized = false;
 		BufferContextPrivate(RenderContext* renderContext, Driver* driver)
 			: renderContext(renderContext)
 			, driver(driver)
@@ -39,6 +40,14 @@ namespace engine
 		_members = nullptr;
 	}
 
+	void BufferContext::finalize()
+	{
+		ASSERT(_members->finalized == false);
+		finalizeImpl();
+		_members->finalized = true;
+	}
+
+
 	bool BufferContext::hasIndexBuffer() const
 	{
 		return _members->indexBuffer.get() != nullptr;
@@ -51,16 +60,20 @@ namespace engine
 
 	void BufferContext::bindBuffers()
 	{
+		ASSERT(_members->finalized);
 		bindBuffersImpl();
 	}
 
 	void BufferContext::unbindBuffers()
 	{
+		ASSERT(_members->finalized);
 		unbindBuffersImpl();
 	}
 
 	bool BufferContext::allBuffersBound() const
 	{
+		ASSERT(_members->finalized);
+
 		bool allBound = true;
 		if(getVertexBuffer())
 		{

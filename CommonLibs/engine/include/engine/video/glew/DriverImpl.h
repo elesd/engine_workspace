@@ -14,6 +14,7 @@ namespace engine
 			DriverImpl();
 
 			void checkErrors();
+			void printBindings();
 		private:
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options) override;
 			void compileEffectImpl(Effect* effect) override;
