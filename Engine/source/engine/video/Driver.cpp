@@ -122,7 +122,7 @@ namespace engine
 				setShader(effect->getFragmentShader(), effect->getName());
 			}
 		}
-		else
+		else if(effectComperator.hasAnyChange())
 		{
 			setEffectImpl(effect);
 		}
