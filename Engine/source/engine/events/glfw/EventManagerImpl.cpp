@@ -19,7 +19,7 @@ namespace engine
 	{
 		void EventManagerImpl::mouseMovedCallback(GLFWwindow* glfwWindow, double xpos, double ypos)
 		{
-			Application *app = Context::getInstance()->getApplication();
+			Application *app = Context::application();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
@@ -31,7 +31,7 @@ namespace engine
 		}
 		void EventManagerImpl::mouseButtonCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
 		{
-			Application *app = Context::getInstance()->getApplication();
+			Application *app = Context::application();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
@@ -44,7 +44,7 @@ namespace engine
 
 		void EventManagerImpl::mouseScrolledCallback(GLFWwindow* glfwWindow, double xoffset, double yoffset)
 		{
-			Application *app = Context::getInstance()->getApplication();
+			Application *app = Context::application();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);
@@ -56,7 +56,7 @@ namespace engine
 		}
 		void EventManagerImpl::keyboardCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods)
 		{
-			Application *app = Context::getInstance()->getApplication();
+			Application *app = Context::application();
 			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(app->getWindowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			ASSERT(window);

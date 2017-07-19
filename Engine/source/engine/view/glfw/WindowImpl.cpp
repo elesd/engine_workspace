@@ -21,7 +21,7 @@ namespace engine
 
 		void WindowImpl::windowClosedCallback(GLFWwindow *glfwWindow)
 		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			if(window)
 			{
@@ -32,7 +32,7 @@ namespace engine
 
 		void WindowImpl::windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
 		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			if(window)
 			{
@@ -42,7 +42,7 @@ namespace engine
 
 		void WindowImpl::windowMovedCallback(GLFWwindow *glfwWindow, int32_t x, int32_t y)
 		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			if(window)
 			{
@@ -52,7 +52,7 @@ namespace engine
 
 		void WindowImpl::windowFocusCallback(GLFWwindow *glfwWindow, int32_t focused)
 		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			if(window)
 			{
@@ -69,7 +69,7 @@ namespace engine
 
 		void WindowImpl::windowFrameBufferResizeCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
 		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::getInstance()->getApplication()->getWindowManager());
+			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
 			WindowImpl *window = windowManager->findWindow(glfwWindow);
 			if(window)
 			{

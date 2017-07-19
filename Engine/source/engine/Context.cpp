@@ -17,6 +17,26 @@ namespace engine
 		bool initialized = false;
 	};
 
+	Application* Context::application()
+	{
+		return getInstance()->getApplication();
+	}
+
+	Console* Context::console()
+	{
+		return getInstance()->getConsole();
+	}
+
+	WindowManager* Context::windowManager()
+	{
+		return getInstance()->getApplication()->getWindowManager();
+	}
+
+	FileSystem* Context::fileSystem()
+	{
+		return getInstance()->getApplication()->getFileSystem();
+	}
+
 	Context::Context()
 		:_members(new ContextPrivate())
 	{

@@ -4,6 +4,7 @@
 #include <engine/view/Window.h>
 #include <engine/app/IApplicationParameter.h>
 
+
 namespace engine
 {
 	class EventManager;
@@ -13,10 +14,7 @@ namespace engine
 	class StateStack;
 	class WindowManager;
 	struct WindowParameter;
-}
 
-namespace engine
-{
 	/**
 	* Class for the application main logic.
 	*/

@@ -116,7 +116,7 @@ namespace engine
 		ASSERT(isActive());
 		renderState();
 		// TODO swap all the buffers
-		Context::getInstance()->getApplication()->getWindowManager()->getMainWindow()->getRenderContext()->swapBuffer();
+		Context::windowManager()->getMainWindow()->getRenderContext()->swapBuffer();
 	}
 
 	void StateBase::changeState(std::unique_ptr<StateBase> nextState)

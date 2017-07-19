@@ -35,7 +35,7 @@ namespace engine
 
 	bool Shader::init(const FilePath& filePath, const std::string& mainFunctionName)
 	{
-		SimpleFile source = Context::getInstance()->getApplication()->getFileSystem()->OpenFileSimple(filePath, FileMode::Read, FileOpenMode::Text, false);
+		SimpleFile source = Context::fileSystem()->OpenFileSimple(filePath, FileMode::Read, FileOpenMode::Text, false);
 		if (source.isOk() == false)
 		{
 			return false;

@@ -193,7 +193,7 @@ namespace engine
 
 	void WindowManager::initWindow(Window *window)
 	{
-		Application *application = Context::getInstance()->getApplication();
+		Application *application = Context::application();
 		window->setEventManager(application->getEventManagerFactory()->createEventManager());
 		window->getEventManager()->registerEventSource(window);
 	}
@@ -205,7 +205,7 @@ namespace engine
 			if(_members->mainWindow.get() == window)
 			{
 				_members->mainWindow.reset(nullptr);
-				Context::getInstance()->getApplication()->stop();
+				Context::application()->stop();
 				for(std::unique_ptr<Window> &w : _members->windowContainer)
 				{
 					w.reset(nullptr);

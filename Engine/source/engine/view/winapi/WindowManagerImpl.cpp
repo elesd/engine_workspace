@@ -25,7 +25,7 @@ namespace
 {
 	bool handleEventsOfEventManager(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::getInstance()->getApplication()->getWindowManager());
+		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::windowManager());
 		engine::winapi::WindowImpl *window = windowManager->findWindowById(hWnd);
 		if(window)
 		{
@@ -40,7 +40,7 @@ namespace
 
 	bool handleEventsOfApplication(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		engine::winapi::ApplicationImpl *application = static_cast<engine::winapi::ApplicationImpl*>(engine::Context::getInstance()->getApplication());
+		engine::winapi::ApplicationImpl *application = static_cast<engine::winapi::ApplicationImpl*>(engine::Context::application());
 		return application->handleEvent(hWnd, message, wParam, lParam);
 	}
 
@@ -103,7 +103,7 @@ namespace engine
 			{
 				RegisterWindowClass();
 			}
-			const IApplicationParameter *arguments = Context::getInstance()->getApplication()->getArguments();
+			const IApplicationParameter *arguments = Context::application()->getArguments();
 			const winapi::WinApiApplicationParameter *args = static_cast<const winapi::WinApiApplicationParameter*>(arguments);
 
 
@@ -133,7 +133,7 @@ namespace engine
 			{
 				RegisterWindowClass();
 			}
-			const IApplicationParameter *arguments = Context::getInstance()->getApplication()->getArguments();
+			const IApplicationParameter *arguments = Context::application()->getArguments();
 			const winapi::WinApiApplicationParameter *args = static_cast<const winapi::WinApiApplicationParameter*>(arguments);
 
 			MONITORINFO monitor_info;
@@ -174,7 +174,7 @@ namespace engine
 			{
 				RegisterWindowClass();
 			}
-			const IApplicationParameter *arguments = Context::getInstance()->getApplication()->getArguments();
+			const IApplicationParameter *arguments = Context::application()->getArguments();
 			const winapi::WinApiApplicationParameter *args = static_cast<const winapi::WinApiApplicationParameter*>(arguments);
 
 			WindowImpl *winapiWindow = static_cast<WindowImpl*>(mainWindow);
@@ -204,7 +204,7 @@ namespace engine
 			{
 				RegisterWindowClass();
 			}
-			const IApplicationParameter *arguments = Context::getInstance()->getApplication()->getArguments();
+			const IApplicationParameter *arguments = Context::application()->getArguments();
 			const winapi::WinApiApplicationParameter *args = static_cast<const winapi::WinApiApplicationParameter*>(arguments);
 
 			MONITORINFO monitor_info;
@@ -250,7 +250,7 @@ namespace engine
 
 		void WindowManagerImpl::RegisterWindowClass()
 		{
-			const IApplicationParameter *arguments = Context::getInstance()->getApplication()->getArguments();
+			const IApplicationParameter *arguments = Context::application()->getArguments();
 			const winapi::WinApiApplicationParameter *args = static_cast<const winapi::WinApiApplicationParameter*>(arguments);
 			memset(&_members->windowClass, 0, sizeof(WNDCLASSEX));
 			_members->windowClass.cbSize = sizeof(WNDCLASSEX);

@@ -7,6 +7,8 @@ namespace engine
 	class Application;
 	class BaseBuilder;
 	class Console;
+	class FileSystem;
+	class WindowManager;
 	struct IModuleExtension;
 	/**
 	* Engine's context.
@@ -14,6 +16,11 @@ namespace engine
 	*/
 	class Context : public Singleton<Context>
 	{
+	public:
+		static Application* application();
+		static Console* console();
+		static WindowManager* windowManager();
+		static FileSystem* fileSystem();
 	private:
 		using Base = Singleton < Context > ;
 
