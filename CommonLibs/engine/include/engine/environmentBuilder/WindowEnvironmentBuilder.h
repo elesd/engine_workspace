@@ -7,11 +7,13 @@ namespace engine
 	class WindowManager;
 	class EventBuilder;
 	class BuildFinalizer;
+	struct DriverContextParameters;
 }
 
 
 namespace engine
 {
+
 	/**
 	* This buildphase will initialize the window environment.
 	*/
@@ -35,14 +37,14 @@ namespace engine
 		* Builds the window module.
 		* @return Returns the next building phase.
 		*/
-		BuildFinalizer build();
+		BuildFinalizer build(const DriverContextParameters& driverContextParameters);
 	private:
 		/** Create Glfw window and window manager.*/
-		std::unique_ptr<WindowManager> createGlfwWindowManager();
+		std::unique_ptr<WindowManager> createGlfwWindowManager(const DriverContextParameters& driverContextParameters);
 		/** Create Sdl window and window manager.*/
-		std::unique_ptr<WindowManager> createSdlWindowManager();
+		std::unique_ptr<WindowManager> createSdlWindowManager(const DriverContextParameters& driverContextParameters);
 		/** Create Winapi window and window manager.*/
-		std::unique_ptr<WindowManager> createWinApiWindowManager();
+		std::unique_ptr<WindowManager> createWinApiWindowManager(const DriverContextParameters& driverContextParameters);
 
 	private:
 		/**PIMPL*/

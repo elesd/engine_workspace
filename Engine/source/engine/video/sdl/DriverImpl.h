@@ -17,8 +17,8 @@ namespace engine
 			/**For PIMPL*/
 			~DriverImpl() override;
 
-			
 		private:
+			void initContextImpl(const DriverContextParameters& params);
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params, Window *window) override;
 			void swapBufferImpl() override;

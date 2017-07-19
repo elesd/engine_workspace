@@ -24,6 +24,11 @@
 
 namespace engine
 {
+	const DriverInitParameters& RenderContextParameters::getDriverParameters() const
+	{
+		return _driverParameters;
+	}
+
 	struct RenderContextPrivate
 	{
 		std::map<std::string, std::unique_ptr<Render>> renders;
@@ -54,7 +59,7 @@ namespace engine
 
 	void RenderContext::init(const RenderContextParameters& params, Window *window)
 	{
-		_members->driver->init(params.driverParameters, window);
+		_members->driver->init(params.getDriverParameters(), window);
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)

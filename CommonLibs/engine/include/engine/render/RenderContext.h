@@ -28,13 +28,13 @@ namespace engine
 
 	struct RenderContextParameters
 	{
-		friend class RenderContext;
 		RenderContextParameters() = default;
 		RenderContextParameters(DriverInitParameters driverParams)
-			: driverParameters(driverParams)
+			: _driverParameters(driverParams)
 		{ }
+		const DriverInitParameters& getDriverParameters() const;
 	private:
-		DriverInitParameters driverParameters;
+		DriverInitParameters _driverParameters;
 	};
 
 	class RenderContext final

@@ -10,6 +10,12 @@ namespace engine
 {
 	namespace glfw
 	{
+		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+			: WindowManager(driverContextParameters)
+		{
+			HARD_FAIL("Inactive module");
+		}
+
 		Window *WindowManagerImpl::createMainWindowImpl(const WindowParameter &,
 															  const std::string &)
 		{

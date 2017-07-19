@@ -15,8 +15,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			/**Default constructable*/
-			WindowManagerImpl() = default;
+			WindowManagerImpl(const DriverContextParameters& driverContextParameters);
 
 			/** @copydoc */
 			uint32_t getMonitorCount() const override;

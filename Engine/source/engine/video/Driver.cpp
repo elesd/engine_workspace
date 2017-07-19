@@ -57,6 +57,11 @@ namespace engine
 		_members = nullptr;
 	}
 
+	void Driver::initContext(const DriverContextParameters& params)
+	{
+		initContextImpl(params);
+	}
+
 	void Driver::init(const DriverInitParameters &params, Window *window)
 	{
 		_members->window = window;

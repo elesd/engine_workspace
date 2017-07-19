@@ -11,8 +11,8 @@ namespace engine
 {
 	namespace winapi
 	{
-
-		WindowManagerImpl::WindowManagerImpl()
+		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+			: WindowManager(driverContextParameters)
 		{
 			HARD_FAIL("Inactive module");
 		}

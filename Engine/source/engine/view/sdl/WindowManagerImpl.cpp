@@ -18,6 +18,11 @@ namespace engine
 {
 	namespace sdl
 	{
+		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+			: WindowManager(driverContextParameters)
+		{
+		}
+
 		Window *WindowManagerImpl::createMainWindowImpl(const WindowParameter &parameters,
 															  const std::string &title)
 		{
@@ -90,11 +95,10 @@ namespace engine
 			// TODO store sdl context
 			
 			SDL_GL_SetSwapInterval(1);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 			SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow->getSDLWindow());
+			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
+			driver->initContext(getDriverContextParameters());
+
 			if(SDL_GL_MakeCurrent(sdlWindow->getSDLWindow(), sdlContext) != 0)
 			{
 				std::cerr << SDL_GetError() << std::endl;
@@ -102,7 +106,6 @@ namespace engine
 			}
 			glew::Core::initOpenglContext();
 
-			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
 			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
 			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
 

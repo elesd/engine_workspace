@@ -22,7 +22,23 @@ namespace engine
 	class WindowManager;
 	class Window;
 
-	
+	enum class DriverVersion
+	{
+		DirectX11,
+		OpenGL_Core_3_2,
+		OpenGL_Core_3_3,
+		OpenGL_Core_4_0,
+		OpenGL_Core_4_1,
+		OpenGL_Core_4_2,
+		OpenGL_Core_4_3,
+		OpenGL_ES_2_0,
+		OpenGL_ES_3_0,
+	};
+	struct DriverContextParameters
+	{
+		DriverVersion version;
+	};
+
 	/**Initialization parameters for the driver*/
 	struct DriverInitParameters
 	{
@@ -49,6 +65,8 @@ namespace engine
 	public:
 		/**Virtual destructor*/
 		virtual ~Driver();
+		void initContext(const DriverContextParameters& params);
+
 		/**Init function*/
 		void init(const DriverInitParameters& params, Window *window);
 
@@ -66,6 +84,7 @@ namespace engine
 		Window* getWindow() const;
 
 	private:
+		virtual void initContextImpl(const DriverContextParameters& params) = 0;
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;

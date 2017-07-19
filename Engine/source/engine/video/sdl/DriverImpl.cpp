@@ -12,6 +12,52 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+namespace
+{
+	SDL_GLprofile getProfile(engine::DriverVersion version)
+	{
+		switch(version)
+		{
+			case engine::DriverVersion::OpenGL_Core_3_2:
+			case engine::DriverVersion::OpenGL_Core_3_3:
+			case engine::DriverVersion::OpenGL_Core_4_0:
+			case engine::DriverVersion::OpenGL_Core_4_1:
+			case engine::DriverVersion::OpenGL_Core_4_2:
+			case engine::DriverVersion::OpenGL_Core_4_3:
+			return SDL_GLprofile::SDL_GL_CONTEXT_PROFILE_CORE;
+			break;
+			case engine::DriverVersion::OpenGL_ES_2_0:
+			case engine::DriverVersion::OpenGL_ES_3_0:
+			return SDL_GLprofile::SDL_GL_CONTEXT_PROFILE_ES;
+			break;
+			case engine::DriverVersion::DirectX11:
+			default:
+			FAIL("Unknown opengl version.");
+			break;
+		}
+		return SDL_GLprofile::SDL_GL_CONTEXT_PROFILE_CORE;
+	}
+	std::pair<int32_t, int32_t> getOpenglMajorMinorVersion(engine::DriverVersion version)
+	{
+		switch(version)
+		{
+			case engine::DriverVersion::OpenGL_Core_3_2: return std::make_pair(3, 2); break;
+			case engine::DriverVersion::OpenGL_Core_3_3: return std::make_pair(3, 3); break;
+			case engine::DriverVersion::OpenGL_Core_4_0: return std::make_pair(4, 0); break;
+			case engine::DriverVersion::OpenGL_Core_4_1: return std::make_pair(4, 1); break;
+			case engine::DriverVersion::OpenGL_Core_4_2: return std::make_pair(4, 2); break;
+			case engine::DriverVersion::OpenGL_Core_4_3: return std::make_pair(4, 3); break;
+			case engine::DriverVersion::OpenGL_ES_2_0:   return std::make_pair(2, 0); break;
+			case engine::DriverVersion::OpenGL_ES_3_0:   return std::make_pair(3, 0); break;
+			case engine::DriverVersion::DirectX11:
+			default:
+			FAIL("Unknown opengl version.");
+			break;
+		}
+		return std::make_pair(0, 0);
+	}
+}
+
 namespace engine
 {
 	namespace sdl
@@ -29,6 +75,16 @@ namespace engine
 		{
 			delete _members;
 			_members = nullptr;
+		}
+
+		void DriverImpl::initContextImpl(const DriverContextParameters& params)
+		{
+			std::pair<int32_t, int32_t> version = getOpenglMajorMinorVersion(params.version);
+			SDL_GLprofile profile = getProfile(params.version);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, profile);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, version.first);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, version.second);
+			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		}
 
 		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)

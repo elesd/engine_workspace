@@ -28,10 +28,14 @@ namespace engine
 		std::vector<std::unique_ptr<Window>> windowContainer;
 		RenderContextParameters renderContextParameters;
 		std::vector<Window*> closedWindows;
+		DriverContextParameters driverContextParameters;
+		explicit WindowManagerPrivate(const DriverContextParameters& parameters)
+			: driverContextParameters(parameters)
+		{ }
 	};
 
-	WindowManager::WindowManager()
-		: _members(new WindowManagerPrivate())
+	WindowManager::WindowManager(const DriverContextParameters& parameters)
+		: _members(new WindowManagerPrivate(parameters))
 	{
 		DriverInitParameters driverParameters;
 		driverParameters.sampleCount = 1;
@@ -226,5 +230,10 @@ namespace engine
 	void WindowManager::windowClosed(Window *window)
 	{
 		_members->closedWindows.push_back(window);
+	}
+
+	const DriverContextParameters& WindowManager::getDriverContextParameters() const
+	{
+		return _members->driverContextParameters;
 	}
 }

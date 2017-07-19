@@ -37,6 +37,11 @@ namespace engine
 	namespace glfw
 	{
 
+		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+			: WindowManager(driverContextParameters)
+		{
+		}
+
 		WindowImpl *WindowManagerImpl::findWindow(GLFWwindow *glfwWindow)
 		{
 			for(Window *window : getAllWindows())

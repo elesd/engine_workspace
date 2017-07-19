@@ -7,6 +7,7 @@ struct SDL_WindowEvent;
 namespace engine
 {
 	struct RenderContextParameters;
+	struct DriverContextParameters;
 	class RenderContext;
 	class Window;
 	namespace sdl
@@ -16,8 +17,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			/**Default constructable*/
-			WindowManagerImpl() = default;
+			WindowManagerImpl(const DriverContextParameters& driverContextParameters);
 
 			/** @copydoc */
 			uint32_t getMonitorCount() const override;

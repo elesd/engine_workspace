@@ -4,6 +4,7 @@
 
 namespace engine
 {
+	struct DriverContextParameters;
 	struct RenderContextParameters;
 	class RenderContext;
 	struct WindowParameter;
@@ -16,7 +17,7 @@ namespace engine
 	{
 	public:
 		/** Default constructable. */
-		WindowManager();
+		WindowManager(const DriverContextParameters& parameters);
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 
@@ -100,6 +101,8 @@ namespace engine
 		void windowClosed(Window *window);
 
 	protected:
+		const DriverContextParameters& getDriverContextParameters() const;
+
 		/**
 		* Window system dependent creation function.
 		* @param parameters: Window creation parameters.
