@@ -20,7 +20,7 @@ namespace engine
 		private:
 			void initDeviceImpl(const DeviceParameters& params);
 			/**Initialize based on the given window*/
-			void initImpl(const DriverInitParameters& params, Window *window) override;
+			void initImpl(const DriverInitParameters& params) override;
 			void swapBufferImpl() override;
 
 		private:

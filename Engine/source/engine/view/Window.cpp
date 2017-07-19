@@ -89,6 +89,7 @@ namespace engine
 
 	void Window::initRenderContext(std::unique_ptr<RenderContext>&& context)
 	{
+		context->checkSetup();
 		HARD_ASSERT(!_members->renderContext);
 		_members->renderContext = std::move(context);
 	}

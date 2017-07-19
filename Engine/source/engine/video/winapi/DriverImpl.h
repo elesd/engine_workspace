@@ -44,7 +44,7 @@ namespace engine
 			void setCurrentIndexBuffer(const IndexBufferBase* indicies);
 		private:
 			/**Initialize based on the given window*/
-			void initImpl(const DriverInitParameters& params, Window *window) override;
+			void initImpl(const DriverInitParameters& params) override;
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& attributeFormat) override;
 			void compileEffectImpl(Effect* effect) override;
 			void drawImpl(BufferContext*) override;

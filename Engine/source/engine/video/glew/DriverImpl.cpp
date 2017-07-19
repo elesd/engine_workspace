@@ -394,8 +394,10 @@ namespace engine
 			return result;
 		}
 
-		bool DriverImpl::checkDeviceSetup()
+		bool DriverImpl::checkDeviceSetupImpl()
 		{
+			printInfo();
+
 			DeviceParameters deviceParameters = getDeviceParameters();
 			std::pair<int32_t, int32_t> version = getOpenglMajorMinorVersion(deviceParameters.version);
 			bool isOk = true;

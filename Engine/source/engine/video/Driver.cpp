@@ -65,21 +65,22 @@ namespace engine
 		initDeviceImpl(params);
 	}
 
-	void Driver::init(const DriverInitParameters &params, Window *window)
+	void Driver::setWindow(Window *window)
+	{
+		ASSERT(_members->window == nullptr);
+		_members->window = window;
+	}
+
+	void Driver::init(const DriverInitParameters &params)
 	{
 		_members->parameters = params;
-		_members->window = window;
 		InitDriverParameterError checkResult = checkDriverInitParameters(params);
 		if(checkResult != InitDriverParameterError::Ok)
 		{
 			std::string str = InitDriverParameterErrorToString(checkResult);
 			throw InitializationError(str);
 		}
-		initImpl(params, window);
-		if(checkDeviceSetup() == false)
-		{
-			throw InitializationError("DeviceSetup failed");
-		}
+		initImpl(params);
 	}
 
 	void Driver::draw(BufferContext *bufferContext)
@@ -149,6 +150,12 @@ namespace engine
 	{
 		return _members->deviceParameters;
 	}
+
+	bool Driver::checkDeviceSetup()
+	{
+		return checkDeviceSetupImpl();
+	}
+
 
 	Window* Driver::getWindow() const
 	{

@@ -62,8 +62,6 @@ namespace engine
 			{
 				registerInputCallbacks(window);
 				result.reset(new WindowImpl(this, std::move(window), parameters, title));
-				glfwMakeContextCurrent(result->getGlfwWindow());
-				glew::Core::initOpenglContext();
 
 			}
 			return result.release();
@@ -81,7 +79,6 @@ namespace engine
 				{
 					registerInputCallbacks(window);
 					result.reset(new WindowImpl(this, window, title));
-					glfwMakeContextCurrent(result->getGlfwWindow());
 				}
 			}
 			return result.release();
@@ -137,24 +134,34 @@ namespace engine
 
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
+		std::unique_ptr<Driver> WindowManagerImpl::createDriver(const DeviceParameters& parameters) const
 		{
-			UNSUPPORTED_ERROR();
-			return nullptr;
+			std::unique_ptr<Driver> driver(new DriverImpl());
+			driver->initDevice(parameters);
+			return driver;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &params) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver) const
 		{
-			std::unique_ptr<Driver> driver(new glfw::DriverImpl());
 			std::unique_ptr<BufferObjectFactory> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
 			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
-			context->init(params, nullptr);
 			return context;
+
 		}
 
-		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
 		{
-			renderContext->init(params, window);
+			renderContext->init(params);
+
+		}
+
+		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
+		{
+			glfwMakeContextCurrent(static_cast<WindowImpl*>(window)->getGlfwWindow());
+			glew::Core::initOpenglContext();
+			renderContext->setWindow(window);
+
+
 		}
 	}
 }

@@ -6,6 +6,7 @@ struct GLFWwindow;
 
 namespace engine
 {
+	struct DeviceParameters;
 	namespace glfw
 	{
 		class WindowImpl;
@@ -38,10 +39,11 @@ namespace engine
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
 
 			std::unique_ptr<Driver> createDriver(const DeviceParameters&) const override;
-
 			/** @copydoc */
-			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *) const override;
+			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver) const override;
 		
+			void preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const override;
+			void postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const override;
 		};
 	}
 }

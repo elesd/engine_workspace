@@ -9,6 +9,38 @@
 
 #include <GLFW/glfw3.h>
 
+namespace
+{
+	bool isESProfile(engine::DriverVersion version)
+	{
+		switch(version)
+		{
+			case engine::DriverVersion::OpenGL_Core_3_2:
+			case engine::DriverVersion::OpenGL_Core_3_3:
+			case engine::DriverVersion::OpenGL_Core_4_0:
+			case engine::DriverVersion::OpenGL_Core_4_1:
+			case engine::DriverVersion::OpenGL_Core_4_2:
+			case engine::DriverVersion::OpenGL_Core_4_3:
+			case engine::DriverVersion::OpenGL_Core_4_4:
+			case engine::DriverVersion::OpenGL_Core_4_5:
+			return false;
+			break;
+			case engine::DriverVersion::OpenGL_ES_2_0:
+			case engine::DriverVersion::OpenGL_ES_3_0:
+			return true;
+			break;
+			case engine::DriverVersion::DirectX11:
+			default:
+			FAIL("Not opengl driver is used");
+			break;
+		}
+		return false;
+	}
+
+
+
+}
+
 namespace engine
 {
 	namespace glfw
@@ -25,7 +57,23 @@ namespace engine
 		{
 		}
 
-		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)
+		void DriverImpl::initDeviceImpl(const DeviceParameters& params)
+		{
+			std::pair<int32_t, int32_t> version = getOpenglMajorMinorVersion(params.version);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, version.first);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, version.second);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			if(isESProfile(params.version))
+			{
+				glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+			}
+			else
+			{
+				glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+			}
+		}
+
+		void DriverImpl::initImpl(const DriverInitParameters& params)
 		{
 			BufferDescUtils::GlfwDesc desc = BufferDescUtils::getGlfwDesc(params.description);
 			if(desc.redBits > 0)

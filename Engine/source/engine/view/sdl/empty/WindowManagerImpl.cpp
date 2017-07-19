@@ -10,6 +10,13 @@ namespace engine
 {
 	namespace sdl
 	{
+
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
+			: WindowManager(driverContextParameters)
+		{
+			HARD_FAIL("Inactive module");
+
+		}
 		Window *WindowManagerImpl::createMainWindowImpl(const WindowParameter &,
 															  const std::string &)
 		{
@@ -49,22 +56,27 @@ namespace engine
 			return 0;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
+		std::unique_ptr<Driver> WindowManagerImpl::createDriver(const DeviceParameters& parameters) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&&) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;
 		}
 
-		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
 		{
-			HARD_FAIL("Inactive module");
+
 		}
+		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
+		{
+
+		}
+
 	}
 }
 #endif

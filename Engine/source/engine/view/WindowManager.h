@@ -142,8 +142,10 @@ namespace engine
 
 		
 		virtual std::unique_ptr<Driver> createDriver(const DeviceParameters&) const = 0;
-		virtual std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &, Window *) const = 0;
+		virtual std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver) const = 0;
 
+		virtual void preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &) const = 0;
+		virtual void postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &, Window* window) const = 0;
 	private:
 		/**
 		* Common initialization of a window.

@@ -45,7 +45,9 @@ namespace engine
 		RenderContext(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory);
 		~RenderContext();
 
-		void init(const RenderContextParameters& params, Window *window);
+		void checkSetup();
+		void setWindow(Window *window);
+		void init(const RenderContextParameters& params);
 
 		Render* createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
 		bool removeRender(const std::string& id);

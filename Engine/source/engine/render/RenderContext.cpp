@@ -2,6 +2,8 @@
 #include <engine/render/RenderContext.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/exceptions/LogicalErrors.h>
+
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
 #include <engine/render/Render.h>
@@ -28,6 +30,8 @@ namespace engine
 	{
 		return _driverParameters;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////
 
 	struct RenderContextPrivate
 	{
@@ -57,9 +61,22 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void RenderContext::init(const RenderContextParameters& params, Window *window)
+	void RenderContext::checkSetup()
 	{
-		_members->driver->init(params.getDriverParameters(), window);
+		if(_members->driver->checkDeviceSetup() == false)
+		{
+			throw InitializationError("Driver setup failed!");
+		}
+	}
+
+	void RenderContext::setWindow(Window *window)
+	{
+		_members->driver->setWindow(window);
+	}
+
+	void RenderContext::init(const RenderContextParameters& params)
+	{
+		_members->driver->init(params.getDriverParameters());
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)

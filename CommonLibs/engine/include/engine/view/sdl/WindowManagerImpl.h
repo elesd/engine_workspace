@@ -43,8 +43,9 @@ namespace engine
 
 			std::unique_ptr<Driver> createDriver(const DeviceParameters&) const override;
 			/** @copydoc */
-			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *) const override;
-
+			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver) const override;
+			void preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const override;
+			void postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const override;
 		};
 	}
 }

@@ -69,8 +69,10 @@ namespace engine
 		virtual ~Driver();
 		void initDevice(const DeviceParameters& params);
 
+		void setWindow(Window *window);
+
 		/**Init function*/
-		void init(const DriverInitParameters& params, Window *window);
+		void init(const DriverInitParameters& params);
 
 		void draw(BufferContext *bufferContext);
 		void setRenderTarget(RenderTarget* renderTarget);
@@ -83,13 +85,15 @@ namespace engine
 		void swapBuffer();
 		const DriverInitParameters& getParameters() const;
 		const DeviceParameters& getDeviceParameters() const;
+
+		bool checkDeviceSetup();
 	protected:
 		Window* getWindow() const;
 
 	private:
 		virtual void initDeviceImpl(const DeviceParameters& params) = 0;
 		/**Platform specific init implementation*/
-		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
+		virtual void initImpl(const DriverInitParameters& params) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;
 		virtual void compileEffectImpl(Effect* effect) = 0;
 		virtual void drawImpl(BufferContext *bufferContext) = 0;
@@ -100,8 +104,7 @@ namespace engine
 		virtual void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) = 0;
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
 		virtual void swapBufferImpl() = 0;
-		virtual bool checkDeviceSetup() = 0;
-
+		virtual bool checkDeviceSetupImpl() = 0;
 
 	private:
 		struct DriverPrivate* _members = nullptr;

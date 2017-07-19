@@ -74,8 +74,9 @@ namespace engine
 			* @param window: The driver will created to this window.
 			* @return Returns the driver which was created for the given window.
 			*/
-			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *window) const override;
-
+			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver) const override;
+			void preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const override;
+			void postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const override;
 			/**
 			* Register the window class in Windows based on the application parameters.
 			*/

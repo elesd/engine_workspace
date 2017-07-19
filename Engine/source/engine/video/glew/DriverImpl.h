@@ -4,6 +4,7 @@
 
 namespace engine
 {
+	enum class DriverVersion;
 	namespace glew
 	{
 
@@ -30,7 +31,7 @@ namespace engine
 			std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) override;
 
 			bool checkShaderOptions(const ShaderCompileOptions& options) const;
-			bool checkDeviceSetup();
+			bool checkDeviceSetupImpl() override;
 
 		};
 	}

@@ -42,7 +42,7 @@ namespace engine
 			return nullptr;
 		}
 
-		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)
+		void DriverImpl::initImpl(const DriverInitParameters& params)
 		{
 			INACTIVE_MODULE_ERROR();
 		}
