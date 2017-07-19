@@ -18,7 +18,12 @@ namespace engine
 			HARD_FAIL("Unimplemented module");
 		}
 
-		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)
+		void DriverImpl::initDeviceImpl(const DeviceParameters& params)
+		{
+			HARD_FAIL("Unimplemented module");
+		}
+
+		void DriverImpl::initImpl(const DriverInitParameters& params)
 		{
 			HARD_FAIL("Unimplemented module");
 		}

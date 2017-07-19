@@ -71,9 +71,10 @@ namespace engine
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		}
 
-		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)
+		void DriverImpl::initImpl(const DriverInitParameters& params)
 		{
-			SDL_Window *sdlWindow = static_cast<WindowImpl*>(window)->getSDLWindow();
+			Window* window = getWindow();
+			SDL_Window *sdlWindow = static_cast<WindowImpl*>(getWindow())->getSDLWindow();
 			SDL_DisplayMode currentMode;
 			currentMode.h = window->getHeight();
 			currentMode.w = window->getWidth();
@@ -87,7 +88,6 @@ namespace engine
 			{
 				throw InitializationError("SDL Window cannot be set up because of sdl internal error.");
 			}
-			printInfo();
 		}
 
 		void DriverImpl::swapBufferImpl()

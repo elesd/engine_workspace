@@ -61,10 +61,20 @@ namespace engine
 			return nullptr;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &, Window *) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;
+		}
+
+		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
+		{
+			HARD_FAIL("Inactive module");
+		}
+
+		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
+		{
+			HARD_FAIL("Inactive module");
 		}
 	}
 }

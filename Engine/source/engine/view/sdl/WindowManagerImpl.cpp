@@ -96,11 +96,24 @@ namespace engine
 			return driver;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *window) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver) const
+		{
+			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
+			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
+
+			return context;
+		}
+
+		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
+		{
+
+		}
+
+		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
 		{
 			WindowImpl *sdlWindow = static_cast<WindowImpl*>(window);
 			// TODO store sdl context
-			
+
 			SDL_GL_SetSwapInterval(1);
 			SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow->getSDLWindow());
 
@@ -110,12 +123,10 @@ namespace engine
 				FAIL("Opengl render context initialization error");
 			}
 			glew::Core::initOpenglContext();
+			renderContext->setWindow(window);
+			renderContext->init(params);
 
-			std::unique_ptr<glew::BufferObjectFactoryImpl> bufferObjectFactory(new glew::BufferObjectFactoryImpl(driver.get()));
-			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
 
-			context->init(params, window);
-			return context;
 		}
 
 		WindowImpl *WindowManagerImpl::findWindowBySDLId(uint32_t id) const
