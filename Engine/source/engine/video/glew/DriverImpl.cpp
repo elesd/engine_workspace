@@ -4,6 +4,8 @@
 
 #if ENGINE_USE_GLEW 
 
+#include <engine/Context.h>
+
 #include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
 #include <engine/video/IndexBuffer.h>
@@ -21,6 +23,8 @@
 #include <engine/video/glew/VertexBufferObject.h>
 
 #include <engine/video/GPUTypes.h>
+
+#include <engine/view/Console.h>
 
 namespace
 {
@@ -80,10 +84,35 @@ namespace engine
 			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVAO);
 			glGetIntegerv(GL_INDEX_ARRAY_BUFFER_BINDING, &currentIndexBuffer);
 			glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-			std::cout << "VAO: " << currentVAO << std::endl;
-			std::cout << "VBO: " << currentVBO << std::endl;
-			std::cout << "IndexBuffer: " << currentIndexBuffer << std::endl;
-			std::cout << "Program: " << currentProgram << std::endl;
+			engine::Context::console()->print("VAO:         %", currentVAO);
+			engine::Context::console()->print("VBO:         %", currentVBO);
+			engine::Context::console()->print("IndexBuffer: %", currentIndexBuffer);
+			engine::Context::console()->print("Program:     %", currentProgram);
+		}
+
+		void DriverImpl::printInfo()
+		{
+			engine::Context::console()->print("Opengl version %", (char*)glGetString(GL_VERSION));
+		}
+
+		std::pair<int32_t, int32_t> DriverImpl::getOpenglMajorMinorVersion(DriverVersion version) const
+		{
+			switch(version)
+			{
+				case engine::DriverVersion::OpenGL_Core_3_2: return std::make_pair(3, 2); break;
+				case engine::DriverVersion::OpenGL_Core_3_3: return std::make_pair(3, 3); break;
+				case engine::DriverVersion::OpenGL_Core_4_0: return std::make_pair(4, 0); break;
+				case engine::DriverVersion::OpenGL_Core_4_1: return std::make_pair(4, 1); break;
+				case engine::DriverVersion::OpenGL_Core_4_2: return std::make_pair(4, 2); break;
+				case engine::DriverVersion::OpenGL_Core_4_3: return std::make_pair(4, 3); break;
+				case engine::DriverVersion::OpenGL_ES_2_0:   return std::make_pair(2, 0); break;
+				case engine::DriverVersion::OpenGL_ES_3_0:   return std::make_pair(3, 0); break;
+				case engine::DriverVersion::DirectX11:
+				default:
+				FAIL("Unknown opengl version.");
+				break;
+			}
+			return std::make_pair(0, 0);
 		}
 
 		void DriverImpl::drawImpl(BufferContext* bufferContext)
@@ -133,6 +162,9 @@ namespace engine
 
 		void DriverImpl::compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&)
 		{
+			bool optionsOk = checkShaderOptions(options);
+			ASSERT(optionsOk);
+
 			GLenum shaderType = 0;
 			switch(shader->getShaderType())
 			{
@@ -251,6 +283,128 @@ namespace engine
 		std::unique_ptr<RenderTarget> DriverImpl::createRenderTargetImpl(std::unique_ptr<Texture>&& texture)
 		{
 			return std::unique_ptr<RenderTarget>(new RenderTarget(std::move(texture)));
+		}
+
+		bool DriverImpl::checkShaderOptions(const ShaderCompileOptions& options) const
+		{
+			ShaderVersion version = options.getVersion();
+			DeviceParameters deviceParameters = getDeviceParameters();
+			bool result = false;
+			switch(version)
+			{
+				case engine::ShaderVersion::GLSL_100:
+				if(deviceParameters.version == DriverVersion::OpenGL_ES_2_0
+				   || deviceParameters.version != DriverVersion::OpenGL_ES_3_0)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_150:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_3_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_3_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_0
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_1
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_300:
+				if(deviceParameters.version == DriverVersion::OpenGL_ES_3_0)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_330:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_3_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_0
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_1
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_400:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_0
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_1
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_410:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_1
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_420:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_2
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_430:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_3
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_440:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_4
+				   || deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::GLSL_450:
+				if(deviceParameters.version == DriverVersion::OpenGL_Core_4_5)
+				{
+					result = true;
+				}
+				break;
+				case engine::ShaderVersion::HLSL_4_0_level_9_1:
+				case engine::ShaderVersion::HLSL_4_0_level_9_3:
+				case engine::ShaderVersion::HLSL_4_0:
+				case engine::ShaderVersion::HLSL_4_1:
+				case engine::ShaderVersion::HLSL_5_0:
+				case engine::ShaderVersion::Num:
+				default:
+				FAIL("Not an opengl shader");
+				break;
+			}
+			return result;
+		}
+
+		bool DriverImpl::checkDeviceSetup()
+		{
+			DeviceParameters deviceParameters = getDeviceParameters();
+			std::pair<int32_t, int32_t> version = getOpenglMajorMinorVersion(deviceParameters.version);
+			bool isOk = true;
+			GLint majorVersion = 0;
+			GLint minorVersion = 0;
+			glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
+			glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
+			isOk = (majorVersion == version.first) && (minorVersion == version.second);
+			return isOk;
 		}
 	}
 }

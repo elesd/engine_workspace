@@ -148,8 +148,11 @@ namespace states
 		engine::AttributeFormat layout;
 		layout.insertAttribute(engine::GPUMemberType::Vec3, 0, "position");
 		layout.insertAttribute(engine::GPUMemberType::Vec4, 1, "color");
-
+#if TUTORIAL_USE_WINAPI
 		engine::MaterialDescription description(engine::ShaderVersion::HLSL_5_0);
+#else
+		engine::MaterialDescription description(engine::ShaderVersion::GLSL_330);
+#endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
 		engine::ShaderCompileOptions options = description.createEmptyOptions();

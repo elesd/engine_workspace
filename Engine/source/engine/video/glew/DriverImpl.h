@@ -15,6 +15,9 @@ namespace engine
 
 			void checkErrors();
 			void printBindings();
+			void printInfo();
+		protected:
+			std::pair<int32_t, int32_t> getOpenglMajorMinorVersion(DriverVersion version) const; 
 		private:
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&) override;
 			void compileEffectImpl(Effect* effect) override;
@@ -25,6 +28,9 @@ namespace engine
 			void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) override;
 
 			std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) override;
+
+			bool checkShaderOptions(const ShaderCompileOptions& options) const;
+			bool checkDeviceSetup();
 
 		};
 	}

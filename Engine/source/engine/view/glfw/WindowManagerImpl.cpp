@@ -37,7 +37,7 @@ namespace engine
 	namespace glfw
 	{
 
-		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
 			: WindowManager(driverContextParameters)
 		{
 		}

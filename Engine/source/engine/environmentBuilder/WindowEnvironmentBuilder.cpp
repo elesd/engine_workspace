@@ -41,14 +41,14 @@ namespace engine
 		o._members = nullptr;
 	}
 
-	BuildFinalizer WindowEnvironmentBuilder::build(const DriverContextParameters& driverContextParameters)
+	BuildFinalizer WindowEnvironmentBuilder::build(const DeviceParameters& deviceParameters)
 	{
 		std::unique_ptr<WindowManager> manager;
 		switch(_members->windowModule)
 		{
-			case ContextModuleType::Glfw: manager = createGlfwWindowManager(driverContextParameters); break;
-			case ContextModuleType::Sdl: manager = createSdlWindowManager(driverContextParameters); break;
-			case ContextModuleType::WinApi: manager = createWinApiWindowManager(driverContextParameters); break;
+			case ContextModuleType::Glfw: manager = createGlfwWindowManager(deviceParameters); break;
+			case ContextModuleType::Sdl: manager = createSdlWindowManager(deviceParameters); break;
+			case ContextModuleType::WinApi: manager = createWinApiWindowManager(deviceParameters); break;
 		}
 		if(!manager)
 			throw InitializationError("Unhandled window module");
@@ -56,20 +56,20 @@ namespace engine
 		return BuildFinalizer();
 	}
 
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager(const DriverContextParameters& driverContextParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager(const DeviceParameters& deviceParameters)
 	{
-		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(driverContextParameters));
+		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(deviceParameters));
 		return result;
 	}
 
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager(const DriverContextParameters& driverContextParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager(const DeviceParameters& deviceParameters)
 	{
-		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(driverContextParameters));
+		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(deviceParameters));
 		return result;
 	}
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager(const DriverContextParameters& driverContextParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager(const DeviceParameters& deviceParameters)
 	{
-		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(driverContextParameters));
+		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(deviceParameters));
 		return result;
 	}
 }

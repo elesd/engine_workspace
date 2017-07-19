@@ -25,7 +25,7 @@ namespace engine
 		std::set<engine::BasicInputType> inputs;
 		FileSystemSettings fileSystemSettings;
 		engine::ContextModuleType windowModule;
-		DriverContextParameters driverContextParameters;
+		DeviceParameters deviceParameters;
 	};
 
 	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main, engine::ContextModuleType windowModul)
@@ -52,9 +52,9 @@ namespace engine
 		_members->fileSystemSettings = settings;
 	}
 
-	void EasyBuilder::setVideoSettings(const DriverContextParameters& driverContextParameters)
+	void EasyBuilder::setDeviceParameters(const DeviceParameters& deviceParameters)
 	{
-		_members->driverContextParameters = driverContextParameters;
+		_members->deviceParameters = deviceParameters;
 	}
 
 	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,
@@ -84,7 +84,7 @@ namespace engine
 		FileSystemBuilder fsBuilder = appBuilder.build(std::move(args), std::move(_members->main));
 		EventBuilder eventBuilder = fsBuilder.build(_members->fileSystemSettings);
 		WindowEnvironmentBuilder windowBuilder = eventBuilder.build(_members->inputs);
-		BuildFinalizer lastStep = windowBuilder.build(_members->driverContextParameters);
+		BuildFinalizer lastStep = windowBuilder.build(_members->deviceParameters);
 		lastStep.build();
 	}
 

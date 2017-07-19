@@ -7,7 +7,7 @@ struct SDL_WindowEvent;
 namespace engine
 {
 	struct RenderContextParameters;
-	struct DriverContextParameters;
+	struct DeviceParameters;
 	class RenderContext;
 	class Window;
 	namespace sdl
@@ -17,7 +17,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			WindowManagerImpl(const DriverContextParameters& driverContextParameters);
+			WindowManagerImpl(const DeviceParameters& driverContextParameters);
 
 			/** @copydoc */
 			uint32_t getMonitorCount() const override;
@@ -31,7 +31,7 @@ namespace engine
 			WindowImpl *findWindowBySDLId(uint32_t id) const;
 			/** Handles window events.*/
 			void handleEvent(const SDL_WindowEvent&);
-		protected:
+		private:
 			/** @copydoc */
 			Window *createMainWindowImpl(const WindowParameter &parameters, const std::string &title) override;
 			/** @copydoc */
@@ -40,14 +40,11 @@ namespace engine
 			Window *createSecondaryWindowImpl(const WindowParameter &parameters, const std::string &title, Window *mainWindow) override;
 			/** @copydoc */
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
-			/** @copydoc */
-			std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &params, Window *) const override;
 
-			std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const override;
-			void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const override;
-		private:
+			std::unique_ptr<Driver> createDriver(const DeviceParameters&) const override;
 			/** @copydoc */
-			bool driverNeedsWindow() const override { return true; }
+			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *) const override;
+
 		};
 	}
 }

@@ -43,6 +43,8 @@ namespace engine
 	struct DriverPrivate
 	{
 		Window* window = nullptr;
+		DriverInitParameters parameters;
+		DeviceParameters deviceParameters;
 	};
 
 	Driver::Driver()
@@ -57,13 +59,15 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void Driver::initContext(const DriverContextParameters& params)
+	void Driver::initDevice(const DeviceParameters& params)
 	{
-		initContextImpl(params);
+		_members->deviceParameters = params;
+		initDeviceImpl(params);
 	}
 
 	void Driver::init(const DriverInitParameters &params, Window *window)
 	{
+		_members->parameters = params;
 		_members->window = window;
 		InitDriverParameterError checkResult = checkDriverInitParameters(params);
 		if(checkResult != InitDriverParameterError::Ok)
@@ -72,6 +76,10 @@ namespace engine
 			throw InitializationError(str);
 		}
 		initImpl(params, window);
+		if(checkDeviceSetup() == false)
+		{
+			throw InitializationError("DeviceSetup failed");
+		}
 	}
 
 	void Driver::draw(BufferContext *bufferContext)
@@ -131,6 +139,15 @@ namespace engine
 	void Driver::swapBuffer()
 	{
 		swapBufferImpl();
+	}
+
+	const DriverInitParameters& Driver::getParameters() const
+	{
+		return _members->parameters;
+	}
+	const DeviceParameters& Driver::getDeviceParameters() const
+	{
+		return _members->deviceParameters;
 	}
 
 	Window* Driver::getWindow() const

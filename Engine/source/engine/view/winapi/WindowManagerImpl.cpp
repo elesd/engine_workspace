@@ -74,7 +74,7 @@ namespace engine
 			bool hasWindowClass = false;
 		};
 
-		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
 			: WindowManager(driverContextParameters)
 			, _members(new WindowManagerImplPrivate())
 		{

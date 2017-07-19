@@ -11,7 +11,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			WindowManagerImpl(const DriverContextParameters& driverContextParameters);
+			WindowManagerImpl(const DeviceParameters& driverContextParameters);
 			/**PIMPL*/
 			~WindowManagerImpl()  override;
 			/**
@@ -24,7 +24,7 @@ namespace engine
 			uint32_t getMonitorCount() const override;
 			/**@return Returns the id of the monitor*/
 			uint32_t getMainMonitorId() const override;
-		protected:
+		private:
 			/**
 			* Creates a main window in winapi environment.
 			* @param parameters: Window creation parameters
@@ -65,18 +65,17 @@ namespace engine
 			*/
 			Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) override;
 
+			
+			std::unique_ptr<Driver> createDriver(const DeviceParameters&) const override;
+
 			/**
 			* Creates a driver for the given window.
 			* @param params: Driver initialization parameters.
 			* @param window: The driver will created to this window.
 			* @return Returns the driver which was created for the given window.
 			*/
-			std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &params, Window *window) const override;
-			std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const override;
-			void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const override;
-		private:
-			/** @copydoc */
-			bool driverNeedsWindow() const override { return true; }
+			std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *window) const override;
+
 			/**
 			* Register the window class in Windows based on the application parameters.
 			*/

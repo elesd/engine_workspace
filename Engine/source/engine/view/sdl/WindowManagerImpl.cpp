@@ -18,7 +18,7 @@ namespace engine
 {
 	namespace sdl
 	{
-		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
 			: WindowManager(driverContextParameters)
 		{
 		}
@@ -89,15 +89,20 @@ namespace engine
 			return 0;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
+		std::unique_ptr<Driver> WindowManagerImpl::createDriver(const DeviceParameters& parameters) const
+		{
+			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
+			driver->initDevice(parameters);
+			return driver;
+		}
+
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *window) const
 		{
 			WindowImpl *sdlWindow = static_cast<WindowImpl*>(window);
 			// TODO store sdl context
 			
 			SDL_GL_SetSwapInterval(1);
 			SDL_GLContext sdlContext = SDL_GL_CreateContext(sdlWindow->getSDLWindow());
-			std::unique_ptr<Driver> driver(new sdl::DriverImpl());
-			driver->initContext(getDriverContextParameters());
 
 			if(SDL_GL_MakeCurrent(sdlWindow->getSDLWindow(), sdlContext) != 0)
 			{
@@ -111,17 +116,6 @@ namespace engine
 
 			context->init(params, window);
 			return context;
-		}
-
-		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
-		{
-			UNSUPPORTED_ERROR();
-			return nullptr;
-		}
-
-		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
-		{
-			UNSUPPORTED_ERROR();
 		}
 
 		WindowImpl *WindowManagerImpl::findWindowBySDLId(uint32_t id) const

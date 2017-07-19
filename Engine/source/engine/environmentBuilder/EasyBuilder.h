@@ -10,7 +10,7 @@ namespace engine
 	class IMain;
 	class IApplicationParameter;
 	class Application;
-	struct DriverContextParameters;
+	struct DeviceParameters;
 	struct FileSystemSettings;
 	enum class BasicInputType;
 	enum class ContextModuleType;
@@ -38,7 +38,7 @@ namespace engine
 
 		void setFileSystemSetting(const FileSystemSettings &settings);
 
-		void setVideoSettings(const DriverContextParameters& driverContextParameters);
+		void setDeviceParameters(const DeviceParameters& deviceParameters);
 		/**
 		* One step build for the engine in case of winapi application.
 		* @param hInstance: Application arg.

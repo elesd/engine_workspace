@@ -11,7 +11,7 @@ namespace engine
 {
 	namespace winapi
 	{
-		WindowManagerImpl::WindowManagerImpl(const DriverContextParameters& driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
 			: WindowManager(driverContextParameters)
 		{
 			HARD_FAIL("Inactive module");
@@ -65,21 +65,18 @@ namespace engine
 			HARD_FAIL("Inactive module");
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
-		{
-			HARD_FAIL("Inactive module");
-			return nullptr;
-		}
-		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
+		std::unique_ptr<Driver> WindowManagerImpl::createDriver(const DeviceParameters&) const
 		{
 			HARD_FAIL("Inactive module");
 			return nullptr;
 		}
 
-		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &params, Window *window) const
 		{
 			HARD_FAIL("Inactive module");
+			return nullptr;
 		}
+	
 	}
 }
 #endif

@@ -4,7 +4,8 @@
 
 namespace engine
 {
-	struct DriverContextParameters;
+	struct DeviceParameters;
+	class Driver;
 	struct RenderContextParameters;
 	class RenderContext;
 	struct WindowParameter;
@@ -17,7 +18,7 @@ namespace engine
 	{
 	public:
 		/** Default constructable. */
-		WindowManager(const DriverContextParameters& parameters);
+		WindowManager(const DeviceParameters& parameters);
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 
@@ -101,7 +102,7 @@ namespace engine
 		void windowClosed(Window *window);
 
 	protected:
-		const DriverContextParameters& getDriverContextParameters() const;
+		const DeviceParameters& getDeviceParameters() const;
 
 		/**
 		* Window system dependent creation function.
@@ -140,9 +141,8 @@ namespace engine
 		virtual Window *createSecondaryFullScreenWindowImpl(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow) = 0;
 
 		
-		virtual std::unique_ptr<RenderContext> createRenderContext(const RenderContextParameters &, Window *) const = 0;
-		virtual std::unique_ptr<RenderContext> preCreateRenderContext(const RenderContextParameters &) const = 0;
-		virtual void postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const = 0;
+		virtual std::unique_ptr<Driver> createDriver(const DeviceParameters&) const = 0;
+		virtual std::unique_ptr<RenderContext> createRenderContext(std::unique_ptr<Driver>&& driver, const RenderContextParameters &, Window *) const = 0;
 
 	private:
 		/**
@@ -150,12 +150,6 @@ namespace engine
 		* @param window: Window to be initialized
 		*/
 		void initWindow(Window *window);
-
-		/**
-		* @return Returns true when the driver needs a created windows for initialization, if it is in an other way around
-		* it returns false.
-		*/
-		virtual bool driverNeedsWindow() const = 0;
 
 		void eraseClosedWindows();
 	private:

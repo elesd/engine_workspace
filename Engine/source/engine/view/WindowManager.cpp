@@ -28,13 +28,13 @@ namespace engine
 		std::vector<std::unique_ptr<Window>> windowContainer;
 		RenderContextParameters renderContextParameters;
 		std::vector<Window*> closedWindows;
-		DriverContextParameters driverContextParameters;
-		explicit WindowManagerPrivate(const DriverContextParameters& parameters)
-			: driverContextParameters(parameters)
+		DeviceParameters deviceParameters;
+		explicit WindowManagerPrivate(const DeviceParameters& parameters)
+			: deviceParameters(parameters)
 		{ }
 	};
 
-	WindowManager::WindowManager(const DriverContextParameters& parameters)
+	WindowManager::WindowManager(const DeviceParameters& parameters)
 		: _members(new WindowManagerPrivate(parameters))
 	{
 		DriverInitParameters driverParameters;
@@ -64,20 +64,12 @@ namespace engine
 	{
 		if(_members->mainWindow != nullptr)
 			throw InitializationError("Main window is already exists");
+		
+		std::unique_ptr<Driver> driver = createDriver(_members->deviceParameters);
+		_members->mainWindow.reset(createMainWindowImpl(parameters, title));
+		std::unique_ptr<RenderContext> context = createRenderContext(std::move(driver), _members->renderContextParameters, _members->mainWindow.get());
+		_members->mainWindow->initRenderContext(std::move(context));
 
-		if(driverNeedsWindow())
-		{
-			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
-			_members->mainWindow->initRenderContext(std::move(context));
-		}
-		else
-		{
-			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
-			_members->mainWindow.reset(createMainWindowImpl(parameters, title));
-			postCreateRenderContext(context.get(), _members->renderContextParameters, _members->mainWindow.get());
-			_members->mainWindow->initRenderContext(std::move(context));
-		}
 		initWindow(_members->mainWindow.get());
 
 		return _members->mainWindow.get();
@@ -87,19 +79,12 @@ namespace engine
 	{
 		if(_members->mainWindow != nullptr)
 			throw InitializationError("Main window is already exists");
-		if(driverNeedsWindow())
-		{
-			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
-			_members->mainWindow->initRenderContext(std::move(context));
-		}
-		else
-		{
-			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
-			_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
-			postCreateRenderContext(context.get(), _members->renderContextParameters, _members->mainWindow.get());
-			_members->mainWindow->initRenderContext(std::move(context));
-		}
+
+		std::unique_ptr<Driver> driver = createDriver(_members->deviceParameters);
+		_members->mainWindow.reset(createFullScreenMainWindowImpl(width, height, title, monitorId));
+		std::unique_ptr<RenderContext> context = createRenderContext(std::move(driver), _members->renderContextParameters, _members->mainWindow.get());
+		_members->mainWindow->initRenderContext(std::move(context));
+
 		initWindow(_members->mainWindow.get());
 		return _members->mainWindow.get();
 	}
@@ -108,44 +93,28 @@ namespace engine
 												 const std::string &title,
 												 Window *mainWindow)
 	{
-		if(driverNeedsWindow())
-		{
-			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
-			_members->windowContainer.emplace_back(std::move(window));
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
-			_members->mainWindow->initRenderContext(std::move(context));
-		}
-		else
-		{
-			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
-			std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
-			postCreateRenderContext(context.get(), _members->renderContextParameters, window.get());
-			window->initRenderContext(std::move(context));
-			_members->windowContainer.emplace_back(std::move(window));
-		}
+
+
+
+		std::unique_ptr<Driver> driver = createDriver(_members->deviceParameters);
+		std::unique_ptr<Window> window(createSecondaryWindowImpl(parameters, title, mainWindow));
+		_members->windowContainer.emplace_back(std::move(window));
+		std::unique_ptr<RenderContext> context = createRenderContext(std::move(driver), _members->renderContextParameters, _members->mainWindow.get());
+		_members->mainWindow->initRenderContext(std::move(context));
+
 		initWindow(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
 
 	Window *WindowManager::createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow)
 	{
-		if(driverNeedsWindow())
-		{
-			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-			_members->windowContainer.emplace_back(std::move(window));
 
-			std::unique_ptr<RenderContext> context = createRenderContext(_members->renderContextParameters, _members->mainWindow.get());
-			window->initRenderContext(std::move(context));
-		}
-		else
-		{
-			std::unique_ptr<RenderContext> context = preCreateRenderContext(_members->renderContextParameters);
-			std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
-			postCreateRenderContext(context.get(), _members->renderContextParameters, window.get());
-			window->initRenderContext(std::move(context));
-			_members->windowContainer.emplace_back(std::move(window));
-
-		}
+		std::unique_ptr<Driver> driver = createDriver(_members->deviceParameters);
+		std::unique_ptr<Window> window(createSecondaryFullScreenWindowImpl(width, height, title, monitorId, mainWindow));
+		_members->windowContainer.emplace_back(std::move(window));
+		std::unique_ptr<RenderContext> context = createRenderContext(std::move(driver), _members->renderContextParameters, _members->mainWindow.get());
+		_members->mainWindow->initRenderContext(std::move(context));
+	
 		initWindow(_members->windowContainer.back().get());
 		return _members->windowContainer.back().get();
 	}
@@ -232,8 +201,8 @@ namespace engine
 		_members->closedWindows.push_back(window);
 	}
 
-	const DriverContextParameters& WindowManager::getDriverContextParameters() const
+	const DeviceParameters& WindowManager::getDeviceParameters() const
 	{
-		return _members->driverContextParameters;
+		return _members->deviceParameters;
 	}
 }

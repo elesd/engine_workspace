@@ -31,11 +31,11 @@ namespace engine
 		if(pos != std::string::npos)
 		{
 			std::string firstPart = format.substr(0, pos);
-			os << firstPart << value;
+			getOutput() << firstPart << value;
 			if(pos + 1 < format.size())
 			{
 				std::string secondPart = format.substr(pos + 1);
-				print(os, secondPart, args...);
+				print(secondPart, params...);
 			}
 			else
 			{

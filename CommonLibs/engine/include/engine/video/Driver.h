@@ -31,10 +31,12 @@ namespace engine
 		OpenGL_Core_4_1,
 		OpenGL_Core_4_2,
 		OpenGL_Core_4_3,
+		OpenGL_Core_4_4,
+		OpenGL_Core_4_5,
 		OpenGL_ES_2_0,
 		OpenGL_ES_3_0,
 	};
-	struct DriverContextParameters
+	struct DeviceParameters
 	{
 		DriverVersion version;
 	};
@@ -65,7 +67,7 @@ namespace engine
 	public:
 		/**Virtual destructor*/
 		virtual ~Driver();
-		void initContext(const DriverContextParameters& params);
+		void initDevice(const DeviceParameters& params);
 
 		/**Init function*/
 		void init(const DriverInitParameters& params, Window *window);
@@ -79,12 +81,13 @@ namespace engine
 		void setEffect(Effect *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
 		void swapBuffer();
-
+		const DriverInitParameters& getParameters() const;
+		const DeviceParameters& getDeviceParameters() const;
 	protected:
 		Window* getWindow() const;
 
 	private:
-		virtual void initContextImpl(const DriverContextParameters& params) = 0;
+		virtual void initDeviceImpl(const DeviceParameters& params) = 0;
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params, Window *window) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;
@@ -97,7 +100,7 @@ namespace engine
 		virtual void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) = 0;
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
 		virtual void swapBufferImpl() = 0;
-
+		virtual bool checkDeviceSetup() = 0;
 
 
 	private:

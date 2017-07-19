@@ -23,9 +23,9 @@ namespace
 #if TUTORIAL_USE_OPENGL
 	void setupOpengl(engine::EasyBuilder& builder)
 	{
-		engine::DriverContextParameters driverContextParameters;
-		driverContextParameters.version = engine::DriverVersion::OpenGL_Core_3_3;
-		builder.setVideoSettings(driverContextParameters);
+		engine::DeviceParameters deviceParameters;
+		deviceParameters.version = engine::DriverVersion::OpenGL_Core_3_3;
+		builder.setDeviceParameters(deviceParameters);
 	}
 #else
 	void setupDirectX(engine::EasyBuilder& builder)
