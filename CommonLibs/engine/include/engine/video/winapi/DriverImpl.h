@@ -43,6 +43,7 @@ namespace engine
 			void setCurrentVertexBuffer(const VertexBuffer* verticies);
 			void setCurrentIndexBuffer(const IndexBufferBase* indicies);
 		private:
+			void initDeviceImpl(const DeviceParameters& params) override;
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params) override;
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& attributeFormat) override;
@@ -55,6 +56,7 @@ namespace engine
 			std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) override;
 			void swapBufferImpl() override;
 
+			bool checkDeviceSetupImpl() override;
 
 			void createDevice();
 			void createSwapChain(const DriverInitParameters& params, Window *window);

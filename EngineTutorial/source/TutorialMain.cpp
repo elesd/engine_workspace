@@ -30,9 +30,9 @@ namespace
 #else
 	void setupDirectX(engine::EasyBuilder& builder)
 	{
-		engine::DriverContextParameters driverContextParameters;
-		driverContextParameters.version = engine::DriverVersion::DirectX11;
-		builder.setVideoSettings(driverContextParameters);
+		engine::DeviceParameters deviceParameter;
+		deviceParameter.version = engine::DriverVersion::DirectX11;
+		builder.setDeviceParameters(deviceParameter);
 	}
 #endif
 	void setupCommonSetting(engine::EasyBuilder& builder)

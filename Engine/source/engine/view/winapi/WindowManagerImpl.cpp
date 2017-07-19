@@ -271,23 +271,29 @@ namespace engine
 			_members->hasWindowClass = true;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(const RenderContextParameters &params, Window *window) const
+		std::unique_ptr<Driver> WindowManagerImpl::createDriver(const DeviceParameters& deviceParameter) const
 		{
 			std::unique_ptr<Driver> driver(new DriverImpl());
+			driver->initDevice(deviceParameter);
+			return driver;
+		}
+
+		std::unique_ptr<RenderContext> WindowManagerImpl::createRenderContext(std::unique_ptr<Driver>&& driver) const
+		{
 			std::unique_ptr<BufferObjectFactory> bufferObjectFactory(new BufferObjectFactoryImpl(driver.get()));
 			std::unique_ptr<RenderContext> context(new RenderContext(std::move(driver), std::move(bufferObjectFactory)));
-			context->init(params, window);
 			return context;
 		}
 
-		std::unique_ptr<RenderContext> WindowManagerImpl::preCreateRenderContext(const RenderContextParameters &) const
+		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
 		{
-			UNSUPPORTED_ERROR();
-			return nullptr;
+
 		}
-		void WindowManagerImpl::postCreateRenderContext(RenderContext* renderContext, const RenderContextParameters& params, Window* window) const
+
+		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
 		{
-			UNSUPPORTED_ERROR();
+			renderContext->setWindow(window);
+			renderContext->init(params);
 		}
 	}
 }

@@ -301,11 +301,15 @@ namespace engine
 			return result;
 		}
 
-		void DriverImpl::initImpl(const DriverInitParameters& params, Window *window)
+		void DriverImpl::initDeviceImpl(const DeviceParameters& params)
 		{
 			createDevice();
-			createSwapChain(params, window);
-			initViewPort(window);
+		}
+
+		void DriverImpl::initImpl(const DriverInitParameters& params)
+		{
+			createSwapChain(params, getWindow());
+			initViewPort(getWindow());
 			initRenderTarget();
 		}
 
@@ -621,6 +625,11 @@ namespace engine
 		void DriverImpl::swapBufferImpl() 
 		{
 			_members->swapChain->Present(0, 0);
+		}
+
+		bool DriverImpl::checkDeviceSetupImpl()
+		{
+			return true;
 		}
 	}
 }
