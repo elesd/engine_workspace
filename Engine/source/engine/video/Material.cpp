@@ -11,6 +11,7 @@
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceStorage.h>
 #include <engine/video/VertexBuffer.h>
 
 namespace engine
@@ -23,6 +24,7 @@ namespace engine
 		MaterialDescription description;
 		std::string name;
 		std::string currentEffect;
+		std::unique_ptr<ShaderResourceStorage> resources;
 		MaterialPrivate(const std::string& name, const MaterialDescription& description)
 			: name(name) 
 			, description(description)
@@ -35,6 +37,7 @@ namespace engine
 	Material::Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
 		: _members(new MaterialPrivate(name, description))
 	{
+		_members->resources = renderContext->createResourceStorage(description.getParameters(), renderContext->getGlobalResources());
 		_members->effectCompiler = renderContext->createEffectCompiler(this);
 		setCurrentEffect(_members->currentEffect);
 	}
@@ -94,6 +97,16 @@ namespace engine
 	const std::string& Material::getMaterialName() const
 	{
 		return _members->name;
+	}
+
+	const ShaderResourceStorage* Material::getResources() const
+	{
+		return _members->resources.get();
+	}
+
+	ShaderResourceStorage* Material::getResources()
+	{
+		return _members->resources.get();
 	}
 
 

@@ -10,6 +10,7 @@ namespace engine
 	class Material;
 	class Shader;
 	class ShaderCompilationData;
+	class ShaderResourceStorage;
 
 
 	class Effect
@@ -17,7 +18,7 @@ namespace engine
 		, private NonMoveable
 	{
 	public:
-		Effect(const Material *material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader);
+		Effect(const Material *material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources);
 		~Effect();
 
 		void setCompiled(std::unique_ptr<EffectCompilationData>&& compilationData);
@@ -35,6 +36,9 @@ namespace engine
 
 		const EffectCompilationData* getCompilationData() const;
 		const Material* getMaterial() const;
+
+		const ShaderResourceStorage* getResources() const;
+		ShaderResourceStorage* getResources();
 	private:
 		void checkShaders() const;
 		const ShaderCompilationData* getCorrespondingData(Shader* shader) const;

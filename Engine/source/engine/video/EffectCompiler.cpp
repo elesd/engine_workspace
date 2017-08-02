@@ -5,30 +5,37 @@
 #include <engine/video/MaterialDescription.h>
 
 #include <engine/video/Effect.h>
+#include <engine/video/EffectDescription.h>
 #include <engine/video/EffectCompilationData.h>
 #include <engine/video/Driver.h>
 #include <engine/video/Material.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceStorage.h>
 
 namespace engine
 {
 	struct EffectCompilerPrivate
 	{
 		std::unique_ptr<ShaderCompiler> compiler;
-		const Material* material = nullptr;
+		Material* material = nullptr;
 		Driver* driver = nullptr;
-		EffectCompilerPrivate(const Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler)
+		EffectCompilerPrivate(Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler)
 			: compiler(std::move(compiler))
 			, material(material)
 			, driver(driver)
 		{ }
 	};
 
-	EffectCompiler::EffectCompiler(const Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler)
+	EffectCompiler::EffectCompiler(Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler)
 		: _members(new EffectCompilerPrivate(material, driver, std::move(compiler)))
 	{
-		_members->compiler->init(_members->material->getDescription().getTechniqueMap());
+		std::map<std::string, ShaderCompileOptions> techniques;
+		for(const auto& pair : _members->material->getDescription().getEffectMap())
+		{
+			techniques.insert(std::make_pair(pair.first, pair.second.getOptions()));
+		}
+		_members->compiler->init(techniques);
 	}
 
 	EffectCompiler::~EffectCompiler()
@@ -42,10 +49,14 @@ namespace engine
 	{
 		_members->compiler->compileShader(_members->material->getDescription().getVertexShader(), techniqueName);
 		_members->compiler->compileShader(_members->material->getDescription().getFragmentShader(), techniqueName);
+		std::unique_ptr<ShaderResourceStorage> resourceStorage = 
+			_members->driver->createResourceStorage(_members->material->getDescription().getEffectDescription(techniqueName).getParameters(), 
+													_members->material->getResources());
 		std::unique_ptr<Effect> effect = std::make_unique<Effect>(_members->material, 
 																  techniqueName, 
 																  _members->material->getDescription().getVertexShader(), 
-																  _members->material->getDescription().getFragmentShader());
+																  _members->material->getDescription().getFragmentShader(),
+																  std::move(resourceStorage));
 		_members->driver->compileEffect(effect.get());
 		return effect;
 	}

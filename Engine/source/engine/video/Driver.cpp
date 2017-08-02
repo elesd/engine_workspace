@@ -10,6 +10,9 @@
 #include <engine/video/EffectComperator.h>
 #include <engine/video/EffectCompilationData.h>
 #include <engine/video/RenderTarget.h>
+#include <engine/video/ShaderResourceStorage.h>
+#include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/ShaderResourceDescription.h>
 namespace
 {
 	enum class InitDriverParameterError
@@ -154,6 +157,22 @@ namespace engine
 	bool Driver::checkDeviceSetup()
 	{
 		return checkDeviceSetupImpl();
+	}
+
+	std::unique_ptr<ShaderResourceStorage> Driver::createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent)
+	{
+		std::unique_ptr<ShaderResourceHandler> resourceHandler = createShaderResourceHandler();
+		std::unique_ptr<ShaderResourceStorage> result = std::make_unique<ShaderResourceStorage>(std::move(resourceHandler), parent);
+		for(const ShaderResourceDescription& desc : description)
+		{
+			result->addResource(desc);
+		}
+		return result;
+	}
+
+	std::unique_ptr<ShaderResourceHandler> Driver::createShaderResourceHandler()
+	{
+		return createShaderResourceHandlerImpl();
 	}
 
 

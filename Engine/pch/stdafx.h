@@ -37,7 +37,7 @@
 // Math
 
 #include <glm/gtc/type_precision.hpp>
-
+#include <glm/common.hpp>
 // Macros
 
 #define ASSERT(cond) assert(cond)

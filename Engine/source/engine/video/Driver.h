@@ -17,6 +17,9 @@ namespace engine
 	class RenderTarget;
 	class Shader;
 	class ShaderCompileOptions;
+	class ShaderResourceStorage;
+	class ShaderResourceDescription;
+	class ShaderResourceHandler;
 	class Texture;
 	class VertexBuffer;
 	class WindowManager;
@@ -87,6 +90,9 @@ namespace engine
 		const DeviceParameters& getDeviceParameters() const;
 
 		bool checkDeviceSetup();
+		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent = nullptr);
+
+		std::unique_ptr<ShaderResourceHandler> createShaderResourceHandler();
 	protected:
 		Window* getWindow() const;
 
@@ -105,6 +111,7 @@ namespace engine
 		virtual void setRenderTargetImpl(RenderTarget* renderTarget) = 0;
 		virtual void swapBufferImpl() = 0;
 		virtual bool checkDeviceSetupImpl() = 0;
+		virtual std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() = 0;
 
 	private:
 		struct DriverPrivate* _members = nullptr;

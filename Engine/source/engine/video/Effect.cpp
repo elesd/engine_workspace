@@ -6,6 +6,7 @@
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceStorage.h>
 
 namespace engine
 {
@@ -15,18 +16,20 @@ namespace engine
 		Shader* fragmentShader = nullptr;
 		const Material* material = nullptr;
 		std::unique_ptr<EffectCompilationData> compilationData;
+		std::unique_ptr<ShaderResourceStorage> resources;
 		const std::string techniqueName;
-		EffectPrivate(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader)
+		EffectPrivate(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
 			: techniqueName(techniqueName)
 			, vertexShader(vertexShader)
 			, fragmentShader(fragmentShader)
 			, material(material)
+			, resources(std::move(resources))
 		{ }
 	};
 
 
-	Effect::Effect(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader)
-		: _members(new EffectPrivate(material, techniqueName, vertexShader, fragmentShader))
+	Effect::Effect(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
+		: _members(new EffectPrivate(material, techniqueName, vertexShader, fragmentShader, std::move(resources)))
 	{
 		checkShaders();
 	}
@@ -112,4 +115,13 @@ namespace engine
 		return _members->material;
 	}
 
+	const ShaderResourceStorage* Effect::getResources() const
+	{
+		return _members->resources.get();
+	}
+
+	ShaderResourceStorage* Effect::getResources()
+	{
+		return _members->resources.get();
+	}
 }

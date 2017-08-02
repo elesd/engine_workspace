@@ -5,14 +5,17 @@
 #include <engine/video/Material.h>
 
 #include <engine/video/AttributeFormat.h>
+#include <engine/video/EffectDescription.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/Shader.h>
+#include <engine/video/ShaderResourceDescription.h>
 
 namespace engine
 {
 	struct MaterialDescriptionPrivate
 	{
-		std::map<std::string, ShaderCompileOptions> techniqueMap;
+		std::map<std::string, EffectDescription> effectMap;
+		std::vector<ShaderResourceDescription> resourceDescriptions;
 		ShaderVersion version;
 		AttributeFormat attributeFormat;
 		Shader* vertexShader = nullptr;
@@ -20,6 +23,7 @@ namespace engine
 		explicit MaterialDescriptionPrivate(ShaderVersion version)
 			: version(version)
 		{ }
+
 	};
 
 	MaterialDescription::MaterialDescription(ShaderVersion version)
@@ -61,10 +65,10 @@ namespace engine
 		return *this;
 	}
 
-	void MaterialDescription::addTechnique(const std::string& name, const ShaderCompileOptions& compileOptions)
+	void MaterialDescription::addEffect(const EffectDescription& description)
 	{
-		ASSERT(_members->techniqueMap.find(name) == _members->techniqueMap.end());
-		_members->techniqueMap.insert(std::make_pair(name, compileOptions));
+		ASSERT(_members->effectMap.find(description.getName()) == _members->effectMap.end());
+		_members->effectMap.insert(std::make_pair(description.getName(), description));
 	}
 
 	void MaterialDescription::setAttributeFormat(const AttributeFormat& attributeFormat)
@@ -72,9 +76,9 @@ namespace engine
 		_members->attributeFormat = attributeFormat;
 	}
 
-	void MaterialDescription::setDefaultTechnique(const ShaderCompileOptions& compileOptions)
+	void MaterialDescription::setDefaultEffect(const EffectDescription& description)
 	{
-		_members->techniqueMap.insert(std::make_pair(Material::defaultEffectName, compileOptions));
+		_members->effectMap.insert(std::make_pair(Material::defaultEffectName, description));
 	}
 
 	void MaterialDescription::setVertexShader(Shader* vertexShader)
@@ -87,9 +91,21 @@ namespace engine
 		_members->fragmentShader = fragmentShader;
 	}
 
-	ShaderCompileOptions MaterialDescription::createEmptyOptions() const
+	void MaterialDescription::addParameter(const ShaderResourceDescription &description)
 	{
-		return ShaderCompileOptions(_members->version);
+		_members->resourceDescriptions.push_back(description);
+	}
+
+	const std::vector<ShaderResourceDescription>& MaterialDescription::getParameters() const
+	{
+		return _members->resourceDescriptions;
+	}
+
+	EffectDescription MaterialDescription::createEffectDescription(const std::string& name) const
+	{
+		ShaderCompileOptions options = ShaderCompileOptions(_members->version);
+		EffectDescription result(name, options);
+		return result;
 	}
 
 	const AttributeFormat& MaterialDescription::getAttributeFormat() const
@@ -112,15 +128,15 @@ namespace engine
 		return _members->fragmentShader;
 	}
 
-	const ShaderCompileOptions&  MaterialDescription::getOptions(const std::string& techniqueName) const
+	const EffectDescription&  MaterialDescription::getEffectDescription(const std::string& techniqueName) const
 	{
-		auto it = _members->techniqueMap.find(techniqueName);
-		ASSERT(it != _members->techniqueMap.end());
+		auto it = _members->effectMap.find(techniqueName);
+		ASSERT(it != _members->effectMap.end());
 		return it->second;
 	}
 
-	const std::map<std::string, ShaderCompileOptions>& MaterialDescription::getTechniqueMap() const
+	const std::map<std::string, EffectDescription>& MaterialDescription::getEffectMap() const
 	{
-		return _members->techniqueMap;
+		return _members->effectMap;
 	}
 }

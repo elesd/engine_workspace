@@ -16,6 +16,9 @@
 #include <engine/video/Driver.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
+#include <engine/video/ShaderResourceStorage.h>
+#include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/Shader.h>
 
 #include <engine/video/BufferContext.h>
@@ -41,6 +44,7 @@ namespace engine
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
+		std::unique_ptr<ShaderResourceStorage> globalResources;
 
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 			: driver(std::move(driver))
@@ -77,6 +81,7 @@ namespace engine
 	void RenderContext::init(const RenderContextParameters& params)
 	{
 		_members->driver->init(params.getDriverParameters());
+		_members->globalResources = _members->driver->createResourceStorage({});
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -136,12 +141,18 @@ namespace engine
 		return result;
 	}
 
-	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(const Material* material)
+	std::unique_ptr<EffectCompiler> RenderContext::createEffectCompiler(Material* material)
 	{
 		std::unique_ptr<ShaderCompiler> shaderCompiler = createShaderCompiler(material->getDescription().getShaderVersion(), material->getDescription().getAttributeFormat());
 		std::unique_ptr<EffectCompiler> effectCompiler(new EffectCompiler(material, _members->driver.get(), std::move(shaderCompiler)));
 		return effectCompiler;
 	}
+
+	std::unique_ptr<ShaderResourceStorage> RenderContext::createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent)
+	{
+		return _members->driver->createResourceStorage(description, parent);
+	}
+
 
 	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version, const AttributeFormat& attributeFormat) const
 	{
@@ -166,6 +177,16 @@ namespace engine
 		{
 			_members->currentEffect = material->getEffect();
 		}
+	}
+
+	ShaderResourceStorage* RenderContext::getGlobalResources()
+	{
+		return _members->globalResources.get();
+	}
+
+	const ShaderResourceStorage* RenderContext::getGlobalResources() const
+	{
+		return _members->globalResources.get();
 	}
 
 

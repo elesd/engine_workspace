@@ -12,6 +12,7 @@ namespace engine
 	class MaterialDescription;
 	class RenderContext;
 	class Shader;
+	class ShaderResourceStorage;
 	class VertexBuffer;
 
 	class Material
@@ -33,6 +34,9 @@ namespace engine
 
 		const AttributeFormat& getAttributeFormat() const;
 		const MaterialDescription& getDescription() const;
+		
+		const ShaderResourceStorage* getResources() const;
+		ShaderResourceStorage* getResources();
 	private:
 		struct MaterialPrivate* _members = nullptr;
 	};

@@ -19,6 +19,8 @@ namespace engine
 	class Render;
 	class RenderTarget;
 	class ShaderCompiler;
+	class ShaderResourceStorage;
+	class ShaderResourceDescription;
 	class Texture;
 	class Window;
 
@@ -66,7 +68,10 @@ namespace engine
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setMaterial(Material* material);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture) const;
-		std::unique_ptr<EffectCompiler> createEffectCompiler(const Material* material);
+		std::unique_ptr<EffectCompiler> createEffectCompiler(Material* material);
+		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent = nullptr);
+		ShaderResourceStorage* getGlobalResources();
+		const ShaderResourceStorage* getGlobalResources() const;
 	private:
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion, const AttributeFormat& attributeFormat) const;
 		struct RenderContextPrivate* _members = nullptr;

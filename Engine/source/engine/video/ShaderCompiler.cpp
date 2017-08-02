@@ -68,7 +68,15 @@ namespace engine
 
 	ShaderCompiler& ShaderCompiler::operator=(const ShaderCompiler& o)
 	{
-		(*_members) = *o._members;
+		if(o._members)
+		{
+			(*_members) = *o._members;
+		}
+		else
+		{
+			delete _members;
+			_members = nullptr;
+		}
 		return *this;
 	}
 

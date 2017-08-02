@@ -18,7 +18,7 @@ namespace engine
 	{
 		friend class RenderContext;
 	private:
-		EffectCompiler(const Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler);
+		EffectCompiler(Material* material, Driver* driver, std::unique_ptr<ShaderCompiler>&& compiler);
 	public:
 		~EffectCompiler();
 
