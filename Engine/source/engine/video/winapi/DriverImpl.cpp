@@ -19,8 +19,10 @@
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/VertexBuffer.h>
 #include <engine/video/winapi/BufferDescUtils.h>
-#include <engine/video/winapi/HLSLVSCompilationData.h>
+#include <engine/video/winapi/ConstantBufferObject.h>
 #include <engine/video/winapi/HLSLFSCompilationData.h>
+#include <engine/video/winapi/HLSLResourceHandler.h>
+#include <engine/video/winapi/HLSLVSCompilationData.h>
 #include <engine/video/winapi/IndexBufferObject.h>
 #include <engine/video/winapi/RenderTargetImpl.h>
 #include <engine/video/winapi/TextureImpl.h>
@@ -176,24 +178,24 @@ namespace
 		switch(type)
 		{
 			case engine::GPUMemberType::Float:
-			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
-			break;
+				return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
+				break;
 			case engine::GPUMemberType::Vec2:
-			return DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
-			break;
+				return DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT;
+				break;
 			case engine::GPUMemberType::Vec3:
-			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
-			break;
+				return DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT;
+				break;
 			case engine::GPUMemberType::Vec4:
-			return DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
-			break;
+				return DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT;
+				break;
 			case engine::GPUMemberType::Mat3:
 			case engine::GPUMemberType::Mat4:
 			case engine::GPUMemberType::Undef:
 			default:
-			HARD_FAIL("Unsupported format for attribute");
-			return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
-			break;
+				HARD_FAIL("Unsupported format for attribute");
+				return DXGI_FORMAT::DXGI_FORMAT_R32_FLOAT;
+				break;
 		}
 	}
 
@@ -262,6 +264,22 @@ namespace engine
 			}
 		}
 
+		void DriverImpl::bind(ConstantBufferObject* vertexBuffer)
+		{
+			D3D11_MAPPED_SUBRESOURCE map = {0};
+			_members->deviceContext->Map(vertexBuffer->getBufferInterface(),
+										 0,
+										 D3D11_MAP_WRITE_DISCARD,
+										 0, &map);
+			vertexBuffer->setBindResource(map);
+		}
+
+		void DriverImpl::unbind(ConstantBufferObject* vertexBuffer)
+		{
+			_members->deviceContext->Unmap(vertexBuffer->getBufferInterface(), NULL);
+			vertexBuffer->setBindResource(D3D11_MAPPED_SUBRESOURCE());
+		}
+
 		void DriverImpl::bind(IndexBufferObject* vertexBuffer)
 		{
 			D3D11_MAPPED_SUBRESOURCE map = {0};
@@ -281,8 +299,8 @@ namespace engine
 		void DriverImpl::bind(VertexBufferObject* vertexBuffer)
 		{
 			D3D11_MAPPED_SUBRESOURCE map = {0};
-			_members->deviceContext->Map(vertexBuffer->getBufferInterface(), 
-										 0, 
+			_members->deviceContext->Map(vertexBuffer->getBufferInterface(),
+										 0,
 										 D3D11_MAP_WRITE_DISCARD,
 										 0, &map);
 			vertexBuffer->setBindResource(map);
@@ -294,10 +312,10 @@ namespace engine
 			vertexBuffer->setBindResource(D3D11_MAPPED_SUBRESOURCE());
 		}
 
-		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description)
+		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description, D3D11_SUBRESOURCE_DATA* initData)
 		{
 			ID3D11Buffer* result;
-			_members->device->CreateBuffer(&description, nullptr, &result);
+			_members->device->CreateBuffer(&description, initData, &result);
 			return result;
 		}
 
@@ -452,13 +470,13 @@ namespace engine
 			switch(bufferContext->getIndexBuffer()->getPrimitiveType())
 			{
 				case PrimitiveType::Triangle:
-				// TODO Check overhead
-				_members->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-				break;
+					// TODO Check overhead
+					_members->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+					break;
 				default:
-				FAIL("Unknown primitive type");
-				break;
-				
+					FAIL("Unknown primitive type");
+					break;
+
 			}
 			_members->deviceContext->DrawIndexed(bufferContext->getIndexBuffer()->count(), 0, 0);
 		}
@@ -480,9 +498,25 @@ namespace engine
 			size_t offset = 0;
 			IndexBufferObject* indexBuffer = static_cast<IndexBufferObject*>(mappedObject);
 			ID3D11Buffer* buffer = indexBuffer->getBufferInterface();
-			DXGI_FORMAT format = indicies->getStride() == 4? DXGI_FORMAT_R32_UINT
+			DXGI_FORMAT format = indicies->getStride() == 4 ? DXGI_FORMAT_R32_UINT
 				: DXGI_FORMAT_R16_UINT;
 			_members->deviceContext->IASetIndexBuffer(buffer, format, 0);
+		}
+
+		void DriverImpl::setConstantBufferObject(ShaderType type, uint32_t slot, const ConstantBufferObject* constantBuffer)
+		{
+			ID3D11Buffer* buffer = constantBuffer->getBufferInterface();
+			switch(type)
+			{
+				case ShaderType::VertexShader:
+					_members->deviceContext->VSSetConstantBuffers(slot, 1, &buffer);
+					break;
+				case ShaderType::FragmentShader:
+					_members->deviceContext->PSSetConstantBuffers(slot, 1, &buffer);
+				default:
+					FAIL("Unknown shader type at constant buffer setter");
+					break;
+			}
 		}
 
 		void DriverImpl::setRenderTargetImpl(RenderTarget* renderTarget)
@@ -517,8 +551,8 @@ namespace engine
 				}
 				break;
 				default:
-				FAIL("Unimplemented shader type"); 
-				break;
+					FAIL("Unimplemented shader type");
+					break;
 			}
 		}
 
@@ -555,7 +589,7 @@ namespace engine
 										&compileData.errorMessage);
 
 			std::unique_ptr<ShaderCompilationData> resultData = createShaderCompilationData(shader->getShaderType(), options);
-			
+
 			if(FAILED(result))
 			{
 				resultData->setError(getStringFromBlob(compileData.errorMessage));
@@ -572,7 +606,7 @@ namespace engine
 					break;
 					case ShaderType::VertexShader:
 					{
-						createD3DVertexShaderInto(compiledCode, resultData.get(), attributeFormat);				
+						createD3DVertexShaderInto(compiledCode, resultData.get(), attributeFormat);
 					}
 					break;
 					default: FAIL("Unimplemented shader type"); break;
@@ -622,7 +656,7 @@ namespace engine
 			}
 		}
 
-		void DriverImpl::swapBufferImpl() 
+		void DriverImpl::swapBufferImpl()
 		{
 			_members->swapChain->Present(0, 0);
 		}
@@ -630,6 +664,11 @@ namespace engine
 		bool DriverImpl::checkDeviceSetupImpl()
 		{
 			return true;
+		}
+
+		std::unique_ptr<ShaderResourceHandler> DriverImpl::createShaderResourceHandlerImpl()
+		{
+			return std::make_unique<HLSLResourceHandler>(this);
 		}
 	}
 }

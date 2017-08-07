@@ -16,11 +16,15 @@ namespace engine
 	class Shader;
 	class VertexBuffer;
 	class Window;
+
+	enum class ShaderType;
+
 	namespace winapi
 	{
 		class TextureImpl;
 		class VertexBufferObject;
 		class IndexBufferObject;
+		class ConstantBufferObject;
 
 		/**
 		* Video driver implementation for winapi
@@ -34,14 +38,18 @@ namespace engine
 			/**For PIMPL*/
 			~DriverImpl() override;
 			
+			void bind(ConstantBufferObject* vertexBuffer);
 			void bind(VertexBufferObject* vertexBuffer);
 			void bind(IndexBufferObject* vertexBuffer);
+			
+			void unbind(ConstantBufferObject* vertexBuffer);
 			void unbind(VertexBufferObject* vertexBuffer);
 			void unbind(IndexBufferObject* vertexBuffer);
-			ID3D11Buffer* createBuffer(const D3D11_BUFFER_DESC& description);
+			ID3D11Buffer* createBuffer(const D3D11_BUFFER_DESC& description, D3D11_SUBRESOURCE_DATA* initData = nullptr);
 
 			void setCurrentVertexBuffer(const VertexBuffer* verticies);
 			void setCurrentIndexBuffer(const IndexBufferBase* indicies);
+			void setConstantBufferObject(ShaderType type, uint32_t slot, const ConstantBufferObject * constantBuffer);
 		private:
 			void initDeviceImpl(const DeviceParameters& params) override;
 			/**Initialize based on the given window*/
@@ -57,6 +65,7 @@ namespace engine
 			void swapBufferImpl() override;
 
 			bool checkDeviceSetupImpl() override;
+			std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() override;
 
 			void createDevice();
 			void createSwapChain(const DriverInitParameters& params, Window *window);

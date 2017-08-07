@@ -86,7 +86,7 @@ namespace engine
 
 		bool VertexBufferObject::isBound() const
 		{
-			return getBindResource() != nullptr;
+			return getBindResource()->pData != nullptr;
 		}
 
 		D3D11_MAPPED_SUBRESOURCE* VertexBufferObject::getBindResource() const

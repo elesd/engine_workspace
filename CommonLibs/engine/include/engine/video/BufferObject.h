@@ -14,11 +14,14 @@ namespace engine
 	class Driver;
 	class BufferObject
 		: private NonCopyable
+		, private NonMoveable
 	{
 	protected:
 		BufferObject() = default;
+
 	public:
 		virtual ~BufferObject() {};
+
 
 		virtual void bind() = 0;
 		virtual void unbind() = 0;

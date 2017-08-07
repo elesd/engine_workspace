@@ -123,6 +123,7 @@ namespace engine
 
 	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)
 	{
+		effect->getResources()->commitResources();
 		if(effect->getCompilationData()->isSupportSeparatePrograms())
 		{
 			if(effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))

@@ -29,7 +29,8 @@ namespace engine
 	MaterialDescription::MaterialDescription(ShaderVersion version)
 		: _members(new MaterialDescriptionPrivate(version))
 	{
-
+		EffectDescription defaultEffect = createEffectDescription(engine::Material::defaultEffectName);
+		setDefaultEffect(defaultEffect);
 	}
 
 	MaterialDescription::~MaterialDescription()
@@ -96,6 +97,16 @@ namespace engine
 		_members->resourceDescriptions.push_back(description);
 	}
 
+	EffectDescription& MaterialDescription::getDefaultEffect()
+	{
+		return getEffectDescription(Material::defaultEffectName);
+	}
+
+	const EffectDescription& MaterialDescription::getDefaultEffect() const
+	{
+		return getEffectDescription(Material::defaultEffectName);
+	}
+
 	const std::vector<ShaderResourceDescription>& MaterialDescription::getParameters() const
 	{
 		return _members->resourceDescriptions;
@@ -129,6 +140,13 @@ namespace engine
 	}
 
 	const EffectDescription&  MaterialDescription::getEffectDescription(const std::string& techniqueName) const
+	{
+		auto it = _members->effectMap.find(techniqueName);
+		ASSERT(it != _members->effectMap.end());
+		return it->second;
+	}
+
+	EffectDescription&  MaterialDescription::getEffectDescription(const std::string& techniqueName) 
 	{
 		auto it = _members->effectMap.find(techniqueName);
 		ASSERT(it != _members->effectMap.end());

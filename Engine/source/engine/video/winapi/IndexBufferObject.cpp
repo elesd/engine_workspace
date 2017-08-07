@@ -91,7 +91,7 @@ namespace engine
 		
 		bool IndexBufferObject::isBound() const
 		{
-			return getBindResource() != nullptr;
+			return getBindResource()->pData != nullptr;
 		}
 
 		void IndexBufferObject::setBindResource(const D3D11_MAPPED_SUBRESOURCE& mapData)

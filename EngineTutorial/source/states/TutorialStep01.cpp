@@ -14,12 +14,16 @@
 #include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
 #include <engine/video/EffectCompiler.h>
+#include <engine/video/EffectDescription.h>
 #include <engine/video/GPUTypes.h>
 #include <engine/video/IndexBuffer.h>
 #include <engine/video/Material.h>
 #include <engine/video/MaterialDescription.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceDescription.h>
+#include <engine/video/ShaderResourceStorage.h>
+#include <engine/video/winapi/HLSLResourceBinding.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/view/Console.h>
@@ -155,12 +159,15 @@ namespace states
 #endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
-		engine::ShaderCompileOptions options = description.createEmptyOptions();
-		options.addFlag(engine::ShaderCompileFlag::Debug);
+		description.addParameter(engine::ShaderResourceDescription("instanceColor", 
+								 engine::GPUMemberType::Vec4, 
+								 std::unique_ptr<engine::ShaderResourceBinding>(new engine::winapi::HLSLResourceBinding(0, {engine::ShaderType::VertexShader}))));
+
+		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
-		description.setDefaultTechnique(options);
 		
 		return std::make_unique<engine::Material>("Simple", description, _members->renderContext);
+
 	}
 
 	void TutorialStep01::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)

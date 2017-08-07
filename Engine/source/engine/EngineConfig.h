@@ -23,7 +23,7 @@ namespace engine
 			/** Creation month of the version.*/
 			const std::string month = "08";
 			/** Creation day of the version.*/
-			const std::string day = "02";
+			const std::string day = "07";
 		};
 		
 		/**Creates a concrate version based on its definition.*/
