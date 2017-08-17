@@ -24,34 +24,34 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, float value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, float value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const glm::vec2& value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, const glm::vec2& value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const glm::vec3& value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, const glm::vec3& value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const glm::vec4& value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, const glm::vec4& value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const glm::mat3& value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, const glm::mat3& value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
-	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const glm::mat4& value)
+	void ShaderResourceHandler::commitValue(const ShaderResourceDescription& description, const ShaderResourceBinding* binding, const glm::mat4& value)
 	{
-		commitValueImpl(description, value);
+		commitValueImpl(description, binding, value);
 	}
 
 	std::unique_ptr<ShaderResourceHandler> ShaderResourceHandler::ShaderResourceHandler::clone() const

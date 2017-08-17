@@ -63,7 +63,7 @@ namespace engine
 
 	void AttributeFormat::insertAttribute(GPUMemberType type, uint32_t layout, const std::string& name)
 	{
-		ASSERT(GPUMemberTypeTraits::isAttributeType(type));
+		ASSERT(GPUMemberTypeInfo::isAttributeType(type));
 		_members->layouts[layout] = ShaderLayout({type, name});
 	}
 

@@ -2,7 +2,7 @@
 #include <engine/video/ShaderResourceDescription.h>
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <engine/video/ShaderResourceBinding.h>
+#include <engine/video/ShaderResourceBindingData.h>
 #include <engine/video/GPUTypes.h>
 
 namespace engine
@@ -11,30 +11,30 @@ namespace engine
 	{
 		std::string name;
 		GPUMemberType type;
-		std::unique_ptr<ShaderResourceBinding> bindingData;
-		ShaderResourceDescriptionPrivate(const std::string& name, GPUMemberType type, std::unique_ptr<ShaderResourceBinding>&& bindingData)
+		ShaderResourceBindingData bindingData;
+		ShaderResourceDescriptionPrivate(const std::string& name, GPUMemberType type, const ShaderResourceBindingData& bindingData)
 			: name(name)
 			, type(type)
-			, bindingData(std::move(bindingData))
+			, bindingData(bindingData)
 		{		}
 
 		ShaderResourceDescriptionPrivate(const ShaderResourceDescriptionPrivate& o)
 			:name(o.name)
 			, type(o.type)
-			, bindingData(o.bindingData->clone())
+			, bindingData(o.bindingData)
 		{		}
 
 		ShaderResourceDescriptionPrivate& operator=(const ShaderResourceDescriptionPrivate& o)
 		{
 			name = o.name;
 			type = o.type;
-			bindingData = o.bindingData->clone();
+			bindingData = o.bindingData;
 			return *this;
 		}
 	};
 
-	ShaderResourceDescription::ShaderResourceDescription(const std::string &name, GPUMemberType type, std::unique_ptr<ShaderResourceBinding>&& bindingData)
-		: _members(new ShaderResourceDescriptionPrivate(name, type, std::move(bindingData)))
+	ShaderResourceDescription::ShaderResourceDescription(const std::string &name, GPUMemberType type, const ShaderResourceBindingData& bindingData)
+		: _members(new ShaderResourceDescriptionPrivate(name, type, bindingData))
 	{
 
 	}
@@ -89,9 +89,9 @@ namespace engine
 		return _members->type;
 	}
 
-	const ShaderResourceBinding* ShaderResourceDescription::getResourceBinding() const
+	const ShaderResourceBindingData& ShaderResourceDescription::getResourceBindingData() const
 	{
-		return _members->bindingData.get();
+		return _members->bindingData;
 	}
 
 

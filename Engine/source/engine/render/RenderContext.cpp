@@ -14,9 +14,9 @@
 #include <engine/video/BufferObject.h>
 #include <engine/video/BufferObjectFactory.h>
 #include <engine/video/Driver.h>
+#include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
-#include <engine/video/ShaderResourceStorage.h>
 #include <engine/video/ShaderResourceHandler.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/Shader.h>
@@ -44,7 +44,7 @@ namespace engine
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
-		std::unique_ptr<ShaderResourceStorage> globalResources;
+		std::unique_ptr<GlobalShaderResourceStorage> globalResources;
 
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 			: driver(std::move(driver))
@@ -81,7 +81,7 @@ namespace engine
 	void RenderContext::init(const RenderContextParameters& params)
 	{
 		_members->driver->init(params.getDriverParameters());
-		_members->globalResources = _members->driver->createResourceStorage({});
+		_members->globalResources = std::make_unique<GlobalShaderResourceStorage>();
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -148,12 +148,6 @@ namespace engine
 		return effectCompiler;
 	}
 
-	std::unique_ptr<ShaderResourceStorage> RenderContext::createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent)
-	{
-		return _members->driver->createResourceStorage(description, parent);
-	}
-
-
 	std::unique_ptr<ShaderCompiler> RenderContext::createShaderCompiler(ShaderVersion version, const AttributeFormat& attributeFormat) const
 	{
 		return std::unique_ptr<ShaderCompiler>(new ShaderCompiler(_members->driver.get(), version, attributeFormat));
@@ -179,12 +173,12 @@ namespace engine
 		}
 	}
 
-	ShaderResourceStorage* RenderContext::getGlobalResources()
+	GlobalShaderResourceStorage* RenderContext::getGlobalResources()
 	{
 		return _members->globalResources.get();
 	}
 
-	const ShaderResourceStorage* RenderContext::getGlobalResources() const
+	const GlobalShaderResourceStorage* RenderContext::getGlobalResources() const
 	{
 		return _members->globalResources.get();
 	}

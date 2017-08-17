@@ -66,6 +66,8 @@ namespace engine
 
 			bool checkDeviceSetupImpl() override;
 			std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() override;
+			std::unique_ptr<ShaderResourceBinding> bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect) override;
+
 
 			void createDevice();
 			void createSwapChain(const DriverInitParameters& params, Window *window);

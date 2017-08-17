@@ -16,11 +16,14 @@
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderCompiler.h>
+#include <engine/video/ShaderResourceBindingData.h>
+#include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/VertexBuffer.h>
 #include <engine/video/winapi/BufferDescUtils.h>
 #include <engine/video/winapi/ConstantBufferObject.h>
 #include <engine/video/winapi/HLSLFSCompilationData.h>
+#include <engine/video/winapi/HLSLResourceBinding.h>
 #include <engine/video/winapi/HLSLResourceHandler.h>
 #include <engine/video/winapi/HLSLVSCompilationData.h>
 #include <engine/video/winapi/IndexBufferObject.h>
@@ -669,6 +672,16 @@ namespace engine
 		std::unique_ptr<ShaderResourceHandler> DriverImpl::createShaderResourceHandlerImpl()
 		{
 			return std::make_unique<HLSLResourceHandler>(this);
+		}
+
+		std::unique_ptr<ShaderResourceBinding> DriverImpl::bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect)
+		{
+			ASSERT(desc.getResourceBindingData().hasLayout() && "Layout must be defined");
+
+			const ShaderResourceBindingData& bindingData = desc.getResourceBindingData();
+			std::unique_ptr<ShaderResourceBinding> result(new HLSLResourceBinding(bindingData.getLayout(), bindingData.getShaderTypes()));
+			
+			return result;
 		}
 	}
 }

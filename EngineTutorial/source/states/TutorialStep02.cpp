@@ -4,6 +4,9 @@
 
 #include <engine/Context.h>
 
+#include <engine/events/EventManager.h>
+#include <engine/events/Keyboard.h>
+
 #include <engine/fileSystem/FilePath.h>
 
 #include <engine/render/RenderContext.h>
@@ -17,13 +20,14 @@
 #include <engine/video/EffectDescription.h>
 #include <engine/video/GPUTypes.h>
 #include <engine/video/IndexBuffer.h>
+#include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/Material.h>
 #include <engine/video/MaterialDescription.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/ShaderResourceStorage.h>
-#include <engine/video/winapi/HLSLResourceBinding.h>
+#include <engine/video/ShaderResourceBindingData.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/view/Console.h>
@@ -43,9 +47,12 @@ namespace states
 		std::unique_ptr<engine::Shader> fs;
 
 		std::unique_ptr<engine::Mesh> triangle;
+
+		glm::vec4 instanceColor;
 		explicit TutorialStep02Private(engine::Window* window)
 			: window(window)
 			, renderContext(window->getRenderContext())
+			, instanceColor(0.5f, 0.0f, 0.0f, 0.0f)
 		{ }
 	};
 
@@ -68,6 +75,7 @@ namespace states
 		initShaders();
 		initTriangle();
 		_members->renderPipeline->getRenderPass(renderPasses::TutorialStep02::Passes::Solid)->addObject(_members->triangle.get());
+		createConnections();
 	}
 
 	void TutorialStep02::destroyState()
@@ -92,6 +100,11 @@ namespace states
 	void TutorialStep02::renderState()
 	{
 		_members->render->render();
+	}
+
+	engine::ISignalManager* TutorialStep02::getSignalManager() const
+	{
+		return _members->window->getEventManager()->getEventsSignalManager();
 	}
 
 	void TutorialStep02::initRender()
@@ -151,7 +164,7 @@ namespace states
 #if TUTORIAL_USE_WINAPI
 		result.push_back(engine::ShaderResourceDescription("instanceColor",
 						 engine::GPUMemberType::Vec4,
-						 std::unique_ptr<engine::ShaderResourceBinding>(new engine::winapi::HLSLResourceBinding(0, {engine::ShaderType::VertexShader}))));
+						 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
 #endif
 		return result;
 	}
@@ -202,7 +215,7 @@ namespace states
 		description.setAttributeFormat(layout);
 
 		std::unique_ptr<engine::Material> result = std::make_unique<engine::Material>("Simple", description, _members->renderContext);
-		result->getResources()->setVec4("instanceColor", glm::vec4(0.5f, 0.0f, 0.0f, 0.0f));
+		result->getResources()->setVec4("instanceColor", _members->instanceColor);
 		return result;
 	}
 
@@ -234,5 +247,25 @@ namespace states
 			0, 1, 2
 		};
 		bufferContext->setupIndexBuffer(engine::PrimitiveType::Triangle, data);
+	}
+
+	void TutorialStep02::createConnections()
+	{
+		engine::Keyboard* keyboard = _members->window->getEventManager()->findEventSource<engine::Keyboard>()[0];
+		CONNECT_SIGNAL(keyboard, keyReleased, this, onKeyUp);
+	}
+
+	void TutorialStep02::onKeyUp(engine::KeyboardButton button)
+	{
+		switch(button)
+		{
+			case engine::KeyboardButton::Key_Up:
+				_members->instanceColor.r = (std::min)(1.0f, _members->instanceColor.r + 0.1f);
+				break;
+			case engine::KeyboardButton::Key_Down:
+				_members->instanceColor.r = (std::max)(0.0f, _members->instanceColor.r - 0.1f);
+				break;
+		}		
+		_members->triangle->getMaterial()->getResources()->setVec4("instanceColor", _members->instanceColor);
 	}
 }

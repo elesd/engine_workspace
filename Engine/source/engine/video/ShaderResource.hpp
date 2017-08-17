@@ -1,4 +1,5 @@
 
+
 namespace engine
 {
 
@@ -38,16 +39,40 @@ namespace engine
 	}
 
 	template<GPUMemberType Type>
-	const typename ShaderResourceTraits<Type>::ValueType& ShaderResource<Type>::getValue() const
+	const typename GPUMemberTypeTraits<Type>::ValueType& ShaderResource<Type>::getValue() const
 	{
 		return _value;
 	}
 
 	template<GPUMemberType Type>
-	void ShaderResource<Type>::setValue(const typename ShaderResourceTraits<Type>::ValueType& value)
+	void ShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& value)
 	{
 		_value = value;
 		_changed = true;
+	}
+
+	template<GPUMemberType Type>
+	void ShaderResource<Type>::bind(std::unique_ptr<ShaderResourceBinding>&& binding)
+	{
+		_binding = std::move(binding);
+	}
+
+	template<GPUMemberType Type>
+	bool ShaderResource<Type>::isBound() const
+	{
+		return _binding != nullptr;
+	}
+
+	template<GPUMemberType Type>
+	ShaderResourceBinding* ShaderResource<Type>::getBinding()
+	{
+		return _binding.get();
+	}
+
+	template<GPUMemberType Type>
+	const ShaderResourceDescription& ShaderResource<Type>::getDescription() const
+	{
+		return _description;
 	}
 
 	template<GPUMemberType Type>
@@ -56,7 +81,7 @@ namespace engine
 		ASSERT(_resourceHandler != nullptr);
 		if(_changed)
 		{
-			_resourceHandler->commitValue(_description, _value);
+			_resourceHandler->commitValue(_description, _binding.get(), _value);
 			_changed = false;
 		}
 	}

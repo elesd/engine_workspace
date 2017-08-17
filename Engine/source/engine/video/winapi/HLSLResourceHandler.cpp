@@ -33,51 +33,51 @@ namespace engine
 		{
 		}
 
-		void HLSLResourceHandler::commitValue(const ShaderResourceDescription& desc, const ConstantBufferObject& buffer)
+		void HLSLResourceHandler::commitValue(const ShaderResourceBinding* binding, const ConstantBufferObject& buffer)
 		{
 			DriverImpl* winapiDrv = static_cast<DriverImpl*>(getDriver());
-			const HLSLResourceBinding* binding = static_cast<const HLSLResourceBinding*>(desc.getResourceBinding());
+			const HLSLResourceBinding* winapiBinding = static_cast<const HLSLResourceBinding*>(binding);
 
-			for(ShaderType type : binding->getShaderTypes())
+			for(ShaderType type : winapiBinding->getShaderTypes())
 			{
-				winapiDrv->setConstantBufferObject(type, binding->getBufferId(), &buffer);
+				winapiDrv->setConstantBufferObject(type, winapiBinding->getBufferId(), &buffer);
 			}
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, float value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, float value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const glm::vec2& value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::vec2& value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const glm::vec3& value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::vec3& value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const glm::vec4& value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::vec4& value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const glm::mat3& value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::mat3& value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
-		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const glm::mat4& value)
+		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::mat4& value)
 		{
 			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
-			commitValue(desc, tempBuffer);
+			commitValue(binding, tempBuffer);
 		}
 
 		std::unique_ptr<ShaderResourceHandler> HLSLResourceHandler::cloneImpl() const

@@ -17,9 +17,11 @@ namespace engine
 	class RenderTarget;
 	class Shader;
 	class ShaderCompileOptions;
+	class GlobalShaderResourceStorage;
 	class ShaderResourceStorage;
 	class ShaderResourceDescription;
 	class ShaderResourceHandler;
+	class ShaderResourceBinding;
 	class Texture;
 	class VertexBuffer;
 	class WindowManager;
@@ -83,6 +85,7 @@ namespace engine
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture);
 		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
 		void compileEffect(Effect* effect);
+		std::unique_ptr<ShaderResourceBinding> bindResource(const ShaderResourceDescription& desc, Effect* effect);
 		void setEffect(Effect *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
 		void swapBuffer();
@@ -90,7 +93,7 @@ namespace engine
 		const DeviceParameters& getDeviceParameters() const;
 
 		bool checkDeviceSetup();
-		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent = nullptr);
+		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, GlobalShaderResourceStorage* parent = nullptr);
 
 		std::unique_ptr<ShaderResourceHandler> createShaderResourceHandler();
 	protected:
@@ -112,6 +115,7 @@ namespace engine
 		virtual void swapBufferImpl() = 0;
 		virtual bool checkDeviceSetupImpl() = 0;
 		virtual std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() = 0;
+		virtual std::unique_ptr<ShaderResourceBinding> bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect) = 0;
 
 	private:
 		struct DriverPrivate* _members = nullptr;

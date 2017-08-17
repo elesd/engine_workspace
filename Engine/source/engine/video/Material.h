@@ -35,8 +35,9 @@ namespace engine
 		const AttributeFormat& getAttributeFormat() const;
 		const MaterialDescription& getDescription() const;
 		
-		const ShaderResourceStorage* getResources() const;
-		ShaderResourceStorage* getResources();
+		GlobalShaderResourceStorage* getResources() const;
+	private:
+		void initShaderResources();
 	private:
 		struct MaterialPrivate* _members = nullptr;
 	};

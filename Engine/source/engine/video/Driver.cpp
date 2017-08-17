@@ -9,10 +9,12 @@
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
 #include <engine/video/EffectCompilationData.h>
+#include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/RenderTarget.h>
-#include <engine/video/ShaderResourceStorage.h>
-#include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/ShaderResourceBinding.h>
 #include <engine/video/ShaderResourceDescription.h>
+#include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/ShaderResourceStorage.h>
 namespace
 {
 	enum class InitDriverParameterError
@@ -111,6 +113,11 @@ namespace engine
 		compileEffectImpl(effect);
 	}
 
+	std::unique_ptr<ShaderResourceBinding> Driver::bindResource(const ShaderResourceDescription& desc, Effect* effect)
+	{
+		return bindResourceImpl(desc, effect);
+	}
+
 	void Driver::setRenderTarget(RenderTarget* renderTarget)
 	{
 		setRenderTargetImpl(renderTarget);
@@ -160,10 +167,17 @@ namespace engine
 		return checkDeviceSetupImpl();
 	}
 
-	std::unique_ptr<ShaderResourceStorage> Driver::createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent)
+	std::unique_ptr<ShaderResourceStorage> Driver::createResourceStorage(const std::vector<ShaderResourceDescription>& description, GlobalShaderResourceStorage* parent)
 	{
 		std::unique_ptr<ShaderResourceHandler> resourceHandler = createShaderResourceHandler();
 		std::unique_ptr<ShaderResourceStorage> result = std::make_unique<ShaderResourceStorage>(std::move(resourceHandler), parent);
+		if(parent)
+		{
+			for(const ShaderResourceDescription& desc : parent->collectResources())
+			{
+				result->addResource(desc);
+			}
+		}
 		for(const ShaderResourceDescription& desc : description)
 		{
 			result->addResource(desc);

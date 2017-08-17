@@ -69,9 +69,8 @@ namespace engine
 		void setMaterial(Material* material);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture) const;
 		std::unique_ptr<EffectCompiler> createEffectCompiler(Material* material);
-		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, ShaderResourceStorage* parent = nullptr);
-		ShaderResourceStorage* getGlobalResources();
-		const ShaderResourceStorage* getGlobalResources() const;
+		GlobalShaderResourceStorage* getGlobalResources();
+		const GlobalShaderResourceStorage* getGlobalResources() const;
 	private:
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion, const AttributeFormat& attributeFormat) const;
 		struct RenderContextPrivate* _members = nullptr;

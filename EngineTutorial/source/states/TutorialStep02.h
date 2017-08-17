@@ -1,6 +1,7 @@
 #pragma once
 
 #include <engine/stateStack/StateBase.h>
+#include <engine/signalSlot/SlotHolder.h>
 namespace engine
 {
 	class BufferContext;
@@ -9,17 +10,21 @@ namespace engine
 	class ShaderResourceDescription;
 	class VertexBuffer;
 	class Window;
+
+	enum class KeyboardButton;
 }
 
 namespace states
 {
 	class TutorialStep02
 		: public engine::StateBase
+		, public engine::SlotHolder
 	{
 	public:
 		explicit TutorialStep02(engine::Window *window);
 		~TutorialStep02() override;
 
+		engine::ISignalManager* getSignalManager() const override;
 	private:
 		void initState() override;
 		void destroyState() override;
@@ -38,9 +43,13 @@ namespace states
 		void loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext);
 		void loadTriangleIndicies(engine::BufferContext*);
 
-		struct TutorialStep02Private* _members = nullptr;
 		std::vector<engine::ShaderResourceDescription> createMaterialParameters() const;
 		std::vector<engine::ShaderResourceDescription> createHLSLMaterialParameters() const;
 		std::vector<engine::ShaderResourceDescription> createGLSLMaterialParameters() const;
+
+		void createConnections();
+		void onKeyUp(engine::KeyboardButton);
+	private:
+		struct TutorialStep02Private* _members = nullptr;
 	};
 }

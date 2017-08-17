@@ -23,7 +23,8 @@ namespace engine
 		~EffectCompiler();
 
 		std::unique_ptr<Effect> compileEffect(const std::string& techniqueName);
-
+	private:
+		void bindResources(Effect* effect) const;
 	private:
 		struct EffectCompilerPrivate* _members = nullptr;
 	};

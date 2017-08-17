@@ -4,20 +4,17 @@
 
 namespace engine
 {
-	bool GPUMemberTypeTraits::isAttributeType(GPUMemberType type)
+	bool GPUMemberTypeInfo::isAttributeType(GPUMemberType type)
 	{
 		switch(type)
 		{
-			case engine::GPUMemberType::Float:
-			case engine::GPUMemberType::Vec2:
-			case engine::GPUMemberType::Vec3:
-			case engine::GPUMemberType::Vec4:
-				return true;
-			case engine::GPUMemberType::Mat3:
-			case engine::GPUMemberType::Mat4:
-				return false;
-				break;
-			case engine::GPUMemberType::Undef:
+			case GPUMemberType::Float: return GPUMemberTypeTraits<GPUMemberType::Float>::isAttributeType;
+			case GPUMemberType::Vec2:  return GPUMemberTypeTraits<GPUMemberType::Vec2>::isAttributeType;
+			case GPUMemberType::Vec3:  return GPUMemberTypeTraits<GPUMemberType::Vec3>::isAttributeType;
+			case GPUMemberType::Vec4:  return GPUMemberTypeTraits<GPUMemberType::Vec4>::isAttributeType;
+			case GPUMemberType::Mat3:  return GPUMemberTypeTraits<GPUMemberType::Mat3>::isAttributeType;
+			case GPUMemberType::Mat4:  return GPUMemberTypeTraits<GPUMemberType::Mat4>::isAttributeType;
+			case GPUMemberType::Undef:
 			default:
 				FAIL("Undefined GPU member type");
 				return false;
@@ -25,28 +22,16 @@ namespace engine
 		}
 	}
 
-	size_t GPUMemberTypeTraits::getSize(GPUMemberType type)
+	size_t GPUMemberTypeInfo::getSize(GPUMemberType type)
 	{
 		switch(type)
 		{
-			case engine::GPUMemberType::Float:
-				return 4;
-				break;
-			case engine::GPUMemberType::Vec2:
-				return 4 * 2;
-				break;
-			case engine::GPUMemberType::Vec3:
-				return 4 * 3;
-				break;
-			case engine::GPUMemberType::Vec4:
-				return 4 * 4;
-				break;
-			case engine::GPUMemberType::Mat3:
-				return 4 * 3 * 3;
-				break;
-			case engine::GPUMemberType::Mat4:
-				return 4 * 4 * 4;
-				break;
+			case GPUMemberType::Float: return GPUMemberTypeTraits<GPUMemberType::Float>::size;
+			case GPUMemberType::Vec2:  return GPUMemberTypeTraits<GPUMemberType::Vec2>::size;
+			case GPUMemberType::Vec3:  return GPUMemberTypeTraits<GPUMemberType::Vec3>::size;
+			case GPUMemberType::Vec4:  return GPUMemberTypeTraits<GPUMemberType::Vec4>::size;
+			case GPUMemberType::Mat3:  return GPUMemberTypeTraits<GPUMemberType::Mat3>::size;
+			case GPUMemberType::Mat4:  return GPUMemberTypeTraits<GPUMemberType::Mat4>::size;
 			case engine::GPUMemberType::Undef:
 			default:
 				FAIL("Undefined GPU member type");

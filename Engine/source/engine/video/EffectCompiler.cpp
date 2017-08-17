@@ -9,8 +9,12 @@
 #include <engine/video/EffectCompilationData.h>
 #include <engine/video/Driver.h>
 #include <engine/video/Material.h>
+#include <engine/video/Shader.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceBinding.h>
+#include <engine/video/ShaderResourceBindingData.h>
+#include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/ShaderResourceStorage.h>
 
 namespace engine
@@ -49,16 +53,29 @@ namespace engine
 	{
 		_members->compiler->compileShader(_members->material->getDescription().getVertexShader(), techniqueName);
 		_members->compiler->compileShader(_members->material->getDescription().getFragmentShader(), techniqueName);
-		std::unique_ptr<ShaderResourceStorage> resourceStorage = 
-			_members->driver->createResourceStorage(_members->material->getDescription().getEffectDescription(techniqueName).getParameters(), 
-													_members->material->getResources());
+		const std::vector<ShaderResourceDescription>& effectParameters = _members->material->getDescription().getEffectDescription(techniqueName).getParameters();
+		std::unique_ptr<ShaderResourceStorage> resourceStorage = _members->driver->createResourceStorage(effectParameters, _members->material->getResources());
 		std::unique_ptr<Effect> effect = std::make_unique<Effect>(_members->material, 
 																  techniqueName, 
 																  _members->material->getDescription().getVertexShader(), 
 																  _members->material->getDescription().getFragmentShader(),
 																  std::move(resourceStorage));
 		_members->driver->compileEffect(effect.get());
+		bindResources(effect.get());
 		return effect;
+	}
+
+	void EffectCompiler::bindResources(Effect* effect) const
+	{
+		ShaderResourceStorage* resources = effect->getResources();
+		const std::vector<ShaderResourceDescription>& descriptions = resources->collectDescriptions();
+		std::vector<std::pair<ShaderResourceDescription, std::unique_ptr<ShaderResourceBinding>>> bindings;
+		for(const ShaderResourceDescription& desc : descriptions)
+		{
+			std::unique_ptr<ShaderResourceBinding> binding = _members->driver->bindResource(desc, effect);
+			bindings.emplace_back(desc, std::move(binding));
+		}
+		resources->setResourceBinding(std::move(bindings));
 	}
 
 }

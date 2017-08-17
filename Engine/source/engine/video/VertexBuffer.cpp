@@ -84,7 +84,7 @@ namespace engine
 		_members->stride = 0;
 		for(GPUMemberType type : _members->attributeTypes)
 		{
-			_members->stride += GPUMemberTypeTraits::getSize(type);
+			_members->stride += GPUMemberTypeInfo::getSize(type);
 		}
 	}
 

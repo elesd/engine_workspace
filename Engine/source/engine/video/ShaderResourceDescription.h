@@ -4,21 +4,20 @@
 
 namespace engine
 {
-	class ShaderResourceBinding;
+	class ShaderResourceBindingData;
 	enum class GPUMemberType;
 
 	class ShaderResourceDescription
 	{
 	public:
-		ShaderResourceDescription(const std::string &name, GPUMemberType type, std::unique_ptr<ShaderResourceBinding>&& bindingData);
+		ShaderResourceDescription(const std::string &name, GPUMemberType type, const ShaderResourceBindingData& bindingData);
 		~ShaderResourceDescription();
 		ShaderResourceDescription(const ShaderResourceDescription&);
 		ShaderResourceDescription(ShaderResourceDescription&&);
 		ShaderResourceDescription& operator=(const ShaderResourceDescription&);
 		ShaderResourceDescription& operator=(ShaderResourceDescription&&);
 
-
-		const ShaderResourceBinding* getResourceBinding() const;
+		const ShaderResourceBindingData& getResourceBindingData() const;
 		const std::string& getName() const;
 		GPUMemberType getType() const;
 

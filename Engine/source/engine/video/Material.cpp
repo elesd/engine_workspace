@@ -8,10 +8,10 @@
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/AttributeFormat.h>
+#include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
-#include <engine/video/ShaderResourceStorage.h>
 #include <engine/video/VertexBuffer.h>
 
 namespace engine
@@ -24,7 +24,7 @@ namespace engine
 		MaterialDescription description;
 		std::string name;
 		std::string currentEffect;
-		std::unique_ptr<ShaderResourceStorage> resources;
+		std::unique_ptr<GlobalShaderResourceStorage> resources;
 		MaterialPrivate(const std::string& name, const MaterialDescription& description)
 			: name(name) 
 			, description(description)
@@ -37,8 +37,9 @@ namespace engine
 	Material::Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
 		: _members(new MaterialPrivate(name, description))
 	{
-		_members->resources = renderContext->createResourceStorage(description.getParameters(), renderContext->getGlobalResources());
+		_members->resources = std::make_unique<GlobalShaderResourceStorage>(renderContext->getGlobalResources());
 		_members->effectCompiler = renderContext->createEffectCompiler(this);
+		initShaderResources();
 		setCurrentEffect(_members->currentEffect);
 	}
 
@@ -99,16 +100,18 @@ namespace engine
 		return _members->name;
 	}
 
-	const ShaderResourceStorage* Material::getResources() const
+	GlobalShaderResourceStorage* Material::getResources() const
 	{
 		return _members->resources.get();
 	}
 
-	ShaderResourceStorage* Material::getResources()
+	void Material::initShaderResources()
 	{
-		return _members->resources.get();
+		const std::vector<ShaderResourceDescription>& parameters = _members->description.getParameters();
+		for(const ShaderResourceDescription& desc : parameters)
+		{
+			_members->resources->addResource(desc);
+		}
 	}
-
-
 	
 }

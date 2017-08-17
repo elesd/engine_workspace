@@ -1,9 +1,12 @@
 #pragma once
 
-#include <engine/video/ShaderResourceTraits.h>
 #include <engine/constraints/NonCopyable.h>
+#include <engine/video/ShaderResourceBinding.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/GPUTypes.h>
+
+#include <memory>
 
 namespace engine
 {
@@ -21,16 +24,23 @@ namespace engine
 
 		ShaderResource& operator=(ShaderResource&& o);
 
-		const typename ShaderResourceTraits<Type>::ValueType& getValue() const;
+		const typename GPUMemberTypeTraits<Type>::ValueType& getValue() const;
 
-		void setValue(const typename ShaderResourceTraits<Type>::ValueType& value);
+		void setValue(const typename GPUMemberTypeTraits<Type>::ValueType& value);
+
+		void bind(std::unique_ptr<ShaderResourceBinding>&& binding);
+		bool isBound() const;
+		ShaderResourceBinding* getBinding();
+
+		const ShaderResourceDescription& getDescription() const;
 
 		void commitChanges();
 	private:
 		ShaderResourceHandler* _resourceHandler = nullptr;
+		std::unique_ptr<ShaderResourceBinding> _binding;
 		bool _changed = true;
 		ShaderResourceDescription _description;
-		typename ShaderResourceTraits<Type>::ValueType _value;
+		typename GPUMemberTypeTraits<Type>::ValueType _value;
 	};
 }
 

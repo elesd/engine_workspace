@@ -23,7 +23,7 @@
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/ShaderResourceStorage.h>
-#include <engine/video/winapi/HLSLResourceBinding.h>
+#include <engine/video/ShaderResourceBindingData.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/view/Console.h>
@@ -161,7 +161,7 @@ namespace states
 		description.setVertexShader(_members->vs.get());
 		description.addParameter(engine::ShaderResourceDescription("instanceColor", 
 								 engine::GPUMemberType::Vec4, 
-								 std::unique_ptr<engine::ShaderResourceBinding>(new engine::winapi::HLSLResourceBinding(0, {engine::ShaderType::VertexShader}))));
+								 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
 
 		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
