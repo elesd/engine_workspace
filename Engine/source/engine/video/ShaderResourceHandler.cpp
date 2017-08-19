@@ -54,13 +54,6 @@ namespace engine
 		commitValueImpl(description, binding, value);
 	}
 
-	std::unique_ptr<ShaderResourceHandler> ShaderResourceHandler::ShaderResourceHandler::clone() const
-	{
-		std::unique_ptr<ShaderResourceHandler> result = cloneImpl();
-		result->_members->driver = _members->driver;
-		return result;
-	}
-
 	Driver* ShaderResourceHandler::getDriver() const
 	{
 		return _members->driver;

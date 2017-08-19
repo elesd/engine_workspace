@@ -25,7 +25,6 @@ namespace engine
 			void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::vec4&) override;
 			void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat3&) override;
 			void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat4&) override;
-			std::unique_ptr<ShaderResourceHandler> cloneImpl() const override;
 		};
 	}
 }

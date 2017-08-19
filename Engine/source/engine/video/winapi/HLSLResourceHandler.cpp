@@ -7,7 +7,7 @@
 #include <engine/video/winapi/HLSLResourceBinding.h>
 #include <engine/video/winapi/ConstantBufferObject.h>
 #include <engine/video/winapi/DriverImpl.h>
-
+#if ENGINE_USE_WINAPI
 namespace
 {
 	template<class T>
@@ -80,11 +80,6 @@ namespace engine
 			commitValue(binding, tempBuffer);
 		}
 
-		std::unique_ptr<ShaderResourceHandler> HLSLResourceHandler::cloneImpl() const
-		{
-			return std::make_unique<HLSLResourceHandler>(static_cast<DriverImpl*>(getDriver()));
-		}
-
-
 	}
 }
+#endif

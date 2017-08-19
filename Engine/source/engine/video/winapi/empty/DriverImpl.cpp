@@ -36,7 +36,7 @@ namespace engine
 
 		}
 
-		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description)
+		ID3D11Buffer* DriverImpl::createBuffer(const D3D11_BUFFER_DESC& description, D3D11_SUBRESOURCE_DATA* initData)
 		{
 			INACTIVE_MODULE_ERROR();
 			return nullptr;

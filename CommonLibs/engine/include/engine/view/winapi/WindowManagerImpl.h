@@ -31,8 +31,7 @@ namespace engine
 			* @param title: Title of the window
 			* @return Returns the created winapi window
 			*/
-			Window *createMainWindowImpl(const WindowParameter &parameters,
-										 const std::string &title) override;
+			Window *createMainWindowImpl(const WindowParameter &parameters, const std::string &title) override;
 			/**
 			* Creates a full screen main window in winapi environment.
 			* @param width: pixel width of the window.
@@ -50,9 +49,7 @@ namespace engine
 			* @param mainWindow: The main window of the application.
 			* @return Returns the created winapi window
 			*/
-			Window *createSecondaryWindowImpl(const WindowParameter &parameters,
-											  const std::string &title,
-											  Window *mainWindow) override;
+			Window *createSecondaryWindowImpl(const WindowParameter &parameters, const std::string &title, Window *mainWindow) override;
 			
 			/**
 			* Creates a full screen main window in winapi environment.

@@ -10,8 +10,5 @@ namespace engine
 	public:
 		ShaderResourceBinding() {};
 		virtual ~ShaderResourceBinding() {};
-		std::unique_ptr<ShaderResourceBinding> clone() const;
-	private:
-		virtual std::unique_ptr<ShaderResourceBinding> cloneImpl() const = 0;
 	};
 }

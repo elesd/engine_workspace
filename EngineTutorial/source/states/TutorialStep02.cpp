@@ -140,9 +140,9 @@ namespace states
 		fsMain = "PShader";
 	
 #else
-		vsPath = "shaders/glsl/Tutorial01_vs.glsl";
+		vsPath = "shaders/glsl/Tutorial02_vs.glsl";
 		vsMain = "main";
-		fsPath = "shaders/glsl/Tutorial01_fs.glsl";
+		fsPath = "shaders/glsl/Tutorial02_fs.glsl";
 		fsMain = "main";
 #endif
 		_members->vs.reset(new engine::Shader(engine::ShaderType::VertexShader));
@@ -161,18 +161,18 @@ namespace states
 	std::vector<engine::ShaderResourceDescription> TutorialStep02::createHLSLMaterialParameters() const
 	{
 		std::vector<engine::ShaderResourceDescription> result;
-#if TUTORIAL_USE_WINAPI
 		result.push_back(engine::ShaderResourceDescription("instanceColor",
 						 engine::GPUMemberType::Vec4,
 						 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
-#endif
 		return result;
 	}
 
 	std::vector<engine::ShaderResourceDescription> TutorialStep02::createGLSLMaterialParameters() const
 	{
 		std::vector<engine::ShaderResourceDescription> result;
-
+		result.push_back(engine::ShaderResourceDescription("instanceColor",
+														   engine::GPUMemberType::Vec4,
+														   engine::ShaderResourceBindingData({ engine::ShaderType::VertexShader })));
 		return result;
 	}
 

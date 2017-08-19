@@ -8,6 +8,8 @@
 
 #include <engine/video/Shader.h>
 
+#if ENGINE_USE_WINAPI
+
 namespace engine
 {
 	namespace winapi
@@ -87,3 +89,5 @@ namespace engine
 
 	}
 }
+
+#endif

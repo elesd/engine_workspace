@@ -23,7 +23,6 @@ namespace engine
 		void commitValue(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::vec4&);
 		void commitValue(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat3&);
 		void commitValue(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat4&);
-		std::unique_ptr<ShaderResourceHandler> clone() const;
 	protected:
 		Driver* getDriver() const;
 
@@ -34,7 +33,6 @@ namespace engine
 		virtual void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::vec4&) = 0;
 		virtual void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat3&) = 0;
 		virtual void commitValueImpl(const ShaderResourceDescription&, const ShaderResourceBinding* binding, const glm::mat4&) = 0;
-		virtual std::unique_ptr<ShaderResourceHandler> cloneImpl() const = 0;
 	private:
 		struct ShaderResourceHandlerPrivate* _members = nullptr;
 	};

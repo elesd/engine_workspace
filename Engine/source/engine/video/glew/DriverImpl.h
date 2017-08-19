@@ -33,6 +33,12 @@ namespace engine
 			bool checkShaderOptions(const ShaderCompileOptions& options) const;
 			bool checkDeviceSetupImpl() override;
 
+			std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() override;
+			std::unique_ptr<ShaderResourceBinding> bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect) override;
+
+			std::unique_ptr<ShaderResourceBinding> bindResourceImplDebug(const ShaderResourceDescription& desc, Effect* effect);
+			std::unique_ptr<ShaderResourceBinding> bindResourceImplRelease(const ShaderResourceDescription& desc, Effect* effect);
+
 		};
 	}
 }

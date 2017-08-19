@@ -13,10 +13,14 @@
 #include <engine/video/RenderTarget.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
+#include <engine/video/ShaderResourceDescription.h>
+#include <engine/video/ShaderResourceBindingData.h>
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/video/glew/GLSLEffectCompilationData.h>
+#include <engine/video/glew/GLSLResourceBinding.h>
+#include <engine/video/glew/GLSLResourceHandler.h>
 #include <engine/video/glew/GLSLVSCompilationData.h>
 #include <engine/video/glew/GLSLFSCompilationData.h>
 #include <engine/video/glew/IndexBufferObject.h>
@@ -407,6 +411,57 @@ namespace engine
 			glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
 			isOk = (majorVersion == version.first) && (minorVersion == version.second);
 			return isOk;
+		}
+
+		std::unique_ptr<ShaderResourceHandler> DriverImpl::createShaderResourceHandlerImpl()
+		{
+			return std::unique_ptr<ShaderResourceHandler>(new GLSLResourceHandler(this));
+		}
+
+		std::unique_ptr<ShaderResourceBinding> DriverImpl::bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect)
+		{
+#ifdef _DEBUG
+			return bindResourceImplDebug(desc, effect);
+#else
+			return bindResourceImplRelease(desc, effect);
+#endif
+		}
+
+		std::unique_ptr<ShaderResourceBinding> DriverImpl::bindResourceImplDebug(const ShaderResourceDescription& desc, Effect* effect)
+		{
+#ifdef _DEBUG
+			const std::string uniformName = desc.getName();
+			const GLSLEffectCompilationData* glslEffectData = static_cast<const GLSLEffectCompilationData*>(effect->getCompilationData());
+			GLint location = glGetUniformLocation(glslEffectData->getProgramId(), uniformName.c_str());
+			if(desc.getResourceBindingData().hasLayout())
+			{
+				ASSERT(desc.getResourceBindingData().getLayout() == location);
+			}
+			return std::unique_ptr<ShaderResourceBinding>(new GLSLResourceBinding(location));
+#else
+			HARD_FAIL("Debug code on Release context");
+			return nullptr;
+#endif
+		}
+
+		std::unique_ptr<ShaderResourceBinding> DriverImpl::bindResourceImplRelease(const ShaderResourceDescription& desc, Effect* effect)
+		{
+#ifndef _DEBUG
+			if(desc.getResourceBindingData().hasLayout())
+			{
+				return std::unique_ptr<ShaderResourceBinding>(new GLSLResourceBinding(desc.getResourceBindingData().getLayout()));
+			}
+			else
+			{
+				const std::string uniformName = desc.getName();
+				const GLSLEffectCompilationData* glslEffectData = static_cast<const GLSLEffectCompilationData*>(effect->getCompilationData());
+				GLint location = glGetUniformLocation(glslEffectData->getProgramId(), uniformName.c_str());
+				return std::unique_ptr<ShaderResourceBinding>(new GLSLResourceBinding(location));
+			}
+#else
+			HARD_FAIL("Release code on debug context");
+			return nullptr;
+#endif
 		}
 	}
 }
