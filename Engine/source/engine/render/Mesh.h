@@ -28,6 +28,7 @@ namespace engine
 
 		const BufferContext* getBufferContext() const;
 		const Material* getMaterial() const;
+		Material* getMaterial();
 	private:
 		struct MeshPrivate* _members = nullptr;
 	};

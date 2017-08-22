@@ -34,10 +34,16 @@
 #include <type_traits>
 #include <iomanip>
 
-// Math
+// Engine files
+#include <engine/EngineConfig.h>
+#include <engine/Types.h>
+#include <engine/utils/Common.h>
 
+// Math
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/type_precision.hpp>
-#include <glm/common.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 // Macros
 
 #define ASSERT(cond) assert(cond)
@@ -48,10 +54,9 @@
 #define UNSUPPORTED_ERROR() HARD_FAIL("Unsupported feature usage")
 #define INACTIVE_MODULE_ERROR() HARD_FAIL("Module is inactive")
 
-// Engine files
-#include <engine/EngineConfig.h>
-#include <engine/Types.h>
+
 
 // Platform specific codes
 #include <stdafx_win.h>
 #include <stdafx_glew.h>
+

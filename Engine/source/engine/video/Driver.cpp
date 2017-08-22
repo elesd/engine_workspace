@@ -189,6 +189,11 @@ namespace engine
 	{
 		return createShaderResourceHandlerImpl();
 	}
+	
+	std::pair<float, float> Driver::getViewportRange() const
+	{
+		return getViewportRangeImpl();
+	}
 
 
 	Window* Driver::getWindow() const

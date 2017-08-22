@@ -68,4 +68,10 @@ namespace engine
 	{
 		return _members->material.get();
 	}
+
+	Material* Mesh::getMaterial() 
+	{
+		return _members->material.get();
+	}
+
 }

@@ -45,6 +45,7 @@ namespace engine
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
 		std::unique_ptr<GlobalShaderResourceStorage> globalResources;
+		GlobalResourceMapping resourceMapping;
 
 		RenderContextPrivate(std::unique_ptr<Driver>&& driver, std::unique_ptr<BufferObjectFactory>&& bufferObjectFactory)
 			: driver(std::move(driver))
@@ -82,6 +83,7 @@ namespace engine
 	{
 		_members->driver->init(params.getDriverParameters());
 		_members->globalResources = std::make_unique<GlobalShaderResourceStorage>();
+		_members->resourceMapping = params.getResourceMapping();
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -182,6 +184,17 @@ namespace engine
 	{
 		return _members->globalResources.get();
 	}
+
+	const GlobalResourceMapping& RenderContext::getResourceMapping() const
+	{
+		return _members->resourceMapping;
+	}
+
+	std::pair<float, float> RenderContext::getViewportRange() const
+	{
+		return _members->driver->getViewportRange();
+	}
+
 
 
 }

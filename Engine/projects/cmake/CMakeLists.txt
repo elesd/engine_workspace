@@ -41,6 +41,7 @@ file (GLOB src_app_glfw_empty "${SOURCE_DIR}/engine/app/glfw/empty/*.cpp")
 file (GLOB src_app_sdl "${SOURCE_DIR}/engine/app/sdl/*.cpp")
 file (GLOB src_app_sdl_empty "${SOURCE_DIR}/engine/app/sdl/empty/*.cpp")
 file (GLOB src_constraints "${SOURCE_DIR}/engine/constraints/*.cpp")
+file (GLOB src_entityFramework "${SOURCE_DIR}/engine/entityFramework/*.cpp")
 file (GLOB src_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.cpp")
 file (GLOB src_exceptions "${SOURCE_DIR}/engine/exceptions/*.cpp")
 file (GLOB src_functional "${SOURCE_DIR}/engine/functional/*.cpp")
@@ -61,6 +62,7 @@ file (GLOB src_moduls_glew_empty "${SOURCE_DIR}/engine/modules/glew/empty/*.cpp"
 file (GLOB src_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.cpp")
 file (GLOB src_moduls_winapi_empty "${SOURCE_DIR}/engine/modules/winapi/empty/*.cpp")
 file (GLOB src_render "${SOURCE_DIR}/engine/render/*.cpp")
+file (GLOB src_scene "${SOURCE_DIR}/engine/scene/*.cpp")
 file (GLOB src_signalSlot "${SOURCE_DIR}/engine/signalSlot/*.cpp")
 file (GLOB src_stateStack "${SOURCE_DIR}/engine/stateStack/*.cpp")
 file (GLOB src_test "${SOURCE_DIR}/engine/test/*.cpp")
@@ -89,6 +91,7 @@ file (GLOB header_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.h*")
 file (GLOB header_app_glfw "${SOURCE_DIR}/engine/app/glfw/*.h*")
 file (GLOB header_app_sdl "${SOURCE_DIR}/engine/app/sdl/*.h*")
 file (GLOB header_constraints "${SOURCE_DIR}/engine/constraints/*.h*")
+file (GLOB header_entityFramework "${SOURCE_DIR}/engine/entityFramework/*.h*")
 file (GLOB header_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.h*")
 file (GLOB header_exceptions "${SOURCE_DIR}/engine/exceptions/*.h")
 file (GLOB header_functional "${SOURCE_DIR}/engine/functional/*.h*")
@@ -103,6 +106,7 @@ file (GLOB header_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.h*")
 file (GLOB header_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.h*")
 file (GLOB header_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.h*")
 file (GLOB header_render "${SOURCE_DIR}/engine/render/*.h*")
+file (GLOB header_scene "${SOURCE_DIR}/engine/scene/*.h*")
 file (GLOB header_signalSlot "${SOURCE_DIR}/engine/signalSlot/*.h*")
 file (GLOB header_stateStack "${SOURCE_DIR}/engine/stateStack/*.h*")
 file (GLOB header_test "${SOURCE_DIR}/engine/test/*.h*")
@@ -127,6 +131,7 @@ SOURCE_GROUP (engine\\app\\glfw\\empty FILES ${src_app_glfw_empty})
 SOURCE_GROUP (engine\\app\\sdl FILES ${src_app_sdl} ${header_app_sdl})
 SOURCE_GROUP (engine\\app\\sdl\\empty FILES ${src_app_sdl_empty})
 SOURCE_GROUP (engine\\constraints FILES ${src_constraints} ${header_constraints})
+SOURCE_GROUP (engine\\entityFramework FILES ${src_entityFramework} ${header_entityFramework})
 SOURCE_GROUP (engine\\environmentBuilder FILES ${src_environmentBuilder} ${header_environmentBuilder})
 SOURCE_GROUP (engine\\exceptions FILES ${src_exceptions} ${header_exceptions})
 SOURCE_GROUP (engine\\fileSystem FILES ${src_fileSystem} ${header_fileSystem})
@@ -147,6 +152,7 @@ SOURCE_GROUP (engine\\modules\\glew\\empty FILES ${src_moduls_glew_empty})
 SOURCE_GROUP (engine\\modules\\winapi FILES ${src_moduls_winapi} ${header_moduls_winapi})
 SOURCE_GROUP (engine\\modules\\winapi\\empty FILES ${src_moduls_winapi_empty})
 SOURCE_GROUP (engine\\render FILES ${src_render} ${header_render})
+SOURCE_GROUP (engine\\scene FILES ${src_scene} ${header_scene})
 SOURCE_GROUP (engine\\signalSlot FILES ${src_signalSlot} ${header_signalSlot})
 SOURCE_GROUP (engine\\stateStack FILES ${src_stateStack} ${header_stateStack})
 SOURCE_GROUP (engine\\test FILES ${src_test} ${header_test})
@@ -183,6 +189,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_app_glfw} 
 						   ${src_app_sdl} 
                            ${src_constraints}
+						   ${src_entityFramework}
                            ${src_environmentBuilder}
                            ${src_exceptions}
 						   ${src_fileSystem}
@@ -196,6 +203,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${src_moduls_glew}
                            ${src_moduls_winapi}
                            ${src_render}
+						   ${src_scene}
                            ${src_signalSlot}
                            ${src_stateStack}
                            ${src_test}
@@ -216,6 +224,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_app_glfw} 
 						   ${header_app_sdl} 
                            ${header_constraints}
+						   ${header_entityFramework}
                            ${header_environmentBuilder}
                            ${header_exceptions}
 						   ${header_fileSystem}
@@ -229,6 +238,7 @@ add_library (${lib_name} STATIC ${src_}
                            ${header_moduls_sdl}
                            ${header_moduls_winapi}
 						   ${header_render}
+						   ${header_scene}
                            ${header_signalSlot}
                            ${header_stateStack}
                            ${header_test}
@@ -250,6 +260,7 @@ install (FILES ${header_app_winapi} DESTINATION "${INSTALL_DIR}/include/engine/a
 install (FILES ${header_app_glfw} DESTINATION "${INSTALL_DIR}/include/engine/app/glfw")
 install (FILES ${header_app_sdl} DESTINATION "${INSTALL_DIR}/include/engine/app/sdl")
 install (FILES ${header_constraints} DESTINATION "${INSTALL_DIR}/include/engine/constraints")
+install (FILES ${header_entityFramework} DESTINATION "${INSTALL_DIR}/include/engine/entityFramework")
 install (FILES ${header_environmentBuilder} DESTINATION "${INSTALL_DIR}/include/engine/environmentBuilder")
 install (FILES ${header_exceptions} DESTINATION "${INSTALL_DIR}/include/engine/exceptions")
 install (FILES ${header_fileSystem} DESTINATION "${INSTALL_DIR}/include/engine/fileSystem")
@@ -263,6 +274,7 @@ install (FILES ${header_moduls_glew} DESTINATION "${INSTALL_DIR}/include/engine/
 install (FILES ${header_moduls_sdl} DESTINATION "${INSTALL_DIR}/include/engine/modules/sdl")
 install (FILES ${header_moduls_winapi} DESTINATION "${INSTALL_DIR}/include/engine/modules/winapi")
 install (FILES ${header_render} DESTINATION "${INSTALL_DIR}/include/engine/render")
+install (FILES ${header_scene} DESTINATION "${INSTALL_DIR}/include/engine/scene")
 install (FILES ${header_signalSlot} DESTINATION "${INSTALL_DIR}/include/engine/signalSlot")
 install (FILES ${header_stateStack} DESTINATION "${INSTALL_DIR}/include/engine/stateStack")
 install (FILES ${header_test} DESTINATION "${INSTALL_DIR}/include/engine/test")

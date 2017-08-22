@@ -96,6 +96,8 @@ namespace engine
 		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, GlobalShaderResourceStorage* parent = nullptr);
 
 		std::unique_ptr<ShaderResourceHandler> createShaderResourceHandler();
+
+		std::pair<float, float> getViewportRange() const;
 	protected:
 		Window* getWindow() const;
 
@@ -116,6 +118,7 @@ namespace engine
 		virtual bool checkDeviceSetupImpl() = 0;
 		virtual std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() = 0;
 		virtual std::unique_ptr<ShaderResourceBinding> bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect) = 0;
+		virtual std::pair<float, float> getViewportRangeImpl() const = 0;
 
 	private:
 		struct DriverPrivate* _members = nullptr;
