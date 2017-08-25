@@ -2,6 +2,8 @@
 
 #include <engine/entityFramework/Component.h>
 
+#include <engine/signalSlot/Signal.h>
+
 namespace engine
 {
 	class PositionComponent
@@ -18,12 +20,16 @@ namespace engine
 
 		void setPosition(const glm::vec3& position);
 		void setRotation(const glm::quat& rotation);
+
 	protected:
 		void recalclateTransformation() const;
 	private:
 		void onRenderComponent(RenderContext*) override;
 		void onUpdateComponent() override;
 		std::unique_ptr<Component> cloneComponent() const override;
+	public:
+		Signal<const glm::vec3&> positionChanged;
+		Signal<const glm::quat&> rotationChanged;
 	private:
 		struct PositionComponentPrivate* _members = nullptr;
 	};

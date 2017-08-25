@@ -88,6 +88,8 @@ namespace engine
 		/**@return Returns the width of the windows*/
 		uint32_t getWidth() const;
 
+		float getAspectRatio() const;
+
 		/**
 		* Resize the window.
 		* @param height: New height of the window.

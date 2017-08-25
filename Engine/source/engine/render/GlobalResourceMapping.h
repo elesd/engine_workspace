@@ -7,9 +7,9 @@ namespace engine
 		WorldMatrix,
 		ViewMatrix,
 		ProjectionMatrix,
-		ProjectionViewMatrix,
-		ViewWorldMatrix,
+		InvProjectionMatrix,
 		ProjectionViewWorldMatrix,
+		invProjectionViewWorldMatrix,
 		CameraPosition
 	};
 

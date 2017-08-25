@@ -104,6 +104,11 @@ namespace engine
 		return getParameters().width;
 	}
 
+	float Window::getAspectRatio() const
+	{
+		return getWidth() / getHeight();
+	}
+
 	void Window::update()
 	{
 		_members->eventManager->update();

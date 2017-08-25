@@ -77,7 +77,6 @@ namespace engine
 		const GlobalShaderResourceStorage* getGlobalResources() const;
 		const GlobalResourceMapping& getResourceMapping() const;
 
-		std::pair<float, float> getViewportRange() const;
 	private:
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion, const AttributeFormat& attributeFormat) const;
 		struct RenderContextPrivate* _members = nullptr;

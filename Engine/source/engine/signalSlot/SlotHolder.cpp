@@ -12,8 +12,19 @@ namespace engine
 	};
 
 	SlotHolder::SlotHolder()
+		: _members(new SlotHolderPrivate())
+	{	}
+
+	SlotHolder::SlotHolder(SlotHolder&& o)
+		: _members(o._members)
 	{
-		_members = new SlotHolderPrivate();
+
+	}
+
+	SlotHolder::SlotHolder(const SlotHolder& o)
+		: _members(o._members ? new SlotHolderPrivate(*o._members) : nullptr)
+	{
+
 	}
 
 	SlotHolder::~SlotHolder()
@@ -24,6 +35,21 @@ namespace engine
 			signal->disconnectAllSlot(this);
 		}
 		delete _members;
+	}
+
+	SlotHolder& SlotHolder::operator=(SlotHolder&& o)
+	{
+		delete _members;
+		_members = o._members;
+		o._members = nullptr;
+		return *this;
+	}
+
+	SlotHolder& SlotHolder::operator=(const SlotHolder& o)
+	{
+		delete _members;
+		_members = o._members ? new SlotHolderPrivate(*o._members) : nullptr;
+		return *this;
 	}
 
 	void SlotHolder::assignSignal(ISignal *signal)

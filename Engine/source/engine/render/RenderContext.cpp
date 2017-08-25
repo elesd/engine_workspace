@@ -33,7 +33,11 @@ namespace engine
 	{
 		return _driverParameters;
 	}
-	
+	const GlobalResourceMapping& RenderContextParameters::getResourceMapping() const
+	{
+		return _resourceMapping;
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	struct RenderContextPrivate
@@ -189,12 +193,5 @@ namespace engine
 	{
 		return _members->resourceMapping;
 	}
-
-	std::pair<float, float> RenderContext::getViewportRange() const
-	{
-		return _members->driver->getViewportRange();
-	}
-
-
 
 }

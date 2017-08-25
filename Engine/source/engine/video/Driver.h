@@ -41,6 +41,7 @@ namespace engine
 		OpenGL_ES_2_0,
 		OpenGL_ES_3_0,
 	};
+
 	struct DeviceParameters
 	{
 		DriverVersion version;
@@ -97,7 +98,6 @@ namespace engine
 
 		std::unique_ptr<ShaderResourceHandler> createShaderResourceHandler();
 
-		std::pair<float, float> getViewportRange() const;
 	protected:
 		Window* getWindow() const;
 
@@ -118,7 +118,6 @@ namespace engine
 		virtual bool checkDeviceSetupImpl() = 0;
 		virtual std::unique_ptr<ShaderResourceHandler> createShaderResourceHandlerImpl() = 0;
 		virtual std::unique_ptr<ShaderResourceBinding> bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect) = 0;
-		virtual std::pair<float, float> getViewportRangeImpl() const = 0;
 
 	private:
 		struct DriverPrivate* _members = nullptr;

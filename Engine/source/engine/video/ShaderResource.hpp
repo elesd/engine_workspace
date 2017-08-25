@@ -47,8 +47,11 @@ namespace engine
 	template<GPUMemberType Type>
 	void ShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& value)
 	{
-		_value = value;
-		_changed = true;
+		if(glm::epsilonNotEqual(_value, v, glm::epsilon()))
+		{
+			_value = value;
+			_changed = true;
+		}
 	}
 
 	template<GPUMemberType Type>

@@ -15,16 +15,21 @@ namespace engine
 
 		void attachResource(ShaderResource<Type> *resource);
 		void detachResource(ShaderResource<Type> *resource);
+		bool hasAttachement() const;
 
 		void setValue(const typename GPUMemberTypeTraits<Type>::ValueType&);
 		const typename GPUMemberTypeTraits<Type>::ValueType& getValue() const;
 
 		const std::string& getName() const;
 		const ShaderResourceDescription& getDescription() const;
+
+		void cleanUpDirtyFlag() const;
+		bool isDirty() const;
 	private:
 		typename GPUMemberTypeTraits<Type>::ValueType _value;
 		std::vector<ShaderResource<Type>*> _attachedResources;
 		ShaderResourceDescription _description;
+		mutable bool _dirty = false;
 	};
 }
 
