@@ -34,14 +34,18 @@ namespace engine
 	protected:
 		void updateProjectionMatrix() const;
 		void updateInvProjectionMatrix() const;
-	
+		void setProjectionMatrixDirty();
+		void setInvProjectionMatrixDirty();
+
+
 	private:
 		void onRenderComponent(RenderContext*) override;
 		void onUpdateComponent() override;
 		std::unique_ptr<Component> cloneComponent() const override;
 
 	private:
-		virtual glm::mat4 buildProjectionMatrix() = 0;
+		virtual glm::mat4 buildProjectionMatrix() const = 0;
+		virtual std::unique_ptr<Component> cloneProjectionComponent() const = 0;
 	private:
 		struct ProjectionComponentPrivate* _members = nullptr;
 	};

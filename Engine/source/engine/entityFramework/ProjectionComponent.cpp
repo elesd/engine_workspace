@@ -90,18 +90,20 @@ namespace engine
 {
 	struct ProjectionComponentPrivate
 	{
-		Window* window;
-		ProjectionSettings settings;
+		Window* window = nullptr;
 		ProjectionComponentCache cache;
+		float nearPlane = 0.0f;
+		float farPlane = 0.0f;
 
-		ProjectionComponentPrivate(Window* window, const ProjectionSettings& settings)
+		ProjectionComponentPrivate(Window* window, float nearPlane, float farPlane)
 			: window(window)
-			, settings(settings)
+			, nearPlane(nearPlane)
+			, farPlane(farPlane)
 		{}
 	};
 
-	ProjectionComponent::ProjectionComponent(Window* window, const ProjectionSettings& settings)
-		: _members(new ProjectionComponentPrivate(window, settings))
+	ProjectionComponent::ProjectionComponent(Window* window, float nearPlane, float farPlane)
+		: _members(new ProjectionComponentPrivate(window, nearPlane, farPlane))
 	{
 
 	}
@@ -112,50 +114,18 @@ namespace engine
 		_members = nullptr;
 	}
 
-	const ProjectionSettings& ProjectionComponent::getSettings() const
-	{
-		return _members->settings;
-	}
-
-	void ProjectionComponent::setFov(float v)
-	{
-		_members->settings._fov = v;
-		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
-		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
-	}
 
 	void ProjectionComponent::setNearPlane(float v)
 	{
-		_members->settings._nearPlane = v;
+		_members->nearPlane = v;
 		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
 		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
 	}
 
 	void ProjectionComponent::setFarPlane(float v)
 	{
-		_members->settings._farPlane = v;
+		_members->farPlane = v;
 		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
-		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
-	}
-
-	void ProjectionComponent::buildOrthographic()
-	{
-		const float halfFov = _members->settings.getFov() / 2.0f;
-		const float halfWidth = glm::tan(_members->settings.getNearPlane() / halfFov);
-		const float halfHeight = halfWidth / _members->window->getAspectRatio();
-
-		glm::mat4 proj = glm::ortho(0.0f, halfWidth * 2.0f * _members->window->getWidth(),
-									0.0f, )
-	}
-
-	void ProjectionComponent::buildPerspective()
-	{
-		glm::mat4 proj  = glm::perspective(_members->settings.getFov(),
-										   _members->window->getAspectRatio(),
-										   _members->settings.getNearPlane(),
-										   _members->settings.getFarPlane());
-		_members->cache.projectionMatrix = proj;
-		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = false;
 		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
 	}
 
@@ -171,6 +141,44 @@ namespace engine
 		return _members->cache.invProjectionMatrix;
 	}
 
+	void ProjectionComponent::updateProjectionMatrix() const
+	{
+		if(_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix])
+		{
+			_members->cache.projectionMatrix = buildProjectionMatrix();
+			_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = false;
+		}
+	}
+
+	void ProjectionComponent::updateInvProjectionMatrix() const
+	{
+		if(_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix])
+		{
+			updateProjectionMatrix();
+			_members->cache.invProjectionMatrix = glm::inverse(_members->cache.projectionMatrix);
+			_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = false;
+		}
+	}
+
+	void ProjectionComponent::setProjectionMatrixDirty()
+	{
+		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
+	}
+
+	void ProjectionComponent::setInvProjectionMatrixDirty()
+	{
+		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
+	}
+
+	float ProjectionComponent::getNearPlane() const
+	{
+		return _members->nearPlane;
+	}
+
+	float ProjectionComponent::getFarPlane() const
+	{
+		return _members->farPlane;
+	}
 
 	//glm::vec3 ProjectionComponent::screenPointToWorldPoint(const glm::vec3& screenPosition) const
 	//{
@@ -240,6 +248,12 @@ namespace engine
 
 	std::unique_ptr<Component> ProjectionComponent::cloneComponent() const
 	{
-
+		std::unique_ptr<Component> result = cloneProjectionComponent();
+		ProjectionComponent* tmp = static_cast<ProjectionComponent*>(result.get());
+		tmp->setFarPlane(getFarPlane());
+		tmp->setNearPlane(getNearPlane());
+		tmp->updateInvProjectionMatrix();
+		tmp->updateProjectionMatrix();
+		return result;
 	}
 }
