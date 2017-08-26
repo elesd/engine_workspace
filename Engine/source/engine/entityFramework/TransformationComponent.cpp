@@ -1,5 +1,5 @@
 #include <stdafx.h>
-#include <engine/entityFramework/PositionComponent.h>
+#include <engine/entityFramework/TransformationComponent.h>
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/GlobalResourceMapping.h>
@@ -19,84 +19,84 @@ namespace
 	};
 	struct TransformationCache
 	{
-		glm::mat4 transformation;
+		mat4 transformation;
 		std::array<bool, DirtyFlag::Num> dirtyFlags;
 	};
 }
 
 namespace engine
 {
-	struct PositionComponentPrivate
+	struct TransformationComponentPrivate
 	{
-		glm::vec3 position;
-		glm::quat rotation;
+		vec3 position;
+		quat rotation;
 		mutable TransformationCache cache;
 	};
 
-	PositionComponent::PositionComponent()
-		: _members(new PositionComponentPrivate())
+	TransformationComponent::TransformationComponent()
+		: _members(new TransformationComponentPrivate())
 	{
 
 	}
 
-	PositionComponent::~PositionComponent()
+	TransformationComponent::~TransformationComponent()
 	{
 		delete _members;
 		_members = nullptr;
 	}
 
-	const glm::vec3& PositionComponent::getPosition() const
+	const vec3& TransformationComponent::getPosition() const
 	{
 		return _members->position;
 	}
 
-	const glm::quat& PositionComponent::getRotation() const
+	const quat& TransformationComponent::getRotation() const
 	{
 		return _members->rotation;
 	}
 
-	const glm::mat4& PositionComponent::getTransformation() const
+	const mat4& TransformationComponent::getTransformation() const
 	{
 		recalclateTransformation();
 		return _members->cache.transformation;
 	}
 
-	void PositionComponent::setPosition(const glm::vec3& position)
+	void TransformationComponent::setPosition(const glm::vec3& position)
 	{
 		_members->position = position;
 		_members->cache.dirtyFlags[DirtyFlag::Position] = true;
 	}
 
-	void PositionComponent::setRotation(const glm::quat& rotation)
+	void TransformationComponent::setRotation(const glm::quat& rotation)
 	{
 		_members->rotation = rotation;
 		_members->cache.dirtyFlags[DirtyFlag::Rotation] = true;
 	}
 
-	void PositionComponent::recalclateTransformation() const
+	void TransformationComponent::recalclateTransformation() const
 	{
 		if(_members->cache.dirtyFlags[DirtyFlag::Position]
 		   || _members->cache.dirtyFlags[DirtyFlag::Rotation])
 		{
 			_members->cache.transformation = glm::translate(_members->position);
-			_members->cache.transformation *= (glm::mat4)_members->rotation;
+			_members->cache.transformation *= (mat4)_members->rotation;
 		}
 	}
 
-	void PositionComponent::onRenderComponent(RenderContext* renderContext)
+	void TransformationComponent::onRenderComponent(RenderContext* renderContext)
 	{
 		recalclateTransformation();
 		const std::string& worldRes = renderContext->getResourceMapping()[GlobalResource::WorldMatrix];
 		renderContext->getGlobalResources()->setMat4(worldRes, _members->cache.transformation);
 	}
 
-	void PositionComponent::onUpdateComponent()
+	void TransformationComponent::onUpdateComponent()
 	{
 	}
 
-	std::unique_ptr<Component> PositionComponent::cloneComponent() const
+	std::unique_ptr<Component> TransformationComponent::cloneComponent() const
 	{
-		std::unique_ptr<PositionComponent> result(new PositionComponent());
+		std::unique_ptr<TransformationComponent> result(new TransformationComponent());
 
 		result->setPosition(getPosition());
 		result->setRotation(getRotation());

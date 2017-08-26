@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	class PositionComponent;
+	class TransformationComponent;
 	class VisualComponent;
 
 	class Entity
@@ -16,11 +16,11 @@ namespace engine
 		Entity();
 		virtual ~Entity();
 
-		void setPositionComponent(std::unique_ptr<PositionComponent>&& positionComponent);
+		void setTransformationComponent(std::unique_ptr<TransformationComponent>&& positionComponent);
 		void setVisualComponent(std::unique_ptr<VisualComponent>&& meshComponent);
 
-		PositionComponent* getPositionComponent();
-		const PositionComponent* getPositionComponent() const;
+		TransformationComponent* getTransformationComponent();
+		const TransformationComponent* getTransformationComponent() const;
 
 		VisualComponent* getVisualComponent();
 		const VisualComponent* getVisualComponent() const;
