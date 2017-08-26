@@ -21,7 +21,7 @@ namespace engine
 	private:
 		void onRenderSceneComponent(RenderContext*) override final;
 		void onUpdateSceneComponent() override final;
-		std::unique_ptr<Component> cloneComponent() const override final;
+		std::unique_ptr<Component> cloneSceneComponent() const override final;
 	private:
 		virtual std::vector<Material*> collectMaterialsImpl() const = 0;
 		virtual void onRenderVisualComponent(RenderContext*) = 0;

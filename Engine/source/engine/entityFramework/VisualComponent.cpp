@@ -46,7 +46,7 @@ namespace engine
 		onUpdateVisualComponent();
 	}
 
-	std::unique_ptr<Component> VisualComponent::cloneComponent() const
+	std::unique_ptr<Component> VisualComponent::cloneSceneComponent() const
 	{
 		std::unique_ptr<Component> result = cloneVisualComponent();
 		static_cast<VisualComponent*>(result.get())->setHiddenInGame(isHiddenInGame());
