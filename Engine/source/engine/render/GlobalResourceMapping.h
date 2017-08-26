@@ -5,6 +5,7 @@ namespace engine
 	enum class GlobalResource
 	{
 		WorldMatrix,
+		InvWorldMatrix,
 		ViewMatrix,
 		ProjectionMatrix,
 		InvProjectionMatrix,

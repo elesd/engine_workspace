@@ -9,20 +9,49 @@ namespace engine
 	class TransformationComponent
 		: public Component
 	{
+		friend class TransformationComponentAttachment;
 	public:
 		TransformationComponent();
 		~TransformationComponent() override;
 
-		const vec3& getPosition() const;
-		const quat& getRotation() const;
+		TransformationComponent* getParentComponent() const;
+		bool hasParentComponent() const;
+		const std::vector<TransformationComponent*>& getChildrenComponent() const;
 
-		const mat4& getTransformation() const;
+		void attachComponent(TransformationComponent* component);
+		void detachComponent(TransformationComponent* component);
 
-		void setPosition(const vec3& position);
-		void setRotation(const quat& rotation);
+		const vec3& getWorldPosition() const;
+		void setWorldPosition(const vec3&);
+
+		const quat& getWorldRotation() const;
+		void setWorldRotation(const quat&);
+
+		const mat4& getWorldTransformation() const;
+		const mat4& getInvWorldTransformatioN() const;
+
+		const vec3& getLocalPosition() const;
+		const quat& getLocalRotation() const;
+
+		const mat4& getLocalTransformation() const;
+		const mat4& getInvLocalTransformation() const;
+
+		void setLocalPosition(const vec3& position);
+		void setLocalRotation(const quat& rotation);
 
 	protected:
-		void recalclateTransformation() const;
+		void recalclateLocalTransformation() const;
+		void recalclateInvLocalTransformation() const;
+		void recalclateWorldTransformation() const;
+		void recalclateInvWorldTransformation() const;
+		void recalculateWorldRotation() const;
+		void recalculateWorldPosition() const;
+
+	private:
+		void onTransformationChanged();
+		void onParentTransformationChanged();
+		std::vector<TransformationComponent*>& accessChildren();
+		void setParent(TransformationComponent*);
 	private:
 		void onRenderComponent(RenderContext*) override;
 		void onUpdateComponent() override;

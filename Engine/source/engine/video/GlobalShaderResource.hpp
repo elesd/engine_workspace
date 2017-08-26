@@ -36,7 +36,7 @@ namespace engine
 	template<GPUMemberType Type>
 	void GlobalShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& v)
 	{
-		if(glm::epsilonNotEqual(_value, v, glm::epsilon()))
+		if(glm::all(glm::epsilonNotEqual(_value, v, glm::epsilon())))
 		{
 			_dirty = true;
 			_value = v;
