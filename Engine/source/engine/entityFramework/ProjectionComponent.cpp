@@ -163,11 +163,12 @@ namespace engine
 	void ProjectionComponent::setProjectionMatrixDirty()
 	{
 		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
+		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
 	}
 
-	void ProjectionComponent::setInvProjectionMatrixDirty()
+	Window* ProjectionComponent::getWindow() const
 	{
-		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
+		return _members->window;
 	}
 
 	float ProjectionComponent::getNearPlane() const
@@ -256,4 +257,5 @@ namespace engine
 		tmp->updateProjectionMatrix();
 		return result;
 	}
+
 }

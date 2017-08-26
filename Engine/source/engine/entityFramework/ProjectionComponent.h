@@ -35,9 +35,7 @@ namespace engine
 		void updateProjectionMatrix() const;
 		void updateInvProjectionMatrix() const;
 		void setProjectionMatrixDirty();
-		void setInvProjectionMatrixDirty();
-
-
+		Window* getWindow() const;
 	private:
 		void onRenderComponent(RenderContext*) override;
 		void onUpdateComponent() override;
