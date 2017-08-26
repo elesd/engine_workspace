@@ -11,6 +11,8 @@ namespace engine
 	{
 		friend class TransformationComponentAttachment;
 	public:
+		Signal<> transformationChanged;
+	public:
 		TransformationComponent();
 		~TransformationComponent() override;
 
@@ -28,7 +30,7 @@ namespace engine
 		void setWorldRotation(const quat&);
 
 		const mat4& getWorldTransformation() const;
-		const mat4& getInvWorldTransformatioN() const;
+		const mat4& getInvWorldTransformation() const;
 
 		const vec3& getLocalPosition() const;
 		const quat& getLocalRotation() const;
@@ -53,9 +55,9 @@ namespace engine
 		std::vector<TransformationComponent*>& accessChildren();
 		void setParent(TransformationComponent*);
 	private:
-		void onRenderComponent(RenderContext*) override;
-		void onUpdateComponent() override;
-		std::unique_ptr<Component> cloneComponent() const override;
+		void onRenderComponent(RenderContext*) override final;
+		void onUpdateComponent() override final;
+		std::unique_ptr<Component> cloneComponent() const override final;
 	public:
 		Signal<const vec3&> positionChanged;
 		Signal<const quat&> rotationChanged;

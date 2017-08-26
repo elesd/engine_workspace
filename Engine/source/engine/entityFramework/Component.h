@@ -3,6 +3,7 @@
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
 
+
 namespace engine
 {
 	class RenderContext;

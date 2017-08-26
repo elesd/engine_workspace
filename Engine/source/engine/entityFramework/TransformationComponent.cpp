@@ -72,6 +72,7 @@ namespace engine
 			_child->getParentComponent()->detachComponent(_child);
 		}
 		_child->setParent(_parent);
+		_child->onParentTransformationChanged();
 	}
 
 	TransformationComponentAttachment::TransformationComponentAttachment(TransformationComponentAttachment&& o)
@@ -98,6 +99,7 @@ namespace engine
 			ASSERT(it != children.end());
 			children.erase(it, children.end());
 			_child->setParent(nullptr);
+			_child->onParentTransformationChanged();
 			_parent = nullptr;
 			_child = nullptr;
 		}
@@ -217,7 +219,7 @@ namespace engine
 		return _members->cache.worldTransformation;
 	}
 
-	const mat4& TransformationComponent::getInvWorldTransformatioN() const
+	const mat4& TransformationComponent::getInvWorldTransformation() const
 	{
 		recalclateInvWorldTransformation();
 		return _members->cache.invWorldTransformation;
@@ -351,6 +353,7 @@ namespace engine
 
 	void TransformationComponent::onTransformationChanged()
 	{
+		transformationChanged.emit();
 		for(TransformationComponent* child : _members->children)
 		{
 			child->onParentTransformationChanged();
@@ -411,7 +414,10 @@ namespace engine
 
 		result->setLocalPosition(getLocalPosition());
 		result->setLocalRotation(getLocalRotation());
-
+		if(hasParentComponent())
+		{
+			getParentComponent()->attachComponent(result.get());
+		}
 		return common::static_unique_ptr_cast<Component>(std::move(result));
 	}
 

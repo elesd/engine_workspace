@@ -35,8 +35,11 @@ namespace engine
 
 	void PerspProjectionComponent::setFov(float v)
 	{
-		_members->fov = v;
-		setProjectionMatrixDirty();
+		if(glm::epsilonNotEqual(v, _members->fov, glm::epsilon<float>()))
+		{
+			_members->fov = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	mat4 PerspProjectionComponent::buildProjectionMatrix() const

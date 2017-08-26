@@ -2,6 +2,8 @@
 
 #include <engine/entityFramework/Component.h>
 
+#include <engine/signalSlot/Signal.h>
+
 
 namespace engine
 {
@@ -10,6 +12,8 @@ namespace engine
 	class ProjectionComponent
 		: public Component
 	{
+	public:
+		Signal<> projectionChanged;
 	public:
 		ProjectionComponent(Window* window, float nearPlane, float farPlane);
 		~ProjectionComponent() override;
@@ -20,29 +24,24 @@ namespace engine
 		float getNearPlane() const;
 		float getFarPlane() const;
 
-		glm::mat4 getProjectionMatrix() const;
-		glm::mat4 getInvProjectionMatrix() const;
+		mat4 getProjectionMatrix() const;
+		mat4 getInvProjectionMatrix() const;
 
-		//glm::vec3 screenPointToWorldPoint(const glm::vec3& screenPosition) const;
-		//glm::vec3 worldPointToScreenPoint(const glm::vec3& worldPosition) const;
-
-		//glm::vec3 screenPointToViewport(const glm::vec3& screenPosition) const;
-		//glm::vec3 viewportToScreenPoint(const glm::vec3& viewportPosition) const;
-
-		//glm::vec3 viewportToWorldPoint(const glm::vec3& viewportPosition) const;
-		//glm::vec3 WorldPointToViewport(const glm::vec3& worldPosition) const;
+		vec3 screenPointToViewport(const ScreenSpacePosition& screenPosition, float depth) const;
+		ScreenSpacePosition viewportToScreenPoint(const vec3& viewportPosition) const;
+		
 	protected:
-		void updateProjectionMatrix() const;
-		void updateInvProjectionMatrix() const;
+		void recalculateProjectionMatrix() const;
+		void recalculateInvProjectionMatrix() const;
 		void setProjectionMatrixDirty();
 		Window* getWindow() const;
 	private:
-		void onRenderComponent(RenderContext*) override;
-		void onUpdateComponent() override;
-		std::unique_ptr<Component> cloneComponent() const override;
+		void onRenderComponent(RenderContext*) override final;
+		void onUpdateComponent() override final;
+		std::unique_ptr<Component> cloneComponent() const override final;
 
 	private:
-		virtual glm::mat4 buildProjectionMatrix() const = 0;
+		virtual mat4 buildProjectionMatrix() const = 0;
 		virtual std::unique_ptr<Component> cloneProjectionComponent() const = 0;
 	private:
 		struct ProjectionComponentPrivate* _members = nullptr;

@@ -38,8 +38,11 @@ namespace engine
 
 	void OrthoProjectionComponent::setLeft(float v)
 	{
-		_members->left = v;
-		setProjectionMatrixDirty();
+		if(glm::epsilonNotEqual(v, _members->left, glm::epsilon<float>()))
+		{
+			_members->left = v;
+			setProjectionMatrixDirty();
+		}
 	}
 	
 	float OrthoProjectionComponent::getRight() const
@@ -49,8 +52,11 @@ namespace engine
 
 	void OrthoProjectionComponent::setRight(float v)
 	{
-		_members->right = v;
-		setProjectionMatrixDirty();
+		if(glm::epsilonNotEqual(v, _members->right, glm::epsilon<float>()))
+		{
+			_members->right = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	float OrthoProjectionComponent::getTop() const
@@ -60,8 +66,11 @@ namespace engine
 
 	void OrthoProjectionComponent::setTop(float v)
 	{
-		_members->top = v;
-		setProjectionMatrixDirty();
+		if(glm::epsilonNotEqual(v, _members->top, glm::epsilon<float>()))
+		{
+			_members->top = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	float OrthoProjectionComponent::getBottom() const
@@ -71,8 +80,11 @@ namespace engine
 
 	void OrthoProjectionComponent::setBottom(float v)
 	{
-		_members->bottom = v;
-		setProjectionMatrixDirty();
+		if(glm::epsilonNotEqual(v, _members->bottom, glm::epsilon<float>()))
+		{
+			_members->bottom = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	mat4 OrthoProjectionComponent::buildProjectionMatrix() const

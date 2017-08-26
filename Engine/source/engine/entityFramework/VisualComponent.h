@@ -1,13 +1,13 @@
 #pragma once
 
-#include <engine/entityFramework/Component.h>
+#include <engine/entityFramework/SceneComponent.h>
 
 namespace engine
 {
 	class Material;
 
 	class VisualComponent
-		: public Component
+		: public SceneComponent
 	{
 	protected:
 		VisualComponent();
@@ -15,12 +15,13 @@ namespace engine
 		~VisualComponent() override;
 
 		std::vector<Material*> collectMaterials() const;
-		bool isVisible() const;
-		void setVisible(bool);
+		bool isHiddenInGame() const;
+		void setHiddenInGame(bool);
+
 	private:
-		void onRenderComponent(RenderContext*) override;
-		void onUpdateComponent() override;
-		std::unique_ptr<Component> cloneComponent() const override;
+		void onRenderSceneComponent(RenderContext*) override final;
+		void onUpdateSceneComponent() override final;
+		std::unique_ptr<Component> cloneComponent() const override final;
 	private:
 		virtual std::vector<Material*> collectMaterialsImpl() const = 0;
 		virtual void onRenderVisualComponent(RenderContext*) = 0;

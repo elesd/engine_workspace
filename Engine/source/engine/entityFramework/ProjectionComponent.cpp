@@ -7,8 +7,9 @@
 
 #include <engine/view/Window.h>
 
-#include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/DriverFeatures.h>
+#include <engine/video/GlobalShaderResourceStorage.h>
+#include <engine/utils/ViewportCalculator.h>
 
 namespace
 {
@@ -33,57 +34,7 @@ namespace
 
 	};
 
-	template<engine::NDCType Type>
-	struct ViewportCalculator;
 
-	struct ViewportCalculator<engine::NDCType::OpenGl>
-	{
-		static inline glm::vec3 normalScreenVectorToNDC(const glm::vec3& v)
-		{
-			// [0,1]^3 -> [-1,1]^3
-			glm::vec3 result = v;
-			result *= 2.0f;
-			result -= glm::vec3(1.0f);
-			return result;
-		}
-
-		static inline glm::vec3 ndcToNormalScreenVector(const glm::vec3& v)
-		{
-			// [-1,1]^3 -> [0,1]^3 
-			glm::vec3 result = v;
-			result += glm::vec3(1.0f);
-			result /= 2.0f;
-			return result;
-		}
-
-		static inline glm::mat4 adaptPorjectionMatrix(const glm::mat4& m)
-		{
-			return m;
-		}
-	};
-
-	struct ViewportCalculator<engine::NDCType::DirectX>
-	{
-		static inline glm::vec3 normalScreenVectorToNDC(const glm::vec3& v)
-		{
-			return v;
-		}
-
-		static inline glm::vec3 ndcToNormalScreenVector(const glm::vec3& v)
-		{
-			return v;
-		}
-
-		static inline glm::mat4 adaptPorjectionMatrix(const glm::mat4& m)
-		{
-			// [-1,1]^3 -> [0,1]^3
-			//glm::scale(glm::vec3(0.5f, 0.5f, 0.5f)) * glm::translate(glm::vec3(1.0f, 1.0f, 1.0f)) * m;
-			glm::mat4 result = glm::scale(glm::vec3(0.5f, 0.5f, 0.5f));
-			result *= glm::translate(glm::vec3(1.0f, 1.0f, 1.0f));
-			result *= m;
-			return result;
-		}
-	};
 }
 
 namespace engine
@@ -99,7 +50,8 @@ namespace engine
 			: window(window)
 			, nearPlane(nearPlane)
 			, farPlane(farPlane)
-		{}
+		{
+		}
 	};
 
 	ProjectionComponent::ProjectionComponent(Window* window, float nearPlane, float farPlane)
@@ -117,44 +69,49 @@ namespace engine
 
 	void ProjectionComponent::setNearPlane(float v)
 	{
-		_members->nearPlane = v;
-		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
-		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
+		if(glm::epsilonNotEqual(v, _members->nearPlane, glm::epsilon<float>()))
+		{
+			_members->nearPlane = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	void ProjectionComponent::setFarPlane(float v)
 	{
-		_members->farPlane = v;
-		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
-		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
+		if(glm::epsilonNotEqual(v, _members->farPlane, glm::epsilon<float>()))
+		{
+			_members->farPlane = v;
+			setProjectionMatrixDirty();
+		}
 	}
 
 	glm::mat4 ProjectionComponent::getProjectionMatrix() const
 	{
-		updateProjectionMatrix();
+		recalculateProjectionMatrix();
 		return _members->cache.projectionMatrix;
 	}
 
 	glm::mat4 ProjectionComponent::getInvProjectionMatrix() const
 	{
-		updateInvProjectionMatrix();
+		recalculateInvProjectionMatrix();
 		return _members->cache.invProjectionMatrix;
 	}
 
-	void ProjectionComponent::updateProjectionMatrix() const
+	void ProjectionComponent::recalculateProjectionMatrix() const
 	{
 		if(_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix])
 		{
 			_members->cache.projectionMatrix = buildProjectionMatrix();
+			ViewportCalculator<CurrentDriverFeatures::ndcType>::adaptPorjectionMatrix(_members->cache.projectionMatrix);
 			_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = false;
 		}
 	}
 
-	void ProjectionComponent::updateInvProjectionMatrix() const
+	void ProjectionComponent::recalculateInvProjectionMatrix() const
 	{
 		if(_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix])
 		{
-			updateProjectionMatrix();
+			recalculateProjectionMatrix();
 			_members->cache.invProjectionMatrix = glm::inverse(_members->cache.projectionMatrix);
 			_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = false;
 		}
@@ -164,6 +121,7 @@ namespace engine
 	{
 		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
 		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
+		projectionMatrixChanged.emit();
 	}
 
 	Window* ProjectionComponent::getWindow() const
@@ -181,47 +139,27 @@ namespace engine
 		return _members->farPlane;
 	}
 
-	//glm::vec3 ProjectionComponent::screenPointToWorldPoint(const glm::vec3& screenPosition) const
-	//{
-	//	updateInvProjectionMatrix();
-	//	const glm::vec3 dimension(_members->window->getWidth(),
-	//							  _members->window->getHeight(), 
-	//							  _members->settings.getFarPlane() - _members->settings.getNearPlane());
-	//	// screen position to [0,1]
-	//	glm::vec3 viewportPosition = screenPosition / dimension;
-	//	// depend on environment it goes to [-1,1] or [0,1] range
-	//	viewportPosition = ViewportCalculator<CurrentDriverFeatures::ndcType>::normalScreenVectorToNDC(viewportPosition);
+	vec3 ProjectionComponent::screenPointToViewport(const ScreenSpacePosition& screenPosition, float depth) const
+	{
+		recalculateInvProjectionMatrix();
+		const glm::vec3 dimension(_members->window->getWidth(),
+								  _members->window->getHeight(),
+								  getFarPlane() - getNearPlane());
+		// screen position to [0,1]
+		glm::vec3 viewportPosition = vec3(screenPosition, depth) / dimension;
+		viewportPosition = ViewportCalculator<CurrentDriverFeatures::ndcType>::normalScreenVectorToNDC(viewportPosition);
+		return viewportPosition;
+	}
 
-	//	glm::vec4 result = _members->cache.invProjectionMatrix * glm::vec4(viewportPosition, 1.0f);
-	//	result /= result.w;
-	//	return glm::vec3(result);
-	//}
-
-	//glm::vec3 ProjectionComponent::worldPointToScreenPoint(const glm::vec3& worldPosition) const
-	//{
-	//	updateProjectionMatrix();
-	//	
-	//}
-
-	//glm::vec3 ProjectionComponent::screenPointToViewport(const glm::vec3& screenPosition) const
-	//{
-
-	//}
-
-	//glm::vec3 ProjectionComponent::viewportToScreenPoint(const glm::vec3& viewportPosition) const
-	//{
-
-	//}
-
-	//glm::vec3 ProjectionComponent::viewportToWorldPoint(const glm::vec3& viewportPosition) const
-	//{
-
-	//}
-
-	//glm::vec3 ProjectionComponent::WorldPointToViewport(const glm::vec3& worldPosition) const
-	//{
-
-	//}
+	ScreenSpacePosition ProjectionComponent::viewportToScreenPoint(const vec3& viewportPosition) const
+	{
+		glm::vec3 screenSpacePosition3D = ViewportCalculator<CurrentDriverFeatures::ndcType>::ndcToNormalScreenVector(viewportPosition);
+		const glm::vec3 dimension(_members->window->getWidth(),
+								  _members->window->getHeight(),
+								  getFarPlane() - getNearPlane());
+		screenSpacePosition3D *= dimension;
+		return screenSpacePosition3D;
+	}
 
 	void ProjectionComponent::onRenderComponent(RenderContext* renderContext)
 	{
@@ -229,7 +167,7 @@ namespace engine
 		GlobalShaderResource<GPUMemberType::Mat4>* projParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
 		if(projParameter->hasAttachement())
 		{
-			updateProjectionMatrix();
+			recalculateProjectionMatrix();
 			projParameter->setValue(_members->cache.projectionMatrix);
 		}
 
@@ -237,7 +175,7 @@ namespace engine
 		GlobalShaderResource<GPUMemberType::Mat4>* invProjParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
 		if(invProjParameter->hasAttachement())
 		{
-			updateInvProjectionMatrix();
+			recalculateInvProjectionMatrix();
 			invProjParameter->setValue(_members->cache.invProjectionMatrix);
 		}
 	}
@@ -253,8 +191,6 @@ namespace engine
 		ProjectionComponent* tmp = static_cast<ProjectionComponent*>(result.get());
 		tmp->setFarPlane(getFarPlane());
 		tmp->setNearPlane(getNearPlane());
-		tmp->updateInvProjectionMatrix();
-		tmp->updateProjectionMatrix();
 		return result;
 	}
 

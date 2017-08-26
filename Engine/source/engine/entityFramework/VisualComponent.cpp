@@ -6,7 +6,7 @@ namespace engine
 {
 	struct VisualComponentPrivate
 	{
-		bool visible = true;
+		bool hiddenInGame = true;
 	};
 
 	VisualComponent::VisualComponent()
@@ -26,22 +26,22 @@ namespace engine
 		return collectMaterialsImpl();
 	}
 
-	bool VisualComponent::isVisible() const
+	bool VisualComponent::isHiddenInGame() const
 	{
-		return _members->visible;
+		return _members->hiddenInGame;
 	}
 
-	void VisualComponent::setVisible(bool v)
+	void VisualComponent::setHiddenInGame(bool v)
 	{
-		_members->visible = v;
+		_members->hiddenInGame = v;
 	}
 
-	void VisualComponent::onRenderComponent(RenderContext* renderContext) 
+	void VisualComponent::onRenderSceneComponent(RenderContext* renderContext) 
 	{
 		onRenderVisualComponent(renderContext);
 	}
 
-	void VisualComponent::onUpdateComponent()
+	void VisualComponent::onUpdateSceneComponent()
 	{
 		onUpdateVisualComponent();
 	}
@@ -49,7 +49,7 @@ namespace engine
 	std::unique_ptr<Component> VisualComponent::cloneComponent() const
 	{
 		std::unique_ptr<Component> result = cloneVisualComponent();
-		static_cast<VisualComponent*>(result.get())->setVisible(isVisible());
+		static_cast<VisualComponent*>(result.get())->setHiddenInGame(isHiddenInGame());
 		return result;
 	}
 }
