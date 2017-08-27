@@ -76,11 +76,6 @@ namespace engine
 		void update();
 
 		/**
-		* The active state is rendered in each frame.
-		*/
-		void render();
-
-		/**
 		 * @return true when the state is initialized and not destroyed.
 		 */
 		bool isInitialized() const;
@@ -132,8 +127,6 @@ namespace engine
 
 		/** Update function for the derived state */
 		virtual void updateState() {};
-		/** Render function for the derived state */
-		virtual void renderState() {};
 	protected:
 		/**
 		 * Signal for state changes to a next state.

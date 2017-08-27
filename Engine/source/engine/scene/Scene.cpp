@@ -97,9 +97,13 @@ namespace engine
 		return _members->renderPrioirty;
 	}
 
-	void Scene::setRenderPriority(int32_t priority) const
+	void Scene::setRenderPriority(int32_t priority)
 	{
-		_members->renderPrioirty = priority;
+		if(priority != _members->renderPrioirty)
+		{
+			_members->renderPrioirty = priority;
+			scenePriorityChanged.emit();
+		}
 	}
 
 	bool Scene::isActive() const
@@ -109,12 +113,20 @@ namespace engine
 
 	void Scene::activate()
 	{
-		_members->active = true;
+		if(!isActive())
+		{
+			_members->active = true;
+			sceneActivated.emit();
+		}
 	}
 
 	void Scene::deactivate()
 	{
-		_members->active = false;
+		if(isActive())
+		{
+			_members->active = false;
+			sceneDeactivated.emit();
+		}
 	}
 
 	void Scene::update()
@@ -123,5 +135,10 @@ namespace engine
 		{
 			e->update();
 		}
+	}
+
+	const std::string& Scene::getName() const
+	{
+		return _members->name;
 	}
 }

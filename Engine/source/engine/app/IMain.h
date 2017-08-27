@@ -20,7 +20,6 @@ namespace engine
 		virtual void load() = 0;
 		/**Called once per each frame to update the main*/
 		virtual void update() = 0;
-		/**Called once per each frame to render*/
-		virtual void render() = 0;
+
 	};
 }

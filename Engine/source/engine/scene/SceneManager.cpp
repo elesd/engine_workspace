@@ -7,6 +7,7 @@
 
 #include <engine/functional/functions.h>
 
+#include <engine/render/Render.h>
 #include <engine/render/RenderContext.h>
 
 
@@ -41,13 +42,16 @@ namespace engine
 
 		std::unique_ptr<Scene> scene(new Scene(sceneName, std::move(componentRegister)));
 
+		CONNECT_SIGNAL(scene.get(), sceneActivated, this, whenSceneActivationChanged);
+		CONNECT_SIGNAL(scene.get(), sceneDeactivated, this, whenSceneActivationChanged);
+		CONNECT_SIGNAL(scene.get(), scenePriorityChanged, this, whenScenePriorityChanged);
 		_members->currentState.activeRenderers.push_back(renderer);
 		_members->currentState.activeScenes.push_back(scene.get());
 		_members->currentState.scenes.push_back(scene.get());
 
 		_members->currentState.rendererMap.insert(std::make_pair(sceneName, renderer));
 		_members->sceneContainer.push_back(std::move(scene));
-
+		whenScenePriorityChanged();
 		return _members->sceneContainer.back().get();
 	}
 
@@ -139,4 +143,20 @@ namespace engine
 			}
 		}
 	}
+
+	void SceneManager::whenScenePriorityChanged()
+	{
+		std::map<Render*, int32_t> prioirtyMap;
+		for(Scene* scene : _members->currentState.activeScenes)
+		{
+			Render* render = findRenderForScene(scene->getName());
+			prioirtyMap[render] = scene->getRenderPriority();
+		}
+		std::sort(_members->currentState.activeRenderers.begin(), _members->currentState.activeRenderers.end(),
+				  [&prioirtyMap](Render* a, Render* b)->bool 
+		{
+			return prioirtyMap[a] > prioirtyMap[b];
+		});
+	}
+
 }

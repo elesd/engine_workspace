@@ -24,7 +24,6 @@ namespace engine
 
 		void registerEntity(Entity* entity);
 	private:
-		virtual void registerCustomComponent(Entity* entity, Component* componentToRegister, Render* renderer) = 0;
 		virtual void registerVisualComponent(Entity* entity, VisualComponent* visualComponent, Render* renerer) = 0;
 	private:
 		struct ComponentRegisterPrivate* _members;

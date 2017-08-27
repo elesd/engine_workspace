@@ -54,24 +54,6 @@ namespace engine
 		Window *createFullScreenMainWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId);
 
 		/**
-		* Creates a secondary window with the given parameter and title.
-		* @param parameters: Window creation parameters.
-		* @param title: title of the window
-		* @param mainWindow: Main window, the secondary window shares the main window context.
-		*/
-		Window *createSecondaryWindow(const WindowParameter &parameters, const std::string &title, Window *mainWindow);
-
-		/**
-		* Creates a secondary full screened window with the given parameter and title.
-		* @param width: width of the window in pixels
-		* @param height: height of the window in pixels
-		* @param title: title of the window
-		* @param monitorId: id of the monitor where the window will created.
-		* @param mainWindow: Main window, the secondary window shares the main window context.
-		*/
-		Window *createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow);
-
-		/**
 		* Destroy the given window.
 		*/
 		void destroyWindow(Window *);
@@ -147,6 +129,27 @@ namespace engine
 		virtual void preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &) const = 0;
 		virtual void postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &, Window* window) const = 0;
 	private:
+
+		/**
+		* Creates a secondary window with the given parameter and title.
+		* @param parameters: Window creation parameters.
+		* @param title: title of the window
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		* @todo: Implement sharing render context
+		*/
+		DEPRECATED(Window *createSecondaryWindow(const WindowParameter &parameters, const std::string &title, Window *mainWindow));
+
+		/**
+		* Creates a secondary full screened window with the given parameter and title.
+		* @param width: width of the window in pixels
+		* @param height: height of the window in pixels
+		* @param title: title of the window
+		* @param monitorId: id of the monitor where the window will created.
+		* @param mainWindow: Main window, the secondary window shares the main window context.
+		* @todo: Implement sharing render context
+		*/
+		DEPRECATED(Window *createSecondaryFullScreenWindow(const uint32_t width, const uint32_t height, const std::string &title, uint32_t monitorId, Window *mainWindow));
+
 		/**
 		* Common initialization of a window.
 		* @param window: Window to be initialized

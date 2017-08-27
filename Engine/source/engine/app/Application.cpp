@@ -10,6 +10,10 @@
 
 #include <engine/fileSystem/FileSystem.h>
 
+#include <engine/render/RenderManager.h>
+
+#include <engine/scene/SceneManager.h>
+
 #include <engine/view/WindowManager.h>
 
 namespace engine
@@ -18,6 +22,8 @@ namespace engine
 	{
 		std::unique_ptr<IMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
+		std::unique_ptr<SceneManager> sceneManager;
+		std::unique_ptr<RenderManager> renderManager;
 		std::unique_ptr<WindowManager> windowManager;
         std::unique_ptr<EventManagerFactory> eventManagerFactory;
 		std::unique_ptr<FileSystem> fileSystem;
@@ -30,6 +36,8 @@ namespace engine
 	{
 		_members->main = std::move(main);
 		_members->arguments = std::move(arguments);
+		_members->sceneManager.reset(new SceneManager());
+		_members->renderManager.reset(new RenderManager());
 	}
 
 	Application::~Application()
@@ -55,6 +63,7 @@ namespace engine
 			updateImpl();
             _members->windowManager->update();
 			_members->main->update();
+			_members->sceneManager->update();
 		}
 	}
 
@@ -62,7 +71,11 @@ namespace engine
 	{
 		if(isActive())
 		{
-			_members->main->render();
+			std::vector<Window*> windows = _members->windowManager->getAllWindows();
+			for(Window* window : windows)
+			{
+				_members->renderManager->render(window->getRenderContext(), _members->sceneManager->getActiveScenesRenderer());
+			}
 		}
 	}
 
@@ -84,6 +97,16 @@ namespace engine
 	FileSystem* Application::getFileSystem() const
 	{
 		return _members->fileSystem.get();
+	}
+
+	SceneManager* Application::getSceneManager() const
+	{
+		return _members->sceneManager.get();
+	}
+
+	RenderManager* Application::getRenderManager() const
+	{
+		return _members->renderManager.get();
 	}
 
 	WindowManager *Application::getWindowManager() const

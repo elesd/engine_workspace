@@ -24,7 +24,7 @@ namespace engine
 		, private NonMoveable
 		, public IntermediateSlotHolder
 	{
-		friend class Context;
+		friend class Application;
 		SceneManager();
 	public:
 		~SceneManager();
@@ -43,6 +43,7 @@ namespace engine
 		void removeDeletedScenes();
 	private:
 		void whenSceneActivationChanged();
+		void whenScenePriorityChanged();
 	private:
 		struct SceneManagerPrivate* _members = nullptr;
 	};

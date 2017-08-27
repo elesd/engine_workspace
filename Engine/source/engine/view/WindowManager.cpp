@@ -87,6 +87,7 @@ namespace engine
 
 		std::unique_ptr<Driver> driver = createDriver(_members->deviceParameters);
 		Driver* driverPtr = driver.get();
+		// TODO share render context
 		std::unique_ptr<RenderContext> context = createRenderContext(std::move(driver));
 
 		preInitCreation(driverPtr, context.get(), _members->renderContextParameters);

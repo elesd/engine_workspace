@@ -111,14 +111,6 @@ namespace engine
 		updateState();
 	}
 
-	void StateBase::render()
-	{
-		ASSERT(isActive());
-		renderState();
-		// TODO swap all the buffers
-		Context::windowManager()->getMainWindow()->getRenderContext()->swapBuffer();
-	}
-
 	void StateBase::changeState(std::unique_ptr<StateBase> nextState)
 	{
 		if(!isInitialized())

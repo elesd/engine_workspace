@@ -13,6 +13,7 @@ namespace engine
 	public:
 		Signal<> sceneActivated;
 		Signal<> sceneDeactivated;
+		Signal<> scenePriorityChanged;
 	private:
 		explicit Scene(const std::string& sceneName, std::unique_ptr<ComponentRegister>&& componentRegister);
 	public:
@@ -26,7 +27,7 @@ namespace engine
 		std::vector<Entity*> findEntitiesByName(const std::string& name);
 
 		int32_t getRenderPriority() const;
-		void setRenderPriority(int32_t) const;
+		void setRenderPriority(int32_t);
 
 		bool isActive() const;
 		void activate();
