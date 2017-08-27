@@ -74,8 +74,8 @@ namespace engine
 			bool hasWindowClass = false;
 		};
 
-		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
-			: WindowManager(driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping)
+			: WindowManager(driverContextParameters, resourceMapping)
 			, _members(new WindowManagerImplPrivate())
 		{
 			EnumDisplayMonitors(NULL, NULL, MonitorInitializer, (LPARAM)&_members->monitors);

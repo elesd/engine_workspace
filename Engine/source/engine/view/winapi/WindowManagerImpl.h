@@ -11,7 +11,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			WindowManagerImpl(const DeviceParameters& driverContextParameters);
+			WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping);
 			/**PIMPL*/
 			~WindowManagerImpl()  override;
 			/**

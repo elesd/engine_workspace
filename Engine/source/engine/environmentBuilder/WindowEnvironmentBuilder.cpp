@@ -41,14 +41,14 @@ namespace engine
 		o._members = nullptr;
 	}
 
-	BuildFinalizer WindowEnvironmentBuilder::build(const DeviceParameters& deviceParameters)
+	BuildFinalizer WindowEnvironmentBuilder::build(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
 		std::unique_ptr<WindowManager> manager;
 		switch(_members->windowModule)
 		{
-			case ContextModuleType::Glfw: manager = createGlfwWindowManager(deviceParameters); break;
-			case ContextModuleType::Sdl: manager = createSdlWindowManager(deviceParameters); break;
-			case ContextModuleType::WinApi: manager = createWinApiWindowManager(deviceParameters); break;
+			case ContextModuleType::Glfw: manager = createGlfwWindowManager(deviceParameters, resourceMapping); break;
+			case ContextModuleType::Sdl: manager = createSdlWindowManager(deviceParameters, resourceMapping); break;
+			case ContextModuleType::WinApi: manager = createWinApiWindowManager(deviceParameters, resourceMapping); break;
 		}
 		if(!manager)
 			throw InitializationError("Unhandled window module");
@@ -56,20 +56,20 @@ namespace engine
 		return BuildFinalizer();
 	}
 
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager(const DeviceParameters& deviceParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
-		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(deviceParameters));
+		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
 	}
 
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager(const DeviceParameters& deviceParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
-		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(deviceParameters));
+		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
 	}
-	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager(const DeviceParameters& deviceParameters)
+	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
-		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(deviceParameters));
+		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
 	}
 }

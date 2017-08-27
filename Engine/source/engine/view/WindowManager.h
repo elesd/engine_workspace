@@ -1,24 +1,28 @@
 #pragma once
 
 #include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/NonMoveable.h>
 
 namespace engine
 {
-	struct DeviceParameters;
 	class Driver;
-	struct RenderContextParameters;
 	class RenderContext;
-	struct WindowParameter;
+	class GlobalResourceMapping;
 	class Window;
+	struct DeviceParameters;
+	struct RenderContextParameters;
+	struct WindowParameter;
 
 	/**
 	* Class for manage window creation and windows connected functionality.
 	*/
-	class WindowManager : NonCopyable
+	class WindowManager 
+		: private NonCopyable
+		, private NonMoveable
 	{
 	public:
 		/** Default constructable. */
-		WindowManager(const DeviceParameters& parameters);
+		WindowManager(const DeviceParameters& parameters, const GlobalResourceMapping& resourceMapping);
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 

@@ -18,8 +18,8 @@ namespace engine
 {
 	namespace sdl
 	{
-		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters)
-			: WindowManager(driverContextParameters)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping)
+			: WindowManager(driverContextParameters, resourceMapping)
 		{
 		}
 

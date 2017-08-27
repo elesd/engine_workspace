@@ -106,7 +106,7 @@ namespace engine
 
 	float Window::getAspectRatio() const
 	{
-		return getWidth() / getHeight();
+		return getWidth() / float(getHeight());
 	}
 
 	void Window::update()

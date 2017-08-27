@@ -112,6 +112,7 @@ namespace engine
 		_parent = o._parent;
 		o._child = nullptr;
 		o._parent = nullptr;
+		return *this;
 	}
 
 	void TransformationComponentAttachment::reset()

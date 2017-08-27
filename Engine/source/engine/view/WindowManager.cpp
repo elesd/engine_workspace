@@ -34,7 +34,7 @@ namespace engine
 		{ }
 	};
 
-	WindowManager::WindowManager(const DeviceParameters& parameters)
+	WindowManager::WindowManager(const DeviceParameters& parameters, const GlobalResourceMapping& globalResourceMapping)
 		: _members(new WindowManagerPrivate(parameters))
 	{
 		DriverInitParameters driverParameters;
@@ -42,7 +42,7 @@ namespace engine
 		driverParameters.description.format = TextureFormat::_R8G8B8A8;
 		driverParameters.description.isSRGB = false;
 		driverParameters.description.type = BufferType::UnsignedNormalized;
-		_members->renderContextParameters = RenderContextParameters(driverParameters);
+		_members->renderContextParameters = RenderContextParameters(driverParameters, globalResourceMapping);
 	}
 
 	WindowManager::~WindowManager()

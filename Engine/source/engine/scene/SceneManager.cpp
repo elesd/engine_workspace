@@ -135,7 +135,7 @@ namespace engine
 		_members->currentState.activeRenderers.clear();
 		for(Scene* scene : _members->currentState.scenes)
 		{
-			if(scene->isActive)
+			if(scene->isActive())
 			{
 				_members->currentState.activeScenes.push_back(scene);
 				Render* render = findRenderForScene(scene->getName());

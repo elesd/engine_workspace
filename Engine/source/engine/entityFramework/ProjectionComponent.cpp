@@ -121,7 +121,7 @@ namespace engine
 	{
 		_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = true;
 		_members->cache.dirtyFlags[DirtyFlags::InvProjectionMatrix] = true;
-		projectionMatrixChanged.emit();
+		projectionChanged.emit();
 	}
 
 	Window* ProjectionComponent::getWindow() const

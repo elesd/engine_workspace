@@ -83,7 +83,7 @@ namespace engine
 			_members->transformation->attachComponent(visualComponent->getTransformationComponent());
 		}
 		_members->cache.visuals.push_back(visualComponent.get());
-		_members->visualComponentsContainer.push_back(visualComponent);
+		_members->visualComponentsContainer.push_back(std::move(visualComponent));
 	}
 
 	void Entity::unregisterVisualComponent(VisualComponent* component)
@@ -232,7 +232,7 @@ namespace engine
 
 	std::unique_ptr<Entity> Entity::cloneEntity() const
 	{
-		return std::make_unique<Entity>();
+		return std::make_unique<Entity>(_members->name);
 	}
 
 }

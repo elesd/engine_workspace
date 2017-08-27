@@ -41,7 +41,7 @@ namespace engine
 		CameraComponent* activeCamera = findActiveCamera();
 		if(activeCamera != nullptr)
 		{
-			activeCamera->onRender();
+			activeCamera->onRender(_members->renderContext);
 		}
 		_members->pipelineRender->render();
 	}

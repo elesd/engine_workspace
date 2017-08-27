@@ -34,14 +34,6 @@ namespace engine
 		delete _members;
 	}
 
-	void StateStack::render()
-	{
-		if(!isEmpty())
-		{
-			topState()->render();
-		}
-	}
-
 	void StateStack::update()
 	{
 		while(_members->statesDirty)

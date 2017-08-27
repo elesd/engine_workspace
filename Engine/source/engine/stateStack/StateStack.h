@@ -40,11 +40,6 @@ namespace engine
 		void update();
 
 		/**
-		 * Render the top state if it exists.
-		 */
-		void render();
-
-		/**
 		 * Pushes a new state to the top of the stack.
 		 * @param state: State to push to the top.
 		 * @warning This function will be applied only in the next frame.

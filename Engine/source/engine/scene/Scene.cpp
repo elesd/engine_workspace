@@ -56,11 +56,20 @@ namespace engine
 			_members->cache.entities.erase(it, _members->cache.entities.end());
 		}
 
+		std::unique_ptr<Entity> result(entity);
 		{
+			for(std::unique_ptr<Entity>& entityPtr : _members->entityContainer)
+			{
+				if(entityPtr.get() == entity)
+				{
+					entityPtr.release();
+				}
+			}
 			auto it = std::remove_if(_members->entityContainer.begin(), _members->entityContainer.end(),
-									 PointerEqualTo<Entity>(entity));
+									 [](const std::unique_ptr<Entity>& e)->bool	{return e == nullptr;});
 			_members->entityContainer.erase(it, _members->entityContainer.end());
 		}
+		return result;
 	}
 
 	std::vector<Entity*> Scene::getEntities() const

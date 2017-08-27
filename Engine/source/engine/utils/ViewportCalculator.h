@@ -7,6 +7,7 @@ namespace engine
 	template<engine::NDCType Type>
 	struct ViewportCalculator;
 
+	template<>
 	struct ViewportCalculator<engine::NDCType::OpenGl>
 	{
 		static inline engine::vec3 normalScreenVectorToNDC(const engine::vec3& v)
@@ -33,6 +34,7 @@ namespace engine
 		}
 	};
 
+	template<>
 	struct ViewportCalculator<engine::NDCType::DirectX>
 	{
 		static inline engine::vec3 normalScreenVectorToNDC(const engine::vec3& v)

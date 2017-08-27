@@ -260,13 +260,15 @@ namespace engine
 		const ProjectionComponent* currentProjection = isOrthographic()
 			? static_cast<const ProjectionComponent*>(getOrthogonalProjection())
 			: static_cast<const ProjectionComponent*>(getPerspectiveProjection());
+		return currentProjection;
 	}
 
 	ProjectionComponent* CameraComponent::getActiveProjection() 
 	{
-		const ProjectionComponent* currentProjection = isOrthographic()
-			? static_cast<const ProjectionComponent*>(getOrthogonalProjection())
-			: static_cast<const ProjectionComponent*>(getPerspectiveProjection());
+		ProjectionComponent* currentProjection = isOrthographic()
+			? static_cast<ProjectionComponent*>(getOrthogonalProjection())
+			: static_cast<ProjectionComponent*>(getPerspectiveProjection());
+		return currentProjection;
 	}
 
 	bool CameraComponent::isValidComponent() const

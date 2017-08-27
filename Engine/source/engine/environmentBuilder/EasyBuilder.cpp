@@ -15,6 +15,7 @@
 
 #include <engine/ModuleDefinitions.h>
 
+#include <engine/render/GlobalResourceMapping.h>
 #include <engine/video/Driver.h>
 
 namespace engine
@@ -26,6 +27,7 @@ namespace engine
 		FileSystemSettings fileSystemSettings;
 		engine::ContextModuleType windowModule;
 		DeviceParameters deviceParameters;
+		GlobalResourceMapping resourceMapping;
 	};
 
 	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main, engine::ContextModuleType windowModul)
@@ -57,6 +59,11 @@ namespace engine
 		_members->deviceParameters = deviceParameters;
 	}
 
+	void EasyBuilder::setGlobalResourceMapping(const GlobalResourceMapping& resourceMapping)
+	{
+
+	}
+
 	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,
 								  HINSTANCE hPrevInstance,
 								  LPSTR lpCmdLine,
@@ -84,7 +91,7 @@ namespace engine
 		FileSystemBuilder fsBuilder = appBuilder.build(std::move(args), std::move(_members->main));
 		EventBuilder eventBuilder = fsBuilder.build(_members->fileSystemSettings);
 		WindowEnvironmentBuilder windowBuilder = eventBuilder.build(_members->inputs);
-		BuildFinalizer lastStep = windowBuilder.build(_members->deviceParameters);
+		BuildFinalizer lastStep = windowBuilder.build(_members->deviceParameters, _members->resourceMapping);
 		lastStep.build();
 	}
 

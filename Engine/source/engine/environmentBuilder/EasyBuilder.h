@@ -10,6 +10,7 @@ namespace engine
 	class IMain;
 	class IApplicationParameter;
 	class Application;
+	class GlobalResourceMapping;
 	struct DeviceParameters;
 	struct FileSystemSettings;
 	enum class BasicInputType;
@@ -39,6 +40,8 @@ namespace engine
 		void setFileSystemSetting(const FileSystemSettings &settings);
 
 		void setDeviceParameters(const DeviceParameters& deviceParameters);
+
+		void setGlobalResourceMapping(const GlobalResourceMapping& resourceMapping);
 		/**
 		* One step build for the engine in case of winapi application.
 		* @param hInstance: Application arg.

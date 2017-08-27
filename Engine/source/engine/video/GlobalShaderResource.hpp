@@ -1,6 +1,8 @@
 
 #include <algorithm>
 
+#include <engine/utils/Math.h>
+
 namespace engine
 {
 
@@ -36,7 +38,7 @@ namespace engine
 	template<GPUMemberType Type>
 	void GlobalShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& v)
 	{
-		if(glm::all(glm::epsilonNotEqual(_value, v, glm::epsilon())))
+		if(math::notEquals(_value, v, glm::epsilon<typename GPUMemberTypeTraits<Type>::ValueType>()))
 		{
 			_dirty = true;
 			_value = v;
@@ -66,7 +68,7 @@ namespace engine
 	}
 
 	template<GPUMemberType Type>
-	void GlobalShaderResource<Type>::cleanUpDirtyFlag()
+	void GlobalShaderResource<Type>::cleanUpDirtyFlag() const
 	{
 		_dirty = false;
 	}
