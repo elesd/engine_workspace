@@ -17,6 +17,10 @@ namespace engine
 	public:
 		virtual ~Component();
 
+		bool isActive() const;
+		void activate();
+		void deactivate();
+
 		uint32_t getTag() const;
 		void onRender(RenderContext*);
 		void onUpdate();

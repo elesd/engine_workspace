@@ -5,6 +5,7 @@
 namespace engine
 {
 	class IRenderable;
+	class Component;
 	class RenderContext;
 
 	class RenderPass 
@@ -22,9 +23,10 @@ namespace engine
 		void setClearColor(Color4 color);
 		const Color4 &getClearColor() const;
 
-		const std::vector<IRenderable*>& getObjects() const;
+		const std::vector<Component*>& getComponents() const;
 
-		void addObject(IRenderable*);
+		void registerComponent(Component*);
+		void unregisterComponent(const Component* component);
 	private:
 		struct RenderPassPrivate* _members = nullptr;
 	};

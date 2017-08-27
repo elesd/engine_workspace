@@ -15,7 +15,7 @@ namespace engine
 		, private NonMoveable
 	{
 	public:
-		Entity();
+		explicit Entity(const std::string& name);
 		virtual ~Entity();
 
 		void registerCameraComponent(std::unique_ptr<CameraComponent>&& cameraComponent);
@@ -38,12 +38,22 @@ namespace engine
 
 		void registerCustomComponent(std::unique_ptr<Component>&& customComponent);
 		void unregisterCustomComponent(Component* customComponent);
+		std::vector<Component*>& getCustomComponents();
+		const std::vector<Component*>& getCustomComponents() const;
 
 		std::vector<Component*> findCustomComponentsByTag(uint32_t tag) const;
 
 		std::unique_ptr<Entity> clone() const;
+
+		uint32_t getTag() const;
+		void setTag(uint32_t tag);
+
+		const std::string& getName() const;
+
+		void update();
 	private:
 		virtual std::unique_ptr<Entity> cloneEntity() const;
+		virtual void updateEntity() {};
 
 	private:
 		struct EntityPrivate* _members = nullptr;

@@ -1,7 +1,9 @@
 #include <stdafx.h>
 #include <engine/render/RenderPass.h>
+///////////////////////////////////////////////////////////////////////////////
 
-#include <engine/render/IRenderable.h>
+#include <engine/entityFramework/Component.h>
+
 #include <engine/render/RenderContext.h>
 
 
@@ -13,7 +15,7 @@ namespace engine
 
 		Color4 clearColor;
 
-		std::vector<IRenderable*> objects;
+		std::vector<Component*> visibleComponents;
 		std::string name;
 
 		RenderPassPrivate(const std::string& name, RenderContext* renderContext)
@@ -53,22 +55,26 @@ namespace engine
 		// TODO 
 		// setClearColor(_members->clearColor) 
 		// ...
-		for(IRenderable* obj : _members->objects)
+		for(Component* component: _members->visibleComponents)
 		{
-			obj->preRender(_members->renderContext);
-			obj->render(_members->renderContext);
-			obj->postRender(_members->renderContext);
+			component->onRender(_members->renderContext);
 		}
 	}
 
-	const std::vector<IRenderable*>& RenderPass::getObjects() const
+	const std::vector<Component*>& RenderPass::getComponents() const
 	{
-		return _members->objects;
+		return _members->visibleComponents;
 	}
 	
-	void RenderPass::addObject(IRenderable* o)
+	void RenderPass::registerComponent(Component* o)
 	{
-		_members->objects.push_back(o);
+		_members->visibleComponents.push_back(o);
+	}
+
+	void RenderPass::unregisterComponent(const Component* component)
+	{
+		auto it = std::remove(_members->visibleComponents.begin(), _members->visibleComponents.end(), component);
+		_members->visibleComponents.erase(it, _members->visibleComponents.end());
 	}
 
 	void RenderPass::setClearColor(Color4 color)

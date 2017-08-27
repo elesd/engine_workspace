@@ -7,6 +7,7 @@ namespace engine
 	struct ComponentPrivate
 	{
 		uint32_t tag = 0;
+		bool active = true;
 	};
 
 	Component::Component()
@@ -21,6 +22,21 @@ namespace engine
 		_members = nullptr;
 	}
 
+	bool Component::isActive() const
+	{
+		return _members->active;
+	}
+
+	void Component::activate()
+	{
+		_members->active = true;
+	}
+
+	void Component::deactivate()
+	{
+		_members->active = false;
+	}
+
 	uint32_t Component::getTag() const
 	{
 		return _members->tag;
@@ -28,12 +44,18 @@ namespace engine
 
 	void Component::onRender(RenderContext* renderContext)
 	{
-		onRenderComponent(renderContext);
+		if(isActive())
+		{
+			onRenderComponent(renderContext);
+		}
 	}
 
 	void Component::onUpdate()
 	{
-		onUpdateComponent();
+		if(isActive())
+		{
+			onUpdateComponent();
+		}
 	}
 
 	std::unique_ptr<Component> Component::clone() const

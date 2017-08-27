@@ -58,6 +58,7 @@ namespace engine
 	void SceneComponent::onUpdateComponent()
 	{
 		_members->transformation->onUpdate();
+		onUpdateSceneComponent();
 	}
 
 	std::unique_ptr<Component> SceneComponent::cloneComponent() const

@@ -19,15 +19,21 @@ namespace engine
 
 	struct EntityPrivate
 	{
+		std::string name;
+		uint32_t tag = 0;
 		std::unique_ptr<CameraComponent> cameraComponent;
 		std::unique_ptr<TransformationComponent> transformation;
 		std::vector<std::unique_ptr<VisualComponent>> visualComponentsContainer;
 		std::vector<std::unique_ptr<Component>> customComponentContainer;
 		EntityComponentCache cache;
+
+		explicit EntityPrivate(const std::string& name)
+			: name(name)
+		{		}
 	};
 
-	Entity::Entity()
-		: _members(new EntityPrivate())
+	Entity::Entity(const std::string& name)
+		: _members(new EntityPrivate(name))
 	{
 
 	}
@@ -152,6 +158,15 @@ namespace engine
 		}
 	}
 
+	std::vector<Component*>& Entity::getCustomComponents()
+	{
+		return _members->cache.customs;
+	}
+
+	const std::vector<Component*>& Entity::getCustomComponents() const
+	{
+		return _members->cache.customs;
+	}
 
 	std::vector<Component*> Entity::findCustomComponentsByTag(uint32_t tag) const
 	{
@@ -164,6 +179,8 @@ namespace engine
 	std::unique_ptr<Entity> Entity::clone() const
 	{
 		std::unique_ptr<Entity> result = cloneEntity();
+		result->_members->name = _members->name;
+		result->_members->tag = _members->tag;
 		if(hasTransformationComponent())
 		{
 			std::unique_ptr<TransformationComponent> cloneComponent = common::static_unique_ptr_cast<TransformationComponent>(_members->transformation->clone());
@@ -180,6 +197,37 @@ namespace engine
 			result->registerCustomComponent(std::move(cloneComponent));
 		}
 		return result;
+	}
+
+	uint32_t Entity::getTag() const
+	{
+		return  _members->tag;
+	}
+
+	void Entity::setTag(uint32_t tag)
+	{
+		_members->tag = tag;
+	}
+
+	const std::string& Entity::getName() const
+	{
+		return _members->name;
+	}
+
+	void Entity::update()
+	{
+		if(hasTransformationComponent())
+		{
+			_members->transformation->onUpdate();
+		}
+		for(VisualComponent* component : _members->cache.visuals)
+		{
+			component->onUpdate();
+		}
+		for(Component* component : _members->cache.customs)
+		{
+			component->onUpdate();
+		}
 	}
 
 	std::unique_ptr<Entity> Entity::cloneEntity() const
