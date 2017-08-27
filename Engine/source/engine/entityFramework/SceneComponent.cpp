@@ -10,12 +10,16 @@ namespace engine
 	struct SceneComponentPrivate
 	{
 		std::unique_ptr<TransformationComponent> transformation;
+		SceneComponentPrivate()
+			: transformation(new TransformationComponent())
+		{
+
+		}
 	};
 
 	SceneComponent::SceneComponent()
 		: _members(new SceneComponentPrivate())
 	{
-
 	}
 
 	SceneComponent::~SceneComponent()
@@ -25,6 +29,7 @@ namespace engine
 	}
 	void SceneComponent::setTransformationComponent(std::unique_ptr<TransformationComponent>&& component)
 	{
+		ASSERT(component != nullptr);
 		_members->transformation = std::move(component);
 	}
 
