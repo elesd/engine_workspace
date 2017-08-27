@@ -17,7 +17,6 @@ namespace engine
 		const TransformationComponent* getTransformationComponent() const;
 		TransformationComponent* getTransformationComponent();
 
-		bool hasTransformationComponent() const;
 	protected:
 		void setTransformationComponent(std::unique_ptr<TransformationComponent>&&);
 

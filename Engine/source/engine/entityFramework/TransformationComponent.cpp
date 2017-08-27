@@ -144,6 +144,10 @@ namespace engine
 
 	TransformationComponent::~TransformationComponent()
 	{
+		if(hasParentComponent())
+		{
+			getParentComponent()->detachComponent(this);
+		}
 		delete _members;
 		_members = nullptr;
 	}

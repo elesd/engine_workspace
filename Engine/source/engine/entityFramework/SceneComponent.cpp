@@ -49,32 +49,20 @@ namespace engine
 		return _members->transformation.get();
 	}
 
-	bool SceneComponent::hasTransformationComponent() const
-	{
-		return _members->transformation != nullptr;
-	}
-
 	void SceneComponent::onRenderComponent(RenderContext* renderContext)
 	{
-		if(hasTransformationComponent())
-		{
-			_members->transformation->onRender(renderContext);
-		}
+		_members->transformation->onRender(renderContext);
 		onRenderSceneComponent(renderContext);
 	}
 
 	void SceneComponent::onUpdateComponent()
 	{
-		if(hasTransformationComponent())
-		{
-			_members->transformation->onUpdate();
-		}
+		_members->transformation->onUpdate();
 	}
 
 	std::unique_ptr<Component> SceneComponent::cloneComponent() const
 	{
 		std::unique_ptr<Component> result = cloneSceneComponent();
-		if(hasTransformationComponent)
 		{
 			std::unique_ptr<Component> cloneComponent = _members->transformation->clone();
 			std::unique_ptr<TransformationComponent> cloneTransformation = common::static_unique_ptr_cast<TransformationComponent>(std::move(cloneComponent));

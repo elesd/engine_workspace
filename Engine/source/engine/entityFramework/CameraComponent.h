@@ -7,8 +7,9 @@
 namespace engine
 {
 	class Window;
-	class OrthoProjectionComponent;
 	class PerspProjectionComponent;
+	class ProjectionComponent;
+	class OrthoProjectionComponent;
 	class TransformationComponent;
 
 	struct PerspectiveProjectionSettings;
@@ -51,6 +52,7 @@ namespace engine
 
 		vec3 viewportToWorldPoint(const glm::vec3& viewportPosition) const;
 		vec3 WorldPointToViewport(const glm::vec3& worldPosition) const;
+
 	protected:
 		void setOrthogonalProjection(std::unique_ptr<OrthoProjectionComponent>&& projection);
 		void setPerspectiveProjection(std::unique_ptr<PerspProjectionComponent>&& projection);

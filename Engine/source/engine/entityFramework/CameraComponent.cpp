@@ -271,8 +271,7 @@ namespace engine
 
 	bool CameraComponent::isValidComponent() const
 	{
-		return ((isOrthographic() && hasOrthogonalProjection()) || (!isOrthographic() && hasPerspectiveProjection()))
-			&& hasTransformationComponent();
+		return ((isOrthographic() && hasOrthogonalProjection()) || (!isOrthographic() && hasPerspectiveProjection()));
 	}
 
 	void CameraComponent::onTransformationComponentSet()
