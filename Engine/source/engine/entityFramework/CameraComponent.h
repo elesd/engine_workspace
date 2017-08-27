@@ -50,8 +50,8 @@ namespace engine
 		vec3 screenPointToViewport(const ScreenSpacePosition& screenPosition, float depth) const;
 		ScreenSpacePosition viewportToScreenPoint(const vec3& viewportPosition) const;
 
-		vec3 viewportToWorldPoint(const glm::vec3& viewportPosition) const;
-		vec3 WorldPointToViewport(const glm::vec3& worldPosition) const;
+		vec3 viewportToWorldPoint(const vec3& viewportPosition) const;
+		vec3 WorldPointToViewport(const vec3& worldPosition) const;
 
 	protected:
 		void setOrthogonalProjection(std::unique_ptr<OrthoProjectionComponent>&& projection);

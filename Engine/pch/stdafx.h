@@ -34,16 +34,19 @@
 #include <type_traits>
 #include <iomanip>
 
-// Engine files
+// GeneralConfig
 #include <engine/EngineConfig.h>
-#include <engine/Types.h>
-#include <engine/utils/Common.h>
 
 // Math
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/type_precision.hpp>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+
+// Engine files
+#include <engine/Types.h>
+#include <engine/utils/Common.h>
+
 // Macros
 
 #define ASSERT(cond) assert(cond)

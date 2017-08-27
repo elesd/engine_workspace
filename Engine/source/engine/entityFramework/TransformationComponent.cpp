@@ -279,6 +279,49 @@ namespace engine
 		}
 	}
 
+	void TransformationComponent::lookAt(const vec3& eyeDir, const vec3& up)
+	{
+		mat4 lookAt = glm::lookAtRH(eyeDir, getWorldPosition(), up);
+		quat newRotation = glm::quat_cast(lookAt);
+		setWorldRotation(newRotation);
+	}
+
+	vec3 TransformationComponent::getUpVector() const
+	{
+		const mat4& transformation = getWorldTransformation();
+		vec3 up(transformation[0][1],
+				transformation[1][1],
+				transformation[2][1]);
+		glm::normalize(up);
+		return up;
+	}
+
+	vec3 TransformationComponent::getEyeDirection() const
+	{
+		const mat4& transformation = getWorldTransformation();
+		vec3 eyeDir(-transformation[0][2],
+					-transformation[1][2],
+					-transformation[2][2]);
+		glm::normalize(eyeDir);
+		return eyeDir;
+	}
+
+	vec3 TransformationComponent::getRightVector() const
+	{
+		const mat4& transformation = getWorldTransformation();
+		vec3 right(transformation[0][0],
+				   transformation[1][0],
+				   transformation[2][0]);
+		glm::normalize(right);
+		return right;
+	}
+
+	TNBFrame TransformationComponent::getTNBFrame() const
+	{
+		TNBFrame result(getEyeDirection(), getUpVector(), getRightVector());
+		return result;
+	}
+
 	void TransformationComponent::recalclateLocalTransformation() const
 	{
 		if(_members->cache.dirtyFlags[DirtyFlag::LocalTransformation])

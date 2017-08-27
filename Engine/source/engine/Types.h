@@ -11,7 +11,19 @@ namespace engine
 
 	using ScreenSpacePosition = glm::tvec2<int32_t>;
 	using Color4 = glm::tvec4<int32_t>;
-
+	
+	struct TNBFrame
+	{
+		vec3 tangent;
+		vec3 normal;
+		vec3 binormal;
+		TNBFrame() = default;
+		TNBFrame(const vec3& tangent, const vec3& normal, const vec3& binormal)
+			: tangent(tangent)
+			, normal(normal)
+			, binormal(binormal)
+		{ }
+	};
 
 	enum class PrimitiveType
 	{

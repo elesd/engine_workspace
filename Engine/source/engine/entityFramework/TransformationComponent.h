@@ -41,6 +41,12 @@ namespace engine
 		void setLocalPosition(const vec3& position);
 		void setLocalRotation(const quat& rotation);
 
+		void lookAt(const vec3& eyeDir, const vec3& up);
+		vec3 getUpVector() const;
+		vec3 getEyeDirection() const;
+		vec3 getRightVector() const;
+		TNBFrame getTNBFrame() const;
+
 	protected:
 		void recalclateLocalTransformation() const;
 		void recalclateInvLocalTransformation() const;
