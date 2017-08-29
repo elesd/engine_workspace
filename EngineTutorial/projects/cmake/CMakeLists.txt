@@ -25,14 +25,17 @@ configure_file (
 
 file (GLOB src_ "${SOURCE_DIR}/*.cpp")
 file (GLOB src_states "${SOURCE_DIR}/states/*.cpp")
+file (GLOB src_componentRegisters "${SOURCE_DIR}/componentRegisters/*.cpp")
 file (GLOB src_pch "${MAIN_PROJECT_DIR}/pch/*.cpp")
 
 file (GLOB header_ "${SOURCE_DIR}/*.h*")
 file (GLOB header_states "${SOURCE_DIR}/states/*.h*")
+file (GLOB header_componentRegisters "${SOURCE_DIR}/componentRegisters/*.h*")
 file (GLOB header_pch "${MAIN_PROJECT_DIR}/pch/*.h*")
 
 SOURCE_GROUP (src\\pch FILES ${src_pch} ${header_pch})
 SOURCE_GROUP (src\\states FILES ${src_states} ${header_states})
+SOURCE_GROUP (src\\componentRegisters FILES ${header_componentRegisters} ${src_componentRegisters})
 SOURCE_GROUP (src FILES ${src_} ${header_})
 
 include_directories("${MAIN_PROJECT_DIR}/pch")
@@ -40,9 +43,11 @@ include_directories("${MAIN_PROJECT_DIR}/pch")
 file (GLOB all_files ${src_} 
                        ${src_pch}
 					   ${src_states}
+					   ${src_componentRegisters}
                        ${header_}
                        ${header_pch}
-					   ${header_states})
+					   ${header_states}
+					   ${header_componentRegisters})
 
 if (USE_WINAPI)
   add_executable(Tutorial WIN32 ${all_files})

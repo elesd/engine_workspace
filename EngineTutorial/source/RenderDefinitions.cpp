@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/RenderPass.h>
+#include <engine/render/RenderContext.h>
 #include <engine/render/PipelineRendererBase.h>
 
 namespace renderPasses

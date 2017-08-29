@@ -17,6 +17,7 @@
 
 #include <engine/view/WindowManager.h>
 
+#include <states/TutorialStep01.h>
 #include <states/TutorialStep02.h>
 #include <RenderDefinitions.h>
 
@@ -49,7 +50,6 @@ void TestMain::load()
 	using engine::Context;
 	//engine::view::Window *mainWindow = Context::windowManager()->createFullScreenMainWindow(640, 480, "TestWindow", 0);
 	_members->mainWindow = Context::windowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
-	//	engine::view::Window *second = Context::windowManager()->createSecondaryWindow(engine::WindowParameter(180, 200, 640, 480), "TestWindow", mainWindow);
 	ASSERT(_members->mainWindow != nullptr);
 	_members->stateStack = std::make_unique<engine::StateStack>();
 	std::unique_ptr<states::TutorialStep02> firstStep(new states::TutorialStep02(_members->mainWindow));
@@ -60,11 +60,6 @@ void TestMain::update()
 {
 	ASSERT(_CrtCheckMemory());
 	_members->stateStack->update();
-}
-
-void TestMain::render()
-{
-	_members->stateStack->render();
 }
 
 engine::ISignalManager* TestMain::getSignalManager() const

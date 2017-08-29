@@ -1,6 +1,8 @@
 
 #include <algorithm>
 
+#include <engine/utils/Math.h>
+
 namespace engine
 {
 
@@ -22,18 +24,29 @@ namespace engine
 	template<GPUMemberType Type>
 	void GlobalShaderResource<Type>::detachResource(ShaderResource<Type> *resource)
 	{
+		ASSERT(!_attachedResources.empty());
 		auto it = std::remove(_attachedResources.begin(), _attachedResources.end(), resource);
 		ASSERT(it != _attachedResources.end());
 		_attachedResources.erase(it, _attachedResources.end());
 	}
 
 	template<GPUMemberType Type>
+	bool GlobalShaderResource<Type>::hasAttachement() const
+	{
+		return _attachedResources.empty() == false;
+	}
+
+	template<GPUMemberType Type>
 	void GlobalShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& v)
 	{
-		_value = v;
-		for(ShaderResource<Type>* resource : _attachedResources)
+		if(math::notEquals(_value, v, glm::epsilon<float>()))
 		{
-			resource->setValue(_value);
+			_dirty = true;
+			_value = v;
+			for(ShaderResource<Type>* resource : _attachedResources)
+			{
+				resource->setValue(_value);
+			}
 		}
 	}
 
@@ -54,4 +67,17 @@ namespace engine
 	{
 		return _description;
 	}
+
+	template<GPUMemberType Type>
+	void GlobalShaderResource<Type>::cleanUpDirtyFlag() const
+	{
+		_dirty = false;
+	}
+
+	template<GPUMemberType Type>
+	bool GlobalShaderResource<Type>::isDirty() const
+	{
+		return _dirty;
+	}
+
 }

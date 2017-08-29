@@ -7,6 +7,7 @@
 
 #include <engine/video/GlobalShaderResource.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
+
 namespace
 {
 	struct DirtyFlag
@@ -93,6 +94,7 @@ namespace engine
 		if(_parent && _child)
 		{
 			std::vector<TransformationComponent*>& children = _parent->accessChildren();
+			ASSERT(!children.empty());
 			auto it = std::remove(children.begin(),
 								  children.end(),
 								  _child);
@@ -176,6 +178,9 @@ namespace engine
 
 	void TransformationComponent::detachComponent(TransformationComponent* component)
 	{
+		if(_members->attachments.empty())
+			return;
+
 		auto it = std::remove_if(_members->attachments.begin(),
 								 _members->attachments.end(),
 								 [component](const TransformationComponentAttachment& a)->bool

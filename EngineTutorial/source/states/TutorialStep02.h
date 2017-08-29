@@ -33,11 +33,11 @@ namespace states
 		void pauseState() override;
 
 		void updateState() override;
-		void renderState() override;
 
 		void initRender();
 		void initTriangle();
 		void initShaders();
+		void loadScene();
 
 		std::unique_ptr<engine::Material> loadMaterial();
 		void loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext);

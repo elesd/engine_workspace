@@ -86,6 +86,9 @@ namespace engine
 
 	void ShaderCompileOptions::removeDefine(const std::string& definition)
 	{
+		if(_members->defines.empty())
+			return;
+
 		auto it = std::remove(_members->defines.begin(), _members->defines.end(), definition);
 		_members->defines.erase(it, _members->defines.end());
 	}
@@ -110,6 +113,8 @@ namespace engine
 
 	void ShaderCompileOptions::removeFlag(ShaderCompileFlag flag)
 	{
+		if(_members->flags.empty())
+			return;
 		auto it = std::remove(_members->flags.begin(), _members->flags.end(), flag);
 		_members->flags.erase(it, _members->flags.end());
 	}

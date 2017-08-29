@@ -17,8 +17,15 @@ namespace engine
 	{
 	public:
 		SlotHolder();
+
+		SlotHolder(SlotHolder&&);
+		SlotHolder(const SlotHolder&);
+
 		// Disconnect from all signal
 		virtual ~SlotHolder();
+
+		SlotHolder& operator=(SlotHolder&&);
+		SlotHolder& operator=(const SlotHolder&);
 
 		/**
 		* @return Returns the corresponding SignalManager, who will manage the tasks.

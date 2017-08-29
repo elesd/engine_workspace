@@ -4,6 +4,13 @@
 
 #include <engine/Context.h>
 
+#include <engine/app/Application.h>
+
+#include <engine/entityFramework/Entity.h>
+#include <engine/entityFramework/CameraComponent.h>
+#include <engine/entityFramework/PerspProjectionComponent.h>
+#include <engine/entityFramework/MeshComponent.h>
+
 #include <engine/events/EventManager.h>
 #include <engine/events/Keyboard.h>
 
@@ -12,6 +19,9 @@
 #include <engine/render/RenderContext.h>
 #include <engine/render/Render.h>
 #include <engine/render/Mesh.h>
+
+#include <engine/scene/Scene.h>
+#include <engine/scene/SceneManager.h>
 
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/BufferContext.h>
@@ -34,6 +44,7 @@
 #include <engine/view/Window.h>
 
 #include <RenderDefinitions.h>
+#include <componentRegisters/SolidComponentRegister.h>
 
 namespace states
 {
@@ -41,6 +52,7 @@ namespace states
 	{
 		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
+		engine::Scene* scene = nullptr;
 		engine::Render* render = nullptr;
 		renderPasses::TutorialStep02::PipelineRenderer* renderPipeline = nullptr;
 		std::unique_ptr<engine::Shader> vs;
@@ -74,8 +86,9 @@ namespace states
 		initRender();
 		initShaders();
 		initTriangle();
-		_members->renderPipeline->getRenderPass(renderPasses::TutorialStep02::Passes::Solid)->addObject(_members->triangle.get());
+		//_members->renderPipeline->getRenderPass(renderPasses::TutorialStep02::Passes::Solid)->addObject(_members->triangle.get());
 		createConnections();
+		loadScene();
 	}
 
 	void TutorialStep02::destroyState()
@@ -97,11 +110,6 @@ namespace states
 	{
 	}
 
-	void TutorialStep02::renderState()
-	{
-		_members->render->render();
-	}
-
 	engine::ISignalManager* TutorialStep02::getSignalManager() const
 	{
 		return _members->window->getEventManager()->getEventsSignalManager();
@@ -112,7 +120,6 @@ namespace states
 		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep02 = renderPasses::TutorialStep02::createRenderer(_members->window->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep02", std::move(renderTutorialStep02));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::TutorialStep02::PipelineRenderer>();
-		
 	}
 
 	void TutorialStep02::initTriangle()
@@ -155,6 +162,25 @@ namespace states
 		if(_members->fs->init(engine::FilePath(fsPath), fsMain) == false)
 		{
 			getConsole()->print("Fragment shader creation failed");
+		}
+	}
+
+	void TutorialStep02::loadScene()
+	{
+		std::unique_ptr<SolidComponentRegister> componentRegister(new SolidComponentRegister(2));
+		_members->scene = engine::Context::application()->getSceneManager()->createScene("TutorialStep02", _members->renderContext, "TutorialStep02", std::move(componentRegister));
+	/*	{
+			std::unique_ptr<engine::Entity> camera(new engine::Entity("Camera"));
+			engine::PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
+			std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(_members->window, settings, glm::vec3(0.0f)));
+			camera->registerCameraComponent(std::move(cameraComponent));
+			_members->scene->registerEntity(std::move(camera));
+		}*/
+		{
+			std::unique_ptr<engine::Entity> entity(new engine::Entity("Triangle"));
+			std::unique_ptr<engine::MeshComponent> meshComponent(new engine::MeshComponent(_members->triangle.get()));
+			entity->registerVisualComponent(std::move(meshComponent));
+			_members->scene->registerEntity(std::move(entity));
 		}
 	}
 

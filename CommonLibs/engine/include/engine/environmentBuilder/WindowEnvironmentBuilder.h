@@ -7,6 +7,7 @@ namespace engine
 	class WindowManager;
 	class EventBuilder;
 	class BuildFinalizer;
+	class GlobalResourceMapping;
 	struct DeviceParameters;
 }
 
@@ -37,14 +38,14 @@ namespace engine
 		* Builds the window module.
 		* @return Returns the next building phase.
 		*/
-		BuildFinalizer build(const DeviceParameters& deviceParameters);
+		BuildFinalizer build(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping);
 	private:
 		/** Create Glfw window and window manager.*/
-		std::unique_ptr<WindowManager> createGlfwWindowManager(const DeviceParameters& deviceParameters);
+		std::unique_ptr<WindowManager> createGlfwWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping);
 		/** Create Sdl window and window manager.*/
-		std::unique_ptr<WindowManager> createSdlWindowManager(const DeviceParameters& deviceParameters);
+		std::unique_ptr<WindowManager> createSdlWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping);
 		/** Create Winapi window and window manager.*/
-		std::unique_ptr<WindowManager> createWinApiWindowManager(const DeviceParameters& deviceParameters);
+		std::unique_ptr<WindowManager> createWinApiWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping);
 
 	private:
 		/**PIMPL*/

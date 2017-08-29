@@ -9,6 +9,7 @@ namespace engine
 	struct RenderContextParameters;
 	struct DeviceParameters;
 	class RenderContext;
+	class GlobalResourceMapping;
 	class Window;
 	namespace sdl
 	{
@@ -17,7 +18,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			WindowManagerImpl(const DeviceParameters& driverContextParameters);
+			WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping);
 
 			/** @copydoc */
 			uint32_t getMonitorCount() const override;

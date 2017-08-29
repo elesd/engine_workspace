@@ -11,6 +11,8 @@ namespace engine
 	class EventManagerFactory;
 	class FileSystem;
 	class IMain;
+	class RenderManager;
+	class SceneManager;
 	class StateStack;
 	class WindowManager;
 	struct WindowParameter;
@@ -74,6 +76,9 @@ namespace engine
 
 		FileSystem* getFileSystem() const;
 
+		SceneManager* getSceneManager() const;
+
+		RenderManager* getRenderManager() const;
 	private:
 		/**
 		* Setter for the Builder in order to setup window manager.

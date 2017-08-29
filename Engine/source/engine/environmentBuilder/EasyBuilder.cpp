@@ -61,7 +61,7 @@ namespace engine
 
 	void EasyBuilder::setGlobalResourceMapping(const GlobalResourceMapping& resourceMapping)
 	{
-
+		_members->resourceMapping = resourceMapping;
 	}
 
 	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,

@@ -2,6 +2,8 @@
 #include <engine/render/GlobalResourceMapping.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/GlobalShaderResourceStorage.h>
+
 namespace engine
 {
 	struct GlobalResourceMappingPrivate
@@ -57,4 +59,5 @@ namespace engine
 		ASSERT(it != _members->mapping.end());
 		return it != _members->mapping.end() ? it->second : defautlResult;
 	}
+
 }

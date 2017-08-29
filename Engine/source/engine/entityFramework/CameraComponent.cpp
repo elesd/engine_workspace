@@ -11,6 +11,7 @@
 
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/GlobalShaderResource.h>
+
 namespace
 {
 
@@ -52,8 +53,8 @@ namespace engine
 		: CameraComponent()
 	{
 		std::unique_ptr<TransformationComponent> position(new TransformationComponent());
-		setTransformationComponent(std::move(position));
 		position->setLocalPosition(worldPosition);
+		setTransformationComponent(std::move(position));
 	}
 
 	CameraComponent::CameraComponent(Window* window, const PerspectiveProjectionSettings& settings, const vec3& worldPosition)

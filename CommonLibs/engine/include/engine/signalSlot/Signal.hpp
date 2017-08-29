@@ -69,6 +69,8 @@ namespace engine
 	template<class T, void (T::*slot)(Args...)>
 	void Signal<Args...>::disconnect(T *holder)
 	{
+		if(slots.empty())
+			return;
 		uint32_t functionId = _private::template MemberFunctionId<T, Args...>::template Id<slot>::value;
 		auto it = std::remove_if(slots.begin(), slots.end(),
 								 [holder, functionId](const Entry &entry)->bool
@@ -76,7 +78,7 @@ namespace engine
 			return entry.key.slotId == functionId && entry.key.object == static_cast<SlotHolder*>(holder);
 		});
 		if(it == slots.end())
-			throw std::invalid_argument("Signal cannot disconnect from holder, it is not connected.");
+			return;
 
 		slots.erase(it, slots.end());
 

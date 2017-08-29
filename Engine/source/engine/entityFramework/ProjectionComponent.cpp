@@ -11,6 +11,9 @@
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/utils/ViewportCalculator.h>
 
+#include <engine/Context.h>
+#include <engine/view/Console.h>
+
 namespace
 {
 	struct DirtyFlags
@@ -165,7 +168,7 @@ namespace engine
 	{
 		const std::string& projectionName = renderContext->getResourceMapping()[GlobalResource::ProjectionMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* projParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
-		if(projParameter->hasAttachement())
+		if(projParameter && projParameter->hasAttachement())
 		{
 			recalculateProjectionMatrix();
 			projParameter->setValue(_members->cache.projectionMatrix);
@@ -173,7 +176,7 @@ namespace engine
 
 		const std::string& invProjectionName = renderContext->getResourceMapping()[GlobalResource::InvProjectionMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* invProjParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
-		if(invProjParameter->hasAttachement())
+		if(invProjParameter && invProjParameter->hasAttachement())
 		{
 			recalculateInvProjectionMatrix();
 			invProjParameter->setValue(_members->cache.invProjectionMatrix);

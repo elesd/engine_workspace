@@ -51,12 +51,24 @@ namespace engine
 
 	std::unique_ptr<Entity> Scene::unregisterEntity(Entity* entity)
 	{
+		if(_members->cache.entities.empty())
+		{
+			ASSERT(_members->entityContainer.empty());
+			return nullptr;
+		}
+		if(_members->entityContainer.empty())
+		{
+			ASSERT(_members->cache.entities.empty());
+			return nullptr;
+		}
+
 		{
 			auto it = std::remove(_members->cache.entities.begin(), _members->cache.entities.end(), entity);
 			_members->cache.entities.erase(it, _members->cache.entities.end());
 		}
 
 		std::unique_ptr<Entity> result(entity);
+
 		{
 			for(std::unique_ptr<Entity>& entityPtr : _members->entityContainer)
 			{

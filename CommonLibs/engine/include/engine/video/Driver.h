@@ -41,6 +41,7 @@ namespace engine
 		OpenGL_ES_2_0,
 		OpenGL_ES_3_0,
 	};
+
 	struct DeviceParameters
 	{
 		DriverVersion version;
@@ -96,6 +97,7 @@ namespace engine
 		std::unique_ptr<ShaderResourceStorage> createResourceStorage(const std::vector<ShaderResourceDescription>& description, GlobalShaderResourceStorage* parent = nullptr);
 
 		std::unique_ptr<ShaderResourceHandler> createShaderResourceHandler();
+
 	protected:
 		Window* getWindow() const;
 

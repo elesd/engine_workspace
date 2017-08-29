@@ -73,6 +73,9 @@ namespace engine
 
 	void RenderPass::unregisterComponent(const Component* component)
 	{
+		if(_members->visibleComponents.empty())
+			return;
+
 		auto it = std::remove(_members->visibleComponents.begin(), _members->visibleComponents.end(), component);
 		_members->visibleComponents.erase(it, _members->visibleComponents.end());
 	}

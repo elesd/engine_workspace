@@ -4,6 +4,7 @@
 #include <engine/constraints/NonMoveable.h>
 
 #include <engine/video/Driver.h>
+#include <engine/render/GlobalResourceMapping.h>
 
 namespace engine
 {
@@ -31,12 +32,15 @@ namespace engine
 	struct RenderContextParameters
 	{
 		RenderContextParameters() = default;
-		RenderContextParameters(DriverInitParameters driverParams)
+		RenderContextParameters(DriverInitParameters driverParams, const GlobalResourceMapping& mapping)
 			: _driverParameters(driverParams)
+			, _resourceMapping(mapping)
 		{ }
 		const DriverInitParameters& getDriverParameters() const;
+		const GlobalResourceMapping& getResourceMapping() const;
 	private:
 		DriverInitParameters _driverParameters;
+		GlobalResourceMapping _resourceMapping;
 	};
 
 	class RenderContext final
@@ -71,6 +75,8 @@ namespace engine
 		std::unique_ptr<EffectCompiler> createEffectCompiler(Material* material);
 		GlobalShaderResourceStorage* getGlobalResources();
 		const GlobalShaderResourceStorage* getGlobalResources() const;
+		const GlobalResourceMapping& getResourceMapping() const;
+
 	private:
 		std::unique_ptr<ShaderCompiler> createShaderCompiler(ShaderVersion, const AttributeFormat& attributeFormat) const;
 		struct RenderContextPrivate* _members = nullptr;

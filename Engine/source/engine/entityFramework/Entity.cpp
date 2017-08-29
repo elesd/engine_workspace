@@ -88,10 +88,21 @@ namespace engine
 
 	void Entity::unregisterVisualComponent(VisualComponent* component)
 	{
+		if(_members->cache.visuals.empty())
+		{
+			ASSERT(_members->visualComponentsContainer.empty());
+			return;
+		}
+		if(_members->visualComponentsContainer.empty())
+		{
+			ASSERT(_members->cache.visuals.empty());
+			return;
+		}
 		{
 			auto it = std::remove(_members->cache.visuals.begin(), _members->cache.visuals.end(), component);
 			_members->cache.visuals.erase(it, _members->cache.visuals.end());
 		}
+
 		{
 			auto it = std::remove_if(_members->visualComponentsContainer.begin(), _members->visualComponentsContainer.end(),
 									 PointerEqualTo<VisualComponent>(component));
@@ -147,6 +158,17 @@ namespace engine
 
 	void Entity::unregisterCustomComponent(Component* customComponent)
 	{
+		if(_members->cache.customs.empty())
+		{
+			ASSERT(_members->customComponentContainer.empty());
+			return;
+		}
+		if(_members->customComponentContainer.empty())
+		{
+			ASSERT(_members->cache.customs.empty());
+			return;
+		}
+
 		{
 			auto it = std::remove(_members->cache.customs.begin(), _members->cache.customs.end(), customComponent);
 			_members->cache.customs.erase(it, _members->cache.customs.end());

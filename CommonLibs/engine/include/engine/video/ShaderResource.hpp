@@ -1,4 +1,5 @@
 
+#include <engine/utils/Math.h>
 
 namespace engine
 {
@@ -47,8 +48,11 @@ namespace engine
 	template<GPUMemberType Type>
 	void ShaderResource<Type>::setValue(const typename GPUMemberTypeTraits<Type>::ValueType& value)
 	{
-		_value = value;
-		_changed = true;
+		if(math::notEquals(_value, value, glm::epsilon<float>()))
+		{
+			_value = value;
+			_changed = true;
+		}
 	}
 
 	template<GPUMemberType Type>

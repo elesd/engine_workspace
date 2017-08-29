@@ -19,11 +19,9 @@ public:
 	TestMain();
 	~TestMain() override;
 
-	void load();
+	void load() override;
 
-	void update();
-
-	void render();
+	void update() override;
 
 	engine::ISignalManager* getSignalManager() const override;
 

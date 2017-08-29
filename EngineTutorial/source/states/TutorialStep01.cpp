@@ -4,11 +4,21 @@
 
 #include <engine/Context.h>
 
+#include <engine/app/Application.h>
+
+#include <engine/entityFramework/Entity.h>
+#include <engine/entityFramework/CameraComponent.h>
+#include <engine/entityFramework/PerspProjectionComponent.h>
+#include <engine/entityFramework/MeshComponent.h>
+
 #include <engine/fileSystem/FilePath.h>
 
 #include <engine/render/RenderContext.h>
 #include <engine/render/Render.h>
 #include <engine/render/Mesh.h>
+
+#include <engine/scene/Scene.h>
+#include <engine/scene/SceneManager.h>
 
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/BufferContext.h>
@@ -30,6 +40,7 @@
 #include <engine/view/Window.h>
 
 #include <RenderDefinitions.h>
+#include <componentRegisters/SolidComponentRegister.h>
 
 namespace states
 {
@@ -38,6 +49,7 @@ namespace states
 		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
 		engine::Render* render = nullptr;
+		engine::Scene* scene = nullptr;
 		renderPasses::TutorialStep01::PipelineRenderer* renderPipeline = nullptr;
 		std::unique_ptr<engine::Shader> vs;
 		std::unique_ptr<engine::Shader> fs;
@@ -67,7 +79,8 @@ namespace states
 		initRender();
 		initShaders();
 		initTriangle();
-		_members->renderPipeline->getRenderPass(renderPasses::TutorialStep01::Passes::Solid)->addObject(_members->triangle.get());
+		loadScene();
+		//_members->renderPipeline->getRenderPass(renderPasses::TutorialStep01::Passes::Solid)->addObject(_members->triangle.get());
 	}
 
 	void TutorialStep01::destroyState()
@@ -87,11 +100,6 @@ namespace states
 
 	void TutorialStep01::updateState()
 	{
-	}
-
-	void TutorialStep01::renderState()
-	{
-		_members->render->render();
 	}
 
 	void TutorialStep01::initRender()
@@ -145,6 +153,33 @@ namespace states
 		}
 	}
 
+	std::vector<engine::ShaderResourceDescription> TutorialStep01::createHLSLMaterialParameters() const
+	{
+		std::vector<engine::ShaderResourceDescription> result;
+		result.push_back(engine::ShaderResourceDescription("instanceColor",
+						 engine::GPUMemberType::Vec4,
+						 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
+		return result;
+	}
+
+	std::vector<engine::ShaderResourceDescription> TutorialStep01::createGLSLMaterialParameters() const
+	{
+		std::vector<engine::ShaderResourceDescription> result;
+		result.push_back(engine::ShaderResourceDescription("instanceColor",
+						 engine::GPUMemberType::Vec4,
+						 engine::ShaderResourceBindingData({engine::ShaderType::VertexShader})));
+		return result;
+	}
+
+	std::vector<engine::ShaderResourceDescription> TutorialStep01::createMaterialParameters() const
+	{
+#if TUTORIAL_USE_WINAPI
+		return createHLSLMaterialParameters();
+#else
+		return createGLSLMaterialParameters();
+#endif
+	}
+
 	std::unique_ptr<engine::Material> TutorialStep01::loadMaterial()
 	{
 		ASSERT(_members->fs);
@@ -159,9 +194,13 @@ namespace states
 #endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
-		description.addParameter(engine::ShaderResourceDescription("instanceColor", 
-								 engine::GPUMemberType::Vec4, 
-								 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
+		engine::EffectDescription effectDesc = description.createEffectDescription(engine::Material::defaultEffectName);
+
+		std::vector<engine::ShaderResourceDescription> materialParameters = createMaterialParameters();
+		for(const engine::ShaderResourceDescription& materialParam : materialParameters)
+		{
+			description.addParameter(materialParam);
+		}
 
 		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
@@ -169,6 +208,26 @@ namespace states
 		return std::make_unique<engine::Material>("Simple", description, _members->renderContext);
 
 	}
+
+	void TutorialStep01::loadScene()
+	{
+		std::unique_ptr<SolidComponentRegister> componentRegister(new SolidComponentRegister(1));
+		_members->scene = engine::Context::application()->getSceneManager()->createScene("TutorialStep01", _members->renderContext, "TutorialStep01", std::move(componentRegister));
+		/*	{
+		std::unique_ptr<engine::Entity> camera(new engine::Entity("Camera"));
+		engine::PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
+		std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(_members->window, settings, glm::vec3(0.0f)));
+		camera->registerCameraComponent(std::move(cameraComponent));
+		_members->scene->registerEntity(std::move(camera));
+		}*/
+		{
+			std::unique_ptr<engine::Entity> entity(new engine::Entity("Triangle"));
+			std::unique_ptr<engine::MeshComponent> meshComponent(new engine::MeshComponent(_members->triangle.get()));
+			entity->registerVisualComponent(std::move(meshComponent));
+			_members->scene->registerEntity(std::move(entity));
+		}
+	}
+
 
 	void TutorialStep01::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)
 	{

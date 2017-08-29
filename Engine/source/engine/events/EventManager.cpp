@@ -56,6 +56,9 @@ namespace engine
 		bool deleteKey = false;
 		for(auto &pair : _members->managedEventSources)
 		{
+			if(pair.second.empty())
+				continue;
+
 			auto it = std::remove_if(pair.second.begin(), pair.second.end(),
 									 [source](const std::unique_ptr<EventSourceBase> &s)->bool{return s.get() == source; });
 			pair.second.erase(it, pair.second.end());
@@ -72,6 +75,9 @@ namespace engine
 		}
 		for(auto &pair : _members->unmanagedEventSources)
 		{
+			if(pair.second.empty())
+				continue;
+
 			auto it = std::remove_if(pair.second.begin(), pair.second.end(),
 									 [source](EventSourceBase* s)->bool{return s == source; });
 			pair.second.erase(it, pair.second.end());
