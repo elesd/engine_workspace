@@ -50,7 +50,7 @@ namespace states
 		engine::RenderContext* renderContext = nullptr;
 		engine::Render* render = nullptr;
 		engine::Scene* scene = nullptr;
-		renderPasses::TutorialStep01::PipelineRenderer* renderPipeline = nullptr;
+		renderPasses::OnlySloid::PipelineRenderer* renderPipeline = nullptr;
 		std::unique_ptr<engine::Shader> vs;
 		std::unique_ptr<engine::Shader> fs;
 
@@ -104,9 +104,9 @@ namespace states
 
 	void TutorialStep01::initRender()
 	{
-		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep01 = renderPasses::TutorialStep01::createRenderer(_members->window->getRenderContext());
+		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep01 = renderPasses::OnlySloid::createRenderer(_members->window->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep01", std::move(renderTutorialStep01));
-		_members->renderPipeline = _members->render->getPipeline<renderPasses::TutorialStep01::PipelineRenderer>();
+		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 		
 	}
 
@@ -211,7 +211,7 @@ namespace states
 
 	void TutorialStep01::loadScene()
 	{
-		std::unique_ptr<SolidComponentRegister> componentRegister(new SolidComponentRegister(1));
+		std::unique_ptr<SolidComponentRegister> componentRegister(new SolidComponentRegister());
 		_members->scene = engine::Context::application()->getSceneManager()->createScene("TutorialStep01", _members->renderContext, "TutorialStep01", std::move(componentRegister));
 		/*	{
 		std::unique_ptr<engine::Entity> camera(new engine::Entity("Camera"));

@@ -6,7 +6,7 @@ namespace engine
 		template<glm::length_t L, typename T, glm::precision P, template<glm::length_t, typename, glm::precision> class vecType>
 		bool notEquals(const vecType<L, T, P>& a, const vecType<L, T, P>& b, const T& epsilon)
 		{
-			return glm::all(glm::epsilonNotEqual(a, b, epsilon));
+			return glm::any(glm::epsilonNotEqual(a, b, epsilon));
 		}
 
 		template<glm::length_t L, typename T, glm::precision P, template<glm::length_t, glm::length_t, typename, glm::precision> class matType>

@@ -6,13 +6,10 @@ class SolidComponentRegister
 	: public engine::ComponentRegister
 {
 public:
-	SolidComponentRegister(uint32_t tutorialId)
-		: _tutorialId(tutorialId)
+	SolidComponentRegister()
 	{	};
 	~SolidComponentRegister() override {};
 private:
 	void registerVisualComponent(engine::Entity* entity, engine::VisualComponent* visualComponent, engine::Render* renerer);
 
-private:
-	uint32_t _tutorialId = 0;
 };
