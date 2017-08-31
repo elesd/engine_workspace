@@ -176,6 +176,7 @@ namespace states
 			engine::PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
 			std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(_members->window, settings, glm::vec3(0.0f)));
 			camera->registerCameraComponent(std::move(cameraComponent));
+			camera->registerTransformationComponent(std::make_unique<engine::TransformationComponent>());
 			_members->scene->registerEntity(std::move(camera));
 		}
 		{
@@ -290,6 +291,7 @@ namespace states
 
 	void TutorialStep03::onKeyUp(engine::KeyboardButton button)
 	{
+		engine::Entity* camera = _members->scene->findCameraEntities()[0];
 		switch(button)
 		{
 			case engine::KeyboardButton::Key_Up:
@@ -298,6 +300,25 @@ namespace states
 			case engine::KeyboardButton::Key_Down:
 				_members->triangleEntity->getTransformationComponent()->setWorldPosition(_members->triangleEntity->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, -0.2f, 0.0f));
 				break;
+			case engine::KeyboardButton::Key_W:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, 0.0f, 1.0f));
+				break;
+			case engine::KeyboardButton::Key_S:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, 0.0f, -1.0f));
+				break;
+			case engine::KeyboardButton::Key_A:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(-1.0f, 0.0f, 0.0f));
+				break;
+			case engine::KeyboardButton::Key_D:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(1.0f, 0.0f, 0.0f));
+				break;
+			case engine::KeyboardButton::Key_Space:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, 1.0f, 0.0f));
+				break;
+			case engine::KeyboardButton::Key_LCtrl:
+				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, -1.0f, 0.0f));
+				break;
+
 		}		
 		_members->triangle->getMaterial()->getResources()->setVec4("instanceColor", _members->instanceColor);
 	}
