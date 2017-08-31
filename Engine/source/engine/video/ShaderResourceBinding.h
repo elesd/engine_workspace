@@ -10,5 +10,7 @@ namespace engine
 	public:
 		ShaderResourceBinding() {};
 		virtual ~ShaderResourceBinding() {};
+		virtual bool isBound() const = 0;
+	private:
 	};
 }

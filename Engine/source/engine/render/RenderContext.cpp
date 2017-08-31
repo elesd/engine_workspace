@@ -14,10 +14,12 @@
 #include <engine/video/BufferObject.h>
 #include <engine/video/BufferObjectFactory.h>
 #include <engine/video/Driver.h>
+#include <engine/video/Effect.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderResourceHandler.h>
+#include <engine/video/ShaderResourceStorage.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/Shader.h>
 
@@ -44,7 +46,7 @@ namespace engine
 	{
 		std::map<std::string, std::unique_ptr<Render>> renders;
 		const RenderTarget* currentRenderTarget = nullptr;
-		const Effect* currentEffect = nullptr;
+		Effect* currentEffect = nullptr;
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
@@ -88,6 +90,7 @@ namespace engine
 		_members->driver->init(params.getDriverParameters());
 		_members->globalResources = std::make_unique<GlobalShaderResourceStorage>();
 		_members->resourceMapping = params.getResourceMapping();
+		_members->globalResources->initGlobalResources(_members->resourceMapping);
 	}
 
 	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
@@ -127,6 +130,8 @@ namespace engine
 
 	void RenderContext::draw(BufferContext *bufferContext) const
 	{
+		
+		//_members->currentEffect->getResources()->commitResources();
 		_members->driver->draw(bufferContext);
 	}
 

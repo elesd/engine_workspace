@@ -19,6 +19,7 @@
 
 #include <states/TutorialStep01.h>
 #include <states/TutorialStep02.h>
+#include <states/TutorialStep03.h>
 #include <RenderDefinitions.h>
 
 struct TestMainPrivate
@@ -52,7 +53,7 @@ void TestMain::load()
 	_members->mainWindow = Context::windowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
 	ASSERT(_members->mainWindow != nullptr);
 	_members->stateStack = std::make_unique<engine::StateStack>();
-	std::unique_ptr<states::TutorialStep02> firstStep(new states::TutorialStep02(_members->mainWindow));
+	std::unique_ptr<states::TutorialStep03> firstStep(new states::TutorialStep03(_members->mainWindow));
 	_members->stateStack->pushState(std::move(firstStep));
 }
 

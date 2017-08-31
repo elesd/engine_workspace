@@ -30,5 +30,10 @@ namespace engine
 		{
 			return _members->location;
 		}
+
+		bool GLSLResourceBinding::isBound() const
+		{
+			return _members->location >= 0;
+		}
 	}
 }

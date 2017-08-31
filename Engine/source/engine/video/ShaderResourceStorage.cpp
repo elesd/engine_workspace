@@ -411,6 +411,10 @@ namespace engine
 
 	void ShaderResourceStorage::commitResources()
 	{
+		if(_members->parentStorage)
+		{
+			_members->parentStorage->calculateAggregatedResources();
+		}
 		for(auto &pair : _members->floatResources)
 		{
 			pair.second.commitChanges();

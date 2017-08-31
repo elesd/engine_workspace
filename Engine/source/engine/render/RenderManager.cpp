@@ -5,6 +5,7 @@
 #include <engine/render/Render.h>
 #include <engine/render/RenderContext.h>
 
+#include <engine/video/GlobalShaderResourceStorage.h>
 namespace engine
 {
 	RenderManager::RenderManager()

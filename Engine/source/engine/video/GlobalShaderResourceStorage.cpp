@@ -2,9 +2,12 @@
 #include <engine/video/GlobalShaderResourceStorage.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/render/GlobalResourceMapping.h>
 #include <engine/video/GlobalShaderResource.h>
 #include <engine/video/ShaderResourceHandler.h>
 #include <engine/video/ShaderResourceDescription.h>
+#include <engine/video/ShaderResourceBindingData.h>
+#include <engine/video/Shader.h>
 #include <engine/video/GPUTypes.h>
 
 namespace engine
@@ -18,7 +21,7 @@ namespace engine
 		std::unordered_map<std::string, GlobalShaderResource<GPUMemberType::Mat3>> mat3Resources;
 		std::unordered_map<std::string, GlobalShaderResource<GPUMemberType::Mat4>> mat4Resources;
 		GlobalShaderResourceStorage* parentStorage = nullptr;
-
+		GlobalResourceMapping resourceMapping;
 		GlobalShaderResourceStoragePrivate()
 		{
 		}
@@ -48,6 +51,53 @@ namespace engine
 		_members = nullptr;
 	}
 
+	void GlobalShaderResourceStorage::initGlobalResources(const GlobalResourceMapping& data)
+	{
+		_members->resourceMapping = data;
+		for(GlobalResource resource : GlobalResourceMapping::getFloatResources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Float,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+		for(GlobalResource resource : GlobalResourceMapping::getVec2Resources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Vec2,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+		for(GlobalResource resource : GlobalResourceMapping::getVec3Resources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Vec3,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+		for(GlobalResource resource : GlobalResourceMapping::getVec4Resources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Vec4,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+		for(GlobalResource resource : GlobalResourceMapping::getMat3Resources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Mat3,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+		for(GlobalResource resource : GlobalResourceMapping::getMat4Resources())
+		{
+			ShaderResourceDescription desc(data[resource],
+										   GPUMemberType::Mat4,
+										   ShaderResourceBindingData(ShaderTypeHelper::getAll()));
+			addResource(desc);
+		}
+	}
+
 	GlobalShaderResourceStorage& GlobalShaderResourceStorage::operator=(GlobalShaderResourceStorage&& o)
 	{
 		delete _members;
@@ -60,7 +110,8 @@ namespace engine
 	{
 		const std::string& resourceName = desc.getName();
 		GPUMemberType type = desc.getType();
-		ASSERT(hasResource(resourceName, type) == false);
+		if(hasResource(resourceName, type))
+			return;
 		switch(type)
 		{
 			case engine::GPUMemberType::Float:
@@ -122,9 +173,55 @@ namespace engine
 		return result;
 	}
 
+	void GlobalShaderResourceStorage::calculateAggregatedResources() 
+	{
+		if(_members->parentStorage)
+		{
+			_members->parentStorage->calculateAggregatedResources();
+		}
+		const GlobalResourceMapping& mapping = _members->resourceMapping;
+		if(mapping.isInitialized())
+		{
+			GlobalShaderResource<GPUMemberType::Mat4>* worldMat = findMat4Resource(mapping[GlobalResource::WorldMatrix]);
+			bool recalculate = false;
+			if(worldMat && worldMat->hasAttachement() && worldMat->isDirty())
+			{
+				recalculate = true;
+				worldMat->cleanUpDirtyFlag();
+			}
+			GlobalShaderResource<GPUMemberType::Mat4>* viewMat = findMat4Resource(mapping[GlobalResource::ViewMatrix]);
+			if(viewMat && viewMat->hasAttachement() && viewMat->isDirty())
+			{
+				recalculate = true;
+				viewMat->cleanUpDirtyFlag();
+			}
+			GlobalShaderResource<GPUMemberType::Mat4>* projMat = findMat4Resource(mapping[GlobalResource::ProjectionMatrix]);
+			if(projMat && projMat->hasAttachement() && projMat->isDirty())
+			{
+				recalculate = true;
+				projMat->cleanUpDirtyFlag();
+			}
+			if(recalculate)
+			{
+				mat4 vw = viewMat->getValue() * worldMat->getValue();
+				setMat4(mapping[GlobalResource::ViewWorldMatrix], vw);
+				mat4 pvw = projMat->getValue() * vw;
+				setMat4(mapping[GlobalResource::ProjectionViewWorldMatrix], pvw);
+				pvw = glm::inverse(pvw);
+				setMat4(mapping[GlobalResource::InvProjectionViewWorldMatrix], pvw);
+				vw = glm::inverse(vw);
+				setMat4(mapping[GlobalResource::InvViewWorldMatrix], vw);
+			}
+		}
+	}
+
 	std::vector<ShaderResourceDescription> GlobalShaderResourceStorage::collectResources() const
 	{
 		std::vector<ShaderResourceDescription> result;
+		if(_members->parentStorage)
+		{
+			result = _members->parentStorage->collectResources();
+		}
 		for(const auto& res : _members->floatResources)
 		{
 			result.push_back(res.second.getDescription());

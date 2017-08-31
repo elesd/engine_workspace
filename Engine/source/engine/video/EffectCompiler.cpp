@@ -61,7 +61,15 @@ namespace engine
 																  _members->material->getDescription().getFragmentShader(),
 																  std::move(resourceStorage));
 		_members->driver->compileEffect(effect.get());
-		bindResources(effect.get());
+		if(effect->isCompiled())
+		{
+			bindResources(effect.get());
+		}
+		else
+		{
+			
+			FAIL("Effect compilation failed!");
+		}
 		return effect;
 	}
 

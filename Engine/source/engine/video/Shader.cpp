@@ -10,8 +10,18 @@
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
 
+namespace
+{
+	std::vector<engine::ShaderType> allShader = {engine::ShaderType::FragmentShader, engine::ShaderType::FragmentShader};
+}
+
 namespace engine
 {
+	const std::vector<ShaderType>& ShaderTypeHelper::getAll()
+	{
+		return allShader;
+	}
+
 	struct ShaderPrivate
 	{
 		std::string code;

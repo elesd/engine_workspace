@@ -2,6 +2,8 @@
 #include <engine/video/ShaderResourceHandler.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/video/ShaderResourceBinding.h>
+
 namespace engine
 {
 	struct ShaderResourceHandlerPrivate

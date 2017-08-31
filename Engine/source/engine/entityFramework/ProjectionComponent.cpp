@@ -175,7 +175,7 @@ namespace engine
 		}
 
 		const std::string& invProjectionName = renderContext->getResourceMapping()[GlobalResource::InvProjectionMatrix];
-		GlobalShaderResource<GPUMemberType::Mat4>* invProjParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
+		GlobalShaderResource<GPUMemberType::Mat4>* invProjParameter = renderContext->getGlobalResources()->findMat4Resource(invProjectionName);
 		if(invProjParameter && invProjParameter->hasAttachement())
 		{
 			recalculateInvProjectionMatrix();

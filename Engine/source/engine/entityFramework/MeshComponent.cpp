@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/render/Mesh.h>
+#include <engine/render/RenderContext.h>
 
 namespace engine
 {
@@ -40,6 +41,7 @@ namespace engine
 
 	void MeshComponent::onRenderVisualComponent(RenderContext* renderContext) 
 	{
+		renderContext->setMaterial(_members->mesh->getMaterial());
 		_members->mesh->render(renderContext);
 	}
 	

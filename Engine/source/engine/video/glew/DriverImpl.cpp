@@ -71,7 +71,7 @@ namespace engine
 		{
 #if ENGINE_OPENGL_PARANOID
 			GLenum err = GL_NO_ERROR;
-			while((err = glGetError()) != GL_NO_ERROR)
+			if((err = glGetError()) != GL_NO_ERROR)
 			{
 				std::cerr << "ERROR " << err << std::endl;
 			}

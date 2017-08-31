@@ -60,6 +60,7 @@ namespace engine
 		void onParentTransformationChanged();
 		std::vector<TransformationComponent*>& accessChildren();
 		void setParent(TransformationComponent*);
+		
 	private:
 		void onRenderComponent(RenderContext*) override final;
 		void onUpdateComponent() override final;

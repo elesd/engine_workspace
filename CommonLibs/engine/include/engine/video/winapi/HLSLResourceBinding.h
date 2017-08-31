@@ -25,6 +25,8 @@ namespace engine
 
 			uint32_t getBufferId() const;
 			std::vector<ShaderType> getShaderTypes() const;
+			bool isBound() const override;
+
 		private:
 			struct HLSLResourceBindingPrivate* _members = nullptr;
 		};

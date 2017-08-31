@@ -87,6 +87,11 @@ namespace engine
 			return result;
 		}
 
+		bool HLSLResourceBinding::::isBound() const
+		{
+			return _members->bufferId >= 0;
+		}
+
 	}
 }
 

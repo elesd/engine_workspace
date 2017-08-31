@@ -9,6 +9,7 @@ namespace engine
 	class ShaderResourceHandler;
 	class ShaderResourceDescription;
 	class ShaderResourceDescription;
+	class GlobalResourceMapping;
 	enum class GPUMemberType;
 
 	class GlobalShaderResourceStorage final
@@ -19,10 +20,14 @@ namespace engine
 		GlobalShaderResourceStorage(GlobalShaderResourceStorage&&);
 		~GlobalShaderResourceStorage();
 
+		void initGlobalResources(const GlobalResourceMapping&);
+
 		GlobalShaderResourceStorage& operator=(GlobalShaderResourceStorage&&);
 
 		void addResource(const ShaderResourceDescription& desc);
 		bool hasResource(const std::string& resourceName, GPUMemberType type) const;
+
+		void calculateAggregatedResources();
 
 		std::vector<ShaderResourceDescription> collectResources() const;
 

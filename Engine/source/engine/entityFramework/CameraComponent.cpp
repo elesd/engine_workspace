@@ -328,6 +328,15 @@ namespace engine
 				resource->setValue(getTransformationComponent()->getWorldTransformation());
 			}
 		}
+
+		{
+			const std::string& resName = renderContext->getResourceMapping()[GlobalResource::CameraPosition];
+			GlobalShaderResource<GPUMemberType::Vec3>* resource = renderContext->getGlobalResources()->findVec3Resource(resName);
+			if(resource && resource->hasAttachement())
+			{
+				resource->setValue(getTransformationComponent()->getWorldPosition());
+			}
+		}
 		getActiveProjection()->onRender(renderContext);
 	}
 

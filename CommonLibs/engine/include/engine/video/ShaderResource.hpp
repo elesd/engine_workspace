@@ -83,7 +83,7 @@ namespace engine
 	void ShaderResource<Type>::commitChanges()
 	{
 		ASSERT(_resourceHandler != nullptr);
-		if(_changed)
+		if(_binding->isBound() && _changed)
 		{
 			_resourceHandler->commitValue(_description, _binding.get(), _value);
 			_changed = false;

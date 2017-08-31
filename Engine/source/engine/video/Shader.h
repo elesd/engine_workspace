@@ -12,6 +12,10 @@ namespace engine
 		VertexShader,
 		FragmentShader
 	};
+	struct ShaderTypeHelper
+	{
+		static const std::vector<ShaderType>& getAll();
+	};
 
 	class ShaderCompilationData;
 

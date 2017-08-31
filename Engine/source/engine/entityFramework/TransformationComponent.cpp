@@ -259,7 +259,7 @@ namespace engine
 
 	void TransformationComponent::setLocalPosition(const glm::vec3& position)
 	{
-		if(glm::all(glm::epsilonNotEqual(position, _members->localPosition, glm::epsilon<float>())))
+		if(glm::any(glm::epsilonNotEqual(position, _members->localPosition, glm::epsilon<float>())))
 		{
 			_members->localPosition = position;
 			_members->cache.dirtyFlags[DirtyFlag::InvLocalTransformation] = true;
@@ -273,7 +273,7 @@ namespace engine
 
 	void TransformationComponent::setLocalRotation(const glm::quat& rotation)
 	{
-		if(glm::all(glm::epsilonNotEqual(rotation, _members->localRotation, glm::epsilon<float>())))
+		if(glm::any(glm::epsilonNotEqual(rotation, _members->localRotation, glm::epsilon<float>())))
 		{
 			_members->localRotation = rotation;
 			_members->cache.dirtyFlags[DirtyFlag::InvLocalTransformation] = true;
@@ -430,11 +430,7 @@ namespace engine
 
 	void TransformationComponent::setParent(TransformationComponent* parent)
 	{
-		ASSERT(hasParentComponent() == false);
-		if(parent)
-		{
-			_members->parent = parent;
-		}
+		_members->parent = parent;
 	}
 
 	void TransformationComponent::onUpdateComponent()
@@ -446,7 +442,7 @@ namespace engine
 	{
 		const std::string& worldResName = renderContext->getResourceMapping()[GlobalResource::WorldMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* worldResource = renderContext->getGlobalResources()->findMat4Resource(worldResName);
-		if(worldResource && worldResource->hasAttachement())
+		if(worldResource)
 		{
 			recalclateWorldTransformation();
 			worldResource->setValue(_members->cache.worldTransformation);
@@ -454,7 +450,7 @@ namespace engine
 		
 		const std::string& invWorldResName = renderContext->getResourceMapping()[GlobalResource::InvWorldMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* invWorldResource = renderContext->getGlobalResources()->findMat4Resource(worldResName);
-		if(invWorldResource && invWorldResource->hasAttachement())
+		if(invWorldResource)
 		{
 			recalclateInvWorldTransformation();
 			invWorldResource->setValue(_members->cache.invWorldTransformation);

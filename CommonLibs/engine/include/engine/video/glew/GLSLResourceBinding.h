@@ -14,6 +14,8 @@ namespace engine
 			~GLSLResourceBinding() override;
 
 			GLint getLocation() const;
+			bool isBound() const override;
+
 		private:
 			struct GLSLResourceBindingPrivate* _members = nullptr;
 		};

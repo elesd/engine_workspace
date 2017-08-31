@@ -130,7 +130,6 @@ namespace engine
 
 	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)
 	{
-		effect->getResources()->commitResources();
 		if(effect->getCompilationData()->isSupportSeparatePrograms())
 		{
 			if(effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
@@ -146,6 +145,8 @@ namespace engine
 		{
 			setEffectImpl(effect);
 		}
+		effect->getResources()->commitResources();
+
 	}
 
 	void Driver::swapBuffer()
