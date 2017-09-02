@@ -466,8 +466,5 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/glew/empty/DriverImpl.cpp>
 
 #endif

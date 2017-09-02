@@ -19,64 +19,6 @@ namespace engine
 			std::string title;
 		};
 
-		void WindowImpl::windowClosedCallback(GLFWwindow *glfwWindow)
-		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
-			WindowImpl *window = windowManager->findWindow(glfwWindow);
-			if(window)
-			{
-				window->windowClosed.emit();
-				windowManager->windowClosed(window);
-			}
-		}
-
-		void WindowImpl::windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
-		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
-			WindowImpl *window = windowManager->findWindow(glfwWindow);
-			if(window)
-			{
-				window->windowClosed.emit();
-			}
-		}
-
-		void WindowImpl::windowMovedCallback(GLFWwindow *glfwWindow, int32_t x, int32_t y)
-		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
-			WindowImpl *window = windowManager->findWindow(glfwWindow);
-			if(window)
-			{
-				window->windowMoved.emit(x, y);
-			}
-		}
-
-		void WindowImpl::windowFocusCallback(GLFWwindow *glfwWindow, int32_t focused)
-		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
-			WindowImpl *window = windowManager->findWindow(glfwWindow);
-			if(window)
-			{
-				if(focused == GLFW_TRUE)
-				{
-					window->windowInFocus.emit();
-				}
-				else
-				{
-					window->windowOutFocus.emit();
-				}
-			}
-		}
-
-		void WindowImpl::windowFrameBufferResizeCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height)
-		{
-			WindowManagerImpl *windowManager = static_cast<WindowManagerImpl*>(Context::windowManager());
-			WindowImpl *window = windowManager->findWindow(glfwWindow);
-			if(window)
-			{
-				window->windowFrameBufferSizeChanged.emit(width, height);
-			}
-		}
-
 		WindowImpl::WindowImpl(WindowManager *windowManager, GLFWwindow *window, const WindowParameter &parameters, const std::string &title)
 			: Window(windowManager, parameters),
 			_members(new WindowImplPrivate())
@@ -142,10 +84,40 @@ namespace engine
 		{
 			return _members->window;
 		}
+
+		void WindowImpl::handleWindowClosedEvent()
+		{
+			windowClosed.emit();
+			getWindowManager()->windowClosed(this);
+		}
+
+		void WindowImpl::handleWindowResizedEvent(int32_t width, int32_t height)
+		{
+			windowSizeChanged.emit(width, height);
+		}
+
+		void WindowImpl::handleWindowMovedEvent(int32_t x, int32_t y)
+		{
+			windowMoved.emit(x, y);
+		}
+
+		void WindowImpl::handleWindowFocusEvent(int32_t focused)
+		{
+			if(focused == GLFW_TRUE)
+			{
+				windowInFocus.emit();
+			}
+			else
+			{
+				windowOutFocus.emit();
+			}
+		}
+
+		void WindowImpl::handleWindowFrameBufferResizeEvent(int32_t width, int32_t height)
+		{
+			windowFrameBufferSizeChanged.emit(width, height);
+		}
 	}
 }
-#else 
-
-#include <engine/view/glfw/empty/WindowImpl.cpp>
 
 #endif

@@ -75,7 +75,5 @@ namespace engine
 		}
 	}
 }
-#else
-#include <engine/video/glew/empty/VertexBufferObject.cpp>
 
 #endif

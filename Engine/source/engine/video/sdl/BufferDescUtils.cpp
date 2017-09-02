@@ -90,8 +90,5 @@ namespace engine
 
 	}
 }
-#else
-
-#include <engine/video/sdl/empty/BufferDescUtils.cpp>
 
 #endif

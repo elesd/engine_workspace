@@ -84,8 +84,4 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/winapi/empty/HLSLVSCompilationData.cpp>
-
 #endif

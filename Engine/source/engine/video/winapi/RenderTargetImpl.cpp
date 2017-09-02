@@ -47,8 +47,4 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/winapi/empty/RenderTargetImpl.cpp>
-
 #endif

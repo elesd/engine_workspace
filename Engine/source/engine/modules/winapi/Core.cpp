@@ -14,8 +14,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/modules/winapi/empty/Core.cpp>
 
 #endif

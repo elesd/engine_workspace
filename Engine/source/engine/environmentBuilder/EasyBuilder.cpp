@@ -69,10 +69,15 @@ namespace engine
 								  LPSTR lpCmdLine,
 								  int nCmdShow) const
 	{
+#if ENGINE_USE_WINAPI
 		ASSERT(_members->windowModule == ContextModuleType::WinApi);
 		std::unique_ptr<IApplicationParameter> args(new winapi::WinApiApplicationParameter(hInstance, hPrevInstance, lpCmdLine, nCmdShow));
 		buildEngine(std::move(args));
 		return Context::getInstance()->getApplication();
+#else
+		INACTIVE_MODULE_ERROR();
+		return nullptr;
+#endif
 	}
 
 	Application* EasyBuilder::buildEngine(int argc, char* argv[]) const

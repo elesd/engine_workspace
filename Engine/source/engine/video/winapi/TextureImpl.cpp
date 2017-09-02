@@ -69,8 +69,5 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/winapi/empty/TextureImpl.cpp>
 
 #endif

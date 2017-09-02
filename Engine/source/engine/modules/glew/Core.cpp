@@ -32,8 +32,5 @@ namespace engine
 
 	}
 }
-#else 
-
-#include <engine/modules/glew/empty/Core.cpp>
 
 #endif

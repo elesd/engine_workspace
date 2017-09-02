@@ -84,8 +84,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/app/sdl/empty/ApplicationImpl.cpp>
 
 #endif

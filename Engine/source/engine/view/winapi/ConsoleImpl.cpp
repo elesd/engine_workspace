@@ -14,8 +14,5 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/view/winapi/empty/ConsoleImpl.cpp>
 
 #endif

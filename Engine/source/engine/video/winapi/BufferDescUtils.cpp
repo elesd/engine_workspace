@@ -501,8 +501,5 @@ namespace engine
 		}
 	}
 }
-#else
-
-#include <engine/video/winapi/empty/BufferDescUtils.cpp>
 
 #endif

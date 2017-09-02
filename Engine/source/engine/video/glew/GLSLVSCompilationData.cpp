@@ -50,6 +50,4 @@ namespace engine
 		}
 	}
 }
-#else
-#include <engine/video/glew/empty/GLSLVSCompilationData.cpp>
 #endif

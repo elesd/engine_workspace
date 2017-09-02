@@ -559,9 +559,5 @@ namespace engine
 		}
 	}
 }
-#else
-
-#include <engine/video/glfw/empty/BufferDescUtils.cpp>
-
 
 #endif

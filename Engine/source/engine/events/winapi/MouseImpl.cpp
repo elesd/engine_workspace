@@ -149,8 +149,5 @@ namespace engine
 	}
 }
 
-#else 
-
-#include <engine/events/winapi/empty/MouseImpl.cpp>
 
 #endif

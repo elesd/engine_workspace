@@ -19,7 +19,6 @@ namespace engine
 	public:
 		static Application* application();
 		static Console* console();
-		static WindowManager* windowManager();
 		static FileSystem* fileSystem();
 	private:
 		using Base = Singleton < Context > ;

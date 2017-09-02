@@ -142,8 +142,5 @@ namespace engine
 
 	}
 }
-#else 
-
-#include <engine/events/sdl/empty/KeyboardImpl.cpp>
 
 #endif

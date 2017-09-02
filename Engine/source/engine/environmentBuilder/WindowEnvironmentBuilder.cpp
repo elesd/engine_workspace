@@ -58,18 +58,33 @@ namespace engine
 
 	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createGlfwWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
+#if ENGINE_USE_GLFW
 		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
+#else
+		INACTIVE_MODULE_ERROR();
+		return nullptr;
+#endif
 	}
 
 	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createSdlWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
+#if ENGINE_USE_SDL
 		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
+#else
+		INACTIVE_MODULE_ERROR();
+		return nullptr;
+#endif
 	}
 	std::unique_ptr<WindowManager> WindowEnvironmentBuilder::createWinApiWindowManager(const DeviceParameters& deviceParameters, const GlobalResourceMapping& resourceMapping)
 	{
+#if ENGINE_USE_WINAPI
 		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(deviceParameters, resourceMapping));
 		return result;
+#else
+		INACTIVE_MODULE_ERROR();
+		return nullptr;
+#endif
 	}
 }

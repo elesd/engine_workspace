@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////
 #if ENGINE_USE_GLFW
 
-#include <engine/events/glfw/EventManagerImpl.h>
+#include <engine/app/glfw/ApplicationImpl.h>
 
 #include <engine/modules/glew/Core.h>
 
@@ -20,15 +20,15 @@ namespace
 {
 	void registerInputCallbacks(GLFWwindow *window)
 	{
-		glfwSetCursorPosCallback(window, engine::glfw::EventManagerImpl::mouseMovedCallback);
-		glfwSetMouseButtonCallback(window, engine::glfw::EventManagerImpl::mouseButtonCallback);
-		glfwSetScrollCallback(window, engine::glfw::EventManagerImpl::mouseScrolledCallback);
-		glfwSetKeyCallback(window, engine::glfw::EventManagerImpl::keyboardCallback);
-		glfwSetWindowCloseCallback(window, engine::glfw::WindowImpl::windowClosedCallback);
-		glfwSetWindowFocusCallback(window, engine::glfw::WindowImpl::windowFocusCallback);
-		glfwSetWindowSizeCallback(window, engine::glfw::WindowImpl::windowResizedCallback);
-		glfwSetWindowPosCallback(window, engine::glfw::WindowImpl::windowMovedCallback);
-		glfwSetFramebufferSizeCallback(window, engine::glfw::WindowImpl::windowFrameBufferResizeCallback);
+		glfwSetCursorPosCallback(window, engine::glfw::ApplicationImpl::mouseMovedCallback);
+		glfwSetMouseButtonCallback(window, engine::glfw::ApplicationImpl::mouseButtonCallback);
+		glfwSetScrollCallback(window, engine::glfw::ApplicationImpl::mouseScrolledCallback);
+		glfwSetKeyCallback(window, engine::glfw::ApplicationImpl::keyboardCallback);
+		glfwSetWindowCloseCallback(window, engine::glfw::ApplicationImpl::windowClosedCallback);
+		glfwSetWindowFocusCallback(window, engine::glfw::ApplicationImpl::windowFocusCallback);
+		glfwSetWindowSizeCallback(window, engine::glfw::ApplicationImpl::windowResizedCallback);
+		glfwSetWindowPosCallback(window, engine::glfw::ApplicationImpl::windowMovedCallback);
+		glfwSetFramebufferSizeCallback(window, engine::glfw::ApplicationImpl::windowFrameBufferResizeCallback);
 	}
 }
 
@@ -60,8 +60,8 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				registerInputCallbacks(window);
 				result.reset(new WindowImpl(this, std::move(window), parameters, title));
+				registerInputCallbacks(window);
 
 			}
 			return result.release();
@@ -77,8 +77,8 @@ namespace engine
 				GLFWwindow *window(glfwCreateWindow(width, height, title.c_str(), monitors[monitorId], NULL));
 				if(window)
 				{
-					registerInputCallbacks(window);
 					result.reset(new WindowImpl(this, window, title));
+					registerInputCallbacks(window);
 				}
 			}
 			return result.release();
@@ -93,8 +93,8 @@ namespace engine
 			std::unique_ptr<WindowImpl> result;
 			if(window)
 			{
-				registerInputCallbacks(window);
 				result.reset(new WindowImpl(this, std::move(window), parameters, title));
+				registerInputCallbacks(window);
 			}
 			return result.release();
 		}
@@ -110,8 +110,8 @@ namespace engine
 				GLFWwindow *window(glfwCreateWindow(width, height, title.c_str(), monitors[monitorId], glfMainWindow->getGlfwWindow()));
 				if(window)
 				{
-					registerInputCallbacks(window);
 					result.reset(new WindowImpl(this, window, title));
+					registerInputCallbacks(window);
 				}
 			}
 			return result.release();
@@ -165,8 +165,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/view/glfw/empty/WindowManagerImpl.cpp>
 
 #endif

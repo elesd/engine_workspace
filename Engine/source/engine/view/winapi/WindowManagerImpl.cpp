@@ -280,8 +280,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/view/winapi/empty/WindowManagerImpl.cpp>
 
 #endif

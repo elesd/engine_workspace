@@ -44,8 +44,5 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/glew/empty/GLSLEffectCompilationData.cpp>
 
 #endif

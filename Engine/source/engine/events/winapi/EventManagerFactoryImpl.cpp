@@ -35,8 +35,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/events/winapi/empty/EventManagerFactoryImpl.cpp>
 
 #endif

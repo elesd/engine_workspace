@@ -49,13 +49,18 @@ namespace engine
 	WindowEnvironmentBuilder EventBuilder::build(const std::set<BasicInputType> &basicInputs)
 	{
 		std::unique_ptr<EventManagerFactory> factory;
-		switch(_members->windowModule)
-		{
-			case ContextModuleType::Glfw: factory.reset(new glfw::EventManagerFactoryImpl(basicInputs)); break;
-			case ContextModuleType::WinApi: factory.reset(new winapi::EventManagerFactoryImpl(basicInputs)); break;
-			case ContextModuleType::Sdl: factory.reset(new sdl::EventManagerFactoryImpl(basicInputs)); break;
-			default: HARD_FAIL("Not implemented");
-		}
+#if ENGINE_USE_GLFW
+		HARD_ASSERT(_members->windowModule == ContextModuleType::Glfw);
+		factory.reset(new glfw::EventManagerFactoryImpl(basicInputs));
+#elif ENGINE_USE_SDL
+		HARD_ASSERT(_members->windowModule == ContextModuleType::Sdl);
+		factory.reset(new sdl::EventManagerFactoryImpl(basicInputs));
+#elif ENGINE_USE_WINAPI
+		HARD_ASSERT(_members->windowModule == ContextModuleType::WinApi);
+		factory.reset(new winapi::EventManagerFactoryImpl(basicInputs));
+#else
+		HARD_FAIL("Unknown window context module");
+#endif
 		setEventManagerFactory(_members->application, std::move(factory));
 		return WindowEnvironmentBuilder(_members->windowModule);
 	}

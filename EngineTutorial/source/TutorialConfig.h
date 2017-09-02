@@ -11,8 +11,8 @@ namespace version
 		const int minor = 1;
 		const int counter = 1;
 		const std::string year = "17";
-		const std::string month = "08";
-		const std::string day = "31";
+		const std::string month = "09";
+		const std::string day = "02";
 	};
 		
 	using Version = engine::VersionBase<VersionDef>;

@@ -53,8 +53,4 @@ namespace engine
 	}
 }
 
-#else
-
-#include <engine/video/glew/empty/GLSLFSCompilationData.cpp>
-
 #endif

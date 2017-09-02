@@ -51,13 +51,18 @@ namespace engine
 	std::unique_ptr<Application> ApplicationBuilder::createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
 	{
 		std::unique_ptr<Application> result;
-		switch(_members->windowModule)
-		{
-			case ContextModuleType::WinApi: result = std::make_unique<winapi::ApplicationImpl>(std::move(arguments), std::move(main)); break;
-			case ContextModuleType::Glfw:	result = std::make_unique<glfw::ApplicationImpl>(std::move(arguments), std::move(main)); break;
-			case ContextModuleType::Sdl:	result = std::make_unique<sdl::ApplicationImpl>(std::move(arguments), std::move(main)); break;
-			default:HARD_FAIL("Not implemented"); break;
-		}
+#if ENGINE_USE_GLFW
+		HARD_ASSERT(_members->windowModule == ContextModuleType::Glfw);
+		result = std::make_unique<glfw::ApplicationImpl>(std::move(arguments), std::move(main));
+#elif ENGINE_USE_SDL
+		HARD_ASSERT(_members->windowModule == ContextModuleType::Sdl);
+		result = std::make_unique<sdl::ApplicationImpl>(std::move(arguments), std::move(main));
+#elif ENGINE_USE_WINAPI
+		HARD_ASSERT(_members->windowModule == ContextModuleType::WinApi);
+		result = std::make_unique<winapi::ApplicationImpl>(std::move(arguments), std::move(main));
+#else
+		HARD_FAIL("Unknown window context module");
+#endif
 		return result;
 	}
 }

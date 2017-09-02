@@ -78,6 +78,4 @@ namespace engine
 		}
 	}
 }
-#else
-#include <engine/video/glew/empty/IndexBufferObject.cpp>
 #endif

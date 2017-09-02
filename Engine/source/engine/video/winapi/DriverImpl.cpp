@@ -686,8 +686,5 @@ namespace engine
 		}
 	}
 }
-#else
-
-#include <engine/video/winapi/empty/DriverImpl.cpp>
 
 #endif

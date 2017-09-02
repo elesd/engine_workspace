@@ -65,11 +65,6 @@ namespace engine
 		const IApplicationParameter* getArguments() const;
 
 		/**
-		* @return Returns the window manager of the application
-		*/
-		WindowManager* getWindowManager() const;
-
-		/**
 		* @return Returns the event manager factory of the application.
 		*/
 		EventManagerFactory* getEventManagerFactory() const;
@@ -79,6 +74,11 @@ namespace engine
 		SceneManager* getSceneManager() const;
 
 		RenderManager* getRenderManager() const;
+	protected:
+		/**
+		* @return Returns the window manager of the application
+		*/
+		WindowManager* getWindowManager() const;
 	private:
 		/**
 		* Setter for the Builder in order to setup window manager.

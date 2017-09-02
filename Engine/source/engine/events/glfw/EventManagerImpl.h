@@ -9,6 +9,8 @@ namespace engine
 {
 	namespace glfw
 	{
+		class WindowImpl;
+
 		/**Glfw event manager which can handles the glfw events*/
 		class EventManagerImpl : public EventManager
 		{
@@ -20,7 +22,7 @@ namespace engine
 			* @param ypos: y coordinate of the mouse.
 			* @see http://www.glfw.org/docs/latest/group__input.html#ga4cfad918fa836f09541e7b9acd36686c
 			*/
-			static void mouseMovedCallback(GLFWwindow* window, double xpos, double ypos);
+			void mouseMovedCallback(WindowImpl* window, double xpos, double ypos);
 			/**
 			* Mouse button event handling.
 			* @param window: Window where the event is emitted.
@@ -30,7 +32,7 @@ namespace engine
 
 			* @see http://www.glfw.org/docs/latest/group__input.html#ga39893a4a7e7c3239c98d29c9e084350c
 			*/
-			static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+			void mouseButtonCallback(WindowImpl* window, int button, int action, int mods);
 			
 			/**
 			* Handle the mouse scroll event.
@@ -39,7 +41,7 @@ namespace engine
 			* @param yoffset: The scroll offset along the y-axis.
 			* @see http://www.glfw.org/docs/latest/group__input.html#ga4687e2199c60a18a8dd1da532e6d75c9
 			*/
-			static void mouseScrolledCallback(GLFWwindow* window, double xoffset, double yoffset);
+			void mouseScrolledCallback(WindowImpl* window, double xoffset, double yoffset);
 
 			/**
 			* Handle keyboard events.
@@ -50,7 +52,13 @@ namespace engine
 			* @param mods:	Bit field describing which modifier keys were held down.
 			* @see http://www.glfw.org/docs/latest/group__input.html#ga0192a232a41e4e82948217c8ba94fdfd
 			*/
-			static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+			void keyboardCallback(WindowImpl* window, int key, int scancode, int action, int mods);
+
+			void windowClosedCallback(WindowImpl*);
+			void windowResizedCallback(WindowImpl* window, int32_t width, int32_t height);
+			void windowMovedCallback(WindowImpl* window, int32_t x, int32_t y);
+			void windowFocusCallback(WindowImpl* window, int32_t focused);
+			void windowFrameBufferResizeCallback(WindowImpl* window, int32_t width, int32_t height);
 		};
 	}
 }

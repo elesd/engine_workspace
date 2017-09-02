@@ -27,11 +27,6 @@ namespace engine
 		return getInstance()->getConsole();
 	}
 
-	WindowManager* Context::windowManager()
-	{
-		return getInstance()->getApplication()->getWindowManager();
-	}
-
 	FileSystem* Context::fileSystem()
 	{
 		return getInstance()->getApplication()->getFileSystem();

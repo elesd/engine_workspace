@@ -41,8 +41,5 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/events/winapi/empty/EventManagerImpl.cpp>
 
 #endif

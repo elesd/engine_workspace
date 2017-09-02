@@ -48,3 +48,5 @@ EngineTutorial/projects/*
 !EngineTutorial/projects/*.bat
 !EngineTutorial/projects/*.sh
 
+# Exclude vim swap files
+*.swp

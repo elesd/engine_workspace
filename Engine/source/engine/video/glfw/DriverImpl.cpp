@@ -111,8 +111,5 @@ namespace engine
 		}
 	}
 }
-#else
-
-#include <engine/video/glfw/empty/DriverImpl.cpp>
 
 #endif

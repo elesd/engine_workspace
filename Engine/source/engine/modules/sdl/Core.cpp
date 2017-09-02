@@ -18,7 +18,4 @@ namespace engine
 		}
 	}
 }
-#else 
-
-#include <engine/modules/sdl/empty/Core.cpp>
 #endif

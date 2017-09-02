@@ -16,12 +16,6 @@ namespace engine
 		class WindowImpl : public engine::Window
 		{
 		public:
-			static void windowClosedCallback(GLFWwindow *);
-			static void windowResizedCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height);
-			static void windowMovedCallback(GLFWwindow *glfwWindow, int32_t x, int32_t y);
-			static void windowFocusCallback(GLFWwindow *glfwWindow, int32_t focused);
-			static void windowFrameBufferResizeCallback(GLFWwindow *glfwWindow, int32_t width, int32_t height);
-		public:
 			/**
 			* Creates a glfw window
 			* @param window: Created glfw window.
@@ -60,6 +54,12 @@ namespace engine
 			* @return Returns the glfw window.
 			*/
 			GLFWwindow *getGlfwWindow();
+
+			void handleWindowClosedEvent();
+			void handleWindowResizedEvent(int32_t width, int32_t height);
+			void handleWindowMovedEvent(int32_t x, int32_t y);
+			void handleWindowFocusEvent(int32_t focused);
+			void handleWindowFrameBufferResizeEvent(int32_t width, int32_t height);
 
 		private:
 			/**PIMPL*/

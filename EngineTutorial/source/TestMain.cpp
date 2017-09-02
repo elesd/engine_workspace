@@ -48,13 +48,13 @@ void TestMain::setStartState(std::unique_ptr<engine::StateBase> &&state)
 
 void TestMain::load()
 {
-	using engine::Context;
-	//engine::view::Window *mainWindow = Context::windowManager()->createFullScreenMainWindow(640, 480, "TestWindow", 0);
-	_members->mainWindow = Context::windowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
-	ASSERT(_members->mainWindow != nullptr);
-	_members->stateStack = std::make_unique<engine::StateStack>();
-	std::unique_ptr<states::TutorialStep03> firstStep(new states::TutorialStep03(_members->mainWindow));
-	_members->stateStack->pushState(std::move(firstStep));
+	//using engine::Context;
+	////engine::view::Window *mainWindow = Context::windowManager()->createFullScreenMainWindow(640, 480, "TestWindow", 0);
+	//_members->mainWindow = Context::windowManager()->createMainWindow(engine::WindowParameter(100, 200, 640, 480), "TestWindow");
+	//ASSERT(_members->mainWindow != nullptr);
+	//_members->stateStack = std::make_unique<engine::StateStack>();
+	//std::unique_ptr<states::TutorialStep03> firstStep(new states::TutorialStep03(_members->mainWindow));
+	//_members->stateStack->pushState(std::move(firstStep));
 }
 
 void TestMain::update()

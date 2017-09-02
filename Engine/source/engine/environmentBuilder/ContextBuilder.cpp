@@ -87,15 +87,12 @@ namespace engine
 	void ContextBuilder::initConsole()
 	{
 		std::unique_ptr<Console> console;
-		switch(_members->modules[ContextModuleClassification::Window].front())
-		{
-			case ContextModuleType::WinApi:
-			console = std::make_unique<winapi::ConsoleImpl>();
-			break;
-			default:
-			console = std::make_unique<Console>();
-			break;
-		}
+#if ENGINE_USE_WINAPI
+		HARD_ASSERT(_members->modules[ContextModuleClassification::Window].front() == ContextModuleType::WinApi);
+		console = std::make_unique<winapi::ConsoleImpl>();
+#else
+		console = std::make_unique<Console>();
+#endif
 		setConsole(std::move(console));
 	}
 
@@ -103,23 +100,40 @@ namespace engine
 	{
 		bool res = false;
 		std::string moduleName = "Unknown";
+
 		switch(type)
 		{
 			case ContextModuleType::Glfw:
+#if ENGINE_USE_GLFW
 			res = glfw::Core::init();
 			moduleName = ContextModule_traits<ContextModuleType::Glfw>::name;
+#else
+			INACTIVE_MODULE_ERROR();
+#endif
 			break;
 			case ContextModuleType::Sdl:
+#if ENGINE_USE_SDL
 			res = sdl::Core::init();
 			moduleName = ContextModule_traits<ContextModuleType::Sdl>::name;
+#else
+				INACTIVE_MODULE_ERROR();
+#endif
 			break;
 			case ContextModuleType::WinApi:
+#if ENGINE_USE_WINAPI
 			res = winapi::Core::init();
 			moduleName = ContextModule_traits<ContextModuleType::WinApi>::name;
+#else
+				INACTIVE_MODULE_ERROR();
+#endif
 			break;
 			case ContextModuleType::Glew:
+#if ENGINE_USE_GLEW
 			res = glew::Core::init();
 			moduleName = ContextModule_traits<ContextModuleType::Glew>::name;
+#else
+				INACTIVE_MODULE_ERROR();
+#endif
 			break;
 			default:
 			FAIL("Unknown module");
