@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/app/IApplicationParameter.h>
-#include <engine/app/IMain.h>
+#include <engine/app/GameMain.h>
 
 #include <engine/events/EventManagerFactory.h>
 #include <engine/events/EventManager.h>
@@ -20,7 +20,7 @@ namespace engine
 {
 	struct ApplicationPrivate
 	{
-		std::unique_ptr<IMain> main;
+		std::unique_ptr<GameMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<SceneManager> sceneManager;
 		std::unique_ptr<RenderManager> renderManager;
@@ -31,7 +31,7 @@ namespace engine
 	};
 
 
-	Application::Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	Application::Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 		:_members(new ApplicationPrivate())
 	{
 		_members->main = std::move(main);
@@ -47,7 +47,7 @@ namespace engine
 
 	void Application::start()
 	{
-		_members->main->load();
+		_members->main->load(_members->windowManager.get());
 		_members->active = true;
 	}
 

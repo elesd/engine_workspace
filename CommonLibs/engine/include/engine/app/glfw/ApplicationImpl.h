@@ -15,7 +15,7 @@ namespace engine
 		{
 		public:
 			/** @copydoc Application::Application */
-			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 			/**Ensure polimorphism.*/
 			~ApplicationImpl() override {};
 

@@ -15,7 +15,7 @@ namespace engine
 			/**
 			* @copydoc
 			*/
-			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 			/** @copydoc */
 			~ApplicationImpl() override {};
 		private:

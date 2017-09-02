@@ -28,6 +28,8 @@ namespace engine
 		static void createInstance(Args ...args);
 		/** Delete the instance */
 		static void releaseInstance();
+
+		static bool hasInstance();
 	private:
 		/**PIMPL*/
 		static std::unique_ptr<T> _instance;

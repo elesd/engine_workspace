@@ -2,7 +2,7 @@
 
 #include <engine/environmentBuilder/ApplicationBuilder.h>
 ///////////////////////////////////////
-
+#include <engine/app/GameMain.h>
 #include <engine/environmentBuilder/FileSystemBuilder.h>
 
 #include <engine/Context.h>
@@ -10,7 +10,7 @@
 
 #include <engine/app/Application.h>
 #include <engine/app/IApplicationParameter.h>
-#include <engine/app/IMain.h>
+#include <engine/app/GameMain.h>
 
 #include <engine/app/glfw/ApplicationImpl.h>
 #include <engine/app/sdl/ApplicationImpl.h>
@@ -40,7 +40,7 @@ namespace engine
 		delete _members;
 	}
 
-	FileSystemBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	FileSystemBuilder ApplicationBuilder::build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 	{
 		std::unique_ptr<Application> app = createApplication(std::move(arguments), std::move(main));
 		FileSystemBuilder result(app.get(), _members->windowModule);
@@ -48,7 +48,7 @@ namespace engine
 
 		return result;
 	}
-	std::unique_ptr<Application> ApplicationBuilder::createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+	std::unique_ptr<Application> ApplicationBuilder::createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 	{
 		std::unique_ptr<Application> result;
 #if ENGINE_USE_GLFW

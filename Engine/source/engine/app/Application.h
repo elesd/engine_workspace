@@ -10,7 +10,7 @@ namespace engine
 	class EventManager;
 	class EventManagerFactory;
 	class FileSystem;
-	class IMain;
+	class GameMain;
 	class RenderManager;
 	class SceneManager;
 	class StateStack;
@@ -29,7 +29,7 @@ namespace engine
 		* @param arguments: Application arguments, tipically forwarded from tha main function.
 		* @param main: Application core logic.
 		*/
-		Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		Application(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 		/**Simple destructor for PIMPL*/
 		virtual ~Application();
 

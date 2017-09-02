@@ -5,7 +5,6 @@
 namespace engine
 {
 	class IApplicationParameter;
-	class IMain;
 
 	namespace winapi
 	{
@@ -20,7 +19,7 @@ namespace engine
 			* @param arguments: The argument wrapper
 			* @param main: Main class
 			*/
-			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+			ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 			/**
 			* Handles application event like exit.
 			* @param hWnd: winProc parameter

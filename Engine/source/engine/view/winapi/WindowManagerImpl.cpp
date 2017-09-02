@@ -24,7 +24,14 @@ namespace
 	bool handleEventsOfApplication(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		engine::winapi::ApplicationImpl *application = static_cast<engine::winapi::ApplicationImpl*>(engine::Context::application());
-		return application->handleEvent(hWnd, message, wParam, lParam);
+		if(application)
+		{
+			return application->handleEvent(hWnd, message, wParam, lParam);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

@@ -3,9 +3,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #if ENGINE_USE_SDL
-
-#include <engine/app/IMain.h>
 #include <engine/app/IApplicationParameter.h>
+#include <engine/app/GameMain.h>
 
 #include <engine/events/sdl/EventManagerImpl.h>
 
@@ -18,7 +17,7 @@ namespace engine
 {
 	namespace sdl
 	{
-		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 			:Application(std::move(arguments), std::move(main))
 		{
 		}

@@ -1,7 +1,7 @@
 #include <stdafx.h>
 #include <engine/app/winapi/ApplicationImpl.h>
 ///////////////////////////////////////////////////////////////////////////////
-#include <engine/app/IMain.h>
+#include <engine/app/GameMain.h>
 
 #include <engine/events/winapi/EventManagerImpl.h>
 
@@ -16,7 +16,7 @@ namespace engine
 {
 	namespace winapi
 	{
-		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 			:Application(std::move(arguments), std::move(main))
 		{
 		}

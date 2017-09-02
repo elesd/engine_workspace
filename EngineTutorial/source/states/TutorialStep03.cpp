@@ -52,7 +52,6 @@ namespace states
 {
 	struct TutorialStep03Private
 	{
-		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
 		engine::Scene* scene = nullptr;
 		engine::Entity* triangleEntity = nullptr;
@@ -65,14 +64,13 @@ namespace states
 
 		glm::vec4 instanceColor;
 		explicit TutorialStep03Private(engine::Window* window)
-			: window(window)
-			, renderContext(window->getRenderContext())
+			: renderContext(window->getRenderContext())
 			, instanceColor(0.5f, 0.0f, 0.0f, 0.0f)
 		{ }
 	};
 
 	TutorialStep03::TutorialStep03(engine::Window *window)
-		: engine::StateBase("TutorialStep03")
+		: engine::StateBase("TutorialStep03", window)
 		, _members(new TutorialStep03Private(window))
 	{
 
@@ -113,14 +111,9 @@ namespace states
 	{
 	}
 
-	engine::ISignalManager* TutorialStep03::getSignalManager() const
-	{
-		return _members->window->getEventManager()->getEventsSignalManager();
-	}
-
 	void TutorialStep03::initRender()
 	{
-		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep03 = renderPasses::OnlySloid::createRenderer(_members->window->getRenderContext());
+		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep03 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep03", std::move(renderTutorialStep03));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 	}
@@ -175,7 +168,7 @@ namespace states
 		{
 			std::unique_ptr<engine::Entity> camera(new engine::Entity("Camera"));
 			engine::PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
-			std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(_members->window, settings, glm::vec3(0.0f)));
+			std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(getWindow(), settings, glm::vec3(0.0f)));
 			camera->registerCameraComponent(std::move(cameraComponent));
 			camera->registerTransformationComponent(std::make_unique<engine::TransformationComponent>());
 			_members->scene->registerEntity(std::move(camera));
@@ -290,7 +283,7 @@ namespace states
 
 	void TutorialStep03::createConnections()
 	{
-		engine::Keyboard* keyboard = _members->window->getEventManager()->findEventSource<engine::Keyboard>()[0];
+		engine::Keyboard* keyboard = getWindow()->getEventManager()->findEventSource<engine::Keyboard>()[0];
 		CONNECT_SIGNAL(keyboard, keyReleased, this, onKeyUp);
 	}
 

@@ -7,9 +7,9 @@
 #include <engine/environmentBuilder/EventBuilder.h>
 namespace engine
 {
-	class IMain;
 	class IApplicationParameter;
 	class Application;
+	class GameMain;
 	class GlobalResourceMapping;
 	struct DeviceParameters;
 	struct FileSystemSettings;
@@ -27,7 +27,7 @@ namespace engine
 		* @param main: The class which controls the logic of the application
 		* @param windowModul: The used window module. It must be consecutive with the build engine call, i.e.: winapi cannot start with GNU main parameters.
 		*/
-		explicit EasyBuilder(std::unique_ptr<IMain> &&main, engine::ContextModuleType windowModul);
+		explicit EasyBuilder(std::unique_ptr<GameMain> &&main, engine::ContextModuleType windowModul);
 		/**PIMPL*/
 		~EasyBuilder();
 

@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	class IMain;
+	class GameMain;
 	class IApplicationParameter;
 	class FileSystemBuilder;
 	class Application;
@@ -42,14 +42,14 @@ namespace engine
 		* @param main: Main functionality.
 		* @return The next building phase.
 		*/
-		FileSystemBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		FileSystemBuilder build(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 	private:
 		/**
 		* Create an application based on the window module type which is given in creation
 		* @param arguments: Argumentums for the creation
 		* @param main: application main logic
 		*/
-		std::unique_ptr<Application> createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main);
+		std::unique_ptr<Application> createApplication(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main);
 		
 	private:
 		/** PIMPL */

@@ -18,13 +18,11 @@ namespace states
 {
 	class TutorialStep03
 		: public engine::StateBase
-		, public engine::SlotHolder
 	{
 	public:
 		explicit TutorialStep03(engine::Window *window);
 		~TutorialStep03() override;
 
-		engine::ISignalManager* getSignalManager() const override;
 	private:
 		void initState() override;
 		void destroyState() override;

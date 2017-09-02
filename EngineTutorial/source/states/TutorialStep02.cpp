@@ -51,7 +51,6 @@ namespace states
 {
 	struct TutorialStep02Private
 	{
-		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
 		engine::Scene* scene = nullptr;
 		engine::Render* render = nullptr;
@@ -63,14 +62,13 @@ namespace states
 
 		glm::vec4 instanceColor;
 		explicit TutorialStep02Private(engine::Window* window)
-			: window(window)
-			, renderContext(window->getRenderContext())
+			: renderContext(window->getRenderContext())
 			, instanceColor(0.5f, 0.0f, 0.0f, 0.0f)
 		{ }
 	};
 
 	TutorialStep02::TutorialStep02(engine::Window *window)
-		: engine::StateBase("TutorialStep02")
+		: engine::StateBase("TutorialStep02", window)
 		, _members(new TutorialStep02Private(window))
 	{
 
@@ -111,14 +109,9 @@ namespace states
 	{
 	}
 
-	engine::ISignalManager* TutorialStep02::getSignalManager() const
-	{
-		return _members->window->getEventManager()->getEventsSignalManager();
-	}
-
 	void TutorialStep02::initRender()
 	{
-		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep02 = renderPasses::OnlySloid::createRenderer(_members->window->getRenderContext());
+		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep02 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep02", std::move(renderTutorialStep02));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 	}
@@ -277,7 +270,7 @@ namespace states
 
 	void TutorialStep02::createConnections()
 	{
-		engine::Keyboard* keyboard = _members->window->getEventManager()->findEventSource<engine::Keyboard>()[0];
+		engine::Keyboard* keyboard = getWindow()->getEventManager()->findEventSource<engine::Keyboard>()[0];
 		CONNECT_SIGNAL(keyboard, keyReleased, this, onKeyUp);
 	}
 

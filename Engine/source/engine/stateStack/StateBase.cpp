@@ -13,6 +13,8 @@
 
 #include <engine/stateStack/StateStack.h>
 
+#include <engine/events/EventManager.h>
+
 #include <engine/Context.h>
 
 namespace engine
@@ -27,8 +29,16 @@ namespace engine
 			Leaving
 		};
 		Status status = Status::Null;
-		StateStack *stateStack = nullptr;
+		StateStack* stateStack = nullptr;
+		Window* window = nullptr;
 		std::string name;
+
+		StateBasePrivate(const std::string& name, Window* window)
+			: window(window)
+			, name(name)
+		{
+
+		}
 	};
 
 	StateBase::~StateBase()
@@ -47,10 +57,9 @@ namespace engine
 		delete _members;
 	}
 
-	StateBase::StateBase(const std::string &name)
-		:_members(new StateBasePrivate())
+	StateBase::StateBase(const std::string &name, Window* window)
+		:_members(new StateBasePrivate(name, window))
 	{
-		_members->name = name;
 	}
 
 	void StateBase::initialize(StateStack *stack)
@@ -153,6 +162,16 @@ namespace engine
 			default:	break;
 		}
 		os << "State basic info: [" << _members->name << "]status: " << statusStr;
+	}
+
+	ISignalManager* StateBase::getSignalManager() const
+	{
+		return _members->window->getEventManager()->getEventsSignalManager();
+	}
+
+	Window* StateBase::getWindow() const
+	{
+		return _members->window;
 	}
 
 	Context* StateBase::getContext() const

@@ -19,16 +19,29 @@ namespace engine
 
 	Application* Context::application()
 	{
+		if(!hasInstance())
+		{
+			return nullptr;
+		}
+		
 		return getInstance()->getApplication();
 	}
 
 	Console* Context::console()
 	{
+		if(!hasInstance())
+		{
+			return nullptr;
+		}
 		return getInstance()->getConsole();
 	}
 
 	FileSystem* Context::fileSystem()
 	{
+		if(!hasInstance())
+		{
+			return nullptr;
+		}
 		return getInstance()->getApplication()->getFileSystem();
 	}
 
@@ -40,6 +53,8 @@ namespace engine
 
 	Context::~Context()
 	{
+		ContextPrivate* members = _members;
+		_members = nullptr;
 		delete _members;
 	}
 

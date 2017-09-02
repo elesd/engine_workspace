@@ -3,9 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #if ENGINE_USE_GLFW
-
-#include <engine/app/IMain.h>
-#include <engine/app/IApplicationParameter.h>
+#include <engine/app/GameMain.h>
 
 #include <engine/events/glfw/EventManagerImpl.h>
 #include <engine/events/glfw/MouseImpl.h>
@@ -22,7 +20,7 @@ namespace engine
 {
 	namespace glfw
 	{
-		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<IMain> main)
+		ApplicationImpl::ApplicationImpl(std::unique_ptr<IApplicationParameter> arguments, std::unique_ptr<GameMain> main)
 			:Application(std::move(arguments), std::move(main))
 		{
 		}

@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/app/winapi/WinApiApplicationParameter.h>
-#include <engine/app/IMain.h>
+#include <engine/app/GameMain.h>
 #include <engine/environmentBuilder/ApplicationBuilder.h>
 #include <engine/environmentBuilder/BuildFinalizer.h>
 #include <engine/environmentBuilder/ContextBuilder.h>
@@ -22,7 +22,7 @@ namespace engine
 {
 	struct EasyBuilderPrivate
 	{
-		std::unique_ptr<IMain> main;
+		std::unique_ptr<GameMain> main;
 		std::set<engine::BasicInputType> inputs;
 		FileSystemSettings fileSystemSettings;
 		engine::ContextModuleType windowModule;
@@ -30,7 +30,7 @@ namespace engine
 		GlobalResourceMapping resourceMapping;
 	};
 
-	EasyBuilder::EasyBuilder(std::unique_ptr<IMain> &&main, engine::ContextModuleType windowModul)
+	EasyBuilder::EasyBuilder(std::unique_ptr<GameMain> &&main, engine::ContextModuleType windowModul)
 		:_members(new EasyBuilderPrivate())
 	{
 		_members->main = std::move(main);

@@ -22,4 +22,10 @@ namespace engine
 	{
 		_instance.reset(nullptr);
 	}
+	
+	template<class T>
+	bool Singleton<T>::hasInstance()
+	{
+		return _instance != nullptr;
+	}
 }

@@ -46,7 +46,6 @@ namespace states
 {
 	struct TutorialStep01Private
 	{
-		engine::Window* window = nullptr;
 		engine::RenderContext* renderContext = nullptr;
 		engine::Render* render = nullptr;
 		engine::Scene* scene = nullptr;
@@ -56,13 +55,12 @@ namespace states
 
 		std::unique_ptr<engine::Mesh> triangle;
 		explicit TutorialStep01Private(engine::Window* window)
-			: window(window)
-			, renderContext(window->getRenderContext())
+			: renderContext(window->getRenderContext())
 		{ }
 	};
 
 	TutorialStep01::TutorialStep01(engine::Window *window)
-		: engine::StateBase("TutorialStep01")
+		: engine::StateBase("TutorialStep01", window)
 		, _members(new TutorialStep01Private(window))
 	{
 
@@ -104,7 +102,7 @@ namespace states
 
 	void TutorialStep01::initRender()
 	{
-		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep01 = renderPasses::OnlySloid::createRenderer(_members->window->getRenderContext());
+		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep01 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep01", std::move(renderTutorialStep01));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 		

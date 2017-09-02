@@ -3,6 +3,7 @@
 #include <engine/constraints/NonCopyable.h>
 
 #include <engine/signalSlot/Signal.h>
+#include <engine/signalSlot/SlotHolder.h>
 
 namespace engine
 {
@@ -10,13 +11,15 @@ namespace engine
 	class Context;
 	class Console;
 	class Applicaiton;
+	class Window;
 
 	/**
 	 * Base class for game states. This class is managed by the
 	 * state stack.
 	 */
-	class StateBase :
-		public engine::NonCopyable
+	class StateBase 
+		: public engine::NonCopyable
+		, public SlotHolder
 	{
 	protected:
 		/**
@@ -25,8 +28,7 @@ namespace engine
 		 * it can be done during initialization.
 		 * @see initState
 		 */
-		StateBase(const std::string &name);
-
+		StateBase(const std::string &name, Window* windowOnOperate);
 
 	public:
 		/**
@@ -85,7 +87,10 @@ namespace engine
 		 */
 		void trace(std::ostream &) const;
 
+		ISignalManager* getSignalManager() const override final;
 	protected:
+		Window* getWindow() const;
+
 		Context* getContext() const;
 
 		Console* getConsole() const;
