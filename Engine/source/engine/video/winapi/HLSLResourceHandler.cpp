@@ -70,13 +70,13 @@ namespace engine
 
 		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::mat3& value)
 		{
-			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
+			ConstantBufferObject tempBuffer = createConstantBufferObject(glm::transpose(value), getDriver());
 			commitValue(binding, tempBuffer);
 		}
 
 		void HLSLResourceHandler::commitValueImpl(const ShaderResourceDescription& desc, const ShaderResourceBinding* binding, const glm::mat4& value)
 		{
-			ConstantBufferObject tempBuffer = createConstantBufferObject(value, getDriver());
+			ConstantBufferObject tempBuffer = createConstantBufferObject(glm::transpose(value), getDriver());
 			commitValue(binding, tempBuffer);
 		}
 

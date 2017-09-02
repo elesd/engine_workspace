@@ -16,13 +16,20 @@ namespace engine
 	{
 		struct HLSLResourceBindingPrivate
 		{
-			uint32_t bufferId;
+			int32_t bufferId;
 			std::vector<ShaderType> shaderTypes;
 			HLSLResourceBindingPrivate(uint32_t bufferId, const std::vector<ShaderType>& shaderTypes)
 				: bufferId(bufferId)
 				, shaderTypes(shaderTypes)
 			{ }
 		};
+
+		HLSLResourceBinding::HLSLResourceBinding(const std::vector<ShaderType>& shaderTypes)
+			: ShaderResourceBinding()
+			, _members(new HLSLResourceBindingPrivate(-1, shaderTypes))
+		{
+
+		}
 
 		HLSLResourceBinding::HLSLResourceBinding(uint32_t bufferId, const std::vector<ShaderType>& shaderTypes)
 			: ShaderResourceBinding()
@@ -81,13 +88,7 @@ namespace engine
 			return _members->shaderTypes;
 		}
 
-		std::unique_ptr<ShaderResourceBinding> HLSLResourceBinding::cloneImpl() const
-		{
-			std::unique_ptr<ShaderResourceBinding> result(new HLSLResourceBinding(*this));
-			return result;
-		}
-
-		bool HLSLResourceBinding::::isBound() const
+		bool HLSLResourceBinding::isBound() const
 		{
 			return _members->bufferId >= 0;
 		}

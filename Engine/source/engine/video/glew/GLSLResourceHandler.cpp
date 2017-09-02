@@ -4,6 +4,7 @@
 
 #include <engine/video/glew/GLSLResourceBinding.h>
 #include <engine/video/glew/DriverImpl.h>
+#if ENGINE_USE_GLEW
 namespace engine
 {
 	namespace glew
@@ -61,3 +62,4 @@ namespace engine
 		}
 	}
 }
+#endif

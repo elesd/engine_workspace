@@ -184,19 +184,19 @@ namespace engine
 		{
 			GlobalShaderResource<GPUMemberType::Mat4>* worldMat = findMat4Resource(mapping[GlobalResource::WorldMatrix]);
 			bool recalculate = false;
-			if(worldMat && worldMat->hasAttachement() && worldMat->isDirty())
+			if(worldMat && worldMat->isDirty())
 			{
 				recalculate = true;
 				worldMat->cleanUpDirtyFlag();
 			}
 			GlobalShaderResource<GPUMemberType::Mat4>* viewMat = findMat4Resource(mapping[GlobalResource::ViewMatrix]);
-			if(viewMat && viewMat->hasAttachement() && viewMat->isDirty())
+			if(viewMat && viewMat->isDirty())
 			{
 				recalculate = true;
 				viewMat->cleanUpDirtyFlag();
 			}
 			GlobalShaderResource<GPUMemberType::Mat4>* projMat = findMat4Resource(mapping[GlobalResource::ProjectionMatrix]);
-			if(projMat && projMat->hasAttachement() && projMat->isDirty())
+			if(projMat && projMat->isDirty())
 			{
 				recalculate = true;
 				projMat->cleanUpDirtyFlag();

@@ -12,7 +12,7 @@
 
 namespace
 {
-	std::vector<engine::ShaderType> allShader = {engine::ShaderType::FragmentShader, engine::ShaderType::FragmentShader};
+	std::vector<engine::ShaderType> allShader = {engine::ShaderType::FragmentShader, engine::ShaderType::VertexShader};
 }
 
 namespace engine

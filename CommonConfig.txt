@@ -1,9 +1,9 @@
 
 # Module definitions
 ####################
-set (USE_GLFW 1)
+set (USE_GLFW 0)
 set (USE_SDL 0)
-set (USE_WINAPI 0)
+set (USE_WINAPI 1)
 
 # compiler definitions
 ######################

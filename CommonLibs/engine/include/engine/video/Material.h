@@ -10,6 +10,7 @@ namespace engine
 	class Effect;
 	class EffectCompiler;
 	class MaterialDescription;
+	class MaterialResourceHandler;
 	class RenderContext;
 	class Shader;
 	class ShaderResourceStorage;
@@ -18,6 +19,7 @@ namespace engine
 	class Material
 		: private NonCopyable
 	{
+		friend class MaterialResourceHandler;
 	public:
 		static const std::string defaultEffectName;
 	public:
@@ -34,10 +36,9 @@ namespace engine
 
 		const AttributeFormat& getAttributeFormat() const;
 		const MaterialDescription& getDescription() const;
-		
-		GlobalShaderResourceStorage* getResources() const;
+		MaterialResourceHandler* getResourceHandler();
 	private:
-		void initShaderResources();
+		const std::map<std::string, std::unique_ptr<Effect>>& getCompiledEffects();
 	private:
 		struct MaterialPrivate* _members = nullptr;
 	};

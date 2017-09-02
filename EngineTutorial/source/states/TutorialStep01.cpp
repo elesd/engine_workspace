@@ -194,12 +194,10 @@ namespace states
 #endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
-		engine::EffectDescription effectDesc = description.createEffectDescription(engine::Material::defaultEffectName);
-
 		std::vector<engine::ShaderResourceDescription> materialParameters = createMaterialParameters();
 		for(const engine::ShaderResourceDescription& materialParam : materialParameters)
 		{
-			description.addParameter(materialParam);
+			description.getDefaultEffect().addParameter(materialParam);
 		}
 
 		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);

@@ -34,6 +34,7 @@
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/Material.h>
 #include <engine/video/MaterialDescription.h>
+#include <engine/video/MaterialResourceHandler.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
 #include <engine/video/ShaderResourceDescription.h>
@@ -143,9 +144,9 @@ namespace states
 		std::string fsMain;
 #if TUTORIAL_USE_WINAPI
 	
-		vsPath = "shaders/hlsl/Tutorial02.hlsl";
+		vsPath = "shaders/hlsl/Tutorial03.hlsl";
 		vsMain = "VShader";
-		fsPath = "shaders/hlsl/Tutorial02.hlsl";
+		fsPath = "shaders/hlsl/Tutorial03.hlsl";
 		fsMain = "PShader";
 	
 #else
@@ -195,6 +196,9 @@ namespace states
 		result.push_back(engine::ShaderResourceDescription("instanceColor",
 						 engine::GPUMemberType::Vec4,
 						 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
+		result.push_back(engine::ShaderResourceDescription("ProjectionViewWorldMatrix",
+						 engine::GPUMemberType::Mat4,
+						 engine::ShaderResourceBindingData(1, {engine::ShaderType::VertexShader})));
 		return result;
 	}
 
@@ -237,30 +241,31 @@ namespace states
 #endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
-		engine::EffectDescription effectDesc = description.createEffectDescription(engine::Material::defaultEffectName);
-		
 		std::vector<engine::ShaderResourceDescription> materialParameters = createMaterialParameters();
 		for(const engine::ShaderResourceDescription& materialParam : materialParameters)
 		{
-			description.addParameter(materialParam);
+			description.getDefaultEffect().addParameter(materialParam);
 		}
 
 		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
 
 		std::unique_ptr<engine::Material> result = std::make_unique<engine::Material>("Simple", description, _members->renderContext);
-		result->getResources()->setVec4("instanceColor", _members->instanceColor);
+		result->getResourceHandler()->setVec4("instanceColor", _members->instanceColor);
 		return result;
 	}
 
 	void TutorialStep03::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)
 	{
 #if TUTORIAL_USE_WINAPI
+		// TODO Rasterization propertiy. Vertex binding order must be able to set up clock wise or counter clock wise.
+		// https://msdn.microsoft.com/en-us/library/windows/desktop/ff476198(v=vs.85).aspx
+		// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glFrontFace.xml
 		std::vector<float> data(
 		{
-			0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.45f, -0.5, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			-0.45f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f
+			0.0f, 1.0f, -5.f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, -1.0f, -5.f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f, -5.f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f
 		});
 #else
 		std::vector<float> data(
@@ -318,8 +323,16 @@ namespace states
 			case engine::KeyboardButton::Key_LCtrl:
 				camera->getTransformationComponent()->setWorldPosition(camera->getTransformationComponent()->getWorldPosition() + engine::vec3(0.0f, -1.0f, 0.0f));
 				break;
-
 		}		
-		_members->triangle->getMaterial()->getResources()->setVec4("instanceColor", _members->instanceColor);
+		engine::vec3 a(0.0f, 0.5f, -1.0f);
+		engine::vec3 b(0.45f, -0.5f, 1.0f);
+		engine::vec3 c(-0.45f, -0.5f, 1.0f);
+		engine::vec3 pA = camera->getCameraComponent()->WorldPointToViewport(a);
+		engine::vec3 pB = camera->getCameraComponent()->WorldPointToViewport(b);
+		engine::vec3 pC = camera->getCameraComponent()->WorldPointToViewport(c);
+
+		getConsole()->print("a: % % %", pA.x, pA.y, pA.z);
+		getConsole()->print("a: % % %", pB.x, pB.y, pB.z);
+		getConsole()->print("a: % % %", pC.x, pC.y, pC.z);
 	}
 }

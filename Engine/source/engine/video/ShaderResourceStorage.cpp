@@ -321,7 +321,7 @@ namespace engine
 					break;
 			}
 		}
-		ASSERT(checkResourceBinding());
+		removeUnboundResources();
 	}
 
 	void ShaderResourceStorage::setFloat(const std::string& resourceName, float value)
@@ -441,40 +441,86 @@ namespace engine
 		}
 	}
 
-	bool ShaderResourceStorage::checkResourceBinding() const
+	void ShaderResourceStorage::removeUnboundResources()
 	{
-		bool result = true;
+		std::vector<std::string> unboundResources;
 		for(const auto& resourcePair : _members->floatResources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->floatResources.erase(resourceName);
+		}
+		unboundResources.clear();
+
 		for(const auto& resourcePair : _members->vec2Resources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->vec2Resources.erase(resourceName);
+		}
+		unboundResources.clear();
+
 		for(const auto& resourcePair : _members->vec3Resources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->vec3Resources.erase(resourceName);
+		}
+		unboundResources.clear();
+
 		for(const auto& resourcePair : _members->vec4Resources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->vec4Resources.erase(resourceName);
+		}
+		unboundResources.clear();
+
 		for(const auto& resourcePair : _members->mat3Resources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->mat3Resources.erase(resourceName);
+		}
+		unboundResources.clear();
+
 		for(const auto& resourcePair : _members->mat4Resources)
 		{
-			result = result && resourcePair.second.isBound();
-			ASSERT(result && "Not bounded resource!");
+			if(!resourcePair.second.isBound())
+			{
+				unboundResources.push_back(resourcePair.first);
+			}
 		}
-		return result;
+		for(const std::string& resourceName : unboundResources)
+		{
+			_members->mat4Resources.erase(resourceName);
+		}
+		unboundResources.clear();
 	}
 
 }

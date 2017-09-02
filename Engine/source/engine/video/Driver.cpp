@@ -172,13 +172,6 @@ namespace engine
 	{
 		std::unique_ptr<ShaderResourceHandler> resourceHandler = createShaderResourceHandler();
 		std::unique_ptr<ShaderResourceStorage> result = std::make_unique<ShaderResourceStorage>(std::move(resourceHandler), parent);
-		if(parent)
-		{
-			for(const ShaderResourceDescription& desc : parent->collectResources())
-			{
-				result->addResource(desc);
-			}
-		}
 		for(const ShaderResourceDescription& desc : description)
 		{
 			result->addResource(desc);

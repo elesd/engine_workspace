@@ -7,5 +7,6 @@
 #define NULL_VALUE_DEF(Type) struct Type {};
 
 NULL_DEF(GLuint)
+NULL_DEF(GLint)
 
 #endif

@@ -70,7 +70,7 @@ namespace engine
 #elif ENGINE_USE_SDL
 	using CurrentDriverFeatures = DriverFeatures<ContextModuleType::Glfw>;
 #elif ENGINE_USE_WINAPI
-	using CurrentDriverFeatures = DriverFeatures<ContextModuleType::Glfw>;
+	using CurrentDriverFeatures = DriverFeatures<ContextModuleType::WinApi>;
 #else
 #error Unknown window module
 #endif

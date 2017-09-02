@@ -92,11 +92,6 @@ namespace engine
 		_members->fragmentShader = fragmentShader;
 	}
 
-	void MaterialDescription::addParameter(const ShaderResourceDescription &description)
-	{
-		_members->resourceDescriptions.push_back(description);
-	}
-
 	EffectDescription& MaterialDescription::getDefaultEffect()
 	{
 		return getEffectDescription(Material::defaultEffectName);
@@ -105,11 +100,6 @@ namespace engine
 	const EffectDescription& MaterialDescription::getDefaultEffect() const
 	{
 		return getEffectDescription(Material::defaultEffectName);
-	}
-
-	const std::vector<ShaderResourceDescription>& MaterialDescription::getParameters() const
-	{
-		return _members->resourceDescriptions;
 	}
 
 	EffectDescription MaterialDescription::createEffectDescription(const std::string& name) const

@@ -676,11 +676,12 @@ namespace engine
 
 		std::unique_ptr<ShaderResourceBinding> DriverImpl::bindResourceImpl(const ShaderResourceDescription& desc, Effect* effect)
 		{
-			ASSERT(desc.getResourceBindingData().hasLayout() && "Layout must be defined");
-
 			const ShaderResourceBindingData& bindingData = desc.getResourceBindingData();
-			std::unique_ptr<ShaderResourceBinding> result(new HLSLResourceBinding(bindingData.getLayout(), bindingData.getShaderTypes()));
-			
+			std::unique_ptr<ShaderResourceBinding> result(new HLSLResourceBinding(bindingData.getShaderTypes()));
+			if(desc.getResourceBindingData().hasLayout())
+			{
+				result.reset(new HLSLResourceBinding(bindingData.getLayout(), bindingData.getShaderTypes()));
+			}
 			return result;
 		}
 	}

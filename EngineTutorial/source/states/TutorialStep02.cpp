@@ -35,7 +35,8 @@
 #include <engine/video/MaterialDescription.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompileOptions.h>
-#include <engine/video/ShaderResourceDescription.h>
+#include <engine/video/MaterialResourceHandler.h>
+#include <engine/video/ShaderResourceDescription.h> 
 #include <engine/video/ShaderResourceStorage.h>
 #include <engine/video/ShaderResourceBindingData.h>
 #include <engine/video/VertexBuffer.h>
@@ -229,19 +230,18 @@ namespace states
 #endif
 		description.setFragmentShader(_members->fs.get());
 		description.setVertexShader(_members->vs.get());
-		engine::EffectDescription effectDesc = description.createEffectDescription(engine::Material::defaultEffectName);
 		
 		std::vector<engine::ShaderResourceDescription> materialParameters = createMaterialParameters();
 		for(const engine::ShaderResourceDescription& materialParam : materialParameters)
 		{
-			description.addParameter(materialParam);
+			description.getDefaultEffect().addParameter(materialParam);
 		}
 
 		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
 
 		std::unique_ptr<engine::Material> result = std::make_unique<engine::Material>("Simple", description, _members->renderContext);
-		result->getResources()->setVec4("instanceColor", _members->instanceColor);
+		result->getResourceHandler()->setVec4("instanceColor", _members->instanceColor);
 		return result;
 	}
 
@@ -292,6 +292,6 @@ namespace states
 				_members->instanceColor.r = (std::max)(0.0f, _members->instanceColor.r - 0.1f);
 				break;
 		}		
-		_members->triangle->getMaterial()->getResources()->setVec4("instanceColor", _members->instanceColor);
+		_members->triangle->getMaterial()->getResourceHandler()->setVec4("instanceColor", _members->instanceColor);
 	}
 }

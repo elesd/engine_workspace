@@ -40,6 +40,10 @@ namespace engine
 
 	Entity::~Entity()
 	{
+		_members->cameraComponent.reset();
+		_members->customComponentContainer.clear();
+		_members->visualComponentsContainer.clear();
+		_members->transformation.reset();
 		delete _members;
 		_members = nullptr;
 	}

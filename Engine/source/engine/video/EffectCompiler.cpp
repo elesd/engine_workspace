@@ -49,12 +49,12 @@ namespace engine
 	}
 
 
-	std::unique_ptr<Effect> EffectCompiler::compileEffect(const std::string& techniqueName)
+	std::unique_ptr<Effect> EffectCompiler::compileEffect(const std::string& techniqueName, GlobalShaderResourceStorage* globalResourceStorage)
 	{
 		_members->compiler->compileShader(_members->material->getDescription().getVertexShader(), techniqueName);
 		_members->compiler->compileShader(_members->material->getDescription().getFragmentShader(), techniqueName);
 		const std::vector<ShaderResourceDescription>& effectParameters = _members->material->getDescription().getEffectDescription(techniqueName).getParameters();
-		std::unique_ptr<ShaderResourceStorage> resourceStorage = _members->driver->createResourceStorage(effectParameters, _members->material->getResources());
+		std::unique_ptr<ShaderResourceStorage> resourceStorage = _members->driver->createResourceStorage(effectParameters, globalResourceStorage);
 		std::unique_ptr<Effect> effect = std::make_unique<Effect>(_members->material, 
 																  techniqueName, 
 																  _members->material->getDescription().getVertexShader(), 
@@ -81,7 +81,10 @@ namespace engine
 		for(const ShaderResourceDescription& desc : descriptions)
 		{
 			std::unique_ptr<ShaderResourceBinding> binding = _members->driver->bindResource(desc, effect);
-			bindings.emplace_back(desc, std::move(binding));
+			if(binding->isBound())
+			{
+				bindings.emplace_back(desc, std::move(binding));
+			}
 		}
 		resources->setResourceBinding(std::move(bindings));
 	}

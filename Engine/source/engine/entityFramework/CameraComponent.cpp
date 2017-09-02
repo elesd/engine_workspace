@@ -314,7 +314,7 @@ namespace engine
 		{
 			const std::string& resName = renderContext->getResourceMapping()[GlobalResource::ViewMatrix];
 			GlobalShaderResource<GPUMemberType::Mat4>* resource = renderContext->getGlobalResources()->findMat4Resource(resName);
-			if(resource && resource->hasAttachement())
+			if(resource)
 			{
 				resource->setValue(getTransformationComponent()->getInvWorldTransformation());
 			}

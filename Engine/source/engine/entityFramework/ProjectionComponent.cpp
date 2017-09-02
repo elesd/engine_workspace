@@ -105,7 +105,7 @@ namespace engine
 		if(_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix])
 		{
 			_members->cache.projectionMatrix = buildProjectionMatrix();
-			ViewportCalculator<CurrentDriverFeatures::ndcType>::adaptPorjectionMatrix(_members->cache.projectionMatrix);
+			_members->cache.projectionMatrix = ViewportCalculator<CurrentDriverFeatures::ndcType>::adaptPorjectionMatrix(_members->cache.projectionMatrix);
 			_members->cache.dirtyFlags[DirtyFlags::ProjectionMatrix] = false;
 		}
 	}
@@ -168,7 +168,7 @@ namespace engine
 	{
 		const std::string& projectionName = renderContext->getResourceMapping()[GlobalResource::ProjectionMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* projParameter = renderContext->getGlobalResources()->findMat4Resource(projectionName);
-		if(projParameter && projParameter->hasAttachement())
+		if(projParameter)
 		{
 			recalculateProjectionMatrix();
 			projParameter->setValue(_members->cache.projectionMatrix);
@@ -176,7 +176,7 @@ namespace engine
 
 		const std::string& invProjectionName = renderContext->getResourceMapping()[GlobalResource::InvProjectionMatrix];
 		GlobalShaderResource<GPUMemberType::Mat4>* invProjParameter = renderContext->getGlobalResources()->findMat4Resource(invProjectionName);
-		if(invProjParameter && invProjParameter->hasAttachement())
+		if(invProjParameter)
 		{
 			recalculateInvProjectionMatrix();
 			invProjParameter->setValue(_members->cache.invProjectionMatrix);

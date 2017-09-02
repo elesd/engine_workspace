@@ -9,6 +9,7 @@
 
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
+#include <engine/video/MaterialResourceHandler.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
@@ -22,24 +23,26 @@ namespace engine
 		std::unique_ptr<EffectCompiler> effectCompiler;
 		std::map<std::string, std::unique_ptr<Effect>> effectCache;
 		MaterialDescription description;
+		std::unique_ptr<MaterialResourceHandler> resourceHandler;
 		std::string name;
 		std::string currentEffect;
-		std::unique_ptr<GlobalShaderResourceStorage> resources;
-		MaterialPrivate(const std::string& name, const MaterialDescription& description)
+		RenderContext* renderContext;
+
+		MaterialPrivate(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
 			: name(name) 
 			, description(description)
 			, currentEffect(Material::defaultEffectName)
+			, renderContext(renderContext)
 		{}
 	};
 
 	const std::string Material::defaultEffectName = "Default";
 
 	Material::Material(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)
-		: _members(new MaterialPrivate(name, description))
+		: _members(new MaterialPrivate(name, description, renderContext))
 	{
-		_members->resources = std::make_unique<GlobalShaderResourceStorage>(renderContext->getGlobalResources());
+		_members->resourceHandler.reset(new MaterialResourceHandler(this));
 		_members->effectCompiler = renderContext->createEffectCompiler(this);
-		initShaderResources();
 		setCurrentEffect(_members->currentEffect);
 	}
 
@@ -68,7 +71,7 @@ namespace engine
 		_members->currentEffect = name;
 		if(_members->effectCache.find(name) == _members->effectCache.end())
 		{
-			std::unique_ptr<Effect> effect = _members->effectCompiler->compileEffect(name);
+			std::unique_ptr<Effect> effect = _members->effectCompiler->compileEffect(name, _members->renderContext->getGlobalResources());
 			_members->effectCache.insert(std::make_pair(name, std::move(effect)));
 		}
 	}
@@ -85,6 +88,11 @@ namespace engine
 		return it->second.get();
 	}
 
+	const std::map<std::string, std::unique_ptr<Effect>>& Material::getCompiledEffects()
+	{
+		return _members->effectCache;
+	}
+
 	const AttributeFormat& Material::getAttributeFormat() const
 	{
 		return _members->description.getAttributeFormat();
@@ -95,23 +103,14 @@ namespace engine
 		return _members->description;
 	}
 
+	MaterialResourceHandler* Material::getResourceHandler()
+	{
+		return _members->resourceHandler.get();
+	}
+
 	const std::string& Material::getMaterialName() const
 	{
 		return _members->name;
-	}
-
-	GlobalShaderResourceStorage* Material::getResources() const
-	{
-		return _members->resources.get();
-	}
-
-	void Material::initShaderResources()
-	{
-		const std::vector<ShaderResourceDescription>& parameters = _members->description.getParameters();
-		for(const ShaderResourceDescription& desc : parameters)
-		{
-			_members->resources->addResource(desc);
-		}
 	}
 	
 }

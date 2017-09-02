@@ -45,8 +45,8 @@ namespace engine
 		const glm::mat4& getMat4(const std::string& resourceName) const;
 
 		void commitResources();
-
-		bool checkResourceBinding() const;
+	private:
+		void removeUnboundResources();
 	private:
 		struct ShaderResourceStoragePrivate* _members = nullptr;
 	};

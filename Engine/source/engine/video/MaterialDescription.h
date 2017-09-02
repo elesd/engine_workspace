@@ -27,11 +27,9 @@ namespace engine
 		void setAttributeFormat(const AttributeFormat& attributeFormat);
 		void setVertexShader(Shader* vertexShader);
 		void setFragmentShader(Shader* fragmentShader);
-		void addParameter(const ShaderResourceDescription &description);
 		EffectDescription& getDefaultEffect();
 		const EffectDescription& getDefaultEffect() const;
 
-		const std::vector<ShaderResourceDescription>& getParameters() const;
 		const AttributeFormat& getAttributeFormat() const;
 		ShaderVersion getShaderVersion() const;
 		Shader* getVertexShader() const;

@@ -15,6 +15,7 @@ namespace engine
 			: public ShaderResourceBinding
 		{
 		public:
+			HLSLResourceBinding(const std::vector<ShaderType>& shaderTypes);
 			HLSLResourceBinding(uint32_t bufferId, const std::vector<ShaderType>& shaderTypes);
 			HLSLResourceBinding(const HLSLResourceBinding&);
 			HLSLResourceBinding(HLSLResourceBinding&&);

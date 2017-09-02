@@ -5,6 +5,7 @@
 
 namespace engine
 {
+	class GlobalShaderResourceStorage;
 	class Material;
 	class MaterialDescription;
 	class ShaderCompileOptions;
@@ -22,7 +23,7 @@ namespace engine
 	public:
 		~EffectCompiler();
 
-		std::unique_ptr<Effect> compileEffect(const std::string& techniqueName);
+		std::unique_ptr<Effect> compileEffect(const std::string& techniqueName, GlobalShaderResourceStorage* globalResourceStorage);
 	private:
 		void bindResources(Effect* effect) const;
 	private:
