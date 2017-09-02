@@ -130,8 +130,6 @@ namespace engine
 
 	void RenderContext::draw(BufferContext *bufferContext) const
 	{
-		
-		//_members->currentEffect->getResources()->commitResources();
 		_members->driver->draw(bufferContext);
 	}
 

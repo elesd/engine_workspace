@@ -3,7 +3,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <engine/app/IMain.h>
 
+#include <engine/events/winapi/EventManagerImpl.h>
+
 #include <engine/app/winapi/WinApiApplicationParameter.h>
+#include <engine/view/winapi/WindowManagerImpl.h>
 #include <engine/view/winapi/WindowImpl.h>
 
 
@@ -41,13 +44,23 @@ namespace engine
 		bool ApplicationImpl::handleEvent(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			bool handled = false;
-			switch(message)
+			WindowManagerImpl* windowManager = static_cast<WindowManagerImpl*>(getWindowManager());
+			WindowImpl* window = windowManager->findWindowById(hWnd);
+			if(window)
 			{
-				case WM_DESTROY:
+				EventManagerImpl* eventManager = static_cast<EventManagerImpl*>(window->getEventManager());
+				handled = eventManager->handleEvent(hWnd, message, wParam, lParam);
+			}
+			else
+			{
+				switch(message)
 				{
-					PostQuitMessage(0);
-					handled = true;
-				} break;
+					case WM_DESTROY:
+					{
+						PostQuitMessage(0);
+						handled = true;
+					} break;
+				}
 			}
 			return handled;
 		}

@@ -9,9 +9,6 @@
 #include <engine/app/winapi/WinApiApplicationParameter.h>
 #include <engine/app/winapi/ApplicationImpl.h>
 
-#include <engine/events/EventManager.h>
-#include <engine/events/winapi/EventManagerImpl.h>
-
 #include <engine/render/RenderContext.h>
 
 #include <engine/view/Window.h>
@@ -23,20 +20,6 @@
 
 namespace
 {
-	bool handleEventsOfEventManager(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-	{
-		engine::winapi::WindowManagerImpl *windowManager = static_cast<engine::winapi::WindowManagerImpl*>(engine::Context::windowManager());
-		engine::winapi::WindowImpl *window = windowManager->findWindowById(hWnd);
-		if(window)
-		{
-			engine::winapi::EventManagerImpl *eventManager = static_cast<engine::winapi::EventManagerImpl*>(window->getEventManager());
-			return eventManager->handleEvent(hWnd, message, wParam, lParam);
-		}
-		else
-		{
-			return false;
-		}
-	}
 
 	bool handleEventsOfApplication(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
@@ -46,9 +29,9 @@ namespace
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		handleEventsOfEventManager(hWnd, message, wParam, lParam);
-		handleEventsOfApplication(hWnd, message, wParam, lParam);
-		return DefWindowProc(hWnd, message, wParam, lParam);
+		bool handled = handleEventsOfApplication(hWnd, message, wParam, lParam);
+		handled = handled || DefWindowProc(hWnd, message, wParam, lParam);
+		return handled;
 	}
 
 	BOOL CALLBACK MonitorInitializer(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)

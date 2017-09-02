@@ -49,8 +49,8 @@ namespace engine
 
 		static inline engine::mat4 adaptPorjectionMatrix(const engine::mat4& m)
 		{
-			// [-1,1]^3 -> [0,1]^3
-			//glm::scale(glm::vec3(0.5f, 0.5f, -0.5f)) * glm::translate(glm::vec3(1.0f, 1.0f, 1.0f)) * m;
+			// [-1,1]^3 -> [-1,1]^2 x [0,1]
+			//glm::scale(glm::vec3(1.0f, 1.0f, 0.5f)) * glm::translate(glm::vec3(1.0f, 1.0f, 1.0f)) * m;
 			engine::mat4 result = glm::scale(vec3(1.0f, 1.0f, 0.5f));
 			result *= glm::translate(engine::vec3(0.0f, 0.0f, 1.0f));
 			result *= m;
