@@ -62,10 +62,12 @@ file (GLOB src_moduls_glew_empty "${SOURCE_DIR}/engine/modules/glew/empty/*.cpp"
 file (GLOB src_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.cpp")
 file (GLOB src_moduls_winapi_empty "${SOURCE_DIR}/engine/modules/winapi/empty/*.cpp")
 file (GLOB src_render "${SOURCE_DIR}/engine/render/*.cpp")
+file (GLOB src_servicies "${SOURCE_DIR}/engine/servicies/*.cpp")
 file (GLOB src_scene "${SOURCE_DIR}/engine/scene/*.cpp")
 file (GLOB src_signalSlot "${SOURCE_DIR}/engine/signalSlot/*.cpp")
 file (GLOB src_stateStack "${SOURCE_DIR}/engine/stateStack/*.cpp")
 file (GLOB src_test "${SOURCE_DIR}/engine/test/*.cpp")
+file (GLOB src_thread "${SOURCE_DIR}/engine/thread/*.cpp")
 file (GLOB src_video "${SOURCE_DIR}/engine/video/*.cpp")
 file (GLOB src_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.cpp")
 file (GLOB src_video_winapi_empty "${SOURCE_DIR}/engine/video/winapi/empty/*.cpp")
@@ -106,10 +108,12 @@ file (GLOB header_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.h*")
 file (GLOB header_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.h*")
 file (GLOB header_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.h*")
 file (GLOB header_render "${SOURCE_DIR}/engine/render/*.h*")
+file (GLOB header_servicies "${SOURCE_DIR}/engine/servicies/*.h*")
 file (GLOB header_scene "${SOURCE_DIR}/engine/scene/*.h*")
 file (GLOB header_signalSlot "${SOURCE_DIR}/engine/signalSlot/*.h*")
 file (GLOB header_stateStack "${SOURCE_DIR}/engine/stateStack/*.h*")
 file (GLOB header_test "${SOURCE_DIR}/engine/test/*.h*")
+file (GLOB header_thread "${SOURCE_DIR}/engine/thread/*.h*")
 file (GLOB header_video "${SOURCE_DIR}/engine/video/*.h*")
 file (GLOB header_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.h*")
 file (GLOB header_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.h")
@@ -152,10 +156,12 @@ SOURCE_GROUP (engine\\modules\\glew\\empty FILES ${src_moduls_glew_empty})
 SOURCE_GROUP (engine\\modules\\winapi FILES ${src_moduls_winapi} ${header_moduls_winapi})
 SOURCE_GROUP (engine\\modules\\winapi\\empty FILES ${src_moduls_winapi_empty})
 SOURCE_GROUP (engine\\render FILES ${src_render} ${header_render})
+SOURCE_GROUP (engine\\servicies FILES ${src_servicies} ${header_servicies})
 SOURCE_GROUP (engine\\scene FILES ${src_scene} ${header_scene})
 SOURCE_GROUP (engine\\signalSlot FILES ${src_signalSlot} ${header_signalSlot})
 SOURCE_GROUP (engine\\stateStack FILES ${src_stateStack} ${header_stateStack})
 SOURCE_GROUP (engine\\test FILES ${src_test} ${header_test})
+SOURCE_GROUP (engine\\thread FILES ${src_thread} ${header_thread})
 SOURCE_GROUP (engine\\video FILES ${src_video} ${header_video})
 SOURCE_GROUP (engine\\video\\winapi FILES ${src_video_winapi} ${header_video_winapi})
 SOURCE_GROUP (engine\\video\\winapi\\empty FILES ${src_video_winapi_empty})
@@ -204,9 +210,11 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_moduls_winapi}
                            ${src_render}
 						   ${src_scene}
+						   ${src_servicies}
                            ${src_signalSlot}
                            ${src_stateStack}
                            ${src_test}
+						   ${src_thread}
                            ${src_utils}
                            ${src_view}
 						   ${src_view_glfw}
@@ -238,10 +246,12 @@ add_library (${lib_name} STATIC ${src_}
                            ${header_moduls_sdl}
                            ${header_moduls_winapi}
 						   ${header_render}
+						   ${header_servicies}
 						   ${header_scene}
                            ${header_signalSlot}
                            ${header_stateStack}
                            ${header_test}
+						   ${header_thread}
                            ${header_utils}
                            ${header_view}
 						   ${header_view_glfw}
@@ -274,10 +284,12 @@ install (FILES ${header_moduls_glew} DESTINATION "${INSTALL_DIR}/include/engine/
 install (FILES ${header_moduls_sdl} DESTINATION "${INSTALL_DIR}/include/engine/modules/sdl")
 install (FILES ${header_moduls_winapi} DESTINATION "${INSTALL_DIR}/include/engine/modules/winapi")
 install (FILES ${header_render} DESTINATION "${INSTALL_DIR}/include/engine/render")
+install (FILES ${header_servicies} DESTINATION "${INSTALL_DIR}/include/engine/servicies")
 install (FILES ${header_scene} DESTINATION "${INSTALL_DIR}/include/engine/scene")
 install (FILES ${header_signalSlot} DESTINATION "${INSTALL_DIR}/include/engine/signalSlot")
 install (FILES ${header_stateStack} DESTINATION "${INSTALL_DIR}/include/engine/stateStack")
 install (FILES ${header_test} DESTINATION "${INSTALL_DIR}/include/engine/test")
+install (FILES ${header_thread} DESTINATION "${INSTALL_DIR}/include/engine/thread")
 install (FILES ${header_utils} DESTINATION "${INSTALL_DIR}/include/engine/utils")
 install (FILES ${header_view} DESTINATION "${INSTALL_DIR}/include/engine/view")
 install (FILES ${header_view_winapi} DESTINATION "${INSTALL_DIR}/include/engine/view/winapi")
