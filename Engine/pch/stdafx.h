@@ -28,6 +28,7 @@
 // C++ includes
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <deque>
 #include <fstream>
 #include <functional>
@@ -41,6 +42,7 @@
 #include <sstream>
 #include <type_traits>
 #include <iomanip>
+#include <mutex>
 
 // GeneralConfig
 #include <engine/EngineConfig.h>

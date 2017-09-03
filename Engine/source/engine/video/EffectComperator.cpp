@@ -2,6 +2,8 @@
 #include <engine/video/EffectComperator.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/libraries/ShaderInstance.h>
+
 #include <engine/video/Effect.h>
 
 #include <engine/video/ShaderCompilationData.h>
@@ -37,9 +39,9 @@ namespace engine
 			_members->changes.fill(true);
 			return;
 		}
-
-		_members->changes[size_t(DifferenceType::VertexShader)] = a->getVertexShaderData()->getOptions() == b->getVertexShaderData()->getOptions();
-		_members->changes[size_t(DifferenceType::FragmentShader)] = a->getFragmentShaderData()->getOptions() == b->getFragmentShaderData()->getOptions();
+		
+		_members->changes[size_t(DifferenceType::VertexShader)] = a->getVertexShader()->isSame(a->getName(), *b->getVertexShader());
+		_members->changes[size_t(DifferenceType::FragmentShader)] = a->getFragmentShader()->isSame(a->getName(), *b->getFragmentShader());
 	}
 
 	bool EffectComperator::isChanged(EffectComperator::DifferenceType type) const

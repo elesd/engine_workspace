@@ -23,7 +23,7 @@ namespace engine
 			/** Creation month of the version.*/
 			const std::string month = "09";
 			/** Creation day of the version.*/
-			const std::string day = "02";
+			const std::string day = "03";
 		};
 		
 		/**Creates a concrate version based on its definition.*/
@@ -32,7 +32,7 @@ namespace engine
 }
 
 #define ENGINE_USE_SDL 0
-#define ENGINE_USE_GLFW 0
-#define ENGINE_USE_WINAPI 1
-#define ENGINE_USE_GLEW 0
-#define ENGINE_OPENGL_PARANOID 0
+#define ENGINE_USE_GLFW 1
+#define ENGINE_USE_WINAPI 0
+#define ENGINE_USE_GLEW 1
+#define ENGINE_OPENGL_PARANOID 1

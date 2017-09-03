@@ -10,7 +10,11 @@
 
 #include <engine/fileSystem/FileSystem.h>
 
+#include <engine/libraries/ShaderLibrary.h>
+
 #include <engine/render/RenderManager.h>
+
+#include <engine/servicies/LibraryService.h>
 
 #include <engine/scene/SceneManager.h>
 
@@ -23,6 +27,8 @@ namespace engine
 		std::unique_ptr<GameMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<SceneManager> sceneManager;
+		std::unique_ptr<ShaderLibrary> shaderLibrary;
+		std::unique_ptr<LibraryService> libraryService;
 		std::unique_ptr<RenderManager> renderManager;
 		std::unique_ptr<WindowManager> windowManager;
         std::unique_ptr<EventManagerFactory> eventManagerFactory;
@@ -38,6 +44,9 @@ namespace engine
 		_members->arguments = std::move(arguments);
 		_members->sceneManager.reset(new SceneManager());
 		_members->renderManager.reset(new RenderManager());
+		_members->shaderLibrary.reset(new ShaderLibrary());
+	
+		loadServicies();
 	}
 
 	Application::~Application()
@@ -109,6 +118,11 @@ namespace engine
 		return _members->renderManager.get();
 	}
 
+	LibraryService* Application::getLibraryService() const
+	{
+		return _members->libraryService.get();
+	}
+
 	WindowManager *Application::getWindowManager() const
 	{
 		return _members->windowManager.get();
@@ -127,6 +141,11 @@ namespace engine
 	void Application::setFileSystem(std::unique_ptr<FileSystem> &&fileSystem)
 	{
 		_members->fileSystem = std::move(fileSystem);
+	}
+
+	void Application::loadServicies()
+	{
+		_members->libraryService.reset(new LibraryService(_members->shaderLibrary.get()));
 	}
 
 	void Application::run()

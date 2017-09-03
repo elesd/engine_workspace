@@ -25,15 +25,15 @@ namespace engine
 		void addEffect(const EffectDescription& description);
 
 		void setAttributeFormat(const AttributeFormat& attributeFormat);
-		void setVertexShader(Shader* vertexShader);
-		void setFragmentShader(Shader* fragmentShader);
+		void setVertexShaderName(const std::string& shaderName);
+		void setFragmentShaderName(const std::string& shaderName);
 		EffectDescription& getDefaultEffect();
 		const EffectDescription& getDefaultEffect() const;
 
 		const AttributeFormat& getAttributeFormat() const;
 		ShaderVersion getShaderVersion() const;
-		Shader* getVertexShader() const;
-		Shader* getFragmentShader() const;
+		const std::string& getVertexShaderName() const;
+		const std::string& getFragmentShaderName() const;
 		const EffectDescription& getEffectDescription(const std::string& techniqueName) const;
 		EffectDescription& getEffectDescription(const std::string& techniqueName);
 		const std::map<std::string, EffectDescription>& getEffectMap() const;

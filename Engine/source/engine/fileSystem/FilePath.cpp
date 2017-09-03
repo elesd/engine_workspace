@@ -56,6 +56,12 @@ namespace engine
 		FilePathPrivate(const std::string &path) :path(path) {}
 	};
 
+	FilePath::FilePath()
+		: _members(new FilePathPrivate(""))
+	{
+
+	}
+
 	FilePath::FilePath(const std::string &path)
 		: _members(new FilePathPrivate(path))
 	{

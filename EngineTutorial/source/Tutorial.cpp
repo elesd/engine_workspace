@@ -35,6 +35,8 @@ Tutorial::WindowCreationParameter Tutorial::getWindowCreationParameters()
 
 std::unique_ptr<engine::StateBase> Tutorial::createStartState(engine::Window* mainWindow)
 {
-	std::unique_ptr<engine::StateBase> firstStep(new states::TutorialStep03(mainWindow));
-	return firstStep;
+	std::unique_ptr<engine::StateBase> step01(new states::TutorialStep01(mainWindow));
+	std::unique_ptr<engine::StateBase> step02(new states::TutorialStep02(mainWindow));
+	std::unique_ptr<engine::StateBase> step03(new states::TutorialStep03(mainWindow));
+	return step03;
 }

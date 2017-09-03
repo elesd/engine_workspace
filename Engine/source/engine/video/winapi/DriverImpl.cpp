@@ -460,7 +460,7 @@ namespace engine
 			setViewPort(0, 0, window->getWidth(), window->getHeight());
 		}
 
-		void DriverImpl::compileEffectImpl(Effect* effect)
+		void DriverImpl::compileEffectImpl(Effect* effect, Shader*, Shader*)
 		{
 			std::unique_ptr<EffectCompilationData> compilationResult = std::make_unique<EffectCompilationData>(true);
 			compilationResult->setOk();

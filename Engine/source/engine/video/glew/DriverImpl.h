@@ -21,7 +21,7 @@ namespace engine
 			std::pair<int32_t, int32_t> getOpenglMajorMinorVersion(DriverVersion version) const; 
 		private:
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&) override;
-			void compileEffectImpl(Effect* effect) override;
+			void compileEffectImpl(Effect* effect, Shader* vertexShader, Shader* fragmentShader) override;
 			void drawImpl(BufferContext* bufferContext) override;
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
 			void setEffectImpl(Effect* effect) override;

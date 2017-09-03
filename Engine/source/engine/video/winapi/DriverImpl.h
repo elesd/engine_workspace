@@ -55,11 +55,11 @@ namespace engine
 			/**Initialize based on the given window*/
 			void initImpl(const DriverInitParameters& params) override;
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& attributeFormat) override;
-			void compileEffectImpl(Effect* effect) override;
+			void compileEffectImpl(Effect* effect, Shader*, Shader*) override;
 			void drawImpl(BufferContext*) override;
 			void setViewPortImpl(int32_t x, int32_t y, int32_t width, int32_t height) override;
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
-			void setEffectImpl(Effect* effect);
+			void setEffectImpl(Effect* effect) override;
 			void setShaderImpl(Shader* shader, const std::string& techniqueName) override;
 			std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) override;
 			void swapBufferImpl() override;

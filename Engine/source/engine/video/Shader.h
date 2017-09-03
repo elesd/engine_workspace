@@ -3,6 +3,8 @@
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
 
+#include <engine/utils/GuardedObject.h>
+
 namespace engine
 {
 	class FilePath;
@@ -39,6 +41,9 @@ namespace engine
 		void setCompiled(const std::string& techniqueName, std::unique_ptr<ShaderCompilationData>&& compilationData);
 		const ShaderCompilationData* getCompilationData(const std::string& techniqueName) const;
 		void releaseCompilationData(const std::string& technique);
+
+		GuardedObject<Shader*> lock();
+		GuardedObject<const Shader*> lock() const;
 	private:
 		struct ShaderPrivate* _members = nullptr;
 	};

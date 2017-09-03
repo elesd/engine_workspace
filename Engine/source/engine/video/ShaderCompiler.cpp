@@ -2,6 +2,8 @@
 #include <engine/video/ShaderCompiler.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/libraries/ShaderInstance.h>
+
 #include <engine/video/AttributeFormat.h>
 #include <engine/video/Driver.h>
 #include <engine/video/Shader.h>
@@ -92,13 +94,13 @@ namespace engine
 		_members->techniqueMap = techniqueMap;
 	}
 
-	bool ShaderCompiler::compileShader(Shader* shader, const std::string& techniqueName)
+	bool ShaderCompiler::compileShader(ShaderInstance* shader, const std::string& techniqueName)
 	{
 		auto it = _members->techniqueMap.find(techniqueName);
 		ASSERT(it != _members->techniqueMap.end());
-		_members->driver->compileShader(shader, techniqueName, it->second, _members->attributeFormat);
+		bool successful = _members->driver->compileShader(shader, techniqueName, it->second, _members->attributeFormat);
 
-		return shader->getCompilationData(techniqueName)->compilationWasSuccessfull();
+		return successful;
 	}
 
 

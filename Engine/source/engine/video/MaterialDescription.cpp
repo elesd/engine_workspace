@@ -18,8 +18,8 @@ namespace engine
 		std::vector<ShaderResourceDescription> resourceDescriptions;
 		ShaderVersion version;
 		AttributeFormat attributeFormat;
-		Shader* vertexShader = nullptr;
-		Shader* fragmentShader = nullptr;
+		std::string vertexShaderName;
+		std::string  fragmantShaderName;
 		explicit MaterialDescriptionPrivate(ShaderVersion version)
 			: version(version)
 		{ }
@@ -82,14 +82,14 @@ namespace engine
 		_members->effectMap.insert(std::make_pair(Material::defaultEffectName, description));
 	}
 
-	void MaterialDescription::setVertexShader(Shader* vertexShader)
+	void MaterialDescription::setVertexShaderName(const std::string& shaderName)
 	{
-		_members->vertexShader = vertexShader;
+		_members->vertexShaderName = shaderName;
 	}
 
-	void MaterialDescription::setFragmentShader(Shader* fragmentShader)
+	void MaterialDescription::setFragmentShaderName(const std::string& shaderName)
 	{
-		_members->fragmentShader = fragmentShader;
+		_members->fragmantShaderName = shaderName;
 	}
 
 	EffectDescription& MaterialDescription::getDefaultEffect()
@@ -119,14 +119,14 @@ namespace engine
 		return _members->version;
 	}
 
-	Shader* MaterialDescription::getVertexShader() const
+	const std::string& MaterialDescription::getVertexShaderName() const
 	{
-		return _members->vertexShader;
+		return _members->vertexShaderName;
 	}
 
-	Shader* MaterialDescription::getFragmentShader() const
+	const std::string& MaterialDescription::getFragmentShaderName() const
 	{
-		return _members->fragmentShader;
+		return _members->fragmantShaderName;
 	}
 
 	const EffectDescription&  MaterialDescription::getEffectDescription(const std::string& techniqueName) const

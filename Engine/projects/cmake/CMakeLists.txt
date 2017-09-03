@@ -40,6 +40,7 @@ file (GLOB src_environmentBuilder "${SOURCE_DIR}/engine/environmentBuilder/*.cpp
 file (GLOB src_exceptions "${SOURCE_DIR}/engine/exceptions/*.cpp")
 file (GLOB src_functional "${SOURCE_DIR}/engine/functional/*.cpp")
 file (GLOB src_fileSystem "${SOURCE_DIR}/engine/fileSystem/*.cpp")
+file (GLOB src_libraries "${SOURCE_DIR}/engine/libraries/*.cpp")
 file (GLOB src_events "${SOURCE_DIR}/engine/events/*.cpp")
 file (GLOB src_render "${SOURCE_DIR}/engine/render/*.cpp")
 file (GLOB src_servicies "${SOURCE_DIR}/engine/servicies/*.cpp")
@@ -92,6 +93,7 @@ file (GLOB header_exceptions "${SOURCE_DIR}/engine/exceptions/*.h")
 file (GLOB header_functional "${SOURCE_DIR}/engine/functional/*.h*")
 file (GLOB header_fileSystem "${SOURCE_DIR}/engine/fileSystem/*.h*")
 file (GLOB header_events "${SOURCE_DIR}/engine/events/*.h*")
+file (GLOB header_libraries "${SOURCE_DIR}/engine/libraries/*.h*")
 file (GLOB header_render "${SOURCE_DIR}/engine/render/*.h*")
 file (GLOB header_servicies "${SOURCE_DIR}/engine/servicies/*.h*")
 file (GLOB header_scene "${SOURCE_DIR}/engine/scene/*.h*")
@@ -105,32 +107,32 @@ file (GLOB header_view "${SOURCE_DIR}/engine/view/*.h*")
 file (GLOB header_pch "${MAIN_PROJECT_DIR}/pch/*.h*")
 
 if (USE_SDL)
-  file (GLOB header_app_sdl "${SOURCE_DIR}/engine/app/sdl/*.cpp")
-  file (GLOB header_events_sdl "${SOURCE_DIR}/engine/events/sdl/*.cpp")
-  file (GLOB header_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.cpp")
-  file (GLOB header_video_sdl "${SOURCE_DIR}/engine/video/sdl/*.cpp")
-  file (GLOB header_view_sdl "${SOURCE_DIR}/engine/view/sdl/*.cpp")
+  file (GLOB header_app_sdl "${SOURCE_DIR}/engine/app/sdl/*.h*")
+  file (GLOB header_events_sdl "${SOURCE_DIR}/engine/events/sdl/*.h*")
+  file (GLOB header_moduls_sdl "${SOURCE_DIR}/engine/modules/sdl/*.h*")
+  file (GLOB header_video_sdl "${SOURCE_DIR}/engine/video/sdl/*.h*")
+  file (GLOB header_view_sdl "${SOURCE_DIR}/engine/view/sdl/*.h*")
 endif (USE_SDL)
 
 if (USE_GLFW)
-  file (GLOB header_app_glfw "${SOURCE_DIR}/engine/app/glfw/*.cpp")
-  file (GLOB header_events_glfw "${SOURCE_DIR}/engine/events/glfw/*.cpp")
-  file (GLOB header_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.cpp")
-  file (GLOB header_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.cpp")
-  file (GLOB header_view_glfw "${SOURCE_DIR}/engine/view/glfw/*.cpp")
+  file (GLOB header_app_glfw "${SOURCE_DIR}/engine/app/glfw/*.h*")
+  file (GLOB header_events_glfw "${SOURCE_DIR}/engine/events/glfw/*.h*")
+  file (GLOB header_moduls_glfw "${SOURCE_DIR}/engine/modules/glfw/*.h*")
+  file (GLOB header_video_glfw "${SOURCE_DIR}/engine/video/glfw/*.h*")
+  file (GLOB header_view_glfw "${SOURCE_DIR}/engine/view/glfw/*.h*")
 endif (USE_GLFW)
 
 if (USE_WINAPI)
-  file (GLOB header_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.cpp")
-  file (GLOB header_events_winapi "${SOURCE_DIR}/engine/events/winapi/*.cpp")
-  file (GLOB header_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.cpp")
-  file (GLOB header_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.cpp")
-  file (GLOB header_view_winapi "${SOURCE_DIR}/engine/view/winapi/*.cpp")
+  file (GLOB header_app_winapi "${SOURCE_DIR}/engine/app/winapi/*.h*")
+  file (GLOB header_events_winapi "${SOURCE_DIR}/engine/events/winapi/*.h*")
+  file (GLOB header_moduls_winapi "${SOURCE_DIR}/engine/modules/winapi/*.h*")
+  file (GLOB header_video_winapi "${SOURCE_DIR}/engine/video/winapi/*.h*")
+  file (GLOB header_view_winapi "${SOURCE_DIR}/engine/view/winapi/*.h*")
 endif (USE_WINAPI)
 
 if (USE_GLEW)
-  file (GLOB header_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.cpp")
-  file (GLOB header_video_glew "${SOURCE_DIR}/engine/video/glew/*.cpp")
+  file (GLOB header_moduls_glew "${SOURCE_DIR}/engine/modules/glew/*.h*")
+  file (GLOB header_video_glew "${SOURCE_DIR}/engine/video/glew/*.h*")
 endif (USE_GLEW)
 
 SOURCE_GROUP (engine FILES ${src_} ${header_})
@@ -148,6 +150,7 @@ SOURCE_GROUP (engine\\events FILES ${src_events} ${header_events})
 SOURCE_GROUP (engine\\events\\sdl FILES ${src_events_sdl} ${header_events_sdl})
 SOURCE_GROUP (engine\\events\\glfw FILES ${src_events_glfw} ${header_events_glfw})
 SOURCE_GROUP (engine\\events\\winapi FILES ${src_events_winapi} ${header_events_winapi})
+SOURCE_GROUP (engine\\libraries FILES ${src_libraries} ${header_libraries})
 SOURCE_GROUP (engine\\modules\\sdl FILES ${src_moduls_sdl} ${header_moduls_sdl})
 SOURCE_GROUP (engine\\modules\\glwf FILES ${src_moduls_glfw} ${header_moduls_glfw})
 SOURCE_GROUP (engine\\modules\\glew FILES "${SOURCE_DIR}/engine/modules/glew/Core.h" ${header_moduls_glew} ${src_moduls_glew} )
@@ -194,6 +197,7 @@ add_library (${lib_name} STATIC ${src_}
                            ${src_events_sdl}
 						   ${src_events_glfw}
 						   ${src_events_winapi}
+						   ${src_libraries}
                            ${src_moduls_sdl}
                            ${src_moduls_glfw}
 						   ${src_moduls_glew}
@@ -231,6 +235,7 @@ add_library (${lib_name} STATIC ${src_}
 						   ${header_events_sdl}
 						   ${header_events_glfw}
 						   ${header_events_winapi}
+						   ${header_libraries}
                            ${header_moduls_glfw}
 						   ${header_moduls_glew}
                            ${header_moduls_sdl}
@@ -269,6 +274,7 @@ install (FILES ${header_events} DESTINATION "${INSTALL_DIR}/include/engine/event
 install (FILES ${header_events_sdl} DESTINATION "${INSTALL_DIR}/include/engine/events/sdl")
 install (FILES ${header_events_glfw} DESTINATION "${INSTALL_DIR}/include/engine/events/glfw")
 install (FILES ${header_events_winapi} DESTINATION "${INSTALL_DIR}/include/engine/events/winapi")
+install (FILES ${header_libraries} DESTINATION "${INSTALL_DIR}/include/engine/libraries")
 install (FILES ${header_moduls_glfw} DESTINATION "${INSTALL_DIR}/include/engine/modules/glfw")
 install (FILES ${header_moduls_glew} DESTINATION "${INSTALL_DIR}/include/engine/modules/glew")
 install (FILES ${header_moduls_sdl} DESTINATION "${INSTALL_DIR}/include/engine/modules/sdl")

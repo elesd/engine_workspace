@@ -26,8 +26,9 @@ namespace engine
 	{
 		std::string code;
 		std::string mainFunctionName;
-		bool initialized = false;
-		ShaderType shaderType;
+		std::atomic<bool> initialized = false;
+		std::atomic<ShaderType> shaderType;
+		std::mutex globalLock;
 		std::map<std::string, std::unique_ptr<ShaderCompilationData>> techniquesCompilationData;
 		ShaderPrivate(ShaderType type) : shaderType(type) {}
 	};
@@ -52,16 +53,16 @@ namespace engine
 		}
 
 		_members->code = source.readAll().data();
-		_members->initialized = true;
 		_members->mainFunctionName = mainFunctionName;
+		_members->initialized = true;
 		return true;
 	}
 
 	void Shader::init(const std::string& shaderCode, const std::string& mainFunctionName)
 	{
 		_members->code = shaderCode;
-		_members->initialized = true;
 		_members->mainFunctionName = mainFunctionName;
+		_members->initialized = true;
 	}
 
 	bool Shader::isInitialized() const
@@ -117,4 +118,15 @@ namespace engine
 		ASSERT(isCompiled(technique));
 		_members->techniquesCompilationData[technique]->release();
 	}
+
+	GuardedObject<Shader*> Shader::lock()
+	{
+		return GuardedObject<Shader*>(std::unique_lock<std::mutex>(_members->globalLock), this);
+	}
+
+	GuardedObject<const Shader*> Shader::lock() const
+	{
+		return GuardedObject<const Shader*>(std::unique_lock<std::mutex>(_members->globalLock), this);
+	}
+
 }

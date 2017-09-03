@@ -2,6 +2,12 @@
 #include <engine/video/EffectCompiler.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/Context.h>
+
+#include <engine/libraries/ShaderInstance.h>
+
+#include <engine/servicies/LibraryService.h>
+
 #include <engine/video/MaterialDescription.h>
 
 #include <engine/video/Effect.h>
@@ -51,14 +57,17 @@ namespace engine
 
 	std::unique_ptr<Effect> EffectCompiler::compileEffect(const std::string& techniqueName, GlobalShaderResourceStorage* globalResourceStorage)
 	{
-		_members->compiler->compileShader(_members->material->getDescription().getVertexShader(), techniqueName);
-		_members->compiler->compileShader(_members->material->getDescription().getFragmentShader(), techniqueName);
+		std::unique_ptr<ShaderInstance> vs = Context::libraryService()->getShader(ShaderType::VertexShader, _members->material->getDescription().getVertexShaderName());
+		std::unique_ptr<ShaderInstance> fs = Context::libraryService()->getShader(ShaderType::FragmentShader, _members->material->getDescription().getFragmentShaderName());
+
+		_members->compiler->compileShader(vs.get(), techniqueName);
+		_members->compiler->compileShader(fs.get(), techniqueName);
 		const std::vector<ShaderResourceDescription>& effectParameters = _members->material->getDescription().getEffectDescription(techniqueName).getParameters();
 		std::unique_ptr<ShaderResourceStorage> resourceStorage = _members->driver->createResourceStorage(effectParameters, globalResourceStorage);
 		std::unique_ptr<Effect> effect = std::make_unique<Effect>(_members->material, 
 																  techniqueName, 
-																  _members->material->getDescription().getVertexShader(), 
-																  _members->material->getDescription().getFragmentShader(),
+																  std::move(vs), 
+																  std::move(fs),
 																  std::move(resourceStorage));
 		_members->driver->compileEffect(effect.get());
 		if(effect->isCompiled())

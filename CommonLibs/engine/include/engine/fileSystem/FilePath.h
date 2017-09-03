@@ -5,6 +5,7 @@ namespace engine
 	class FilePath
 	{
 	public:
+		FilePath();
 		explicit FilePath(const std::string &path);
 		FilePath(const FilePath &o);
 		FilePath(FilePath &&o);

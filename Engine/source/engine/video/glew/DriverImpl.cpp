@@ -6,6 +6,8 @@
 
 #include <engine/Context.h>
 
+#include <engine/libraries/ShaderInstance.h>
+
 #include <engine/video/BufferContext.h>
 #include <engine/video/Effect.h>
 #include <engine/video/IndexBuffer.h>
@@ -222,11 +224,11 @@ namespace engine
 			shader->setCompiled(techniqueName, std::move(compilationData));
 		}
 
-		void DriverImpl::compileEffectImpl(Effect* effect) 
+		void DriverImpl::compileEffectImpl(Effect* effect, Shader* vertexShader, Shader* fragmentShader)
 		{
 			GLuint programID = glCreateProgram();
-			const GLSLFSCompilationData* compilationDataFS = static_cast<const GLSLFSCompilationData*>(effect->getFragmentShaderData());
-			const GLSLVSCompilationData* compilationDataVS = static_cast<const GLSLVSCompilationData*>(effect->getVertexShaderData());
+			const GLSLFSCompilationData* compilationDataFS = static_cast<const GLSLFSCompilationData*>(fragmentShader->getCompilationData(effect->getName()));
+			const GLSLVSCompilationData* compilationDataVS = static_cast<const GLSLVSCompilationData*>(vertexShader->getCompilationData(effect->getName()));
 			glAttachShader(programID, compilationDataVS->getShaderId());
 			checkErrors();
 			glAttachShader(programID, compilationDataFS->getShaderId());
@@ -267,8 +269,8 @@ namespace engine
 			glDetachShader(programID, compilationDataFS->getShaderId());
 			checkErrors();
 
-			effect->getFragmentShader()->releaseCompilationData(effect->getName());
-			effect->getVertexShader()->releaseCompilationData(effect->getName());
+			fragmentShader->releaseCompilationData(effect->getName());
+			vertexShader->releaseCompilationData(effect->getName());
 			effect->setCompiled(std::move(compilationResult));
 		}
 

@@ -8,7 +8,7 @@ namespace engine
 
 	class EffectCompilationData;
 	class Material;
-	class Shader;
+	class ShaderInstance;
 	class ShaderCompilationData;
 	class ShaderResourceStorage;
 
@@ -18,30 +18,25 @@ namespace engine
 		, private NonMoveable
 	{
 	public:
-		Effect(const Material *material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources);
+		Effect(const Material *material, const std::string& techniqueName, std::unique_ptr<ShaderInstance>&& vertexShader, std::unique_ptr<ShaderInstance>&& fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources);
 		~Effect();
 
 		void setCompiled(std::unique_ptr<EffectCompilationData>&& compilationData);
 		bool isCompiled() const;
 
-		const Shader* getVertexShader() const;
-		const Shader* getFragmentShader() const;
+		const ShaderInstance* getVertexShader() const;
+		const ShaderInstance* getFragmentShader() const;
 
-		Shader* getVertexShader();
-		Shader* getFragmentShader();
+		ShaderInstance* getVertexShader();
+		ShaderInstance* getFragmentShader();
 
 		const std::string& getName() const;
-		const ShaderCompilationData* getVertexShaderData() const;
-		const ShaderCompilationData* getFragmentShaderData() const;
 
 		const EffectCompilationData* getCompilationData() const;
 		const Material* getMaterial() const;
 
 		const ShaderResourceStorage* getResources() const;
 		ShaderResourceStorage* getResources();
-	private:
-		void checkShaders() const;
-		const ShaderCompilationData* getCorrespondingData(Shader* shader) const;
 
 	private:
 		struct EffectPrivate* _members = nullptr;

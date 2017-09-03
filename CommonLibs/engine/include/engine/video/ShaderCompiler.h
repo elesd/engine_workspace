@@ -5,7 +5,7 @@ namespace engine
 {
 	class AttributeFormat;
 	class Driver;
-	class Shader;
+	class ShaderInstance;
 	class ShaderCompileOptions;
 
 	enum class ShaderVersion;
@@ -26,7 +26,7 @@ namespace engine
 
 		void init(const std::map<std::string, ShaderCompileOptions>& techniqueMap);
 
-		bool compileShader(Shader* shader, const std::string& techniqueName);
+		bool compileShader(ShaderInstance* shader, const std::string& techniqueName);
 		const ShaderCompileOptions& getOptions(const std::string& techniqueName) const;
 		ShaderCompileOptions& getOptions(const std::string& techniqueName);
 

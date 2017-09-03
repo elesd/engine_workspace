@@ -4,6 +4,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <engine/exceptions/LogicalErrors.h>
 
+#include <engine/libraries/ShaderInstance.h>
+
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/Effect.h>
@@ -11,6 +13,8 @@
 #include <engine/video/EffectCompilationData.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/RenderTarget.h>
+#include <engine/video/Shader.h>
+#include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderResourceBinding.h>
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/ShaderResourceHandler.h>
@@ -103,14 +107,18 @@ namespace engine
 		return createRenderTargetImpl(std::move(texture));
 	}
 
-	void Driver::compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format)
+	bool Driver::compileShader(ShaderInstance* shaderInstance, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format)
 	{
-		compileShaderImpl(shader, techniqueName, options, format);
+		GuardedObject<Shader*> guardedShader = shaderInstance->lockShader();
+		compileShaderImpl(*guardedShader, techniqueName, options, format);
+		return guardedShader->getCompilationData(techniqueName)->compilationWasSuccessfull();
 	}
 
 	void Driver::compileEffect(Effect* effect)
 	{
-		compileEffectImpl(effect);
+		GuardedObject<Shader*> vertexShader = effect->getVertexShader()->lockShader();
+		GuardedObject<Shader*> framgentShader = effect->getFragmentShader()->lockShader();
+		compileEffectImpl(effect, *vertexShader, *framgentShader);
 	}
 
 	std::unique_ptr<ShaderResourceBinding> Driver::bindResource(const ShaderResourceDescription& desc, Effect* effect)
@@ -134,11 +142,15 @@ namespace engine
 		{
 			if(effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
 			{
-				setShader(effect->getVertexShader(), effect->getName());
+				ShaderInstance* shader = effect->getVertexShader();
+				auto lockedShader = shader->lockShader();
+				setShader(*lockedShader, effect->getName());
 			}
 			if(effectComperator.isChanged(EffectComperator::DifferenceType::FragmentShader))
 			{
-				setShader(effect->getFragmentShader(), effect->getName());
+				ShaderInstance* shader = effect->getFragmentShader();
+				auto lockedShader = shader->lockShader();
+				setShader(*lockedShader, effect->getName());
 			}
 		}
 		else if(effectComperator.hasAnyChange())

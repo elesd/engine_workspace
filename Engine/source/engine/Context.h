@@ -8,6 +8,7 @@ namespace engine
 	class BaseBuilder;
 	class Console;
 	class FileSystem;
+	class LibraryService;
 	class WindowManager;
 	struct IModuleExtension;
 	/**
@@ -20,6 +21,7 @@ namespace engine
 		static Application* application();
 		static Console* console();
 		static FileSystem* fileSystem();
+		static LibraryService* libraryService();
 	private:
 		using Base = Singleton < Context > ;
 
@@ -38,6 +40,7 @@ namespace engine
 		Application *getApplication();
 
 		Console* getConsole();
+
 	protected:
 		/**
 		* The context can be used only if it is initialized.

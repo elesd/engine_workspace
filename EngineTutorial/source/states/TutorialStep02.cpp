@@ -16,9 +16,14 @@
 
 #include <engine/fileSystem/FilePath.h>
 
+#include <engine/libraries/ShaderLibraryLable.h>
+
 #include <engine/render/RenderContext.h>
 #include <engine/render/Render.h>
 #include <engine/render/Mesh.h>
+
+#include <engine/servicies/LibraryService.h>
+#include <engine/libraries/ShaderInstance.h>
 
 #include <engine/scene/Scene.h>
 #include <engine/scene/SceneManager.h>
@@ -47,28 +52,28 @@
 #include <RenderDefinitions.h>
 #include <componentRegisters/SolidComponentRegister.h>
 
+using namespace engine;
+
 namespace states
 {
 	struct TutorialStep02Private
 	{
-		engine::RenderContext* renderContext = nullptr;
-		engine::Scene* scene = nullptr;
-		engine::Render* render = nullptr;
+		RenderContext* renderContext = nullptr;
+		Scene* scene = nullptr;
+		Render* render = nullptr;
 		renderPasses::OnlySloid::PipelineRenderer* renderPipeline = nullptr;
-		std::unique_ptr<engine::Shader> vs;
-		std::unique_ptr<engine::Shader> fs;
 
-		std::unique_ptr<engine::Mesh> triangle;
+		std::unique_ptr<Mesh> triangle;
 
 		glm::vec4 instanceColor;
-		explicit TutorialStep02Private(engine::Window* window)
+		explicit TutorialStep02Private(Window* window)
 			: renderContext(window->getRenderContext())
 			, instanceColor(0.5f, 0.0f, 0.0f, 0.0f)
 		{ }
 	};
 
-	TutorialStep02::TutorialStep02(engine::Window *window)
-		: engine::StateBase("TutorialStep02", window)
+	TutorialStep02::TutorialStep02(Window *window)
+		: StateBase("TutorialStep02", window)
 		, _members(new TutorialStep02Private(window))
 	{
 
@@ -111,16 +116,16 @@ namespace states
 
 	void TutorialStep02::initRender()
 	{
-		std::unique_ptr<engine::PipelineRendererBase> renderTutorialStep02 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
+		std::unique_ptr<PipelineRendererBase> renderTutorialStep02 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
 		_members->render = _members->renderContext->createRender("TutorialStep02", std::move(renderTutorialStep02));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 	}
 
 	void TutorialStep02::initTriangle()
 	{
-		_members->triangle = std::make_unique<engine::Mesh>("triangle");
-		std::unique_ptr<engine::BufferContext> bufferContext = _members->renderContext->createBufferContext();
-		std::unique_ptr<engine::Material> material = loadMaterial();
+		_members->triangle = std::make_unique<Mesh>("triangle");
+		std::unique_ptr<BufferContext> bufferContext = _members->renderContext->createBufferContext();
+		std::unique_ptr<Material> material = loadMaterial();
 		loadTriangleVerticies(material.get(), bufferContext.get());
 		loadTriangleIndicies(bufferContext.get());
 		bufferContext->finalize();
@@ -146,57 +151,48 @@ namespace states
 		fsPath = "shaders/glsl/Tutorial02_fs.glsl";
 		fsMain = "main";
 #endif
-		_members->vs.reset(new engine::Shader(engine::ShaderType::VertexShader));
-		if(_members->vs->init(engine::FilePath(vsPath), vsMain) == false)
-		{
-			getConsole()->print("Vertex shader creation failed");
-		}
-
-		_members->fs.reset(new engine::Shader(engine::ShaderType::FragmentShader));
-		if(_members->fs->init(engine::FilePath(fsPath), fsMain) == false)
-		{
-			getConsole()->print("Fragment shader creation failed");
-		}
+		Context::libraryService()->addShader(ShaderLibraryLabel("tutorial02", FilePath(vsPath), ShaderType::VertexShader, vsMain));
+		Context::libraryService()->addShader(ShaderLibraryLabel("tutorial02", FilePath(fsPath), ShaderType::FragmentShader, fsMain));
 	}
 
 	void TutorialStep02::loadScene()
 	{
 		std::unique_ptr<SolidComponentRegister> componentRegister(new SolidComponentRegister());
-		_members->scene = engine::Context::application()->getSceneManager()->createScene("TutorialStep02", _members->renderContext, "TutorialStep02", std::move(componentRegister));
+		_members->scene = Context::application()->getSceneManager()->createScene("TutorialStep02", _members->renderContext, "TutorialStep02", std::move(componentRegister));
 	/*	{
-			std::unique_ptr<engine::Entity> camera(new engine::Entity("Camera"));
-			engine::PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
-			std::unique_ptr<engine::CameraComponent> cameraComponent(new engine::CameraComponent(_members->window, settings, glm::vec3(0.0f)));
+			std::unique_ptr<Entity> camera(new Entity("Camera"));
+			PerspectiveProjectionSettings settings(glm::radians(70.0f), 0.1f, 100.0f);
+			std::unique_ptr<CameraComponent> cameraComponent(new CameraComponent(_members->window, settings, glm::vec3(0.0f)));
 			camera->registerCameraComponent(std::move(cameraComponent));
 			_members->scene->registerEntity(std::move(camera));
 		}*/
 		{
-			std::unique_ptr<engine::Entity> entity(new engine::Entity("Triangle"));
-			std::unique_ptr<engine::MeshComponent> meshComponent(new engine::MeshComponent(_members->triangle.get()));
+			std::unique_ptr<Entity> entity(new Entity("Triangle"));
+			std::unique_ptr<MeshComponent> meshComponent(new MeshComponent(_members->triangle.get()));
 			entity->registerVisualComponent(std::move(meshComponent));
 			_members->scene->registerEntity(std::move(entity));
 		}
 	}
 
-	std::vector<engine::ShaderResourceDescription> TutorialStep02::createHLSLMaterialParameters() const
+	std::vector<ShaderResourceDescription> TutorialStep02::createHLSLMaterialParameters() const
 	{
-		std::vector<engine::ShaderResourceDescription> result;
-		result.push_back(engine::ShaderResourceDescription("instanceColor",
-						 engine::GPUMemberType::Vec4,
-						 engine::ShaderResourceBindingData(0, {engine::ShaderType::VertexShader})));
+		std::vector<ShaderResourceDescription> result;
+		result.push_back(ShaderResourceDescription("instanceColor",
+						 GPUMemberType::Vec4,
+						 ShaderResourceBindingData(0, {ShaderType::VertexShader})));
 		return result;
 	}
 
-	std::vector<engine::ShaderResourceDescription> TutorialStep02::createGLSLMaterialParameters() const
+	std::vector<ShaderResourceDescription> TutorialStep02::createGLSLMaterialParameters() const
 	{
-		std::vector<engine::ShaderResourceDescription> result;
-		result.push_back(engine::ShaderResourceDescription("instanceColor",
-														   engine::GPUMemberType::Vec4,
-														   engine::ShaderResourceBindingData({ engine::ShaderType::VertexShader })));
+		std::vector<ShaderResourceDescription> result;
+		result.push_back(ShaderResourceDescription("instanceColor",
+														   GPUMemberType::Vec4,
+														   ShaderResourceBindingData({ ShaderType::VertexShader })));
 		return result;
 	}
 
-	std::vector<engine::ShaderResourceDescription> TutorialStep02::createMaterialParameters() const
+	std::vector<ShaderResourceDescription> TutorialStep02::createMaterialParameters() const
 	{
 #if TUTORIAL_USE_WINAPI
 		return createHLSLMaterialParameters();
@@ -206,39 +202,34 @@ namespace states
 	}
 
 
-	std::unique_ptr<engine::Material> TutorialStep02::loadMaterial()
+	std::unique_ptr<Material> TutorialStep02::loadMaterial()
 	{
-		ASSERT(_members->fs);
-		ASSERT(_members->fs->isInitialized());
-		ASSERT(_members->vs);
-		ASSERT(_members->vs->isInitialized());
-
-		engine::AttributeFormat layout;
-		layout.insertAttribute(engine::GPUMemberType::Vec3, 0, "position");
-		layout.insertAttribute(engine::GPUMemberType::Vec4, 1, "color");
+		AttributeFormat layout;
+		layout.insertAttribute(GPUMemberType::Vec3, 0, "position");
+		layout.insertAttribute(GPUMemberType::Vec4, 1, "color");
 #if TUTORIAL_USE_WINAPI
-		engine::MaterialDescription description(engine::ShaderVersion::HLSL_5_0);
+		MaterialDescription description(ShaderVersion::HLSL_5_0);
 #else
-		engine::MaterialDescription description(engine::ShaderVersion::GLSL_330);
+		MaterialDescription description(ShaderVersion::GLSL_330);
 #endif
-		description.setFragmentShader(_members->fs.get());
-		description.setVertexShader(_members->vs.get());
+		description.setFragmentShaderName("tutorial02");
+		description.setVertexShaderName("tutorial02");
 		
-		std::vector<engine::ShaderResourceDescription> materialParameters = createMaterialParameters();
-		for(const engine::ShaderResourceDescription& materialParam : materialParameters)
+		std::vector<ShaderResourceDescription> materialParameters = createMaterialParameters();
+		for(const ShaderResourceDescription& materialParam : materialParameters)
 		{
 			description.getDefaultEffect().addParameter(materialParam);
 		}
 
-		description.getDefaultEffect().getOptions().addFlag(engine::ShaderCompileFlag::Debug);
+		description.getDefaultEffect().getOptions().addFlag(ShaderCompileFlag::Debug);
 		description.setAttributeFormat(layout);
 
-		std::unique_ptr<engine::Material> result = std::make_unique<engine::Material>("Simple", description, _members->renderContext);
+		std::unique_ptr<Material> result = std::make_unique<Material>("Simple", description, _members->renderContext);
 		result->getResourceHandler()->setVec4("instanceColor", _members->instanceColor);
 		return result;
 	}
 
-	void TutorialStep02::loadTriangleVerticies(engine::Material* material, engine::BufferContext* bufferContext)
+	void TutorialStep02::loadTriangleVerticies(Material* material, BufferContext* bufferContext)
 	{
 #if TUTORIAL_USE_WINAPI
 		std::vector<float> data(
@@ -259,29 +250,29 @@ namespace states
 		bufferContext->setupVertexBuffer(material->getAttributeFormat(), data);
 	}
 
-	void TutorialStep02::loadTriangleIndicies(engine::BufferContext* bufferContext)
+	void TutorialStep02::loadTriangleIndicies(BufferContext* bufferContext)
 	{
 		std::vector<int32_t> data = 
 		{
 			0, 1, 2
 		};
-		bufferContext->setupIndexBuffer(engine::PrimitiveType::Triangle, data);
+		bufferContext->setupIndexBuffer(PrimitiveType::Triangle, data);
 	}
 
 	void TutorialStep02::createConnections()
 	{
-		engine::Keyboard* keyboard = getWindow()->getEventManager()->findEventSource<engine::Keyboard>()[0];
+		Keyboard* keyboard = getWindow()->getEventManager()->findEventSource<Keyboard>()[0];
 		CONNECT_SIGNAL(keyboard, keyReleased, this, onKeyUp);
 	}
 
-	void TutorialStep02::onKeyUp(engine::KeyboardButton button)
+	void TutorialStep02::onKeyUp(KeyboardButton button)
 	{
 		switch(button)
 		{
-			case engine::KeyboardButton::Key_Up:
+			case KeyboardButton::Key_Up:
 				_members->instanceColor.r = (std::min)(1.0f, _members->instanceColor.r + 0.1f);
 				break;
-			case engine::KeyboardButton::Key_Down:
+			case KeyboardButton::Key_Down:
 				_members->instanceColor.r = (std::max)(0.0f, _members->instanceColor.r - 0.1f);
 				break;
 		}		

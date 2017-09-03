@@ -2,6 +2,8 @@
 #include <engine/video/Effect.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/libraries/ShaderInstance.h>
+
 #include <engine/video/EffectCompilationData.h>
 #include <engine/video/Shader.h>
 #include <engine/video/ShaderCompilationData.h>
@@ -12,26 +14,25 @@ namespace engine
 {
 	struct EffectPrivate
 	{
-		Shader* vertexShader = nullptr;
-		Shader* fragmentShader = nullptr;
+		std::unique_ptr<ShaderInstance> vertexShader = nullptr;
+		std::unique_ptr<ShaderInstance> fragmentShader = nullptr;
 		const Material* material = nullptr;
 		std::unique_ptr<EffectCompilationData> compilationData;
 		std::unique_ptr<ShaderResourceStorage> resources;
 		const std::string techniqueName;
-		EffectPrivate(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
+		EffectPrivate(const Material* material, const std::string& techniqueName, std::unique_ptr<ShaderInstance>&& vertexShader, std::unique_ptr<ShaderInstance>&& fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
 			: techniqueName(techniqueName)
-			, vertexShader(vertexShader)
-			, fragmentShader(fragmentShader)
+			, vertexShader(std::move(vertexShader))
+			, fragmentShader(std::move(fragmentShader))
 			, material(material)
 			, resources(std::move(resources))
 		{ }
 	};
 
 
-	Effect::Effect(const Material* material, const std::string& techniqueName, Shader* vertexShader, Shader* fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
-		: _members(new EffectPrivate(material, techniqueName, vertexShader, fragmentShader, std::move(resources)))
+	Effect::Effect(const Material* material, const std::string& techniqueName, std::unique_ptr<ShaderInstance>&& vertexShader, std::unique_ptr<ShaderInstance>&& fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
+		: _members(new EffectPrivate(material, techniqueName, std::move(vertexShader), std::move(fragmentShader), std::move(resources)))
 	{
-		checkShaders();
 	}
 
 	Effect::~Effect()
@@ -51,58 +52,29 @@ namespace engine
 		return _members->compilationData != nullptr;
 	}
 
-	const Shader* Effect::getVertexShader() const
+	const ShaderInstance* Effect::getVertexShader() const
 	{
-		return _members->vertexShader;
+		return _members->vertexShader.get();
 	}
 	
-	const Shader* Effect::getFragmentShader() const
+	const ShaderInstance* Effect::getFragmentShader() const
 	{
-		return _members->fragmentShader;
+		return _members->fragmentShader.get();
 	}
 
-	Shader* Effect::getVertexShader()
+	ShaderInstance* Effect::getVertexShader()
 	{
-		return _members->vertexShader;
+		return _members->vertexShader.get();
 	}
 
-	Shader* Effect::getFragmentShader()
+	ShaderInstance* Effect::getFragmentShader()
 	{
-		return _members->fragmentShader;
+		return _members->fragmentShader.get();
 	}
 
 	const std::string& Effect::getName() const
 	{
 		return _members->techniqueName;
-	}
-
-	void Effect::checkShaders() const
-	{
-		if(getVertexShaderData()->compilationWasSuccessfull() == false)
-		{
-			std::cerr << "Vertex shader error: " << getVertexShaderData()->getError() << std::endl;
-			FAIL("Shader compilation error");
-		}
-		if(getFragmentShaderData()->compilationWasSuccessfull() == false)
-		{
-			std::cerr << "Vertex shader error: " << getFragmentShaderData()->getError() << std::endl;
-			FAIL("Shader compilation error");
-		}
-	}
-
-	const ShaderCompilationData* Effect::getCorrespondingData(Shader* shader) const
-	{
-		return shader->getCompilationData(getName());
-	}
-
-	const ShaderCompilationData* Effect::getVertexShaderData() const
-	{
-		return getCorrespondingData(_members->vertexShader);
-	}
-
-	const ShaderCompilationData* Effect::getFragmentShaderData() const
-	{
-		return getCorrespondingData(_members->fragmentShader);
 	}
 
 	const EffectCompilationData* Effect::getCompilationData() const

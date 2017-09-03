@@ -45,6 +45,15 @@ namespace engine
 		return getInstance()->getApplication()->getFileSystem();
 	}
 
+	LibraryService* Context::libraryService()
+	{
+		if(!hasInstance())
+		{
+			return nullptr;
+		}
+		return getInstance()->getApplication()->getLibraryService();
+	}
+
 	Context::Context()
 		:_members(new ContextPrivate())
 	{

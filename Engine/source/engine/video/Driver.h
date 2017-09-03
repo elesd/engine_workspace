@@ -16,6 +16,7 @@ namespace engine
 	class RenderContext;
 	class RenderTarget;
 	class Shader;
+	class ShaderInstance;
 	class ShaderCompileOptions;
 	class GlobalShaderResourceStorage;
 	class ShaderResourceStorage;
@@ -84,7 +85,7 @@ namespace engine
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setViewPort(int32_t x, int32_t y, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture);
-		void compileShader(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
+		bool compileShader(ShaderInstance* shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
 		void compileEffect(Effect* effect);
 		std::unique_ptr<ShaderResourceBinding> bindResource(const ShaderResourceDescription& desc, Effect* effect);
 		void setEffect(Effect *effect, const EffectComperator& comperator);
@@ -106,7 +107,7 @@ namespace engine
 		/**Platform specific init implementation*/
 		virtual void initImpl(const DriverInitParameters& params) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;
-		virtual void compileEffectImpl(Effect* effect) = 0;
+		virtual void compileEffectImpl(Effect* effect, Shader* vertexShader, Shader* fragmentShader) = 0;
 		virtual void drawImpl(BufferContext *bufferContext) = 0;
 		virtual void setEffectImpl(Effect* effect) = 0;
 		virtual void setShaderImpl(Shader* shader, const std::string& techniqueName) = 0;
