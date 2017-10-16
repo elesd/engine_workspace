@@ -62,7 +62,6 @@ namespace engine
 
 	Context::~Context()
 	{
-		ContextPrivate* members = _members;
 		_members = nullptr;
 		delete _members;
 	}

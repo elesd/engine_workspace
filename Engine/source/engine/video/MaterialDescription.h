@@ -13,6 +13,7 @@ namespace engine
 	class MaterialDescription
 	{
 	public:
+		MaterialDescription() = default;
 		explicit MaterialDescription(ShaderVersion);
 		~MaterialDescription();
 		MaterialDescription(const MaterialDescription&);
