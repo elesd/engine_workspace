@@ -21,7 +21,7 @@ namespace engine
 		_members = nullptr;
 	}
 
-	std::vector<Material*> VisualComponent::collectMaterials() const
+	std::vector<MaterialInstance*> VisualComponent::collectMaterials() const
 	{
 		return collectMaterialsImpl();
 	}

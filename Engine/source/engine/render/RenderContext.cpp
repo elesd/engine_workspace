@@ -4,10 +4,12 @@
 
 #include <engine/exceptions/LogicalErrors.h>
 
+#include <engine/libraries/MaterialInstance.h>
+
+#include <engine/render/Render.h>
+
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
-#include <engine/render/Render.h>
-#include <engine/video/Material.h>
 #include <engine/video/MaterialDescription.h>
 #include <engine/video/EffectCompiler.h>
 
@@ -16,6 +18,7 @@
 #include <engine/video/Driver.h>
 #include <engine/video/Effect.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
+#include <engine/video/Material.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/ShaderCompiler.h>
 #include <engine/video/ShaderResourceHandler.h>
@@ -46,7 +49,7 @@ namespace engine
 	{
 		std::map<std::string, std::unique_ptr<Render>> renders;
 		const RenderTarget* currentRenderTarget = nullptr;
-		Effect* currentEffect = nullptr;
+		EffectInstance* currentEffect = nullptr;
 		EffectComperator effectComperator;
 		std::unique_ptr<Driver> driver;
 		std::unique_ptr<BufferObjectFactory> bufferObjectFactory;
@@ -171,9 +174,9 @@ namespace engine
 		}
 	}
 
-	void RenderContext::setMaterial(Material* material)
+	void RenderContext::setMaterial(MaterialInstance* material)
 	{
-		Effect* currentEffect = material->getEffect();
+		EffectInstance* currentEffect = material->getCurrentEffect();
 		_members->effectComperator.compare(_members->currentEffect, currentEffect);
 		_members->driver->setEffect(currentEffect, _members->effectComperator);
 

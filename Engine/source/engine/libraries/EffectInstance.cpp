@@ -11,13 +11,14 @@ namespace engine
 	struct EffectInstancePrivate
 	{
 		ShaderResourceStorageProxy shaderStorage;
-		Effect* sourceEffect;
-		EffectInstancePrivate(Effect* effect)
-			: sourceEffect(effect)
+		// TODO Replace shared_ptr
+		std::shared_ptr<Effect> origin;
+		EffectInstancePrivate(std::shared_ptr<Effect> effect)
+			: origin(effect)
 		{ }
 	};
 
-	EffectInstance::EffectInstance(Effect* source)
+	EffectInstance::EffectInstance(std::shared_ptr<Effect> source)
 		: _members(new EffectInstancePrivate(source))
 	{
 
@@ -31,42 +32,37 @@ namespace engine
 
 	bool EffectInstance::isCompiled() const
 	{
-		return _members->sourceEffect->isCompiled();
+		return _members->origin->isCompiled();
 	}
 
 	const ShaderInstance* EffectInstance::getVertexShader() const
 	{
-		return _members->sourceEffect->getVertexShader();
+		return _members->origin->getVertexShader();
 	}
 
 	const ShaderInstance* EffectInstance::getFragmentShader() const
 	{
-		return _members->sourceEffect->getFragmentShader();
+		return _members->origin->getFragmentShader();
 	}
 
 	ShaderInstance* EffectInstance::getVertexShader()
 	{
-		return _members->sourceEffect->getVertexShader();
+		return _members->origin->getVertexShader();
 	}
 
 	ShaderInstance* EffectInstance::getFragmentShader()
 	{
-		return _members->sourceEffect->getFragmentShader();
+		return _members->origin->getFragmentShader();
 	}
 
 	const std::string& EffectInstance::getName() const
 	{
-		return _members->sourceEffect->getName();
+		return _members->origin->getName();
 	}
 
 	const EffectCompilationData* EffectInstance::getCompilationData() const
 	{
-		return _members->sourceEffect->getCompilationData();
-	}
-	
-	const Material* EffectInstance::getMaterial() const
-	{
-		_members->sourceEffect->getMaterial();
+		return _members->origin->getCompilationData();
 	}
 
 	const ShaderResourceStorageProxy* EffectInstance::getResources() const
@@ -78,4 +74,15 @@ namespace engine
 	{
 		return &_members->shaderStorage;
 	}
+
+	GuardedObject<Effect*> EffectInstance::lockEffect()
+	{
+		return _members->origin->lock();
+	}
+
+	GuardedObject<const Effect*> EffectInstance::lockEffect() const
+	{
+		return static_cast<const Effect*>(_members->origin.get())->lock();
+	}
+
 }

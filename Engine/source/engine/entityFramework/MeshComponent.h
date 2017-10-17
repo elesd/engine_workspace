@@ -5,6 +5,8 @@
 namespace engine
 {
 	class Mesh;
+	class Geometry;
+	class MaterialInstance;
 
 	class MeshComponent
 		: public VisualComponent
@@ -14,9 +16,9 @@ namespace engine
 		~MeshComponent() override;
 
 		const Geometry* getGeometry() const;
-		const Material* getMaterial() const;
+		const MaterialInstance* getMaterial() const;
 	private:
-		std::vector<Material*> collectMaterialsImpl() const override;
+		std::vector<MaterialInstance*> collectMaterialsImpl() const override;
 		void onRenderVisualComponent(RenderContext*) override;
 		void onUpdateVisualComponent() override;
 		std::unique_ptr<Component> cloneVisualComponent() const override;

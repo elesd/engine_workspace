@@ -7,7 +7,7 @@
 namespace engine
 {
 	class Geometry;
-	class Material;
+	class MaterialInstance;
 
 	class Mesh 
 		: public IRenderable
@@ -22,13 +22,13 @@ namespace engine
 		Mesh &operator=(Mesh&&);
 
 		void load(std::unique_ptr<Geometry>&& bufferContext,
-				  std::unique_ptr<Material>&& material); // TODO Move material to material library
+				  std::unique_ptr<MaterialInstance>&& material); // TODO Move material to material library
 
 		void render(RenderContext*) override;
 
 		const Geometry* getGeometry() const;
-		const Material* getMaterial() const;
-		Material* getMaterial();
+		const MaterialInstance* getMaterial() const;
+		MaterialInstance* getMaterial();
 	private:
 		struct MeshPrivate* _members = nullptr;
 	};

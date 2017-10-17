@@ -4,7 +4,7 @@
 
 #include <engine/libraries/ShaderInstance.h>
 
-#include <engine/video/Effect.h>
+#include <engine/libraries/EffectInstance.h>
 
 #include <engine/video/ShaderCompilationData.h>
 #include <engine/video/ShaderCompileOptions.h>
@@ -27,7 +27,7 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void EffectComperator::compare(const Effect* a, const Effect* b)
+	void EffectComperator::compare(const EffectInstance* a, const EffectInstance* b)
 	{
 		_members->changes.fill(false);
 		if(a == b)

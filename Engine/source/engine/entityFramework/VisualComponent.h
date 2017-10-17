@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	class Material;
+	class MaterialInstance;
 
 	class VisualComponent
 		: public SceneComponent
@@ -14,7 +14,7 @@ namespace engine
 	public:
 		~VisualComponent() override;
 
-		std::vector<Material*> collectMaterials() const;
+		std::vector<MaterialInstance*> collectMaterials() const;
 		bool isHiddenInGame() const;
 		void setHiddenInGame(bool);
 
@@ -23,7 +23,7 @@ namespace engine
 		void onUpdateSceneComponent() override final;
 		std::unique_ptr<Component> cloneSceneComponent() const override final;
 	private:
-		virtual std::vector<Material*> collectMaterialsImpl() const = 0;
+		virtual std::vector<MaterialInstance*> collectMaterialsImpl() const = 0;
 		virtual void onRenderVisualComponent(RenderContext*) = 0;
 		virtual void onUpdateVisualComponent() = 0;
 		virtual std::unique_ptr<Component> cloneVisualComponent() const = 0;

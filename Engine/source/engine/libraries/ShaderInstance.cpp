@@ -8,6 +8,7 @@ namespace engine
 {
 	struct ShaderInstancePrivate
 	{
+		// TODO Replace shared_ptr
 		std::shared_ptr<Shader> origin;
 		ShaderInstancePrivate(const std::shared_ptr<Shader>& shaderOrigin)
 			: origin(shaderOrigin)

@@ -8,7 +8,8 @@ namespace engine
 {
 	class AttributeFormat;
 	class Effect;
-	class EffectCompiler;
+	class EffectCmpiler;
+	class EffectInstance;
 	class MaterialDescription;
 	class MaterialResourceHandler;
 	class RenderContext;
@@ -19,7 +20,6 @@ namespace engine
 	class Material
 		: private NonCopyable
 	{
-		friend class MaterialResourceHandler;
 	public:
 		static const std::string defaultEffectName;
 	public:
@@ -30,15 +30,13 @@ namespace engine
 
 		const std::string& getMaterialName() const;
 
-		void setCurrentEffect(const std::string& name);
-		const std::string& getCurrentEffectName() const;
-		Effect* getEffect() const;
+		std::unique_ptr<EffectInstance> getEffect(const std::string& name) const;
 
 		const AttributeFormat& getAttributeFormat() const;
 		const MaterialDescription& getDescription() const;
-		MaterialResourceHandler* getResourceHandler();
+
 	private:
-		const std::map<std::string, std::unique_ptr<Effect>>& getCompiledEffects();
+		Effect* compileEffect(const std::string& name);
 	private:
 		struct MaterialPrivate* _members = nullptr;
 	};

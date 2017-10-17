@@ -23,6 +23,7 @@ namespace engine
 			return *this;
 		}
 		ShaderLibraryLabel label;
+		// TODO Replace shared_ptr
 		std::shared_ptr<Shader> shader;
 	};
 

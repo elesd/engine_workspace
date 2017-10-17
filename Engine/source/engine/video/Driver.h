@@ -10,6 +10,7 @@ namespace engine
 	class AttributeFormat;
 	class Geometry;
 	class Effect;
+	class EffectInstance;
 	class EffectComperator;
 	class IndexBufferBase;
 	class Material;
@@ -88,7 +89,7 @@ namespace engine
 		bool compileShader(ShaderInstance* shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
 		void compileEffect(Effect* effect);
 		std::unique_ptr<ShaderResourceBinding> bindResource(const ShaderResourceDescription& desc, Effect* effect);
-		void setEffect(Effect *effect, const EffectComperator& comperator);
+		void setEffect(EffectInstance *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
 		void swapBuffer();
 		const DriverInitParameters& getParameters() const;

@@ -15,7 +15,7 @@ namespace engine
 		void init(const std::string& windowName, RenderContext*);
 
 		void addMateria(const std::string& materialName, const MaterialDescription& description);
-		MaterialInstance* findMaterial(const std::string& name);
+		std::unique_ptr<MaterialInstance> findMaterial(const std::string& name);
 
 		bool isInitialized() const;
 	private:

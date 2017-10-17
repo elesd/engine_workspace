@@ -33,14 +33,14 @@ namespace engine
 		return _members->mesh->getGeometry();
 	}
 
-	const Material* MeshComponent::getMaterial() const
+	const MaterialInstance* MeshComponent::getMaterial() const
 	{
 		return _members->mesh->getMaterial();
 	}
 
-	std::vector<Material*> MeshComponent::collectMaterialsImpl() const
+	std::vector<MaterialInstance*> MeshComponent::collectMaterialsImpl() const
 	{
-		std::vector<Material*> result = { _members->mesh->getMaterial() };
+		std::vector<MaterialInstance*> result = { _members->mesh->getMaterial() };
 		return result;
 	}
 

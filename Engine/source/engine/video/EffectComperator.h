@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	class Effect;
+	class EffectInstance;
 	
 
 	class EffectComperator
@@ -23,7 +23,7 @@ namespace engine
 		explicit EffectComperator();
 		~EffectComperator();
 
-		void compare(const Effect* a, const Effect* b);
+		void compare(const EffectInstance* a, const EffectInstance* b);
 		bool isChanged(DifferenceType type) const;
 		bool hasAnyChange() const;
 	private:

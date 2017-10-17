@@ -5,6 +5,7 @@
 #include <engine/exceptions/LogicalErrors.h>
 
 #include <engine/libraries/ShaderInstance.h>
+#include <engine/libraries/EffectInstance.h>
 
 #include <engine/render/RenderContext.h>
 
@@ -136,7 +137,7 @@ namespace engine
 		setShaderImpl(shader, techniqueName);
 	}
 
-	void Driver::setEffect(Effect *effect, const EffectComperator& effectComperator)
+	void Driver::setEffect(EffectInstance *effect, const EffectComperator& effectComperator)
 	{
 		if(effect->getCompilationData()->isSupportSeparatePrograms())
 		{
@@ -155,10 +156,15 @@ namespace engine
 		}
 		else if(effectComperator.hasAnyChange())
 		{
-			setEffectImpl(effect);
+			GuardedObject<Effect*> realEffect = effect->lockEffect();
+			setEffectImpl(*realEffect);
 		}
-		effect->getResources()->commitResources();
 
+
+		{
+			GuardedObject<Effect*> realEffect = effect->lockEffect();
+			realEffect->getResources()->commitResources();
+		}
 	}
 
 	void Driver::swapBuffer()

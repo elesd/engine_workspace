@@ -14,7 +14,7 @@ namespace engine
 	class Driver;
 	class EffectCompiler;
 	class IndexBufferBase;
-	class Material;
+	class MaterialInstance;
 	class MaterialDescription;
 	class PipelineRendererBase;
 	class Render;
@@ -70,7 +70,7 @@ namespace engine
 		// TODO
 		// SetViewPort
 		void setRenderTarget(RenderTarget* renderTarget);
-		void setMaterial(Material* material);
+		void setMaterial(MaterialInstance* material);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture) const;
 		std::unique_ptr<EffectCompiler> createEffectCompiler(Material* material);
 		GlobalShaderResourceStorage* getGlobalResources();

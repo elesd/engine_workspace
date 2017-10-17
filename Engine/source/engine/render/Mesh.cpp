@@ -1,7 +1,9 @@
 #include <stdafx.h>
 #include <engine/render/Mesh.h>
+///////////////////////////////////////////////////////////////////////////////
 
-#include <engine/video/Material.h>
+#include <engine/libraries/MaterialInstance.h>
+
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/Geometry.h>
@@ -13,7 +15,7 @@ namespace engine
 	struct MeshPrivate
 	{
 		std::unique_ptr<Geometry> bufferContext;
-		std::unique_ptr<Material> material;
+		std::unique_ptr<MaterialInstance> material;
 		std::string name;
 		explicit MeshPrivate(const std::string& name)
 			: name(name)
@@ -46,7 +48,7 @@ namespace engine
 	}
 
 	void Mesh::load(std::unique_ptr<Geometry>&& bufferContext,
-					std::unique_ptr<Material>&& material)
+					std::unique_ptr<MaterialInstance>&& material)
 	{
 		_members->bufferContext = std::move(bufferContext);
 		_members->material = std::move(material);
@@ -64,12 +66,12 @@ namespace engine
 		return _members->bufferContext.get();
 	}
 
-	const Material* Mesh::getMaterial() const
+	const MaterialInstance* Mesh::getMaterial() const
 	{
 		return _members->material.get();
 	}
 
-	Material* Mesh::getMaterial() 
+	MaterialInstance* Mesh::getMaterial()
 	{
 		return _members->material.get();
 	}

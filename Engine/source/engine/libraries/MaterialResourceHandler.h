@@ -5,14 +5,14 @@
 
 namespace engine
 {
-	class Material;
+	class MaterialInstance;
 
 	class MaterialResourceHandler final
 		: private NonCopyable
 		, private NonMoveable
 	{
 	public:
-		explicit MaterialResourceHandler(Material* material);
+		explicit MaterialResourceHandler(MaterialInstance* material);
 		~MaterialResourceHandler();
 
 		void setFloat(const std::string& resourceName, float value);

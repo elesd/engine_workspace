@@ -2,6 +2,8 @@
 #include <engine/libraries/MaterialLibrary.h>
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <engine/libraries/MaterialInstance.h>
+
 #include <engine/video/Material.h>
 #include <engine/video/MaterialDescription.h>
 
@@ -10,7 +12,8 @@ namespace engine
 	struct MaterialLibraryEntry
 	{
 		engine::MaterialDescription description;
-		std::unique_ptr<Material> material;
+		// TODO replace shared_ptr
+		std::shared_ptr<Material> material;
 		MaterialLibraryEntry() = default;
 		MaterialLibraryEntry(MaterialLibraryEntry&& o)
 			: material(std::move(o.material))
@@ -60,9 +63,12 @@ namespace engine
 		_members->materials[materialName] = std::move(entry);
 	}
 
-	MaterialInstance* MaterialLibrary::findMaterial(const std::string& name)
+	std::unique_ptr<MaterialInstance> MaterialLibrary::findMaterial(const std::string& name)
 	{
-		return nullptr;
+		auto it = _members->materials.find(name);
+		ASSERT(it != _members->materials.end());
+		std::unique_ptr<MaterialInstance> result(new MaterialInstance(it->second.material));
+		return result;
 	}
 
 	bool  MaterialLibrary::isInitialized() const

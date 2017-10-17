@@ -3,6 +3,8 @@
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
 
+#include <engine/utils/GuardedObject.h>
+
 namespace engine
 {
 
@@ -37,7 +39,8 @@ namespace engine
 
 		const ShaderResourceStorage* getResources() const;
 		ShaderResourceStorage* getResources();
-
+		GuardedObject<Effect*> lock();
+		GuardedObject<const Effect*> lock() const;
 	private:
 		struct EffectPrivate* _members = nullptr;
 	};

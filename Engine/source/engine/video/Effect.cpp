@@ -14,6 +14,7 @@ namespace engine
 {
 	struct EffectPrivate
 	{
+		std::mutex globalLock;
 		std::unique_ptr<ShaderInstance> vertexShader = nullptr;
 		std::unique_ptr<ShaderInstance> fragmentShader = nullptr;
 		const Material* material = nullptr;
@@ -96,4 +97,15 @@ namespace engine
 	{
 		return _members->resources.get();
 	}
+
+	GuardedObject<Effect*> Effect::lock()
+	{
+		return GuardedObject<Effect*>(std::unique_lock<std::mutex>(_members->globalLock), this);
+	}
+
+	GuardedObject<const Effect*> Effect::lock() const
+	{
+		return GuardedObject<const Effect*>(std::unique_lock<std::mutex>(_members->globalLock), this);
+	}
+
 }
