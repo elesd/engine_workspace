@@ -8,7 +8,7 @@
 
 namespace engine
 {
-	class BufferContext;
+	class Geometry;
 	class BufferObject;
 	class BufferObjectFactory;
 	class Driver;
@@ -60,11 +60,11 @@ namespace engine
 		Render* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
 		
-		std::unique_ptr<BufferContext> createBufferContext() const;
+		std::unique_ptr<Geometry> createBufferContext() const;
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
-		void draw(BufferContext *bufferContext) const;
+		void draw(Geometry *bufferContext) const;
 
 		void swapBuffer();
 		// TODO

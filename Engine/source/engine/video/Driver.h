@@ -8,7 +8,7 @@
 namespace engine
 {
 	class AttributeFormat;
-	class BufferContext;
+	class Geometry;
 	class Effect;
 	class EffectComperator;
 	class IndexBufferBase;
@@ -81,7 +81,7 @@ namespace engine
 		/**Init function*/
 		void init(const DriverInitParameters& params);
 
-		void draw(BufferContext *bufferContext);
+		void draw(Geometry *bufferContext);
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setViewPort(int32_t x, int32_t y, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture);
@@ -108,7 +108,7 @@ namespace engine
 		virtual void initImpl(const DriverInitParameters& params) = 0;
 		virtual void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format) = 0;
 		virtual void compileEffectImpl(Effect* effect, Shader* vertexShader, Shader* fragmentShader) = 0;
-		virtual void drawImpl(BufferContext *bufferContext) = 0;
+		virtual void drawImpl(Geometry *bufferContext) = 0;
 		virtual void setEffectImpl(Effect* effect) = 0;
 		virtual void setShaderImpl(Shader* shader, const std::string& techniqueName) = 0;
 		virtual std::unique_ptr<RenderTarget> createRenderTargetImpl(std::unique_ptr<Texture>&& texture) = 0;

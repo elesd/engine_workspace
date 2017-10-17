@@ -4,7 +4,7 @@
 #include <engine/video/Material.h>
 #include <engine/render/RenderContext.h>
 
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -12,7 +12,7 @@ namespace engine
 {
 	struct MeshPrivate
 	{
-		std::unique_ptr<BufferContext> bufferContext;
+		std::unique_ptr<Geometry> bufferContext;
 		std::unique_ptr<Material> material;
 		std::string name;
 		explicit MeshPrivate(const std::string& name)
@@ -45,7 +45,7 @@ namespace engine
 		return *this;
 	}
 
-	void Mesh::load(std::unique_ptr<BufferContext>&& bufferContext,
+	void Mesh::load(std::unique_ptr<Geometry>&& bufferContext,
 					std::unique_ptr<Material>&& material)
 	{
 		_members->bufferContext = std::move(bufferContext);
@@ -59,7 +59,7 @@ namespace engine
 		renderContext->draw(_members->bufferContext.get());
 	}
 
-	const BufferContext* Mesh::getBufferContext() const
+	const Geometry* Mesh::getBufferContext() const
 	{
 		return _members->bufferContext.get();
 	}

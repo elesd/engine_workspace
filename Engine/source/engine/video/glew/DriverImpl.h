@@ -22,7 +22,7 @@ namespace engine
 		private:
 			void compileShaderImpl(Shader *shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat&) override;
 			void compileEffectImpl(Effect* effect, Shader* vertexShader, Shader* fragmentShader) override;
-			void drawImpl(BufferContext* bufferContext) override;
+			void drawImpl(Geometry* bufferContext) override;
 			void setRenderTargetImpl(RenderTarget* renderTarget) override;
 			void setEffectImpl(Effect* effect) override;
 			void setShaderImpl(Shader* shader, const std::string& techniqueName) override;

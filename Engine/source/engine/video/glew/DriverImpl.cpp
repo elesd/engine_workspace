@@ -8,7 +8,7 @@
 
 #include <engine/libraries/ShaderInstance.h>
 
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 #include <engine/video/Effect.h>
 #include <engine/video/IndexBuffer.h>
 #include <engine/video/Material.h>
@@ -121,7 +121,7 @@ namespace engine
 			return std::make_pair(0, 0);
 		}
 
-		void DriverImpl::drawImpl(BufferContext* bufferContext)
+		void DriverImpl::drawImpl(Geometry* bufferContext)
 		{
 			if(bufferContext->allBuffersBound() == false)
 			{

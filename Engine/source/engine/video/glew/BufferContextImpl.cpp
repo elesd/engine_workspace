@@ -47,7 +47,7 @@ namespace engine
 		};
 
 		BufferContextImpl::BufferContextImpl(RenderContext *renderContext, Driver* driver)
-			: BufferContext(renderContext, driver)
+			: Geometry(renderContext, driver)
 			, _members(new BufferContextImplPrivate())
 		{
 			glGenVertexArrays(1, &_members->vao);

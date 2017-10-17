@@ -11,6 +11,18 @@ namespace engine
 	{
 		engine::MaterialDescription description;
 		std::unique_ptr<Material> material;
+		MaterialLibraryEntry() = default;
+		MaterialLibraryEntry(MaterialLibraryEntry&& o)
+			: material(std::move(o.material))
+			, description(std::move(o.description))
+		{ }
+
+		MaterialLibraryEntry& operator=(MaterialLibraryEntry&& o)
+		{
+			material = std::move(o.material);
+			description = std::move(o.description);
+			return *this;
+		}
 	};
 
 	struct MaterialLibraryPrivate
@@ -44,12 +56,13 @@ namespace engine
 		MaterialLibraryEntry entry;
 		entry.description = description;
 		entry.material.reset(new Material(materialName, description, _members->renderContext));
-		_members->materials.insert(std::make_pair(materialName, entry));
+		// BUG: MSVC2014 insert doesn't work 
+		_members->materials[materialName] = std::move(entry);
 	}
 
 	MaterialInstance* MaterialLibrary::findMaterial(const std::string& name)
 	{
-		
+		return nullptr;
 	}
 
 	bool  MaterialLibrary::isInitialized() const

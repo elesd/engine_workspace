@@ -15,13 +15,13 @@ namespace engine
 	class RenderContext;
 	class VertexBuffer;
 
-	class BufferContext
+	class Geometry
 		: private NonCopyable
 		, private NonMoveable
 	{
 	public:
-		BufferContext(RenderContext* renderContext, Driver* driver);
-		virtual ~BufferContext();
+		Geometry(RenderContext* renderContext, Driver* driver);
+		virtual ~Geometry();
 		void finalize();
 		bool hasIndexBuffer() const;
 		bool hasVertexBuffer() const;
@@ -63,14 +63,14 @@ namespace engine
 
 
 	template<typename T>
-	void BufferContext::setupIndexBuffer(PrimitiveType type, const std::vector<T>& data)
+	void Geometry::setupIndexBuffer(PrimitiveType type, const std::vector<T>& data)
 	{
 		ASSERT(hasIndexBuffer() == false);
 		initIndexBuffer(type, data);
 	}
 
 	template<typename T>
-	void BufferContext::setupVertexBuffer(const AttributeFormat& attributeFormat, const std::vector<T>& data)
+	void Geometry::setupVertexBuffer(const AttributeFormat& attributeFormat, const std::vector<T>& data)
 	{
 		ASSERT(hasVertexBuffer() == false);
 		VertexBuffer* buffer = initVertexBuffer(attributeFormat);
@@ -79,7 +79,7 @@ namespace engine
 	}
 
 	template<typename T>
-	IndexBufferBase* BufferContext::initIndexBuffer(PrimitiveType type, const std::vector<T>& data)
+	IndexBufferBase* Geometry::initIndexBuffer(PrimitiveType type, const std::vector<T>& data)
 	{
 		ScopeExit unbindOnExit([=]() { unbind(); });
 		bind();

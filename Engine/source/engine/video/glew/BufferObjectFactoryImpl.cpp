@@ -44,7 +44,7 @@ namespace engine
 			return std::make_unique<IndexBufferObject>(size, _members->driver);
 		}
 
-		std::unique_ptr<BufferContext> BufferObjectFactoryImpl::createBufferContextImpl() const
+		std::unique_ptr<Geometry> BufferObjectFactoryImpl::createBufferContextImpl() const
 		{
 			return std::make_unique<BufferContextImpl>(getRenderContext(), _members->driver);
 		}

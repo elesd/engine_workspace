@@ -6,7 +6,7 @@
 namespace engine
 {
 	class BufferObject;
-	class BufferContext;
+	class Geometry;
 	class RenderContext;
 
 	class BufferObjectFactory
@@ -17,7 +17,7 @@ namespace engine
 		BufferObjectFactory();
 	public:
 		virtual ~BufferObjectFactory();
-		std::unique_ptr<BufferContext> createBufferContext() const;
+		std::unique_ptr<Geometry> createBufferContext() const;
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
@@ -26,7 +26,7 @@ namespace engine
 	protected:
 		RenderContext* getRenderContext() const;
 	private:
-		virtual std::unique_ptr<BufferContext> createBufferContextImpl() const = 0;
+		virtual std::unique_ptr<Geometry> createBufferContextImpl() const = 0;
 		virtual std::unique_ptr<BufferObject> createVertexBufferObjectImpl(size_t size) const = 0;
 		virtual std::unique_ptr<BufferObject> createIndexBufferObjectImpl(size_t size) const = 0;
 

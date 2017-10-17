@@ -92,7 +92,7 @@ namespace engine
 		initImpl(params);
 	}
 
-	void Driver::draw(BufferContext *bufferContext)
+	void Driver::draw(Geometry *bufferContext)
 	{
 		drawImpl(bufferContext);
 	}

@@ -23,7 +23,7 @@
 #include <engine/video/ShaderResourceDescription.h>
 #include <engine/video/Shader.h>
 
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -113,7 +113,7 @@ namespace engine
 		return findRender(id) != nullptr;
 	}
 
-	std::unique_ptr<BufferContext> RenderContext::createBufferContext() const
+	std::unique_ptr<Geometry> RenderContext::createBufferContext() const
 	{
 		return _members->bufferObjectFactory->createBufferContext();
 	}
@@ -128,7 +128,7 @@ namespace engine
 		return _members->bufferObjectFactory->createIndexBufferObject(size);
 	}
 
-	void RenderContext::draw(BufferContext *bufferContext) const
+	void RenderContext::draw(Geometry *bufferContext) const
 	{
 		_members->driver->draw(bufferContext);
 	}

@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/video/BufferObject.h>
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 
 namespace engine
 {
@@ -40,7 +40,7 @@ namespace engine
 		return _members->renderContext;
 	}
 
-	std::unique_ptr<BufferContext> BufferObjectFactory::createBufferContext() const
+	std::unique_ptr<Geometry> BufferObjectFactory::createBufferContext() const
 	{
 		ASSERT(isReady());
 		return createBufferContextImpl();

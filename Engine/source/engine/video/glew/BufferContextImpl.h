@@ -1,14 +1,14 @@
 #pragma once
 
 
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 
 namespace engine
 {
 	namespace glew
 	{
 		class BufferContextImpl
-			: public BufferContext
+			: public Geometry
 		{
 		public:
 			explicit BufferContextImpl(RenderContext* renderContext, Driver* driver);

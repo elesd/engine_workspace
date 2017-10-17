@@ -1,5 +1,5 @@
 #include <stdafx.h>
-#include <engine/video/BufferContext.h>
+#include <engine/video/Geometry.h>
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/video/AttributeFormat.h>
@@ -23,13 +23,13 @@ namespace engine
 		}
 	};
 
-	BufferContext::BufferContext(RenderContext* renderContext, Driver* driver)
+	Geometry::Geometry(RenderContext* renderContext, Driver* driver)
 		: _members(new BufferContextPrivate(renderContext, driver))
 	{
 
 	}
 
-	BufferContext::~BufferContext()
+	Geometry::~Geometry()
 	{
 		if(allBuffersBound())
 		{
@@ -40,7 +40,7 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void BufferContext::finalize()
+	void Geometry::finalize()
 	{
 		ASSERT(_members->finalized == false);
 		finalizeImpl();
@@ -48,29 +48,29 @@ namespace engine
 	}
 
 
-	bool BufferContext::hasIndexBuffer() const
+	bool Geometry::hasIndexBuffer() const
 	{
 		return _members->indexBuffer.get() != nullptr;
 	}
 
-	bool BufferContext::hasVertexBuffer() const
+	bool Geometry::hasVertexBuffer() const
 	{
 		return _members->vertexBuffer.get() != nullptr;
 	}
 
-	void BufferContext::bindBuffers()
+	void Geometry::bindBuffers()
 	{
 		ASSERT(_members->finalized);
 		bindBuffersImpl();
 	}
 
-	void BufferContext::unbindBuffers()
+	void Geometry::unbindBuffers()
 	{
 		ASSERT(_members->finalized);
 		unbindBuffersImpl();
 	}
 
-	bool BufferContext::allBuffersBound() const
+	bool Geometry::allBuffersBound() const
 	{
 		ASSERT(_members->finalized);
 
@@ -86,7 +86,7 @@ namespace engine
 		return allBound;
 	}
 
-	VertexBuffer* BufferContext::initVertexBuffer(const AttributeFormat& attributeFormat)
+	VertexBuffer* Geometry::initVertexBuffer(const AttributeFormat& attributeFormat)
 	{
 		ScopeExit unbindOnExit([=]() { unbind(); });
 		bind();
@@ -102,37 +102,37 @@ namespace engine
 	}
 
 
-	void BufferContext::setIndexBuffer(std::unique_ptr<IndexBufferBase>&& buffer)
+	void Geometry::setIndexBuffer(std::unique_ptr<IndexBufferBase>&& buffer)
 	{
 		_members->indexBuffer = std::move(buffer);
 	}
 	
-	RenderContext* BufferContext::getRenderContext()
+	RenderContext* Geometry::getRenderContext()
 	{
 		return _members->renderContext;
 	}
 
-	Driver* BufferContext::getDriver() const
+	Driver* Geometry::getDriver() const
 	{
 		return _members->driver;
 	}
 
-	const IndexBufferBase* BufferContext::getIndexBuffer() const
+	const IndexBufferBase* Geometry::getIndexBuffer() const
 	{
 		return _members->indexBuffer.get();
 	}
 
-	const VertexBuffer* BufferContext::getVertexBuffer() const
+	const VertexBuffer* Geometry::getVertexBuffer() const
 	{
 		return _members->vertexBuffer.get();
 	}
 
-	IndexBufferBase* BufferContext::accessIndexBuffer()
+	IndexBufferBase* Geometry::accessIndexBuffer()
 	{
 		return _members->indexBuffer.get();
 	}
 
-	VertexBuffer* BufferContext::accessVertexBuffer()
+	VertexBuffer* Geometry::accessVertexBuffer()
 	{
 		return _members->vertexBuffer.get();
 	}
