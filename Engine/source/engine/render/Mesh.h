@@ -26,7 +26,7 @@ namespace engine
 
 		void render(RenderContext*) override;
 
-		const Geometry* getBufferContext() const;
+		const Geometry* getGeometry() const;
 		const Material* getMaterial() const;
 		Material* getMaterial();
 	private:
