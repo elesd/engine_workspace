@@ -59,7 +59,7 @@ namespace engine
 		renderContext->draw(_members->bufferContext.get());
 	}
 
-	const Geometry* Mesh::getBufferContext() const
+	const Geometry* Mesh::getGeometry() const
 	{
 		return _members->bufferContext.get();
 	}

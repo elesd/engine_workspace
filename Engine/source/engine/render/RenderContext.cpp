@@ -173,12 +173,13 @@ namespace engine
 
 	void RenderContext::setMaterial(Material* material)
 	{
-		_members->effectComperator.compare(_members->currentEffect, material->getEffect());
-		_members->driver->setEffect(material->getEffect(), _members->effectComperator);
+		Effect* currentEffect = material->getEffect();
+		_members->effectComperator.compare(_members->currentEffect, currentEffect);
+		_members->driver->setEffect(currentEffect, _members->effectComperator);
 
 		if(_members->effectComperator.hasAnyChange())
 		{
-			_members->currentEffect = material->getEffect();
+			_members->currentEffect = currentEffect;
 		}
 	}
 

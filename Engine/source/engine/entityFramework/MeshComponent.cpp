@@ -28,9 +28,14 @@ namespace engine
 		_members = nullptr;
 	}
 
-	Mesh* MeshComponent::getMesh() const
+	const Geometry* MeshComponent::getGeometry() const
 	{
-		return _members->mesh;
+		return _members->mesh->getGeometry();
+	}
+
+	const Material* MeshComponent::getMaterial() const
+	{
+		return _members->mesh->getMaterial();
 	}
 
 	std::vector<Material*> MeshComponent::collectMaterialsImpl() const

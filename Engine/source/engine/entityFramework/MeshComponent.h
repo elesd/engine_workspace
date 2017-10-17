@@ -13,7 +13,8 @@ namespace engine
 		explicit MeshComponent(Mesh*);
 		~MeshComponent() override;
 
-		Mesh* getMesh() const;
+		const Geometry* getGeometry() const;
+		const Material* getMaterial() const;
 	private:
 		std::vector<Material*> collectMaterialsImpl() const override;
 		void onRenderVisualComponent(RenderContext*) override;
