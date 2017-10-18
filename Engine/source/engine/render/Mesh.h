@@ -6,7 +6,7 @@
 
 namespace engine
 {
-	class Geometry;
+	class GeometryInstance;
 	class MaterialInstance;
 
 	class Mesh 
@@ -21,12 +21,12 @@ namespace engine
 
 		Mesh &operator=(Mesh&&);
 
-		void load(std::unique_ptr<Geometry>&& bufferContext,
+		void load(std::unique_ptr<GeometryInstance>&& bufferContext,
 				  std::unique_ptr<MaterialInstance>&& material); // TODO Move material to material library
 
 		void render(RenderContext*) override;
 
-		const Geometry* getGeometry() const;
+		const GeometryInstance* getGeometry() const;
 		const MaterialInstance* getMaterial() const;
 		MaterialInstance* getMaterial();
 	private:

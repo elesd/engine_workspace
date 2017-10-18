@@ -10,6 +10,7 @@ namespace engine
 	class Effect;
 	class EffectCmpiler;
 	class EffectInstance;
+	class MaterialInstance;
 	class MaterialDescription;
 	class MaterialResourceHandler;
 	class RenderContext;
@@ -35,7 +36,9 @@ namespace engine
 		const AttributeFormat& getAttributeFormat() const;
 		const MaterialDescription& getDescription() const;
 
+		void sync(MaterialInstance* instance);
 	private:
+		void syncEffects(MaterialInstance* instance);
 		Effect* compileEffect(const std::string& name);
 	private:
 		struct MaterialPrivate* _members = nullptr;

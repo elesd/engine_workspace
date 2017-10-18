@@ -27,7 +27,6 @@ namespace engine
 		std::unique_ptr<GameMain> main;
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<SceneManager> sceneManager;
-		std::unique_ptr<ShaderLibrary> shaderLibrary;
 		std::unique_ptr<LibraryService> libraryService;
 		std::unique_ptr<RenderManager> renderManager;
 		std::unique_ptr<WindowManager> windowManager;
@@ -44,7 +43,6 @@ namespace engine
 		_members->arguments = std::move(arguments);
 		_members->sceneManager.reset(new SceneManager());
 		_members->renderManager.reset(new RenderManager());
-		_members->shaderLibrary.reset(new ShaderLibrary());
 	
 		loadServicies();
 	}
@@ -145,7 +143,7 @@ namespace engine
 
 	void Application::loadServicies()
 	{
-		_members->libraryService.reset(new LibraryService(_members->shaderLibrary.get()));
+		_members->libraryService.reset(new LibraryService());
 	}
 
 	void Application::run()

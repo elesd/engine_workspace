@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/libraries/EffectInstance.h>
+#include <engine/libraries/MaterialInstance.h>
 
 #include <engine/video/EffectCompiler.h>
 #include <engine/video/Effect.h>
@@ -90,6 +91,21 @@ namespace engine
 		return _members->description;
 	}
 
+	void Material::sync(MaterialInstance* instance)
+	{
+		syncEffects(instance);
+	}
+
+	void Material::syncEffects(MaterialInstance* instance)
+	{
+		for(const std::pair<std::string, EffectInstance*>& pair : instance->collectAllEffects())
+		{
+			auto it = _members->effectCache.find(pair.first);
+			ASSERT(it != _members->effectCache.end());
+			std::shared_ptr<Effect>& effect = it->second;
+			effect->sync(pair.second);
+		}
+	}
 
 	const std::string& Material::getMaterialName() const
 	{

@@ -8,7 +8,6 @@
 namespace engine
 {
 	class AttributeFormat;
-	class Geometry;
 	class Effect;
 	class EffectInstance;
 	class EffectComperator;
@@ -19,6 +18,8 @@ namespace engine
 	class Shader;
 	class ShaderInstance;
 	class ShaderCompileOptions;
+	class Geometry;
+	class GeometryInstance;
 	class GlobalShaderResourceStorage;
 	class ShaderResourceStorage;
 	class ShaderResourceDescription;
@@ -82,13 +83,14 @@ namespace engine
 		/**Init function*/
 		void init(const DriverInitParameters& params);
 
-		void draw(Geometry *bufferContext);
+		void draw(GeometryInstance *geometry);
 		void setRenderTarget(RenderTarget* renderTarget);
 		void setViewPort(int32_t x, int32_t y, int32_t width, int32_t height);
 		std::unique_ptr<RenderTarget> createRenderTarget(std::unique_ptr<Texture>&& texture);
 		bool compileShader(ShaderInstance* shader, const std::string& techniqueName, const ShaderCompileOptions& options, const AttributeFormat& format);
 		void compileEffect(Effect* effect);
 		std::unique_ptr<ShaderResourceBinding> bindResource(const ShaderResourceDescription& desc, Effect* effect);
+		void bindGeometryBuffers(GeometryInstance* geometry);
 		void setEffect(EffectInstance *effect, const EffectComperator& comperator);
 		void setShader(Shader* shader, const std::string& techniqueName);
 		void swapBuffer();

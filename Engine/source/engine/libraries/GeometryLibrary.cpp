@@ -28,19 +28,17 @@ namespace engine
 
 	GeometryLibrary::~GeometryLibrary()
 	{
-
+		delete _members;
+		_members = nullptr;
 	}
 
-	void GeometryLibrary::addGeometry(const std::string& name, const GeometryLibraryData<int32_t>& data)
+	bool GeometryLibrary::hasGeometry(const std::string& name) const
 	{
-		std::unique_ptr<Geometry> geometry = _members->renderContext->createGeometry();
-		geometry->setupVertexBuffer(data.getAttributeFormat(), data.getVerticies());
-		geometry->setupIndexBuffer(data.getPrimitiveType(), data.getInicies());
-		_members->geometries[name].reset(geometry.get());
-		geometry.release();
+		auto it = _members->geometries.find(name);
+		return it != _members->geometries.end();
 	}
 
-	std::unique_ptr<GeometryInstance> GeometryLibrary::findGeometry(const std::string& name)
+	std::unique_ptr<GeometryInstance> GeometryLibrary::getGeometry(const std::string& name)
 	{
 		auto it = _members->geometries.find(name);
 		ASSERT(it != _members->geometries.end());

@@ -3,10 +3,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/libraries/MaterialInstance.h>
+#include <engine/libraries/GeometryInstance.h>
 
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/Geometry.h>
+
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
@@ -14,7 +16,7 @@ namespace engine
 {
 	struct MeshPrivate
 	{
-		std::unique_ptr<Geometry> bufferContext;
+		std::unique_ptr<GeometryInstance> geometry;
 		std::unique_ptr<MaterialInstance> material;
 		std::string name;
 		explicit MeshPrivate(const std::string& name)
@@ -47,23 +49,23 @@ namespace engine
 		return *this;
 	}
 
-	void Mesh::load(std::unique_ptr<Geometry>&& bufferContext,
+	void Mesh::load(std::unique_ptr<GeometryInstance>&& bufferContext,
 					std::unique_ptr<MaterialInstance>&& material)
 	{
-		_members->bufferContext = std::move(bufferContext);
+		_members->geometry = std::move(bufferContext);
 		_members->material = std::move(material);
 	}
 
 	void Mesh::render(RenderContext* renderContext) 
 	{
-		_members->bufferContext->bindBuffers();
+		renderContext->bindGeometryBuffers(_members->geometry.get());
 		renderContext->setMaterial(_members->material.get());
-		renderContext->draw(_members->bufferContext.get());
+		renderContext->draw(_members->geometry.get());
 	}
 
-	const Geometry* Mesh::getGeometry() const
+	const GeometryInstance* Mesh::getGeometry() const
 	{
-		return _members->bufferContext.get();
+		return _members->geometry.get();
 	}
 
 	const MaterialInstance* Mesh::getMaterial() const

@@ -131,7 +131,7 @@ namespace engine
 		return _members->bufferObjectFactory->createIndexBufferObject(size);
 	}
 
-	void RenderContext::draw(Geometry *bufferContext) const
+	void RenderContext::draw(GeometryInstance *bufferContext) const
 	{
 		_members->driver->draw(bufferContext);
 	}
@@ -172,6 +172,11 @@ namespace engine
 			_members->currentRenderTarget = renderTarget;
 			_members->driver->setRenderTarget(renderTarget);
 		}
+	}
+
+	void RenderContext::bindGeometryBuffers(GeometryInstance* geometry)
+	{
+		_members->driver->bindGeometryBuffers(geometry);
 	}
 
 	void RenderContext::setMaterial(MaterialInstance* material)

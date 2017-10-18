@@ -8,6 +8,7 @@ namespace engine
 {
 
 	class EffectCompilationData;
+	class EffectInstance;
 	class Material;
 	class ShaderInstance;
 	class ShaderCompilationData;
@@ -39,6 +40,11 @@ namespace engine
 
 		const ShaderResourceStorage* getResources() const;
 		ShaderResourceStorage* getResources();
+
+		void sync(EffectInstance* instance);
+
+	private:
+		void syncResources(EffectInstance* instance);
 	private:
 		struct EffectPrivate* _members = nullptr;
 	};

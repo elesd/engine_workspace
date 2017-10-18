@@ -53,7 +53,7 @@ namespace engine
 		_members->windowName = windowName;
 	}
 
-	void MaterialLibrary::addMateria(const std::string& materialName, const MaterialDescription& description)
+	void MaterialLibrary::addMaterial(const std::string& materialName, const MaterialDescription& description)
 	{
 		ASSERT(isInitialized());
 		MaterialLibraryEntry entry;
@@ -63,7 +63,13 @@ namespace engine
 		_members->materials[materialName] = std::move(entry);
 	}
 
-	std::unique_ptr<MaterialInstance> MaterialLibrary::findMaterial(const std::string& name)
+	bool MaterialLibrary::hasMaterial(const std::string& materialName)
+	{
+		auto it = _members->materials.find(materialName);
+		return it != _members->materials.end();
+	}
+
+	std::unique_ptr<MaterialInstance> MaterialLibrary::getMaterial(const std::string& name)
 	{
 		auto it = _members->materials.find(name);
 		ASSERT(it != _members->materials.end());

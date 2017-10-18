@@ -28,7 +28,7 @@ namespace engine
 		_members = nullptr;
 	}
 
-	const Geometry* MeshComponent::getGeometry() const
+	const GeometryInstance* MeshComponent::getGeometry() const
 	{
 		return _members->mesh->getGeometry();
 	}

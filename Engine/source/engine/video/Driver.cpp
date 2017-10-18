@@ -4,14 +4,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <engine/exceptions/LogicalErrors.h>
 
-#include <engine/libraries/ShaderInstance.h>
 #include <engine/libraries/EffectInstance.h>
+#include <engine/libraries/GeometryInstance.h>
+#include <engine/libraries/ShaderInstance.h>
 
 #include <engine/render/RenderContext.h>
 
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
 #include <engine/video/EffectCompilationData.h>
+#include <engine/video/Geometry.h>
 #include <engine/video/GlobalShaderResourceStorage.h>
 #include <engine/video/RenderTarget.h>
 #include <engine/video/Shader.h>
@@ -93,9 +95,10 @@ namespace engine
 		initImpl(params);
 	}
 
-	void Driver::draw(Geometry *bufferContext)
+	void Driver::draw(GeometryInstance *geometry)
 	{
-		drawImpl(bufferContext);
+		GuardedObject<Geometry*> realGeometry = geometry->lockGeometry();
+		drawImpl(*realGeometry);
 	}
 
 	void Driver::setViewPort(int32_t x, int32_t y, int32_t width, int32_t height)
@@ -135,6 +138,12 @@ namespace engine
 	void Driver::setShader(Shader* shader, const std::string& techniqueName)
 	{
 		setShaderImpl(shader, techniqueName);
+	}
+
+	void Driver::bindGeometryBuffers(GeometryInstance* geometry)
+	{
+		GuardedObject<Geometry*> realGeometry = geometry->lockGeometry();
+		realGeometry->bindBuffers();
 	}
 
 	void Driver::setEffect(EffectInstance *effect, const EffectComperator& effectComperator)

@@ -5,7 +5,7 @@
 namespace engine
 {
 	class Mesh;
-	class Geometry;
+	class GeometryInstance;
 	class MaterialInstance;
 
 	class MeshComponent
@@ -15,7 +15,7 @@ namespace engine
 		explicit MeshComponent(Mesh*);
 		~MeshComponent() override;
 
-		const Geometry* getGeometry() const;
+		const GeometryInstance* getGeometry() const;
 		const MaterialInstance* getMaterial() const;
 	private:
 		std::vector<MaterialInstance*> collectMaterialsImpl() const override;
