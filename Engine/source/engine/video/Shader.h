@@ -2,8 +2,7 @@
 
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
-
-#include <engine/utils/GuardedObject.h>
+#include <engine/constraints/Lockable.h>
 
 namespace engine
 {
@@ -24,6 +23,7 @@ namespace engine
 	class Shader
 		: private NonCopyable
 		, private NonMoveable
+		, public Lockable<Shader>
 	{
 	public:
 		Shader(ShaderType);
@@ -42,8 +42,6 @@ namespace engine
 		const ShaderCompilationData* getCompilationData(const std::string& techniqueName) const;
 		void releaseCompilationData(const std::string& technique);
 
-		GuardedObject<Shader*> lock();
-		GuardedObject<const Shader*> lock() const;
 	private:
 		struct ShaderPrivate* _members = nullptr;
 	};

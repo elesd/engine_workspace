@@ -2,12 +2,14 @@
 
 #include <engine/constraints/NonMoveable.h>
 #include <engine/constraints/NonCopyable.h>
+#include <engine/constraints/Lockable.h>
 
 #include <engine/video/IndexBuffer.h>
 #include <engine/video/IndexBufferBase.h>
 #include <engine/video/VertexBuffer.h>
 
 #include <engine/utils/ScopeExit.h>
+#include <engine/utils/GuardedObject.h>
 
 namespace engine
 {
@@ -18,6 +20,7 @@ namespace engine
 	class Geometry
 		: private NonCopyable
 		, private NonMoveable
+		, public Lockable<Geometry>
 	{
 	public:
 		Geometry(RenderContext* renderContext, Driver* driver);

@@ -2,8 +2,7 @@
 
 #include <engine/constraints/NonCopyable.h>
 #include <engine/constraints/NonMoveable.h>
-
-#include <engine/utils/GuardedObject.h>
+#include <engine/constraints/Lockable.h>
 
 namespace engine
 {
@@ -18,6 +17,7 @@ namespace engine
 	class Effect
 		: private NonCopyable
 		, private NonMoveable
+		, public Lockable<Effect>
 	{
 	public:
 		Effect(const Material *material, const std::string& techniqueName, std::unique_ptr<ShaderInstance>&& vertexShader, std::unique_ptr<ShaderInstance>&& fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources);
@@ -39,8 +39,6 @@ namespace engine
 
 		const ShaderResourceStorage* getResources() const;
 		ShaderResourceStorage* getResources();
-		GuardedObject<Effect*> lock();
-		GuardedObject<const Effect*> lock() const;
 	private:
 		struct EffectPrivate* _members = nullptr;
 	};
