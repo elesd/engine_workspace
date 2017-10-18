@@ -3,7 +3,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/libraries/MaterialLibrary.h>
+#include <engine/libraries/MaterialInstance.h>
 #include <engine/libraries/GeometryLibrary.h>
+#include <engine/libraries/GeometryInstance.h>
 #include <engine/libraries/ShaderLibrary.h>
 #include <engine/libraries/ShaderInstance.h>
 
@@ -75,13 +77,13 @@ namespace engine
 	bool LibraryService::hasMaterial(const std::string& materialName)
 	{
 		std::lock_guard<std::mutex> lock(_members->materialLibraryMutex);
-		_members->materialLibrary->hasMaterial(materialName);
+		return _members->materialLibrary->hasMaterial(materialName);
 	}
 
 	std::unique_ptr<MaterialInstance> LibraryService::getMaterial(const std::string& name)
 	{
 		std::lock_guard<std::mutex> lock(_members->materialLibraryMutex);
-		_members->materialLibrary->getMaterial(name);
+		return _members->materialLibrary->getMaterial(name);
 	}
 
 	GuardedObject<GeometryLibrary*> LibraryService::getGeometryLibrary()

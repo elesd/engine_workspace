@@ -44,7 +44,6 @@ namespace engine
 		_members->sceneManager.reset(new SceneManager());
 		_members->renderManager.reset(new RenderManager());
 	
-		loadServicies();
 	}
 
 	Application::~Application()
@@ -56,6 +55,7 @@ namespace engine
 	{
 		_members->main->load(_members->windowManager.get());
 		_members->active = true;
+		loadServicies();
 	}
 
 	void Application::stop()
@@ -143,7 +143,8 @@ namespace engine
 
 	void Application::loadServicies()
 	{
-		_members->libraryService.reset(new LibraryService());
+		ASSERT(_members->windowManager);
+		_members->libraryService.reset(new LibraryService(_members->windowManager->getMainWindow()->getRenderContext()));
 	}
 
 	void Application::run()

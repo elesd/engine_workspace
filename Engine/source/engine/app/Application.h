@@ -77,6 +77,7 @@ namespace engine
 		RenderManager* getRenderManager() const;
 
 		LibraryService* getLibraryService() const;
+
 	protected:
 		/**
 		* @return Returns the window manager of the application
@@ -91,6 +92,7 @@ namespace engine
         void setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory);
 		void setFileSystem(std::unique_ptr<FileSystem> &&fileSystem);
 		void loadServicies();
+
 	private:
 		/**
 		* Update function before done any other update.
