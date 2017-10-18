@@ -116,9 +116,9 @@ namespace engine
 		return findRender(id) != nullptr;
 	}
 
-	std::unique_ptr<Geometry> RenderContext::createBufferContext() const
+	std::unique_ptr<Geometry> RenderContext::createGeometry() const
 	{
-		return _members->bufferObjectFactory->createBufferContext();
+		return _members->bufferObjectFactory->createGeometry();
 	}
 
 	std::unique_ptr<BufferObject> RenderContext::createVertexBufferObject(size_t size) const

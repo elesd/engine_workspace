@@ -40,7 +40,7 @@ namespace engine
 		return _members->renderContext;
 	}
 
-	std::unique_ptr<Geometry> BufferObjectFactory::createBufferContext() const
+	std::unique_ptr<Geometry> BufferObjectFactory::createGeometry() const
 	{
 		ASSERT(isReady());
 		return createBufferContextImpl();

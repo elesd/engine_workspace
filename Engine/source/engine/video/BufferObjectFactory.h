@@ -17,7 +17,7 @@ namespace engine
 		BufferObjectFactory();
 	public:
 		virtual ~BufferObjectFactory();
-		std::unique_ptr<Geometry> createBufferContext() const;
+		std::unique_ptr<Geometry> createGeometry() const;
 		std::unique_ptr<BufferObject> createVertexBufferObject(size_t size) const;
 		std::unique_ptr<BufferObject> createIndexBufferObject(size_t size) const;
 
