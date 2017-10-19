@@ -12,6 +12,7 @@ namespace engine
 	class ShaderInstance;
 	class GeometryInstance;
 	class MeshInstance;
+	class SynchronizerService;
 	struct ShaderLibraryLabel;
 
 	enum class ShaderType;
@@ -26,6 +27,7 @@ namespace engine
 	public:
 		~LibraryService();
 
+		void setupSynchronizer(SynchronizerService* synchronizer);
 		std::unique_ptr<ShaderInstance> getShader(ShaderType type, const std::string& shaderName);
 		void addShader(const ShaderLibraryLabel& label);
 		bool hasShader(ShaderType type, const std::string& shaderName);
@@ -38,6 +40,7 @@ namespace engine
 		void addMaterial(const std::string& materialName, const MaterialDescription& description);
 		bool hasMaterial(const std::string& materialName);
 		std::unique_ptr<MaterialInstance> getMaterial(const std::string& name);
+
 	protected:
 		GuardedObject<GeometryLibrary*> getGeometryLibrary();
 	private:

@@ -15,6 +15,7 @@
 #include <engine/render/RenderManager.h>
 
 #include <engine/servicies/LibraryService.h>
+#include <engine/servicies/SynchronizerService.h>
 
 #include <engine/scene/SceneManager.h>
 
@@ -32,6 +33,7 @@ namespace engine
 		std::unique_ptr<WindowManager> windowManager;
         std::unique_ptr<EventManagerFactory> eventManagerFactory;
 		std::unique_ptr<FileSystem> fileSystem;
+		std::unique_ptr<SynchronizerService> synchronizer;
 		bool active = false;
 	};
 
@@ -43,7 +45,8 @@ namespace engine
 		_members->arguments = std::move(arguments);
 		_members->sceneManager.reset(new SceneManager());
 		_members->renderManager.reset(new RenderManager());
-	
+		_members->synchronizer.reset(new SynchronizerService());
+		_members->synchronizer->setupSceneManager(_members->sceneManager.get());
 	}
 
 	Application::~Application()
@@ -71,6 +74,8 @@ namespace engine
             _members->windowManager->update();
 			_members->main->update();
 			_members->sceneManager->update();
+
+			_members->synchronizer->sync();
 		}
 	}
 
@@ -145,6 +150,7 @@ namespace engine
 	{
 		ASSERT(_members->windowManager);
 		_members->libraryService.reset(new LibraryService(_members->windowManager->getMainWindow()->getRenderContext()));
+		_members->libraryService->setupSynchronizer(_members->synchronizer.get());
 	}
 
 	void Application::run()

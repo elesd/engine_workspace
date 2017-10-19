@@ -77,8 +77,16 @@ namespace engine
 		return result;
 	}
 
+	Material* MaterialLibrary::getMaterialOrigin(const std::string& name)
+	{
+		auto it = _members->materials.find(name);
+		ASSERT(it != _members->materials.end());
+		return it->second.material.get();
+	}
+
 	bool  MaterialLibrary::isInitialized() const
 	{
 		return _members->renderContext != nullptr;
 	}
+
 }

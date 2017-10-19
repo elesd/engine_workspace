@@ -9,6 +9,8 @@
 #include <engine/libraries/ShaderLibrary.h>
 #include <engine/libraries/ShaderInstance.h>
 
+#include <engine/servicies/SynchronizerService.h>
+
 namespace engine
 {
 	struct LibraryServicePrivate
@@ -36,6 +38,11 @@ namespace engine
 	{
 		delete _members;
 		_members = nullptr;
+	}
+
+	void LibraryService::setupSynchronizer(SynchronizerService* synchronizer)
+	{
+		synchronizer->setupMaterialLibrary(_members->materialLibrary.get());
 	}
 
 	std::unique_ptr<ShaderInstance> LibraryService::getShader(ShaderType type, const std::string& shaderName)
@@ -85,7 +92,7 @@ namespace engine
 		std::lock_guard<std::mutex> lock(_members->materialLibraryMutex);
 		return _members->materialLibrary->getMaterial(name);
 	}
-
+	
 	GuardedObject<GeometryLibrary*> LibraryService::getGeometryLibrary()
 	{
 		GuardedObject<GeometryLibrary*> result(std::unique_lock<std::mutex>(_members->geometryLibraryMutex), _members->geometryLibrary.get());

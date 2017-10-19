@@ -3,6 +3,7 @@
 namespace engine
 {
 	class RenderContext;
+	class Material;
 	class MaterialDescription;
 	class MaterialInstance;
 
@@ -18,7 +19,9 @@ namespace engine
 		bool hasMaterial(const std::string& materialName);
 		std::unique_ptr<MaterialInstance> getMaterial(const std::string& name);
 
+		Material* getMaterialOrigin(const std::string& name);
 		bool isInitialized() const;
+
 	private:
 		struct MaterialLibraryPrivate* _members = nullptr;
 	};
