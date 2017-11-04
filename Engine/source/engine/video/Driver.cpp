@@ -148,6 +148,11 @@ namespace engine
 
 	void Driver::setEffect(EffectInstance *effect, const EffectComperator& effectComperator)
 	{
+		{
+			GuardedObject<Effect*> realEffect = effect->lockEffect();
+			realEffect->sync(effect);
+		}
+
 		if(effect->getCompilationData()->isSupportSeparatePrograms())
 		{
 			if(effectComperator.isChanged(EffectComperator::DifferenceType::VertexShader))
