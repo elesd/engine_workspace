@@ -10,14 +10,14 @@ namespace engine
 
 	struct MeshComponentPrivate
 	{
-		Mesh* mesh = nullptr;
-		explicit MeshComponentPrivate(Mesh* mesh)
-			: mesh(mesh)
+		std::unique_ptr<Mesh> mesh = nullptr;
+		explicit MeshComponentPrivate(std::unique_ptr<Mesh>&&  mesh)
+			: mesh(std::move(mesh))
 		{}
 	};
 
-	MeshComponent::MeshComponent(Mesh* mesh)
-		: _members(new MeshComponentPrivate(mesh))
+	MeshComponent::MeshComponent(std::unique_ptr<Mesh>&&  mesh)
+		: _members(new MeshComponentPrivate(std::move(mesh)))
 	{
 
 	}
@@ -56,7 +56,7 @@ namespace engine
 
 	std::unique_ptr<Component> MeshComponent::cloneVisualComponent() const
 	{
-		std::unique_ptr<MeshComponent> result(new MeshComponent(_members->mesh));
+		std::unique_ptr<MeshComponent> result(new MeshComponent(_members->mesh->clone()));
 		return common::static_unique_ptr_cast<Component>(std::move(result));
 	}
 }

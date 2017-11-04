@@ -21,9 +21,9 @@ namespace engine
 			/** Creation year of the version.*/
 			const std::string year = "17";
 			/** Creation month of the version.*/
-			const std::string month = "10";
+			const std::string month = "11";
 			/** Creation day of the version.*/
-			const std::string day = "19";
+			const std::string day = "04";
 		};
 		
 		/**Creates a concrate version based on its definition.*/

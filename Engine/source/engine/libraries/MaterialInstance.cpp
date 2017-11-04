@@ -93,5 +93,12 @@ namespace engine
 		return result;
 	}
 
+	std::unique_ptr<MaterialInstance> MaterialInstance::clone() const
+	{
+		std::unique_ptr<MaterialInstance> result(new MaterialInstance(_members->origin));
+		result->setCurrentEffect(getCurrentEffect()->getName());
+		return result;
+	}
+
 
 }

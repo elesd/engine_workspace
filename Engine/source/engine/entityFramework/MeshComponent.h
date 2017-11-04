@@ -12,7 +12,7 @@ namespace engine
 		: public VisualComponent
 	{
 	public:
-		explicit MeshComponent(Mesh*);
+		explicit MeshComponent(std::unique_ptr<Mesh>&& mesh);
 		~MeshComponent() override;
 
 		const GeometryInstance* getGeometry() const;

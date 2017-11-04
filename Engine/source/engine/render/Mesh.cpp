@@ -19,13 +19,15 @@ namespace engine
 		std::unique_ptr<GeometryInstance> geometry;
 		std::unique_ptr<MaterialInstance> material;
 		std::string name;
-		explicit MeshPrivate(const std::string& name)
+		explicit MeshPrivate(const std::string& name, std::unique_ptr<GeometryInstance>&& geometry, std::unique_ptr<MaterialInstance>&& material)
 			: name(name)
+			, geometry(std::move(geometry))
+			, material(std::move(material))
 		{ }
 	};
 
-	Mesh::Mesh(const std::string& name)
-		: _members(new MeshPrivate(name))
+	Mesh::Mesh(const std::string& name, std::unique_ptr<GeometryInstance>&& geometry, std::unique_ptr<MaterialInstance>&& material)
+		: _members(new MeshPrivate(name, std::move(geometry), std::move(material)))
 	{
 
 	}
@@ -49,13 +51,6 @@ namespace engine
 		return *this;
 	}
 
-	void Mesh::load(std::unique_ptr<GeometryInstance>&& bufferContext,
-					std::unique_ptr<MaterialInstance>&& material)
-	{
-		_members->geometry = std::move(bufferContext);
-		_members->material = std::move(material);
-	}
-
 	void Mesh::render(RenderContext* renderContext) 
 	{
 		renderContext->bindGeometryBuffers(_members->geometry.get());
@@ -76,6 +71,14 @@ namespace engine
 	MaterialInstance* Mesh::getMaterial()
 	{
 		return _members->material.get();
+	}
+
+	std::unique_ptr<Mesh> Mesh::clone() const
+	{
+		std::unique_ptr<MaterialInstance> material = _members->material->clone();
+		std::unique_ptr<GeometryInstance> geometry = _members->geometry->clone();
+		std::unique_ptr<Mesh> result(new Mesh(_members->name, std::move(geometry), std::move(material)));
+		return result;
 	}
 
 }

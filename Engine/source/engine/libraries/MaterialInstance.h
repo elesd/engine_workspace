@@ -30,6 +30,8 @@ namespace engine
 		MaterialResourceHandler* getResourceHandler();
 		std::map<std::string, EffectInstance*> collectAllEffects();
 		std::map<std::string, const EffectInstance*> collectAllEffects() const;
+
+		std::unique_ptr<MaterialInstance> clone() const;
 	private:
 		struct MaterialInstancePrivate* _members = nullptr;
 	};

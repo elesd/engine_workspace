@@ -52,6 +52,12 @@ namespace engine
 		return _members->origin->getVertexBuffer();
 	}
 
+	std::unique_ptr<GeometryInstance> GeometryInstance::clone() const
+	{
+		std::unique_ptr<GeometryInstance> cloned(new GeometryInstance(_members->origin));
+		return cloned;
+	}
+
 	GuardedObject<const Geometry*> GeometryInstance::lockGeometry() const
 	{
 		return static_cast<const Geometry*>(_members->origin.get())->lock();

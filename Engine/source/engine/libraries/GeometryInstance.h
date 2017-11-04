@@ -24,6 +24,8 @@ namespace engine
 		bool allBuffersBound() const;
 		const IndexBufferBase* getIndexBuffer() const;
 		const VertexBuffer* getVertexBuffer() const;
+
+		std::unique_ptr<GeometryInstance> clone() const;
 	private:
 		GuardedObject<const Geometry*> lockGeometry() const;
 		GuardedObject<Geometry*> lockGeometry();

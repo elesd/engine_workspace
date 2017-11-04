@@ -13,22 +13,22 @@ namespace engine
 		: public IRenderable
 		, NonCopyable
 	{
+		friend class MeshLibrary;
 	public:
-		Mesh(const std::string& name);
+		Mesh(const std::string& name, std::unique_ptr<GeometryInstance>&& geometry, std::unique_ptr<MaterialInstance>&& material);
 		Mesh(Mesh&&);
 
 		~Mesh() override;
 
 		Mesh &operator=(Mesh&&);
 
-		void load(std::unique_ptr<GeometryInstance>&& bufferContext,
-				  std::unique_ptr<MaterialInstance>&& material); // TODO Move material to material library
-
 		void render(RenderContext*) override;
 
 		const GeometryInstance* getGeometry() const;
 		const MaterialInstance* getMaterial() const;
 		MaterialInstance* getMaterial();
+
+		std::unique_ptr<Mesh> clone() const;
 	private:
 		struct MeshPrivate* _members = nullptr;
 	};
