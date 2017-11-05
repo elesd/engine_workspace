@@ -115,6 +115,14 @@ namespace engine
 		removeDeletedScenes();
 	}
 
+	void SceneManager::refreshScenes()
+	{
+		for(Scene* scene : _members->currentState.scenes)
+		{
+			scene->refreshByProxy();
+		}
+	}
+
 	void SceneManager::removeDeletedScenes()
 	{
 		if(!_members->sceneContainer.empty())

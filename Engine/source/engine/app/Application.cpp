@@ -72,6 +72,8 @@ namespace engine
             _members->windowManager->update();
 			_members->main->update();
 			_members->sceneManager->update();
+
+			_members->sceneManager->refreshScenes();
 		}
 	}
 
