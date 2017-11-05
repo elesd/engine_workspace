@@ -28,11 +28,6 @@ namespace engine
 		Context::getInstance()->setInitialized();
 	}
 
-	void BaseBuilder::setEventManagerFactory(Application *app, std::unique_ptr<EventManagerFactory> &&factory)
-	{
-		app->setEventManagerFactory(std::move(factory));
-	}
-
 	void BaseBuilder::setConsole(std::unique_ptr<Console>&& console)
 	{
 		Context::getInstance()->setConsole(std::move(console));

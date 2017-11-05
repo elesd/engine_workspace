@@ -6,6 +6,7 @@
 namespace engine
 {
 	class Driver;
+	class EventManagerFactory;
 	class RenderContext;
 	class GlobalResourceMapping;
 	class Window;
@@ -22,7 +23,7 @@ namespace engine
 	{
 	public:
 		/** Default constructable. */
-		WindowManager(const DeviceParameters& parameters, const GlobalResourceMapping& resourceMapping);
+		WindowManager(const DeviceParameters& parameters, const GlobalResourceMapping& resourceMapping, std::unique_ptr<EventManagerFactory>&& eventManagerFactory);
 		/** Destructor for PIMPL */
 		virtual ~WindowManager();
 

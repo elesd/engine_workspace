@@ -5,7 +5,6 @@
 #include <engine/app/IApplicationParameter.h>
 #include <engine/app/GameMain.h>
 
-#include <engine/events/EventManagerFactory.h>
 #include <engine/events/EventManager.h>
 
 #include <engine/fileSystem/FileSystem.h>
@@ -34,7 +33,6 @@ namespace engine
 		std::unique_ptr<RenderManager> renderManager;
 		std::unique_ptr<RenderService> renderService;
 		std::unique_ptr<WindowManager> windowManager;
-        std::unique_ptr<EventManagerFactory> eventManagerFactory;
 		std::unique_ptr<FileSystem> fileSystem;
 		bool active = false;
 	};
@@ -96,11 +94,6 @@ namespace engine
 		return _members->active;
 	}
 
-    EventManagerFactory* Application::getEventManagerFactory() const
-    {
-      return _members->eventManagerFactory.get();
-    }
-
 	const IApplicationParameter* Application::getArguments() const
 	{
 		return _members->arguments.get();
@@ -123,7 +116,7 @@ namespace engine
 
 	RenderService* Application::getRenderService() const
 	{
-
+		return _members->renderService.get();
 	}
 
 	WindowManager *Application::getWindowManager() const
@@ -135,11 +128,6 @@ namespace engine
 	{
 		_members->windowManager = std::move(windowManager);
 	}
-
-    void Application::setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory)
-    {
-        _members->eventManagerFactory = std::move(factory);
-    }
 
 	void Application::setFileSystem(std::unique_ptr<FileSystem> &&fileSystem)
 	{

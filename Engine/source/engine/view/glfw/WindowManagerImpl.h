@@ -16,7 +16,7 @@ namespace engine
 		class WindowManagerImpl : public WindowManager
 		{
 		public:
-			WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping);
+			WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping, std::unique_ptr<EventManagerFactory>&& eventManagerFactory);
 
 			/** @copydoc */
 			uint32_t getMonitorCount() const override;

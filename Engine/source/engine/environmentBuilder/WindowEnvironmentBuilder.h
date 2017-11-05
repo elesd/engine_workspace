@@ -1,19 +1,16 @@
 #pragma once
 
 #include <engine/environmentBuilder/BaseBuilder.h>
+
 namespace engine
 {
 	enum class ContextModuleType;
-	class WindowManager;
-	class EventBuilder;
 	class BuildFinalizer;
+	class EventBuilder;
+	class EventManagerFactory;
 	class GlobalResourceMapping;
+	class WindowManager;
 	struct DeviceParameters;
-}
-
-
-namespace engine
-{
 
 	/**
 	* This buildphase will initialize the window environment.
@@ -26,7 +23,7 @@ namespace engine
 		* Initialize the window environment with the given module.
 		* @param windowModule: Window handler module.
 		*/
-		WindowEnvironmentBuilder(const ContextModuleType windowModule);
+		WindowEnvironmentBuilder(const ContextModuleType windowModule, std::unique_ptr<EventManagerFactory>&& eventMangerFactory);
 	public:
 		/**Destructor for PIMPL*/
 		~WindowEnvironmentBuilder();

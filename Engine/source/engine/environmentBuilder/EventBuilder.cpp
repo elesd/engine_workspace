@@ -61,12 +61,11 @@ namespace engine
 #else
 		HARD_FAIL("Unknown window context module");
 #endif
-		setEventManagerFactory(_members->application, std::move(factory));
-		return WindowEnvironmentBuilder(_members->windowModule);
+		return WindowEnvironmentBuilder(_members->windowModule, std::move(factory));
 	}
 
 	WindowEnvironmentBuilder EventBuilder::skip()
 	{
-		return WindowEnvironmentBuilder(_members->windowModule);
+		return WindowEnvironmentBuilder(_members->windowModule, nullptr);
 	}
 }

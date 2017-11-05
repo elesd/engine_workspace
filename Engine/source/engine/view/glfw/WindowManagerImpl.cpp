@@ -37,8 +37,8 @@ namespace engine
 	namespace glfw
 	{
 
-		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping)
-			: WindowManager(driverContextParameters, resourceMapping)
+		WindowManagerImpl::WindowManagerImpl(const DeviceParameters& driverContextParameters, const GlobalResourceMapping& resourceMapping, std::unique_ptr<EventManagerFactory>&& eventManagerFactory)
+			: WindowManager(driverContextParameters, resourceMapping, std::move(eventManagerFactory))
 		{
 		}
 

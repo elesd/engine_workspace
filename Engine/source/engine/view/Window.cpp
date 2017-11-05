@@ -111,7 +111,10 @@ namespace engine
 
 	void Window::update()
 	{
-		_members->eventManager->update();
+		if(_members->eventManager)
+		{
+			_members->eventManager->update();
+		}
 	}
 
 	EventManager *Window::getEventManager() const

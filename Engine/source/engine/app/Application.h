@@ -66,11 +66,6 @@ namespace engine
 		*/
 		const IApplicationParameter* getArguments() const;
 
-		/**
-		* @return Returns the event manager factory of the application.
-		*/
-		EventManagerFactory* getEventManagerFactory() const;
-
 		FileSystem* getFileSystem() const;
 
 		LibraryService* getLibraryService() const;
@@ -90,7 +85,6 @@ namespace engine
 		* @see WindowBuilder
 		*/
 		void setWindowManager(std::unique_ptr<WindowManager> windowManager);
-        void setEventManagerFactory(std::unique_ptr<EventManagerFactory> &&factory);
 		void setFileSystem(std::unique_ptr<FileSystem> &&fileSystem);
 		void loadServicies();
 
