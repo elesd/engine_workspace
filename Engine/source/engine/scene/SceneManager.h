@@ -39,7 +39,7 @@ namespace engine
 		const SceneManagerState& getCurrentState() const;
 
 		void update();
-		void refreshScenes();
+		void syncScenes();
 	private:
 		void removeDeletedScenes();
 	private:
