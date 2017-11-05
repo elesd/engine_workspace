@@ -1,16 +1,23 @@
 #pragma once
 
+#include <engine/constraints/Lockable.h>
+
 #include <engine/signalSlot/Signal.h>
 
 namespace engine
 {
 	class Entity;
+	class EntityContainer;
 	class ComponentRegister;
-	class Render;
+	class SceneProxy;
+
 	class Scene final
+		: public Lockable<Scene>
 	{
 		friend class SceneManager;
+		friend class SceneProxy;
 	public:
+
 		Signal<> sceneActivated;
 		Signal<> sceneDeactivated;
 		Signal<> scenePriorityChanged;
@@ -22,9 +29,6 @@ namespace engine
 		void registerEntity(std::unique_ptr<Entity>&& entity);
 		std::unique_ptr<Entity> unregisterEntity(Entity* entity);
 		std::vector<Entity*> getEntities() const;
-		std::vector<Entity*> findCameraEntities() const;
-		std::vector<Entity*> findEntitiesByTag(uint32_t tag);
-		std::vector<Entity*> findEntitiesByName(const std::string& name);
 
 		int32_t getRenderPriority() const;
 		void setRenderPriority(int32_t);
@@ -36,6 +40,11 @@ namespace engine
 		void update();
 
 		const std::string& getName() const;
+
+		SceneProxy* getProxy();
+		void refreshByProxy();
+	private:
+		const EntityContainer& getEntityContainer() const;
 	private:
 		struct ScenePrivate* _members = nullptr;
 	};

@@ -14,6 +14,7 @@ namespace engine
 	class RenderManager;
 	class LibraryService;
 	class SceneManager;
+	class SceneService;
 	class StateStack;
 	class WindowManager;
 	struct WindowParameter;
@@ -42,7 +43,7 @@ namespace engine
 		*/
 		void update();
 		/**
-		* Render is called in each frame. Here will be rendered the application
+		* Renderer is called in each frame. Here will be rendered the application
 		*/
 		void render();
 
@@ -72,11 +73,11 @@ namespace engine
 
 		FileSystem* getFileSystem() const;
 
-		SceneManager* getSceneManager() const;
-
 		RenderManager* getRenderManager() const;
 
 		LibraryService* getLibraryService() const;
+
+		SceneService* getSceneService() const;
 
 	protected:
 		/**

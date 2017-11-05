@@ -3,26 +3,23 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/entityFramework/Entity.h>
+#include <engine/entityFramework/EntityContainer.h>
 
 #include <engine/functional/functions.h>
 
 #include <engine/scene/ComponentRegister.h>
+#include <engine/scene/SceneProxy.h>
 
 namespace engine
 {
-	struct SceneEntityCache
-	{
-		std::vector<Entity*> entities;
-	};
-
 	struct ScenePrivate
 	{
 		std::string name;
 		int32_t renderPrioirty = 0;
 		bool active = true;
 		std::unique_ptr<ComponentRegister> componentRegister;
-		std::vector<std::unique_ptr<Entity>> entityContainer;
-		SceneEntityCache cache;
+		std::unique_ptr<SceneProxy> proxy;
+		EntityContainer entityContainer;
 		ScenePrivate(const std::string& sceneName, std::unique_ptr<ComponentRegister>&& componentRegister)
 			:name(sceneName), componentRegister(std::move(componentRegister))
 		{
@@ -33,7 +30,7 @@ namespace engine
 	Scene::Scene(const std::string& sceneName, std::unique_ptr<ComponentRegister>&& componentRegister)
 		: _members(new ScenePrivate(sceneName, std::move(componentRegister)))
 	{
-
+		_members->proxy.reset(new SceneProxy(this));
 	}
 
 	Scene::~Scene()
@@ -45,72 +42,24 @@ namespace engine
 	void Scene::registerEntity(std::unique_ptr<Entity>&& entity)
 	{
 		_members->componentRegister->registerEntity(entity.get());
-		_members->cache.entities.push_back(entity.get());
-		_members->entityContainer.push_back(std::move(entity));
+		_members->entityContainer.add(std::move(entity));
 	}
 
 	std::unique_ptr<Entity> Scene::unregisterEntity(Entity* entity)
 	{
-		if(_members->cache.entities.empty())
+		if(_members->entityContainer.isEmpty())
 		{
-			ASSERT(_members->entityContainer.empty());
-			return nullptr;
-		}
-		if(_members->entityContainer.empty())
-		{
-			ASSERT(_members->cache.entities.empty());
 			return nullptr;
 		}
 
-		{
-			auto it = std::remove(_members->cache.entities.begin(), _members->cache.entities.end(), entity);
-			_members->cache.entities.erase(it, _members->cache.entities.end());
-		}
-
-		std::unique_ptr<Entity> result(entity);
-
-		{
-			for(std::unique_ptr<Entity>& entityPtr : _members->entityContainer)
-			{
-				if(entityPtr.get() == entity)
-				{
-					entityPtr.release();
-				}
-			}
-			auto it = std::remove_if(_members->entityContainer.begin(), _members->entityContainer.end(),
-									 [](const std::unique_ptr<Entity>& e)->bool	{return e == nullptr;});
-			_members->entityContainer.erase(it, _members->entityContainer.end());
-		}
+		std::unique_ptr<Entity> result = _members->entityContainer.remove(entity);
+		
 		return result;
 	}
 
 	std::vector<Entity*> Scene::getEntities() const
 	{
-		return _members->cache.entities;
-	}
-
-	std::vector<Entity*> Scene::findCameraEntities() const
-	{
-		std::vector<Entity*> result;
-		std::copy_if(_members->cache.entities.begin(), _members->cache.entities.end(), std::back_inserter(result),
-					 [](Entity* e)->bool { return e->hasCameraComponent(); });
-		return result;
-	}
-
-	std::vector<Entity*> Scene::findEntitiesByTag(uint32_t tag)
-	{
-		std::vector<Entity*> result;
-		std::copy_if(_members->cache.entities.begin(), _members->cache.entities.end(), std::back_inserter(result),
-					 [tag](Entity* e)->bool { return e->getTag() == tag; });
-		return result;
-	}
-
-	std::vector<Entity*> Scene::findEntitiesByName(const std::string& name)
-	{
-		std::vector<Entity*> result;
-		std::copy_if(_members->cache.entities.begin(), _members->cache.entities.end(), std::back_inserter(result),
-					 [&name](Entity* e)->bool { return e->getName() == name; });
-		return result;
+		return _members->entityContainer.getEntities();
 	}
 
 	int32_t Scene::getRenderPriority() const
@@ -152,7 +101,7 @@ namespace engine
 
 	void Scene::update()
 	{
-		for(Entity* e : _members->cache.entities)
+		for(Entity* e : getEntities())
 		{
 			e->update();
 		}
@@ -161,5 +110,20 @@ namespace engine
 	const std::string& Scene::getName() const
 	{
 		return _members->name;
+	}
+
+	SceneProxy* Scene::getProxy()
+	{
+		return _members->proxy.get();
+	}
+
+	void Scene::refreshByProxy()
+	{
+		SceneProxySyncDelegate::sync(getProxy());
+	}
+
+	const EntityContainer& Scene::getEntityContainer() const
+	{
+		return _members->entityContainer;
 	}
 }

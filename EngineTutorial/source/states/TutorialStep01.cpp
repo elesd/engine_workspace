@@ -108,7 +108,8 @@ namespace states
 
 	void TutorialStep01::initRender()
 	{
-		std::unique_ptr<PipelineRendererBase> renderTutorialStep01 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
+		//std::unique_ptr<PipelineRendererBase> renderTutorialStep01 = renderPasses::OnlySloid::createRenderer(getWindow()->getRenderContext());
+		std::unique_ptr<PipelineRendererBase> renderTutorialStep01 = renderPasses::GeneralDefinition<renderPasses::OnlySloid::Passes, 1>::createRenderer(getWindow()->getRenderContext(), {"Solid"});
 		_members->render = _members->renderContext->createRender("TutorialStep01", std::move(renderTutorialStep01));
 		_members->renderPipeline = _members->render->getPipeline<renderPasses::OnlySloid::PipelineRenderer>();
 		

@@ -17,7 +17,7 @@ namespace engine
 	class MaterialInstance;
 	class MaterialDescription;
 	class PipelineRendererBase;
-	class Render;
+	class Renderer;
 	class RenderTarget;
 	class ShaderCompiler;
 	class ShaderResourceStorage;
@@ -55,9 +55,9 @@ namespace engine
 		void setWindow(Window *window);
 		void init(const RenderContextParameters& params);
 
-		Render* createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
+		Renderer* createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
 		bool removeRender(const std::string& id);
-		Render* findRender(const std::string& id) const;
+		Renderer* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
 		
 		std::unique_ptr<Geometry> createGeometry() const;

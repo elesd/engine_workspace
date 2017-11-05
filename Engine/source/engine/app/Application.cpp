@@ -15,6 +15,7 @@
 #include <engine/render/RenderManager.h>
 
 #include <engine/servicies/LibraryService.h>
+#include <engine/servicies/SceneService.h>
 
 #include <engine/scene/SceneManager.h>
 
@@ -28,6 +29,7 @@ namespace engine
 		std::unique_ptr<IApplicationParameter> arguments;
 		std::unique_ptr<SceneManager> sceneManager;
 		std::unique_ptr<LibraryService> libraryService;
+		std::unique_ptr<SceneService> sceneService;
 		std::unique_ptr<RenderManager> renderManager;
 		std::unique_ptr<WindowManager> windowManager;
         std::unique_ptr<EventManagerFactory> eventManagerFactory;
@@ -105,11 +107,6 @@ namespace engine
 		return _members->fileSystem.get();
 	}
 
-	SceneManager* Application::getSceneManager() const
-	{
-		return _members->sceneManager.get();
-	}
-
 	RenderManager* Application::getRenderManager() const
 	{
 		return _members->renderManager.get();
@@ -118,6 +115,11 @@ namespace engine
 	LibraryService* Application::getLibraryService() const
 	{
 		return _members->libraryService.get();
+	}
+
+	SceneService* Application::getSceneService() const
+	{
+		return _members->sceneService.get();
 	}
 
 	WindowManager *Application::getWindowManager() const
@@ -144,6 +146,7 @@ namespace engine
 	{
 		ASSERT(_members->windowManager);
 		_members->libraryService.reset(new LibraryService(_members->windowManager->getMainWindow()->getRenderContext()));
+		_members->sceneService.reset(new SceneService(_members->sceneManager.get(), _members->windowManager->getMainWindow()->getRenderContext()));
 	}
 
 	void Application::run()

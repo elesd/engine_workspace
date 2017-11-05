@@ -6,7 +6,7 @@
 namespace engine
 {
 	class RenderContext;
-	class Render;
+	class Renderer;
 
 	class RenderManager final
 		: private NonCopyable
@@ -18,6 +18,6 @@ namespace engine
 	public:
 		~RenderManager();
 
-		void render(RenderContext* renderContext, std::vector<Render*> renders);
+		void render(RenderContext* renderContext, std::vector<Renderer*> renders);
 	};
 }

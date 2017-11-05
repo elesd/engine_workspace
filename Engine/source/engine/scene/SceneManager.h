@@ -8,14 +8,14 @@ namespace engine
 {
 	class ComponentRegister;
 	class RenderContext;
-	class Render;
+	class Renderer;
 	class Scene;
 	
 	struct SceneManagerState
 	{
 		std::vector<Scene*> activeScenes;
-		std::vector<Render*> activeRenderers;
-		std::map<std::string, Render*> rendererMap;
+		std::vector<Renderer*> activeRenderers;
+		std::map<std::string, Renderer*> rendererMap;
 		std::vector<Scene*> scenes;
 	};
 
@@ -31,9 +31,9 @@ namespace engine
 
 		Scene* createScene(const std::string& sceneName, RenderContext* context, const std::string& rendererName, std::unique_ptr<ComponentRegister>&& componentRegister);
 		Scene* findScene(const std::string& sceneName) const;
-		Render* findRenderForScene(const std::string& sceneName) const;
+		Renderer* findRenderForScene(const std::string& sceneName) const;
 		void deleteScene(const std::string& sceneName);
-		const std::vector<Render*>& getActiveScenesRenderer() const;
+		const std::vector<Renderer*>& getActiveScenesRenderer() const;
 		const std::vector<Scene*>& getActiveScenes() const;
 		const std::vector<Scene*>& getScenes() const;
 		const SceneManagerState& getCurrentState() const;

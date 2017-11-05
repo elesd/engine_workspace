@@ -1,5 +1,5 @@
 #include <stdafx.h>
-#include <engine/render/Render.h>
+#include <engine/render/Renderer.h>
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <engine/entityFramework/CameraComponent.h>
@@ -24,19 +24,19 @@ namespace engine
 		}
 	};
 
-	Render::Render(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+	Renderer::Renderer(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 		: _members(new RenderPrivate(renderContext, std::move(pipelineRenderer)))
 	{
 
 	}
 
-	Render::~Render()
+	Renderer::~Renderer()
 	{
 		delete _members;
 		_members = nullptr;
 	}
 
-	void Render::render()
+	void Renderer::render()
 	{
 		CameraComponent* activeCamera = findActiveCamera();
 		if(activeCamera != nullptr)
@@ -46,12 +46,12 @@ namespace engine
 		_members->pipelineRender->render();
 	}
 
-	void Render::addCamera(CameraComponent* camera)
+	void Renderer::addCamera(CameraComponent* camera)
 	{
 		_members->cameraComponents.push_back(camera);
 	}
 
-	CameraComponent* Render::findActiveCamera() const
+	CameraComponent* Renderer::findActiveCamera() const
 	{
 		CameraComponent* activeCamera = nullptr;
 		for(CameraComponent* camera : _members->cameraComponents)
@@ -68,7 +68,7 @@ namespace engine
 		return activeCamera;
 	}
 
-	PipelineRendererBase* Render::getPipelineImpl() const
+	PipelineRendererBase* Renderer::getPipelineImpl() const
 	{
 		return _members->pipelineRender.get();
 	}

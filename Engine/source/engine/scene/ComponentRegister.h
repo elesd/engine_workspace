@@ -8,7 +8,7 @@ namespace engine
 	class CameraComponent;
 	class Component;
 	class Entity;
-	class Render;
+	class Renderer;
 	class RenderItem;
 	class VisualComponent;
 
@@ -20,11 +20,11 @@ namespace engine
 		ComponentRegister();
 	public:
 		virtual ~ComponentRegister();
-		void init(Render* render);
+		void init(Renderer* render);
 
 		void registerEntity(Entity* entity);
 	private:
-		virtual void registerVisualComponent(Entity* entity, VisualComponent* visualComponent, Render* renerer) = 0;
+		virtual void registerVisualComponent(Entity* entity, VisualComponent* visualComponent, Renderer* renerer) = 0;
 	private:
 		struct ComponentRegisterPrivate* _members;
 	};

@@ -4,13 +4,13 @@
 
 #include <engine/entityFramework/Entity.h>
 
-#include <engine/render/Render.h>
+#include <engine/render/Renderer.h>
 
 namespace engine
 {
 	struct ComponentRegisterPrivate
 	{
-		Render* renderToRegister = nullptr;
+		Renderer* renderToRegister = nullptr;
 	};
 
 	ComponentRegister::ComponentRegister()
@@ -25,7 +25,7 @@ namespace engine
 		_members = nullptr;
 	}
 
-	void ComponentRegister::init(Render* render)
+	void ComponentRegister::init(Renderer* render)
 	{
 		_members->renderToRegister = render;
 	}

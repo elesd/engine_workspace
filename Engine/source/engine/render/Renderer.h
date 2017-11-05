@@ -10,13 +10,13 @@ namespace engine
 	class PipelineRendererBase;
 	class RenderContext;
 
-	class Render 
+	class Renderer 
 		: private NonCopyable
 		, private NonMoveable
 	{
 	public:
-		Render(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
-		virtual ~Render();
+		Renderer(RenderContext* renderContext, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
+		virtual ~Renderer();
 
 		void render();
 
@@ -35,7 +35,7 @@ namespace engine
 	};
 
 	template<class PIPELINE_RENDERER>
-	PIPELINE_RENDERER* Render::getPipeline() const
+	PIPELINE_RENDERER* Renderer::getPipeline() const
 	{
 		return static_cast<PIPELINE_RENDERER*>(getPipelineImpl());
 	}

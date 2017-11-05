@@ -38,6 +38,9 @@ namespace engine
 		const EffectCompilationData* getCompilationData() const;
 		const Material* getMaterial() const;
 
+		/*
+		TODO: Make that only driver can commit resources and move ShaderResourceStorage to the EffectInstance.
+		*/
 		const ShaderResourceStorage* getResources() const;
 		ShaderResourceStorage* getResources();
 

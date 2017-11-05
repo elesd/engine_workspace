@@ -7,7 +7,7 @@
 
 #include <engine/functional/functions.h>
 
-#include <engine/render/Render.h>
+#include <engine/render/Renderer.h>
 #include <engine/render/RenderContext.h>
 
 
@@ -36,7 +36,7 @@ namespace engine
 
 	Scene* SceneManager::createScene(const std::string& sceneName, RenderContext* context, const std::string& rendererName, std::unique_ptr<ComponentRegister>&& componentRegister)
 	{
-		Render* renderer = context->findRender(rendererName);
+		Renderer* renderer = context->findRender(rendererName);
 		ASSERT(renderer != nullptr);
 		componentRegister->init(renderer);
 
@@ -62,7 +62,7 @@ namespace engine
 		return it != _members->currentState.scenes.end() ? *it : nullptr;
 	}
 
-	Render* SceneManager::findRenderForScene(const std::string& sceneName) const
+	Renderer* SceneManager::findRenderForScene(const std::string& sceneName) const
 	{
 		auto it = _members->currentState.rendererMap.find(sceneName);
 		return it != _members->currentState.rendererMap.end() ? it->second : nullptr;
@@ -82,7 +82,7 @@ namespace engine
 				_members->currentState.scenes.erase(it, _members->currentState.scenes.end());
 			}
 			{
-				Render* render = findRenderForScene(sceneName);
+				Renderer* render = findRenderForScene(sceneName);
 				auto it = std::remove(_members->currentState.activeRenderers.begin(), _members->currentState.activeRenderers.end(), render);
 				_members->currentState.activeRenderers.erase(it, _members->currentState.activeRenderers.end());
 			}
@@ -90,7 +90,7 @@ namespace engine
 		}
 	}
 
-	const std::vector<Render*>& SceneManager::getActiveScenesRenderer() const
+	const std::vector<Renderer*>& SceneManager::getActiveScenesRenderer() const
 	{
 		return _members->currentState.activeRenderers;
 	}
@@ -138,7 +138,7 @@ namespace engine
 			if(scene->isActive())
 			{
 				_members->currentState.activeScenes.push_back(scene);
-				Render* render = findRenderForScene(scene->getName());
+				Renderer* render = findRenderForScene(scene->getName());
 				_members->currentState.activeRenderers.push_back(render);
 			}
 		}
@@ -146,14 +146,14 @@ namespace engine
 
 	void SceneManager::whenScenePriorityChanged()
 	{
-		std::map<Render*, int32_t> prioirtyMap;
+		std::map<Renderer*, int32_t> prioirtyMap;
 		for(Scene* scene : _members->currentState.activeScenes)
 		{
-			Render* render = findRenderForScene(scene->getName());
+			Renderer* render = findRenderForScene(scene->getName());
 			prioirtyMap[render] = scene->getRenderPriority();
 		}
 		std::sort(_members->currentState.activeRenderers.begin(), _members->currentState.activeRenderers.end(),
-				  [&prioirtyMap](Render* a, Render* b)->bool 
+				  [&prioirtyMap](Renderer* a, Renderer* b)->bool 
 		{
 			return prioirtyMap[a] > prioirtyMap[b];
 		});

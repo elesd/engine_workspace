@@ -6,7 +6,7 @@
 
 #include <engine/libraries/MaterialInstance.h>
 
-#include <engine/render/Render.h>
+#include <engine/render/Renderer.h>
 
 #include <engine/video/Effect.h>
 #include <engine/video/EffectComperator.h>
@@ -47,7 +47,7 @@ namespace engine
 
 	struct RenderContextPrivate
 	{
-		std::map<std::string, std::unique_ptr<Render>> renders;
+		std::map<std::string, std::unique_ptr<Renderer>> renders;
 		const RenderTarget* currentRenderTarget = nullptr;
 		EffectInstance* currentEffect = nullptr;
 		EffectComperator effectComperator;
@@ -96,16 +96,16 @@ namespace engine
 		_members->globalResources->initGlobalResources(_members->resourceMapping);
 	}
 
-	Render* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+	Renderer* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 	{
 		ASSERT(!hasRender(id));
-		std::unique_ptr<Render> newRender = std::make_unique<Render>(this, std::move(pipelineRenderer));
-		Render* result = newRender.get();
+		std::unique_ptr<Renderer> newRender = std::make_unique<Renderer>(this, std::move(pipelineRenderer));
+		Renderer* result = newRender.get();
 		_members->renders.insert(std::make_pair(id, std::move(newRender)));
 		return result;
 	}
 
-	Render* RenderContext::findRender(const std::string& id) const
+	Renderer* RenderContext::findRender(const std::string& id) const
 	{
 		auto it = _members->renders.find(id);
 		return it == _members->renders.end() ? nullptr : it->second.get();
