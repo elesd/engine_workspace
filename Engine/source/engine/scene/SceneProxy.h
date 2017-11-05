@@ -26,9 +26,25 @@ namespace engine
 
 		void registerEntity(std::unique_ptr<Entity>&& entity);
 		std::unique_ptr<Entity> unregisterEntity(Entity* entity);
+		/**
+		@Warning: result pointer will be invalid one frame later! Do not keep references on it
+		@TODO: Create a wrapper class which follows the clone methodes. See SceneProxy::initFromOrigin()
+		*/
 		std::vector<Entity*> getEntities() const;
+		/**
+		@Warning: result pointer will be invalid one frame later! Do not keep references on it
+		@TODO: Create a wrapper class which follows the clone methodes. See SceneProxy::initFromOrigin().
+		*/
 		std::vector<Entity*> findCameraEntities() const;
+		/**
+		@Warning: result pointer will be invalid one frame later! Do not keep references on it
+		@TODO: Create a wrapper class which follows the clone methodes.. See SceneProxy::initFromOrigin()
+		*/
 		std::vector<Entity*> findEntitiesByTag(uint32_t tag) const;
+		/**
+		@Warning: result pointer will be invalid one frame later! Do not keep references on it
+		@TODO: Create a wrapper class which follows the clone methodes. See SceneProxy::initFromOrigin()
+		*/
 		std::vector<Entity*> findEntitiesByName(const std::string& name) const;
 
 		const std::string& getName() const;

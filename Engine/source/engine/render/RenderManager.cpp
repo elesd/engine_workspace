@@ -20,7 +20,6 @@ namespace engine
 
 	void RenderManager::render(RenderContext* renderContext, std::vector<Renderer*> renders)
 	{
-		// TODO implement paralell rendering;
 		for(Renderer* render: renders)
 		{
 			render->render();

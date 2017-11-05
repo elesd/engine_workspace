@@ -109,46 +109,21 @@ namespace engine
 
 	void Effect::syncResources(EffectInstance* instance)
 	{
+		// TODO figure out something better
+		std::vector<ShaderResourceDescription> descriptions = _members->resources->collectDescriptions();
+		for(const ShaderResourceDescription& desc : descriptions)
 		{
-			std::vector<std::pair<std::string, float>> changeMap = instance->getResources()->clearChangesInFloats();
-			for(const std::pair<std::string, float>& pair : changeMap)
+			const std::string& resourceName = desc.getName();
+			switch(desc.getType())
 			{
-				getResources()->setFloat(pair.first, pair.second);
-			}
-		}
-		{
-			std::vector<std::pair<std::string, vec2>> changeMap = instance->getResources()->clearChangesInVec2();
-			for(const std::pair<std::string, vec2>& pair : changeMap)
-			{
-				getResources()->setVec2(pair.first, pair.second);
-			}
-		}
-		{
-			std::vector<std::pair<std::string, vec3>> changeMap = instance->getResources()->clearChangesInVec3();
-			for(const std::pair<std::string, vec3>& pair : changeMap)
-			{
-				getResources()->setVec3(pair.first, pair.second);
-			}
-		}
-		{
-			std::vector<std::pair<std::string, vec4>> changeMap = instance->getResources()->clearChangesInVec4();
-			for(const std::pair<std::string, vec4>& pair : changeMap)
-			{
-				getResources()->setVec4(pair.first, pair.second);
-			}
-		}
-		{
-			std::vector<std::pair<std::string, mat3>> changeMap = instance->getResources()->clearChangesInMat3();
-			for(const std::pair<std::string, mat3>& pair : changeMap)
-			{
-				getResources()->setMat3(pair.first, pair.second);
-			}
-		}
-		{
-			std::vector<std::pair<std::string, mat4>> changeMap = instance->getResources()->clearChangesInMat4();
-			for(const std::pair<std::string, mat4>& pair : changeMap)
-			{
-				getResources()->setMat4(pair.first, pair.second);
+				case GPUMemberType::Float: getResources()->setFloat(resourceName, instance->getResources()->getFloat(resourceName)); break;
+				case GPUMemberType::Mat3: getResources()->setMat3(resourceName, instance->getResources()->getMat3(resourceName)); break;
+				case GPUMemberType::Mat4: getResources()->setMat4(resourceName, instance->getResources()->getMat4(resourceName)); break;
+				case GPUMemberType::Vec2: getResources()->setVec2(resourceName, instance->getResources()->getVec2(resourceName)); break;
+				case GPUMemberType::Vec3: getResources()->setVec3(resourceName, instance->getResources()->getVec3(resourceName)); break;
+				case GPUMemberType::Vec4: getResources()->setVec4(resourceName, instance->getResources()->getVec4(resourceName)); break;
+				default: FAIL("Unknown shader resource");
+					break;
 			}
 		}
 	}
