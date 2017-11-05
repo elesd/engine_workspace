@@ -11,7 +11,7 @@ namespace engine
 	class EventManagerFactory;
 	class FileSystem;
 	class GameMain;
-	class RenderManager;
+	class RenderService;
 	class LibraryService;
 	class SceneManager;
 	class SceneService;
@@ -73,11 +73,11 @@ namespace engine
 
 		FileSystem* getFileSystem() const;
 
-		RenderManager* getRenderManager() const;
-
 		LibraryService* getLibraryService() const;
 
 		SceneService* getSceneService() const;
+
+		RenderService* getRenderService() const;
 
 	protected:
 		/**

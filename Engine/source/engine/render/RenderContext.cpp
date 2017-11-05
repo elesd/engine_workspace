@@ -96,7 +96,7 @@ namespace engine
 		_members->globalResources->initGlobalResources(_members->resourceMapping);
 	}
 
-	Renderer* RenderContext::createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
+	Renderer* RenderContext::createRenderer(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer)
 	{
 		ASSERT(!hasRender(id));
 		std::unique_ptr<Renderer> newRender = std::make_unique<Renderer>(this, std::move(pipelineRenderer));

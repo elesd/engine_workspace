@@ -55,7 +55,7 @@ namespace engine
 		void setWindow(Window *window);
 		void init(const RenderContextParameters& params);
 
-		Renderer* createRender(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
+		Renderer* createRenderer(const std::string& id, std::unique_ptr<PipelineRendererBase>&& pipelineRenderer);
 		bool removeRender(const std::string& id);
 		Renderer* findRender(const std::string& id) const;
 		bool hasRender(const std::string& id) const;
