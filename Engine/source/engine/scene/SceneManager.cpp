@@ -115,7 +115,7 @@ namespace engine
 		removeDeletedScenes();
 	}
 
-	void SceneManager::refreshScenes()
+	void SceneManager::syncScenes()
 	{
 		for(Scene* scene : _members->currentState.scenes)
 		{

@@ -73,7 +73,7 @@ namespace engine
 			_members->main->update();
 			_members->sceneManager->update();
 
-			_members->sceneManager->refreshScenes();
+			_members->sceneManager->syncScenes();
 		}
 	}
 
