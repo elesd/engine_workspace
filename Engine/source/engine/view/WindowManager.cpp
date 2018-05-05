@@ -25,11 +25,11 @@ namespace engine
 	struct WindowManagerPrivate
 	{
 		std::unique_ptr<Window> mainWindow = nullptr;
+		DeviceParameters deviceParameters;
 		std::unique_ptr<EventManagerFactory> eventManagerFactory;
 		std::vector<std::unique_ptr<Window>> windowContainer;
 		RenderContextParameters renderContextParameters;
 		std::vector<Window*> closedWindows;
-		DeviceParameters deviceParameters;
 		WindowManagerPrivate(const DeviceParameters& parameters, std::unique_ptr<EventManagerFactory>&& eventManagerFactory)
 			: deviceParameters(parameters)
 			, eventManagerFactory(std::move(eventManagerFactory))
@@ -185,7 +185,6 @@ namespace engine
 
 	void WindowManager::initWindow(Window *window)
 	{
-		Application *application = Context::application();
 		if(_members->eventManagerFactory)
 		{
 			window->setEventManager(_members->eventManagerFactory->createEventManager());

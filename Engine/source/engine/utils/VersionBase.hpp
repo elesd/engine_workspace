@@ -7,45 +7,45 @@ namespace engine
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMajor() const
 	{
-		return major;
+		return VersionClass::major;
 	}
 
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMinor() const
 	{
-		return minor;
+		return VersionClass::minor;
 	}
 
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getCounter() const
 	{
-		return counter;
+		return VersionClass::counter;
 	}
 
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getYear() const
 	{
-		return std::atoi(year.c_str());
+		return std::atoi(VersionClass::year.c_str());
 	}
 
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getMonth() const
 	{
-		return std::atoi(month.c_str());
+		return std::atoi(VersionClass::month.c_str());
 	}
 
 	DECL_TEMPLATE
 		int32_t T_VERSION_BASE::getDay() const
 	{
-		return std::atoi(day.c_str());
+		return std::atoi(VersionClass::day.c_str());
 	}
 
 	DECL_TEMPLATE
 		std::string T_VERSION_BASE::getString() const
 	{
 		std::stringstream os;
-		os << major << "." << minor << ":" << counter
-			<< " " << year << "-" << month << "-" << day;
+		os << VersionClass::major << "." << VersionClass::minor << ":" << VersionClass::counter
+			<< " " << VersionClass::year << "-" << VersionClass::month << "-" << VersionClass::day;
 		return os.str();
 	}
 

@@ -43,7 +43,7 @@ namespace engine
 		return _members->params;
 	}
 
-	void StandardApplicationParameter::init(uint32_t nParams, const std::vector<std::string> &parameters)
+	void StandardApplicationParameter::init(uint32_t /*nParams*/, const std::vector<std::string> &parameters)
 	{
 		_members->binaryName = parameters[0];
 		_members->params = parameters;

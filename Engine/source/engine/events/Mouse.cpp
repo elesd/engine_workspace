@@ -8,15 +8,6 @@
 
 #include <engine/Types.h>
 
-namespace
-{
-	engine::MouseButtonState getDescriptionValue(const std::map<engine::MouseButton, engine::MouseButtonState> &info, engine::MouseButton button)
-	{
-		auto it = info.find(button);
-		return it == info.end() ? engine::MouseButtonState::Unknown : it->second;
-	}
-}
-
 namespace engine
 {
 	const std::string Mouse::EventSourceId = "Mouse";

@@ -21,7 +21,7 @@ namespace engine
 			}
 		};
 
-		IndexBufferObject::IndexBufferObject(size_t size, Driver* driver)
+		IndexBufferObject::IndexBufferObject(size_t, Driver* driver)
 			: _members(new IndexBufferObjectPrivate(static_cast<DriverImpl*>(driver)))
 		{
 			glGenBuffers(1, &_members->bufferId);
@@ -70,8 +70,8 @@ namespace engine
 			GLint currentId = 0;
 			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &currentId);
 			_members->driver->checkErrors();
-			ASSERT(_members->bound == (currentId == _members->bufferId));
-			return currentId == _members->bufferId;
+			ASSERT(_members->bound == (GLuint(currentId) == _members->bufferId));
+			return GLuint(currentId) == _members->bufferId;
 #else
 			return _members->bound;
 #endif

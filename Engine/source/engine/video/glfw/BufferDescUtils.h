@@ -1,7 +1,5 @@
 #pragma once
 
-enum DXGI_FORMAT;
-
 namespace engine
 {
 	struct BufferDesc;

@@ -20,7 +20,7 @@ namespace engine
 			{ }
 		};
 
-		VertexBufferObject::VertexBufferObject(size_t size, Driver* driver)
+		VertexBufferObject::VertexBufferObject(size_t, Driver* driver)
 			: _members(new VertexBufferObjectPrivate(static_cast<DriverImpl*>(driver)))
 		{
 			glGenBuffers(1, &_members->vboId);
@@ -67,8 +67,8 @@ namespace engine
 			GLint currentId = 0;
 			glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &currentId);
 			_members->driver->checkErrors();
-			ASSERT(_members->bound == (currentId == _members->vboId));
-			return currentId == _members->vboId;
+			ASSERT(_members->bound == (GLuint(currentId) == _members->vboId));
+			return GLuint(currentId) == _members->vboId;
 #else
 			return _members->bound;
 #endif

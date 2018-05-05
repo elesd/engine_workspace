@@ -13,6 +13,8 @@ set (SOURCE_DIR "${MAIN_PROJECT_DIR}/source")
 set (EXTERNALS_DIR "${MAIN_PROJECT_DIR}/../CommonLibs")
 set (INSTALL_DIR "${EXTERNALS_DIR}/engine")
 
+set (CMAKE_CXX_STANDARD 11)
+
 include(../../../CommonConfig.txt)
 include(DoxygenConfig.txt)
 

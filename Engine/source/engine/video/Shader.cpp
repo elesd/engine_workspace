@@ -26,7 +26,7 @@ namespace engine
 	{
 		std::string code;
 		std::string mainFunctionName;
-		std::atomic<bool> initialized = false;
+		std::atomic<bool> initialized { false };
 		std::atomic<ShaderType> shaderType;
 		std::map<std::string, std::unique_ptr<ShaderCompilationData>> techniquesCompilationData;
 		ShaderPrivate(ShaderType type) : shaderType(type) {}

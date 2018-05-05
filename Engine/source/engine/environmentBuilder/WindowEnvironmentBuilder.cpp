@@ -54,6 +54,7 @@ namespace engine
 			case ContextModuleType::Glfw: manager = createGlfwWindowManager(deviceParameters, resourceMapping); break;
 			case ContextModuleType::Sdl: manager = createSdlWindowManager(deviceParameters, resourceMapping); break;
 			case ContextModuleType::WinApi: manager = createWinApiWindowManager(deviceParameters, resourceMapping); break;
+            default: break;
 		}
 		if(!manager)
 			throw InitializationError("Unhandled window module");
@@ -67,6 +68,8 @@ namespace engine
 		std::unique_ptr<WindowManager> result(new glfw::WindowManagerImpl(deviceParameters, resourceMapping, std::move(_members->eventMangerFactory)));
 		return result;
 #else
+        UNUSED(deviceParameters);
+        UNUSED(resourceMapping);
 		INACTIVE_MODULE_ERROR();
 		return nullptr;
 #endif
@@ -78,6 +81,8 @@ namespace engine
 		std::unique_ptr<WindowManager> result(new sdl::WindowManagerImpl(deviceParameters, resourceMapping, std::move(_members->eventMangerFactory)));
 		return result;
 #else
+        UNUSED(deviceParameters);
+        UNUSED(resourceMapping);
 		INACTIVE_MODULE_ERROR();
 		return nullptr;
 #endif
@@ -88,6 +93,8 @@ namespace engine
 		std::unique_ptr<WindowManager> result(new winapi::WindowManagerImpl(deviceParameters, resourceMapping, std::move(_members->eventMangerFactory)));
 		return result;
 #else
+        UNUSED(deviceParameters);
+        UNUSED(resourceMapping);
 		INACTIVE_MODULE_ERROR();
 		return nullptr;
 #endif

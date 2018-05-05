@@ -4,12 +4,13 @@
 
 namespace engine
 {
+    class EventBuilder;
 	namespace glfw
 	{
 		/**Glfw EventManagerFactory implemenetation.*/
 		class EventManagerFactoryImpl : public EventManagerFactory
 		{
-			friend class EventBuilder;
+			friend class engine::EventBuilder;
 			/**@copydoc EventManagerFactory::EventManagerFactory*/
 			EventManagerFactoryImpl(const std::set<BasicInputType> &basicInputs);
 		private:

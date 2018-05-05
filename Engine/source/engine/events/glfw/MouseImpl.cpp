@@ -17,7 +17,7 @@ namespace engine
 			moved.emit(int32_t(x), int32_t(y));
 		}
 
-		void MouseImpl::handleClickEvent(int32_t button, int32_t action, int32_t mods)
+		void MouseImpl::handleClickEvent(int32_t button, int32_t action, int32_t /*mods*/)
 		{
 			switch(action)
 			{
@@ -26,7 +26,7 @@ namespace engine
 			}
 		}
 
-		void MouseImpl::handleScollEvent(float xoffset, float yoffset)
+		void MouseImpl::handleScollEvent(float /*xoffset*/, float yoffset)
 		{
 			ScreenSpacePosition pos = getPosition();
 			scrolled.emit(pos.x, pos.y, int32_t(yoffset));

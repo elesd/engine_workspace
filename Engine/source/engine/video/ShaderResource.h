@@ -37,10 +37,10 @@ namespace engine
 		void commitChanges();
 	private:
 		ShaderResourceHandler* _resourceHandler = nullptr;
-		std::unique_ptr<ShaderResourceBinding> _binding;
 		bool _changed = true;
-		ShaderResourceDescription _description;
 		typename GPUMemberTypeTraits<Type>::ValueType _value;
+		ShaderResourceDescription _description;
+		std::unique_ptr<ShaderResourceBinding> _binding;
 	};
 }
 

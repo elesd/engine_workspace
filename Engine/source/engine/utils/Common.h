@@ -5,6 +5,9 @@ namespace engine
 	namespace common
 	{
 
+		template<typename T>
+		bool staticAssertFalse();
+
 		template<typename T, typename U>
 		typename std::unique_ptr<T> static_unique_ptr_cast(typename std::unique_ptr<U>&& ptr)
 		{

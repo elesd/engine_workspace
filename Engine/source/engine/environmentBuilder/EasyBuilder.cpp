@@ -64,21 +64,27 @@ namespace engine
 		_members->resourceMapping = resourceMapping;
 	}
 
+#if ENGINE_USE_WINAPI
 	Application* EasyBuilder::buildEngine(HINSTANCE hInstance,
 								  HINSTANCE hPrevInstance,
 								  LPSTR lpCmdLine,
 								  int nCmdShow) const
 	{
-#if ENGINE_USE_WINAPI
 		ASSERT(_members->windowModule == ContextModuleType::WinApi);
 		std::unique_ptr<IApplicationParameter> args(new winapi::WinApiApplicationParameter(hInstance, hPrevInstance, lpCmdLine, nCmdShow));
 		buildEngine(std::move(args));
 		return Context::getInstance()->getApplication();
+    }
 #else
+	Application* EasyBuilder::buildEngine(HINSTANCE /*hInstance*/,
+								  HINSTANCE /*hPrevInstance*/,
+								  LPSTR /*lpCmdLine*/,
+								  int /*nCmdShow*/) const
+    {
 		INACTIVE_MODULE_ERROR();
 		return nullptr;
-#endif
 	}
+#endif
 
 	Application* EasyBuilder::buildEngine(int argc, char* argv[]) const
 	{

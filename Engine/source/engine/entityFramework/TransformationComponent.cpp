@@ -77,8 +77,8 @@ namespace engine
 	}
 
 	TransformationComponentAttachment::TransformationComponentAttachment(TransformationComponentAttachment&& o)
-		: _child(o._child)
-		, _parent(o._parent)
+		: _parent(o._parent)
+		, _child(o._child)
 	{
 		o._child = nullptr;
 		o._parent = nullptr;
@@ -216,8 +216,8 @@ namespace engine
 	{
 		recalclateInvWorldTransformation();
 		glm::quat invRotation = glm::quat_cast(_members->cache.invWorldTransformation);
-		glm::quat newLocal = invRotation * rotation;
-		setLocalRotation(rotation);
+        glm::quat localRotation = invRotation * rotation;
+		setLocalRotation(localRotation);
 
 		_members->cache.worldRotation = rotation;
 		_members->cache.dirtyFlags[DirtyFlag::WorldRotation] = false;
@@ -449,7 +449,7 @@ namespace engine
 		}
 		
 		const std::string& invWorldResName = renderContext->getResourceMapping()[GlobalResource::InvWorldMatrix];
-		GlobalShaderResource<GPUMemberType::Mat4>* invWorldResource = renderContext->getGlobalResources()->findMat4Resource(worldResName);
+		GlobalShaderResource<GPUMemberType::Mat4>* invWorldResource = renderContext->getGlobalResources()->findMat4Resource(invWorldResName);
 		if(invWorldResource)
 		{
 			recalclateInvWorldTransformation();

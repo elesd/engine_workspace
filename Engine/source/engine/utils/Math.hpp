@@ -15,7 +15,7 @@ namespace engine
 			bool equal = true;
 			for(glm::length_t i = 0; i < L && equal; ++i)
 			{
-				equal = equal && notEquals(a[i], b[i], epsilon) == false;
+				equal = equal && glm::any(glm::epsilonNotEqual(a[i], b[i], epsilon)) == false;
 			}
 			return !equal;
 		}

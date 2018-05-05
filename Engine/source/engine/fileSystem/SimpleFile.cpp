@@ -20,14 +20,14 @@ namespace
 		}
 
 	private:
-		std::streamoff originalPos;
 		std::fstream &fstream;
+        std::streamoff originalPos;
 	};
 
 	std::unique_ptr<std::fstream> openFile(const engine::FilePath &filePath, engine::FileMode mode, engine::FileOpenMode openMode, bool append)
 	{
 		std::unique_ptr<std::fstream> result;
-		std::ios_base::openmode m = 0;
+		std::ios_base::openmode m = static_cast<std::ios_base::openmode>(0);
 		switch(mode)
 		{
 			case engine::FileMode::Read:
@@ -46,6 +46,8 @@ namespace
 			case engine::FileOpenMode::Binary:
 				m |= std::ios_base::binary;
 				break;
+            default:
+                break;
 		}
 		if(append)
 		{
@@ -66,12 +68,6 @@ namespace
 		}
 		// Don't check fail
 		fstream->clear(state);
-
-		bool a = fstream->eof();
-		bool b = fstream->good();
-		bool c = fstream->fail();
-		bool d = fstream->bad();
-		bool hg = a || b;
 	}
 }
 
@@ -215,10 +211,6 @@ namespace engine
 
 	bool SimpleFile::isOk() const
 	{
-		bool a = _members->fstream->eof();
-		bool b = _members->fstream->good();
-		bool c = _members->fstream->fail();
-		bool d = _members->fstream->bad();
 		return atEof() || _members->fstream->good();
 	}
 
@@ -230,7 +222,6 @@ namespace engine
 		}
 		PositionGuard guard(*_members->fstream);
 		_members->fstream->seekg(0, std::ios_base::end);
-		auto test = _members->fstream->tellg();
 		size_t size = size_t(_members->fstream->tellg());
 		return size;
 	}

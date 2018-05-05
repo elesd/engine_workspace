@@ -23,6 +23,9 @@ namespace engine
 		void addGeometry(const std::string& name, const GeometryLibraryData<T>& data);
 		bool hasGeometry(const std::string& name) const;
 		std::unique_ptr<GeometryInstance> getGeometry(const std::string& name);
+    private:
+        RenderContext* getRenderContext();
+        void storeGeometry(const std::string& name, std::unique_ptr<Geometry>&& geometry);
 	private:
 		struct GeometryLibraryPrivate* _members = nullptr;
 	};
@@ -30,10 +33,9 @@ namespace engine
 	template<typename T>
 	void GeometryLibrary::addGeometry(const std::string& name, const GeometryLibraryData<T>& data)
 	{
-		std::unique_ptr<Geometry> geometry = _members->renderContext->createGeometry();
+		std::unique_ptr<Geometry> geometry = getRenderContext()->createGeometry();
 		geometry->setupVertexBuffer(data.getAttributeFormat(), data.getVerticies());
 		geometry->setupIndexBuffer(data.getPrimitiveType(), data.getInicies());
-		_members->geometries[name].reset(geometry.get());
-		geometry.release();
+        storeGeometry(name, std::move(geometry));
 	}
 }

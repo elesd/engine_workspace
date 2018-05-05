@@ -11,9 +11,10 @@ namespace engine
 {
 	struct MaterialLibraryEntry
 	{
-		engine::MaterialDescription description;
 		// TODO replace shared_ptr
 		std::shared_ptr<Material> material;
+		engine::MaterialDescription description;
+
 		MaterialLibraryEntry() = default;
 		MaterialLibraryEntry(MaterialLibraryEntry&& o)
 			: material(std::move(o.material))

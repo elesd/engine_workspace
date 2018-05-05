@@ -28,11 +28,6 @@ namespace
 		return BufferTypes(int32_t(a) | int32_t(b));
 	}
 
-	BufferTypes operator&(BufferTypes a, BufferTypes b)
-	{
-		return BufferTypes(int32_t(a) & int32_t(b));
-	}
-
 	bool isTypeSet(BufferTypes a, BufferTypes b)
 	{
 		return (int32_t(a) & int32_t(b)) > 0;

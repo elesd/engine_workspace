@@ -146,8 +146,8 @@ namespace engine
 			GLint currentVao = 0;
 			glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVao);
 			static_cast<DriverImpl*>(getDriver())->checkErrors();
-			ASSERT(_members->bound == (currentVao == _members->vao));
-			return currentVao == _members->vao;
+			ASSERT(_members->bound == (GLuint(currentVao) == _members->vao));
+			return GLuint(currentVao) == _members->vao;
 #else
 			return _members->bound;
 #endif

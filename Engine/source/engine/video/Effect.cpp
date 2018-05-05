@@ -18,12 +18,13 @@ namespace engine
 {
 	struct EffectPrivate
 	{
+		const std::string techniqueName;
 		std::unique_ptr<ShaderInstance> vertexShader = nullptr;
 		std::unique_ptr<ShaderInstance> fragmentShader = nullptr;
 		const Material* material = nullptr;
 		std::unique_ptr<EffectCompilationData> compilationData;
 		std::unique_ptr<ShaderResourceStorage> resources;
-		const std::string techniqueName;
+
 		EffectPrivate(const Material* material, const std::string& techniqueName, std::unique_ptr<ShaderInstance>&& vertexShader, std::unique_ptr<ShaderInstance>&& fragmentShader, std::unique_ptr<ShaderResourceStorage>&& resources)
 			: techniqueName(techniqueName)
 			, vertexShader(std::move(vertexShader))

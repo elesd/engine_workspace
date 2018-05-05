@@ -149,19 +149,17 @@ namespace engine
 
 		}
 
-		void WindowManagerImpl::preInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params) const
+		void WindowManagerImpl::preInitCreation(Driver* /*driver*/, RenderContext* renderContext, const RenderContextParameters &params) const
 		{
 			renderContext->init(params);
 
 		}
 
-		void WindowManagerImpl::postInitCreation(Driver* driver, RenderContext* renderContext, const RenderContextParameters &params, Window* window) const
+		void WindowManagerImpl::postInitCreation(Driver* /*driver*/, RenderContext* renderContext, const RenderContextParameters& /*params*/, Window* window) const
 		{
 			glfwMakeContextCurrent(static_cast<WindowImpl*>(window)->getGlfwWindow());
 			glew::Core::initOpenglContext();
 			renderContext->setWindow(window);
-
-
 		}
 	}
 }

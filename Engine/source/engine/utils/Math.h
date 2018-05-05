@@ -7,10 +7,10 @@ namespace engine
 		template<typename T>
 		bool notEquals(const T& a, const T& b, const T& epsilon);
 
-		extern template
+		template<>
 		bool notEquals<float>(const float& a, const float& b, const float& epsilon);
 	
-		extern template
+		template<>
 		bool notEquals<double>(const double& a, const double& b, const double& epsilon);
 
 		template<glm::length_t L, typename T, glm::precision P, template<glm::length_t, typename, glm::precision> class vecType>

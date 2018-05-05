@@ -46,7 +46,7 @@ namespace engine
 		for(const auto& pair : _members->material->collectAllEffects())
 		{
 			ShaderResourceStorageProxy *resources = pair.second->getResources();
-			pair.second->getResources()->setVec2(resourceName, value);
+			resources->setVec2(resourceName, value);
 		}
 	}
 
@@ -55,7 +55,7 @@ namespace engine
 		for(const auto& pair : _members->material->collectAllEffects())
 		{
 			ShaderResourceStorageProxy *resources = pair.second->getResources();
-			pair.second->getResources()->setVec3(resourceName, value);
+			resources->setVec3(resourceName, value);
 		}
 	}
 
@@ -64,7 +64,7 @@ namespace engine
 		for(const auto& pair : _members->material->collectAllEffects())
 		{
 			ShaderResourceStorageProxy *resources = pair.second->getResources();
-			pair.second->getResources()->setVec4(resourceName, value);
+			resources->setVec4(resourceName, value);
 		}
 	}
 
@@ -73,7 +73,7 @@ namespace engine
 		for(const auto& pair : _members->material->collectAllEffects())
 		{
 			ShaderResourceStorageProxy *resources = pair.second->getResources();
-			pair.second->getResources()->setMat3(resourceName, value);
+			resources->setMat3(resourceName, value);
 		}
 	}
 
@@ -82,7 +82,7 @@ namespace engine
 		for(const auto& pair : _members->material->collectAllEffects())
 		{
 			ShaderResourceStorageProxy *resources = pair.second->getResources();
-			pair.second->getResources()->setMat4(resourceName, value);
+		    resources->setMat4(resourceName, value);
 		}
 	}
 }

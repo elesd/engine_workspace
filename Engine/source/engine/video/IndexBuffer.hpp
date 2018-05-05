@@ -1,11 +1,13 @@
 
 #include <string>
 #include <engine/render/RenderContext.h>
+#include <engine/utils/Common.h>
 
 namespace engine
 {
 	namespace IndexBufferPrivate
 	{
+		
 		template<typename SIZE_TYPE>
 		bool isSupportedSizeType();
 
@@ -17,20 +19,25 @@ namespace engine
 		template<typename SIZE_TYPE>
 		size_t getByteSize()
 		{
-			static_assert(false, "Unsupported size type");
+			static_assert(common::staticAssertFalse<SIZE_TYPE>(), "Unsupported size type");
+            return 0;
 		}
 
 		template<typename SIZE_TYPE>
 		bool isSupportedSizeType() 
 		{
-			static_assert(false, "Unsupported size type");
+			static_assert(common::staticAssertFalse<SIZE_TYPE>(), "Unsupported size type");
 			return false;
 		}
 
+		template<>		size_t getByteSize<int32_t>();
 		extern template	size_t getByteSize<int32_t>();
+		template<>		size_t getByteSize<int16_t>();
 		extern template	size_t getByteSize<int16_t>();
 
+		template<>		bool isSupportedSizeType<int32_t>();
 		extern template	bool isSupportedSizeType<int32_t>();
+		template<>		bool isSupportedSizeType<int16_t>();
 		extern template	bool isSupportedSizeType<int16_t>();
 	}
 
@@ -109,7 +116,7 @@ namespace engine
 	template<typename SIZE_TYPE>
 	IndexBuffer<SIZE_TYPE> IndexBuffer<SIZE_TYPE>::cloneClientData() const
 	{
-		IndexBuffer<SIZE_TYPE> result(_primitiveType, _data);
+		IndexBuffer<SIZE_TYPE> result(getPrimitiveType(), _data);
 		return result;
 	}
 

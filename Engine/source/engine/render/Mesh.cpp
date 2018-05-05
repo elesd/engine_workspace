@@ -16,9 +16,9 @@ namespace engine
 {
 	struct MeshPrivate
 	{
+		std::string name;
 		std::unique_ptr<GeometryInstance> geometry;
 		std::unique_ptr<MaterialInstance> material;
-		std::string name;
 		explicit MeshPrivate(const std::string& name, std::unique_ptr<GeometryInstance>&& geometry, std::unique_ptr<MaterialInstance>&& material)
 			: name(name)
 			, geometry(std::move(geometry))

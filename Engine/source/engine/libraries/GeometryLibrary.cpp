@@ -46,4 +46,15 @@ namespace engine
 		std::unique_ptr<GeometryInstance> result(new GeometryInstance(it->second));
 		return result;
 	}
+
+    RenderContext* GeometryLibrary::getRenderContext()
+    {
+        return _members->renderContext;
+    }
+
+    void GeometryLibrary::storeGeometry(const std::string& name, std::unique_ptr<Geometry>&& geometry)
+    {
+		_members->geometries[name].reset(geometry.get());
+		geometry.release();
+    }
 }

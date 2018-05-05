@@ -19,8 +19,8 @@ namespace engine
 
 	struct VertexBufferPrivate
 	{
-		std::vector<char> data;
 		std::vector<GPUMemberType> attributeTypes;
+		std::vector<char> data;
 		size_t stride = 0;
 		VertexBufferMappingData mappingData;
 

@@ -43,6 +43,7 @@
 #include <type_traits>
 #include <iomanip>
 #include <mutex>
+#include <vector>
 
 // GeneralConfig
 #include <engine/EngineConfig.h>
@@ -54,6 +55,7 @@
 #include <glm/ext.hpp>
 
 // Engine files
+#include <engine/utils/StdUtils.h>
 #include <engine/Types.h>
 #include <engine/utils/Common.h>
 
@@ -67,7 +69,7 @@
 #define UNSUPPORTED_ERROR() HARD_FAIL("Unsupported feature usage")
 #define INACTIVE_MODULE_ERROR() HARD_FAIL("Module is inactive")
 
-
+#define UNUSED(x) (void)(x)
 
 // Platform specific codes
 #include <stdafx_win.h>

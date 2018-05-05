@@ -20,7 +20,7 @@ namespace engine
 	template<class FeatureSet>
 	struct FeatureQuerier : FeatureSet
 	{
-		static bool hasFeature(Feature f) { return features[uint32_t(f)]; }
+		static bool hasFeature(Feature f) { return FeatureSet::features[uint32_t(f)]; }
 	};
 
 	template<ContextModuleType type>

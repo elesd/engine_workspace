@@ -192,7 +192,6 @@ namespace engine
 
 	vec3 CameraComponent::screenPointToWorldPoint(const ScreenSpacePosition& screenPosition, float depth) const
 	{
-		const ProjectionComponent* activeProjection = getActiveProjection();
 		vec3 viewportPosition = screenPointToViewport(screenPosition, depth);
 		vec3 worldPosition = viewportToWorldPoint(viewportPosition);
 		return worldPosition;

@@ -103,7 +103,7 @@ namespace engine
 
 		void WindowImpl::handleWindowFocusEvent(int32_t focused)
 		{
-			if(focused == GLFW_TRUE)
+			if(focused)
 			{
 				windowInFocus.emit();
 			}

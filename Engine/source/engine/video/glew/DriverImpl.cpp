@@ -161,7 +161,7 @@ namespace engine
 		}
 
 
-		void DriverImpl::setRenderTargetImpl(RenderTarget* renderTarget)
+		void DriverImpl::setRenderTargetImpl(RenderTarget* )
 		{
 			HARD_FAIL("Unimplemented");
 		}
@@ -281,7 +281,7 @@ namespace engine
 			checkErrors();
 		}
 
-		void DriverImpl::setShaderImpl(Shader* shader, const std::string& techniqueName)
+		void DriverImpl::setShaderImpl(Shader*, const std::string&)
 		{
 			UNSUPPORTED_ERROR();
 		}
@@ -441,6 +441,8 @@ namespace engine
 			}
 			return std::unique_ptr<ShaderResourceBinding>(new GLSLResourceBinding(location));
 #else
+			UNUSED(desc);
+			UNUSED(effect);
 			HARD_FAIL("Debug code on Release context");
 			return nullptr;
 #endif

@@ -25,8 +25,8 @@ namespace engine
 		std::unique_ptr<EffectCompiler> effectCompiler;
 		// TODO Replace shared_ptr
 		std::map<std::string, std::shared_ptr<Effect>> effectCache;
-		MaterialDescription description;
 		std::string name;
+		MaterialDescription description;
 		RenderContext* renderContext;
 
 		MaterialPrivate(const std::string& name, const MaterialDescription& description, RenderContext* renderContext)

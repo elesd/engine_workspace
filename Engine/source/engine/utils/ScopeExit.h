@@ -42,6 +42,7 @@ namespace engine
 		ScopeExit &operator=(ScopeExit &&o)
 		{
 			_f = std::move(o._f);
+            return *this;
 		}
 
 	private:

@@ -34,9 +34,9 @@ namespace engine
 	{
 		RenderContext* renderContext = getRenderContext();
 		std::array<std::unique_ptr<engine::RenderPass>, SizeOfEnum> renderPasses;
-		for(size_t i = 0; i < names.size(); ++i)
+		for(size_t i = 0; i < renderPassNames.size(); ++i)
 		{
-			renderPasses[i] = std::make_unique<engine::RenderPass>(renderPassNames[i], renderContext);
+			renderPasses[i].reset(new RenderPass(renderPassNames[i], renderContext));
 		}
 		std::unique_ptr<engine::PipelineRendererBase> pipelineRenderer = engine::PipelineRendererBase::template createRenderer<RenderPassEnum, SizeOfEnum>(std::move(renderPasses));
 		

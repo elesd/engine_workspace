@@ -71,7 +71,7 @@ namespace engine
 		* @param indeces: For template argument auto deduction
 		*/
 		template <typename... Args, int... Is>
-		void call(const std::tuple<Args...>& tup, engine::Index<Is...> indeces)
+		void call(const std::tuple<Args...>& tup, engine::Index<Is...> /*indeces*/)
 		{
 			f(std::get<Is>(tup)...);
 		}

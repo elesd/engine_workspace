@@ -11,12 +11,10 @@ namespace engine
 {
 	struct RenderPassPrivate
 	{
-		RenderContext* renderContext = nullptr;
-
-		Color4 clearColor;
-
-		std::vector<Component*> visibleComponents;
 		std::string name;
+		RenderContext* renderContext = nullptr;
+		Color4 clearColor;
+		std::vector<Component*> visibleComponents;
 
 		RenderPassPrivate(const std::string& name, RenderContext* renderContext)
 			: name(name), renderContext(renderContext)
